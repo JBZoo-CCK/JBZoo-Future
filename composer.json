@@ -1,0 +1,53 @@
+{
+    "name"              : "jbzoo/cck",
+    "type"              : "project",
+    "description"       : "Awesome CCK for Joomla CMS",
+    "license"           : "proprietary",
+    "minimum-stability" : "stable",
+    "keywords"          : ["Joomla", "CCK", "JBZoo"],
+    "authors"           : [
+        {
+            "name"  : "SmetDenis",
+            "email" : "denis@jbzoo.com",
+            "role"  : "lead"
+        }
+    ],
+
+    "config"            : {
+        "vendor-dir"          : "src/packages/com_jbzoo/admin/vendor",
+        "autoloader-suffix"   : "JBZoo",
+        "optimize-autoloader" : true,
+        "bin-dir"             : "bin"
+    },
+
+    "require"           : {
+        "php"                        : ">=5.4",
+
+        "jbzoo/data"                 : "^1.0",
+        "jbzoo/simpletypes"          : "^1.0",
+        "jbzoo/sqlbuilder"           : "^1.0",
+        "jbzoo/utils"                : "^1.1",
+        "jbzoo/crosscms"             : "^1.0",
+
+        "oyejorge/less.php"          : "^1.7",
+        "abeautifulsite/simpleimage" : "^2.5"
+    },
+
+    "require-dev"       : {
+        "smetdenis/jbdump" : "dev-master",
+        "jbzoo/phpunit"    : "^1.0"
+    },
+
+    "autoload"          : {
+        "psr-4" : {
+            "JBZoo\\CCK\\" : "src/packages/com_jbzoo/admin/framework/"
+        },
+        "files" : [
+            "src/packages/com_jbz/admin/framework/functions.php"
+        ]
+    },
+
+    "support"           : {
+        "forum" : "http://forum.jbzoo.com"
+    }
+}

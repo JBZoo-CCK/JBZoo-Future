@@ -1,0 +1,3 @@
+src/packages/com_jbzoo/admin/vendor
+bin
+composer.lock
