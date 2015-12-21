@@ -34,7 +34,7 @@
     },
 
     "require-dev"       : {
-        "smetdenis/jbdump" : "dev-master",
+        "jbzoo/jbdump" : "^1.0",
         "jbzoo/phpunit"    : "^1.0"
     },
 
