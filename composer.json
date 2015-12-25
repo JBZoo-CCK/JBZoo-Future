@@ -28,13 +28,14 @@
         "jbzoo/sqlbuilder"           : "^1.0",
         "jbzoo/utils"                : "^1.1",
         "jbzoo/crosscms"             : "^1.0",
+        "jbzoo/path"                 : "^1.0",
 
         "oyejorge/less.php"          : "^1.7",
         "abeautifulsite/simpleimage" : "^2.5"
     },
 
     "require-dev"       : {
-        "jbzoo/jbdump" : "^1.0",
+        "smetdenis/jbdump" : "^1.0",
         "jbzoo/phpunit"    : "^1.0"
     },
 
