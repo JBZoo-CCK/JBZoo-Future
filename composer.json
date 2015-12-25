@@ -3,7 +3,7 @@
     "type"              : "project",
     "description"       : "Awesome CCK for Joomla CMS",
     "license"           : "proprietary",
-    "minimum-stability" : "stable",
+    "minimum-stability" : "dev",
     "keywords"          : ["Joomla", "CCK", "JBZoo"],
     "authors"           : [
         {
