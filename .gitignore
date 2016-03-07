@@ -1,3 +1,6 @@
-src/packages/com_jbzoo/admin/vendor
-bin
+.idea
+src/jbzoo/vendor
+resources
 composer.lock
+phpunit.xml
+build

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    JBZoo CCK
+
+    This file is part of the JBZoo CCK package.
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @package   CCK
+    @license   Proprietary http://jbzoo.com/license
+    @copyright Copyright (C) JBZoo.com,  All rights reserved.
+    @link      http://jbzoo.com
+-->
+<extension version="2.5" type="plugin" group="system" method="upgrade">
+    <name>System - JBZoo CCK</name>
+    <author>JBZoo.com</author>
+    <creationDate>2016 03</creationDate>
+    <copyright>Copyright (C) JBZoo.com, All rights reserved.</copyright>
+    <authorEmail>admin@jbzoo.com</authorEmail>
+    <authorUrl>http://jbzoo.com</authorUrl>
+    <version>3.x Dev</version>
+    <updateUrl>http://server.jbzoo.com/checkupdates</updateUrl>
+    <license>Proprietary JBZoo Licence</license>
+    <description>System plugin for JBZoo CCK</description>
+
+    <files>
+        <filename plugin="jbzoocck">jbzoocck.php</filename>
+    </files>
+
+</extension>

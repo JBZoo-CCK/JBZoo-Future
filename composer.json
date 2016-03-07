@@ -14,37 +14,49 @@
     ],
 
     "config"            : {
-        "vendor-dir"          : "src/packages/com_jbzoo/admin/vendor",
-        "autoloader-suffix"   : "JBZoo",
-        "optimize-autoloader" : true,
-        "bin-dir"             : "bin"
+        "vendor-dir"          : "src/jbzoo/vendor",
+        "autoloader-suffix"   : "_JBZoo",
+        "optimize-autoloader" : true
     },
 
     "require"           : {
-        "php"                        : ">=5.4",
+        "php"               : ">=5.4",
 
-        "jbzoo/data"                 : "^1.0",
-        "jbzoo/simpletypes"          : "^1.0",
-        "jbzoo/sqlbuilder"           : "^1.0",
-        "jbzoo/utils"                : "^1.1",
-        "jbzoo/crosscms"             : "^1.0",
+        "jbzoo/assets"      : "1.x-dev",
+        "jbzoo/console"     : "1.x-dev",
+        "jbzoo/crosscms"    : "1.x-dev",
+        "jbzoo/data"        : "1.x-dev",
+        "jbzoo/event"       : "1.x-dev",
+        "jbzoo/html"        : "1.x-dev",
+        "jbzoo/image"       : "3.x-dev",
+        "jbzoo/lang"        : "1.x-dev",
+        "jbzoo/less"        : "1.x-dev",
+        "jbzoo/path"        : "1.x-dev",
+        "jbzoo/simpletypes" : "1.x-dev",
+        "jbzoo/sqlbuilder"  : "1.x-dev",
+        "jbzoo/utils"       : "1.x-dev",
 
-        "oyejorge/less.php"          : "^1.7",
-        "abeautifulsite/simpleimage" : "^2.5"
+        "pimple/pimple"     : "^3.0",
+        "oyejorge/less.php" : "^1.7"
     },
 
     "require-dev"       : {
-        "smetdenis/jbdump" : "dev-master",
-        "jbzoo/phpunit"    : "^1.0"
+        "jbzoo/phpunit"       : "1.x-dev",
+        "jbzoo/pimpledumper"  : "1.x-dev",
+        "joomlatools/console" : "^1.4",
+        "wp-cli/wp-cli"       : "^0.21"
     },
 
     "autoload"          : {
-        "psr-4" : {
-            "JBZoo\\CCK\\" : "src/packages/com_jbzoo/admin/framework/"
-        },
-        "files" : [
-            "src/packages/com_jbz/admin/framework/functions.php"
-        ]
+        "files"    : [
+            "src/jbzoo/framework/defines.php"
+        ],
+        "classmap" : [
+            "src/jbzoo/atoms"
+        ],
+        "psr-4"    : {
+            "JBZoo\\CCK\\" : "src/jbzoo/framework"
+        }
     },
 
     "support"           : {

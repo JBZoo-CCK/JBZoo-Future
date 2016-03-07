@@ -1,0 +1,72 @@
+[
+    {
+        "name": "assets",
+        "type": "class",
+        "value": "JBZoo\\Assets\\Manager"
+    },
+    {
+        "name": "atoms",
+        "type": "container",
+        "value": []
+    },
+    {
+        "name": "config",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractConfig"
+    },
+    {
+        "name": "db",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractDatabase"
+    },
+    {
+        "name": "env",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractEnv"
+    },
+    {
+        "name": "events",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractEvents"
+    },
+    {
+        "name": "header",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractHeader"
+    },
+    {
+        "name": "lang",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractLang"
+    },
+    {
+        "name": "loader",
+        "type": "class",
+        "value": "Composer\\Autoload\\ClassLoader"
+    },
+    {
+        "name": "ns",
+        "type": "string",
+        "value": "JBZoo\\CrossCMS"
+    },
+    {
+        "name": "path",
+        "type": "class",
+        "value": "JBZoo\\Path\\Path"
+    },
+    {
+        "name": "request",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractRequest"
+    },
+    {
+        "name": "response",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractResponse"
+    },
+    {
+        "name": "type",
+        "type": "string",
+        "value": "__CMS__"
+    }
+]
