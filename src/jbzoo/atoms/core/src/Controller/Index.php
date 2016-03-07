@@ -27,8 +27,6 @@ class Index extends Controller
      */
     public function index()
     {
-        $this->app['assets']->add('denis', 'https://yastatic.net/underscore/1.8.3/underscore-min.js', 'js-utils');
         echo 'Index controller';
-
     }
 }

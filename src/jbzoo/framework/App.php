@@ -53,6 +53,12 @@ class App extends Cms
 
             $this->trigger('init.app.before');
 
+            // Init quick access debuger
+            $this['debug'] = function (App $app) {
+                return $app['core.debug'];
+            };
+
+            // Init Atom Manager
             $this['atoms'] = function () {
                 $atomManager = new AtomManager();
                 $atomManager->addPath('jbzoo:atoms');
@@ -64,11 +70,9 @@ class App extends Cms
             $this['path'] = $this->extend('path', function ($path) {
                 $path->set('jbzoo', __DIR__ . '/..');
 
+                // TODO FIX ME!!!
                 $component = $path->get('root:administrator/components/com_jbzoo');
-
                 $component = realpath($component);
-                //dump($component);
-
                 $path->setRoot($component);
 
                 return $path;
@@ -132,8 +136,8 @@ class App extends Cms
      */
     public function mark($label)
     {
-        if (array_key_exists('p', $_GET)) {
-            \jbdump::mark($label);
+        if (class_exists('\JBDump')) { // Hack for correct init of system
+            \JBDump::mark($label);
         }
     }
 
@@ -231,10 +235,10 @@ class App extends Cms
     {
         // Assets
         $this['path']->set('assets', 'jbzoo:assets');
-        //$this['path']->set('js', 'assets:js');
-        //$this['path']->set('css', 'assets:css');
-        //$this['path']->set('less', 'assets:less');
-        //$this['path']->set('img', 'assets:img');
+        $this['path']->set('js', 'assets:js');
+        $this['path']->set('css', 'assets:css');
+        $this['path']->set('less', 'assets:less');
+        $this['path']->set('img', 'assets:img');
 
         // Helpers
         $this['path']->set('framework', 'jbzoo:framework');

@@ -20,6 +20,11 @@
         "value": "JBZoo\\CrossCMS\\AbstractDatabase"
     },
     {
+        "name": "debug",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
+    },
+    {
         "name": "env",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractEnv"

@@ -13,6 +13,7 @@
  */
 
 use JBZoo\CCK\Atom\Atom;
+use JBZoo\CCK\Atom\Core\Helper\Debug;
 use JBZoo\Data\Data;
 use JBZoo\Data\JSON;
 use JBZoo\CCK\App;
@@ -59,8 +60,34 @@ function jbData($data = [])
  * @param string $message
  * @return string
  */
-function jbText($message)
+function _jb($message)
 {
     $app = App::getInstance();
     return call_user_func_array(array($app['lang'], 'translate'), func_get_args());
+}
+
+// No coflicts!
+if (!function_exists('jbd')) {
+
+    /**
+     * Dump everything
+     *
+     * @param mixed  $mixed
+     * @param bool   $isDie
+     * @param string $label
+     * @return Debug|null
+     */
+    function jbd($mixed = '__no_dump__', $isDie = true, $label = '...')
+    {
+        $app = App::getInstance();
+
+        if (
+            $app['debug']->isShow() &&
+            $mixed !== '__no_dump__'
+        ) {
+            $app['debug']->dump($mixed, $isDie, $label, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+        }
+
+        return $app['debug'];
+    }
 }

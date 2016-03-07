@@ -29,9 +29,6 @@ return [
             $list = $app['assets']->build();
             $app->trigger('atom.assets.header.build.after', [&$list]);
 
-            dump($list['js'], 0);
-
-
             // Include styles
             $app->trigger('atom.assets.header.css.before', [&$list['css']]);
             foreach ($list['css'] as $fullPath) {
