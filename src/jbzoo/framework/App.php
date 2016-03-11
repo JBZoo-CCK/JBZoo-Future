@@ -83,8 +83,6 @@ class App extends Cms
                     $dumper = new PimpleDumper();
                     $dumper->dumpPimple($app, true);
                     $dumper->dumpPhpstorm($app);
-
-                    $app->mark('pimple.dumper');
                 }
             });
 
@@ -107,7 +105,7 @@ class App extends Cms
      */
     public function trigger($event, array $arguments = array())
     {
-        $this->mark($event);
+        //$this->mark($event); // Super profiler!
 
         return parent::trigger($event, $arguments);
     }
@@ -136,7 +134,7 @@ class App extends Cms
      */
     public function mark($label)
     {
-        if (class_exists('\JBDump')) { // Hack for correct init of system
+        if (class_exists('\JBDump')) { // Hack for correct system init
             \JBDump::mark($label);
         }
     }
@@ -165,7 +163,7 @@ class App extends Cms
     }
 
     /**
-     * Find current Atom. Controller, Action and execute them
+     * Find current Atom, Controller, and Action. Execute them!
      */
     public function execute()
     {
@@ -220,7 +218,12 @@ class App extends Cms
     public function offsetGet($id)
     {
         if (strpos($id, '.') !== false && !isset($this[$id])) {
-            list($atom, $helper) = explode('.', Filter::cmd($id));
+            list($atom, $helper) = explode('.', Filter::cmd($id), 2);
+
+            if (!isset($this['atoms'][$atom]) || !isset($this['atoms'][$atom][$helper])) {
+                throw new Exception('Undefined application helper "' . $id . '"');
+            }
+
             return $this['atoms'][$atom][$helper];
         }
 

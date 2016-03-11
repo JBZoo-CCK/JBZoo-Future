@@ -60,17 +60,17 @@ function jbData($data = [])
  * @param string $message
  * @return string
  */
-function _jb($message)
+function jbt($message)
 {
     $app = App::getInstance();
     return call_user_func_array(array($app['lang'], 'translate'), func_get_args());
 }
 
-// No coflicts!
+// for custom method
 if (!function_exists('jbd')) {
 
     /**
-     * Dump everything
+     * Dump anything
      *
      * @param mixed  $mixed
      * @param bool   $isDie
@@ -81,13 +81,10 @@ if (!function_exists('jbd')) {
     {
         $app = App::getInstance();
 
-        if (
-            $app['debug']->isShow() &&
-            $mixed !== '__no_dump__'
-        ) {
-            $app['debug']->dump($mixed, $isDie, $label, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+        if ($mixed === '__no_dump__') {
+            return $app['debug'];
         }
 
-        return $app['debug'];
+        $app['debug']->dump($mixed, $isDie, $label, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
     }
 }

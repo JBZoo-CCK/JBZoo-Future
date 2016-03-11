@@ -32,6 +32,7 @@
         "jbzoo/lang"        : "1.x-dev",
         "jbzoo/less"        : "1.x-dev",
         "jbzoo/path"        : "1.x-dev",
+        "jbzoo/profiler"    : "1.x-dev",
         "jbzoo/simpletypes" : "1.x-dev",
         "jbzoo/sqlbuilder"  : "1.x-dev",
         "jbzoo/utils"       : "1.x-dev",
@@ -60,7 +61,11 @@
             "JBZoo\\CCK\\" : "src/jbzoo/framework"
         }
     },
-
+    "autoload-dev"      : {
+        "psr-4" : {
+            "JBZoo\\PHPUnit\\" : "tests/classes"
+        }
+    },
     "support"           : {
         "forum" : "http://forum.jbzoo.com"
     }

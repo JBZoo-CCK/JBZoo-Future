@@ -65,10 +65,10 @@ class Debug extends Helper
             'ip' => [],
         ],
         'profiler' => [
-            'render'     => 4,
+            'render'     => 4, // Bit: 1 - log; 2 - echo; 4 - table; 8 - chart; 16 - total
             'auto'       => 1,
             'showStart'  => 0,
-            'showEnd'    => 0,
+            'showEnd'    => 1,
             'showOnAjax' => 0,
         ],
     ];
@@ -87,6 +87,7 @@ class Debug extends Helper
 
             $jbdump = \JBDump::i();
 
+            // Set paths
             $this->_params['log']['path'] = $this->_root . '/../logs';
             $this->_params['root']        = $this->_root;
 
@@ -101,7 +102,7 @@ class Debug extends Helper
      */
     public function sql($query)
     {
-        if ($this->_config['sql'] && $this->_jbdump) {
+        if ($this->isShow() && $this->_config['sql'] && $this->_jbdump) {
             if ($this->_jbdump) {
                 $this->_jbdump->sql($query);
             } else {
@@ -203,6 +204,8 @@ class Debug extends Helper
 
     /**
      * Show backtrace
+     *
+     * @param bool $isLog
      */
     public function trace($isLog = false)
     {
