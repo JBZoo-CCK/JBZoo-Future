@@ -15,6 +15,7 @@
 
     "config"            : {
         "vendor-dir"          : "src/jbzoo/vendor",
+        "bin-dir"             : "bin",
         "autoloader-suffix"   : "_JBZoo",
         "optimize-autoloader" : true
     },
@@ -42,12 +43,15 @@
     },
 
     "require-dev"       : {
-        "jbzoo/phpunit"       : "1.x-dev",
-        "jbzoo/pimpledumper"  : "1.x-dev",
-        "smetdenis/jbdump"    : "1.x-dev",
-        "symfony/var-dumper"  : "^3.0",
-        "joomlatools/console" : "^1.4",
-        "wp-cli/wp-cli"       : "^0.21"
+        "jbzoo/phpunit"           : "1.x-dev",
+        "jbzoo/pimpledumper"      : "1.x-dev",
+        "smetdenis/jbdump"        : "1.x-dev",
+
+        "jeremeamia/superclosure" : "^2.2",
+
+        "symfony/var-dumper"      : "^2.8|^3.0",
+        "joomlatools/console"     : "^1.4",
+        "wp-cli/wp-cli"           : "^0.21"
     },
 
     "autoload"          : {

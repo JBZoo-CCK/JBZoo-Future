@@ -13,13 +13,21 @@
  * @author    Denis Smetannikov <denis@jbzoo.com>
  */
 
-// main autoload
-if ($composerPath = realpath('./composer.json')) {
-    $autoloadConfig = json_decode(file_get_contents($composerPath), true);
-    $autoloadPath   = $autoloadConfig['config']['vendor-dir'] . '/autoload.php';
-    require_once $autoloadPath;
+// Set global paths
+$_SERVER['DOCUMENT_ROOT']   = realpath(CMS_PATH);
+$_SERVER['SCRIPT_FILENAME'] = realpath(CMS_PATH . '/index.php');
 
+ob_start();
+
+if ($_SERVER['SCRIPT_FILENAME']) {
+    include $_SERVER['SCRIPT_FILENAME'];
 } else {
-    echo 'Please execute "composer update" !' . PHP_EOL;
-    exit(1);
+    throw new Exception('Invalid const "CMS_PATH". CMS index file not found!');
 }
+
+$cmsResult = ob_get_contents();
+ob_end_clean();
+
+
+\JBZoo\PHPUnit\cliMessage($cmsResult);
+unset($cmsResult);

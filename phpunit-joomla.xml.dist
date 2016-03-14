@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    JBZoo CCK
+
+    This file is part of the JBZoo CCK package.
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @package   CCK
+    @license   Proprietary http://jbzoo.com/license
+    @copyright Copyright (C) JBZoo.com,  All rights reserved.
+    @link      http://jbzoo.com
+-->
+<phpunit bootstrap="tests/autoload/init.php"
+         colors="true"
+         convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true"
+         convertWarningsToExceptions="true"
+         processIsolation="false"
+         syntaxCheck="true"
+         stopOnError="true"
+         stopOnFailure="true"
+         stopOnIncomplete="true"
+         stopOnSkipped="false"
+         stopOnRisky="false"
+         verbose="true"
+>
+
+    <php>
+        <const name="__CMS__" value="joomla"/>
+    </php>
+
+    <testsuites>
+        <testsuite name="General">
+            <directory suffix="Test.php">./tests/unit-simple</directory>
+        </testsuite>
+    </testsuites>
+
+    <filter>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">./src/jbzoo</directory>
+            <exclude>
+                <directory>./src/jbzoo/vendor</directory>
+            </exclude>
+        </whitelist>
+    </filter>
+
+    <logging>
+        <log type="coverage-clover" target="build/clover-xml/joomla.xml"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
+    </logging>
+
+</phpunit>

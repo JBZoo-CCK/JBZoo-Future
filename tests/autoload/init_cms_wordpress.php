@@ -13,7 +13,7 @@
  * @author    Denis Smetannikov <denis@jbzoo.com>
  */
 
-define('ABSPATH', CMS_PATH_WORDPRESS . DS);
+define('ABSPATH', CMS_PATH . DS);
 
 define('WP_USE_EXT_MYSQL', false);
 define('WP_DEBUG_DISPLAY', true);
@@ -72,4 +72,4 @@ function _test_filter_build_unique_id($tag, $function, $priority)
 $GLOBALS['_wp_die_disabled'] = false;
 tests_add_filter('wp_die_handler', '_wp_die_handler_filter');
 
-require_once realpath(ABSPATH . 'wp-config.php');
+require_once ABSPATH . 'wp-config.php';

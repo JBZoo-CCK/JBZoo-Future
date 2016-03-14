@@ -11,7 +11,7 @@
     @copyright Copyright (C) JBZoo.com,  All rights reserved.
     @link      http://jbzoo.com
 -->
-<phpunit bootstrap="tests/autoload.php"
+<phpunit bootstrap="tests/autoload/init.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -23,27 +23,31 @@
          stopOnIncomplete="true"
          stopOnSkipped="false"
          stopOnRisky="false"
-         verbose="false"
-        >
+         verbose="true"
+>
+
+    <php>
+        <const name="__CMS__" value="wordpress"/>
+    </php>
 
     <testsuites>
         <testsuite name="General">
-            <directory suffix="Test.php">./tests</directory>
+            <directory suffix="Test.php">./tests/unit-simple</directory>
         </testsuite>
     </testsuites>
 
     <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
+        <whitelist processUncoveredFilesFromWhitelist="false">
+            <directory suffix=".php">./src/jbzoo</directory>
             <exclude>
-                <directory>src/jbzoo/vendor</directory>
+                <directory>./src/jbzoo/vendor</directory>
             </exclude>
         </whitelist>
     </filter>
 
     <logging>
-        <log type="coverage-clover" target="build/logs/clover.xml"/>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
+        <log type="coverage-clover" target="build/clover-xml/joomla.xml"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
     </logging>
 
 </phpunit>

@@ -13,19 +13,12 @@
  * @author    Denis Smetannikov <denis@jbzoo.com>
  */
 
-namespace JBZoo\PHPUnit;
-
-use JBZoo\CCK\App;
-
-/**
- * Class ApplicationTest
- * @package JBZoo\PHPUnit
- */
-class ApplicationTest extends JBZooPHPUnit
-{
-    public function testInstance()
-    {
-        $app = App::getInstance();
-        isClass('\JBZoo\CCK\App', $app);
-    }
+if (!ini_get('date.timezone')) {
+    ini_set('date.timezone', 'UTC');
 }
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+ini_set('magic_quotes_runtime', 0);
+ini_set('zend.ze1_compatibility_mode', '0');
+ini_set('precision', 14);

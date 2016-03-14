@@ -1,7 +1,9 @@
+/build
+/bin
 /logs
-.idea
+/.idea
 src/jbzoo/vendor
 resources
 composer.lock
 phpunit.xml
-build
+

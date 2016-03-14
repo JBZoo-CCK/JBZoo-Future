@@ -13,13 +13,19 @@
  * @author    Denis Smetannikov <denis@jbzoo.com>
  */
 
+namespace JBZoo\PHPUnit;
 
-if (!ini_get('date.timezone')) {
-    ini_set('date.timezone', 'UTC');
+/**
+ * Class BrowserEmulatorTest
+ * @package JBZoo\PHPUnit
+ */
+class BrowserEmulatorTest extends PHPUnit
+{
+    public function test()
+    {
+        require_once PROJECT_ROOT . '/tests/autoload/init_cms.php';
+        require_once PROJECT_ROOT . '/tests/autoload/browser_render.php';
+
+        isTrue(true); // phpunit hack
+    }
 }
-
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
-ini_set('magic_quotes_runtime', 0);
-ini_set('zend.ze1_compatibility_mode', '0');
-ini_set('precision', 14);

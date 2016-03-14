@@ -30,6 +30,11 @@ abstract class JBZooPHPUnit extends PHPUnit
     public $app;
 
     /**
+     * @var UnitHelper
+     */
+    public $helper;
+
+    /**
      * Setup before each test
      */
     protected function setUp()
@@ -40,5 +45,7 @@ abstract class JBZooPHPUnit extends PHPUnit
 
         $dumper = new PimpleDumper();
         $this->app->register($dumper);
+
+        $this->helper = new UnitHelper();
     }
 }

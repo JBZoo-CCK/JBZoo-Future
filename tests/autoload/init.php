@@ -1,6 +1,6 @@
 <?php
 /**
- * JBZoo CrossCMS
+ * JBZoo CCK
  *
  * This file is part of the JBZoo CCK package.
  * For the full copyright and license information, please view the LICENSE
@@ -13,29 +13,12 @@
  * @author    Denis Smetannikov <denis@jbzoo.com>
  */
 
-include __DIR__ . '/init_php_config.php';
+include __DIR__ . '/php_config.php';
+
 require_once __DIR__ . '/init_composer.php';
-require_once __DIR__ . '/init_browser.php';
 
-// include CMS framework
-$isWeb = defined('JBZOO_PHPUNIT_BROWSER') && JBZOO_PHPUNIT_BROWSER;
-if (!$isWeb) {
+require_once __DIR__ . '/browser_env.php';
+require_once __DIR__ . '/init_cms.php';
+require_once __DIR__ . '/init_cms_' . __CMS__ . '.php';
 
-    if ($cmsPath = getenv('PATH_JOOMLA')) {
-        define('CMS_PATH_JOOMLA', realpath($cmsPath));
-        define('CMS_PATH', CMS_PATH_JOOMLA);
-        require_once __DIR__ . '/init_cms_joomla.php';
-
-    } elseif ($cmsPath = getenv('PATH_WORDPRESS')) {
-        define('CMS_PATH_WORDPRESS', realpath($cmsPath));
-        define('CMS_PATH', CMS_PATH_WORDPRESS);
-        require_once __DIR__ . '/init_cms_wordpress.php';
-
-    } else {
-        echo 'Undefined CMS type!' . PHP_EOL;
-        exit(1);
-    }
-}
-
-// Overwrite important php config!
-include __DIR__ . '/init_php_config.php';
+include __DIR__ . '/php_config.php'; // Force overwrite important php configs!

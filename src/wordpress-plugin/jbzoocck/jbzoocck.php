@@ -9,7 +9,6 @@ Author URI: http://jbzoo.com
 
 // Init
 use JBZoo\CCK\App;
-use JBZoo\CrossCMS\AbstractEvents;
 use JBZoo\Utils\FS;
 
 define('_JBZOO', true);
@@ -53,11 +52,6 @@ function JBZooInitAutoload()
         add_object_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {
             App::getInstance()->execute();
         }, 'dashicons-admin-jbzoo');
-
-        add_options_page('JBZoo Settings', 'JBZoo', 'manage_options', 'jbzoo-confg', function () {
-            // require(__DIR__ . '/widgetkit-config.php');
-            echo 11111111;
-        });
 
     }, 8);
 }
