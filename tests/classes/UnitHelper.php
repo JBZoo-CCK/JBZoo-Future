@@ -15,9 +15,11 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\Data\Data;
 use JBZoo\Data\JSON;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\FS;
+use JBZoo\Utils\Str;
 use SuperClosure\Serializer;
 
 /**
@@ -27,21 +29,19 @@ use SuperClosure\Serializer;
 class UnitHelper
 {
     /**
-     * @param string   $testname
      * @param \Closure $callback
      * @param array    $request
-     * @param string   $path
-     * @param string   $method
      * @return string
      * @throws \Exception
      */
-    public function runIsolated($testname, \Closure $callback, $request = array(), $path = '/', $method = 'GET')
+    public function runIsolated(\Closure $callback, $request = array())
     {
         $composerConfig = new JSON(PROJECT_ROOT . '/composer.json');
         $vendorDir      = $composerConfig->find('config.vendor-dir', 'vendor');
         $binPath        = './' . $vendorDir . '/jbzoo/console/bin/jbzoo';
 
-        $testname = __CMS__ . '_' . $testname;
+        $testname = $this->_getTestName();
+        $request  = new Data($request);
 
         $options = array(
             // test
@@ -55,10 +55,12 @@ class UnitHelper
             'phpunit-html'   => FS::clean(PROJECT_ROOT . '/build/clover-html/' . $testname),
 
             // env
-            'env-cms'        => __CMS__,
-            'env-method'     => strtoupper($method),
-            'env-path'       => $path,
-            'env-request'    => $this->_prepareQuery($request),
+            'env-cms'        => $request->get('cms', __CMS__),
+            'env-method'     => $request->get('method', 'GET'),
+            'env-path'       => $request->get('path', '/'),
+            'env-get'        => $this->_prepareQuery($request->get('get', [])),
+            'env-post'       => $this->_prepareQuery($request->get('post', [])),
+            'env-cookie'     => $this->_prepareQuery($request->get('cookie', [])),
         );
 
         $result = Cli::exec('php ' . $binPath . ' cms', $this->_prepareOptions($options), PROJECT_ROOT, 0);
@@ -90,13 +92,25 @@ class UnitHelper
      * @param string $testName
      * @return string
      */
-    protected function _getTestName($testName)
+    protected function _getTestName($testName = null)
     {
-        $testName = str_replace(__NAMESPACE__, '', $testName);
-        $testName = preg_replace('#[^a-z0-9]#iu', '-', $testName);
-        $testName = preg_replace('#--#iu', '-', $testName);
-        $testName = trim($testName, '-');
-        $testName = strtolower($testName);
+        if (null === $testName) {
+            $objects = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT);
+            foreach ($objects as $object) {
+                if (isset($object['object']) && $object['object'] instanceof \PHPUnit_Framework_TestCase) {
+                    $testName = $object['class'] . '_' . $object['function'];
+                    break;
+                }
+            }
+        }
+
+        $testName = str_replace(__NAMESPACE__ . '\\', '', $testName);
+        $testName = Str::splitCamelCase($testName, '_', true);
+        $testName = preg_replace('/^test_/', '', $testName);
+        $testName = preg_replace('/_test$/', '', $testName);
+        $testName = str_replace('_test_test_', '_', $testName);
+
+        $testName = __CMS__ . '_' . $testName;
 
         return $testName;
     }
@@ -128,10 +142,6 @@ class UnitHelper
      */
     protected function _prepareQuery(array $data = array())
     {
-        $data = (array)$data;
-
-        $data['jbzoo-phpunit'] = 1;
-
-        return $data;
+        return (array)$data;
     }
 }

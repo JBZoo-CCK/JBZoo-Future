@@ -1,9 +1,10 @@
+.idea
 /build
 /bin
-/logs
-/.idea
-src/jbzoo/vendor
+logs
+/src/jbzoo/vendor
+vendor
 resources
 composer.lock
-phpunit.xml
-
+phpunit-joomla.xml
+phpunit-wordpress.xml

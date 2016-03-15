@@ -23,7 +23,7 @@
          stopOnIncomplete="true"
          stopOnSkipped="false"
          stopOnRisky="false"
-         verbose="true"
+         verbose="false"
 >
 
     <php>
@@ -39,14 +39,14 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">./src/jbzoo</directory>
-            <exclude>
-                <directory>./src/jbzoo/vendor</directory>
-            </exclude>
+
+            <!-- extentions -->
+            <file>src/wordpress-plugin/jbzoocck/jbzoocck.php</file>
         </whitelist>
     </filter>
 
     <logging>
-        <log type="coverage-clover" target="build/clover-xml/joomla.xml"/>
+        <log type="coverage-clover" target="build/clover-xml/wordpress.xml"/>
         <log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
     </logging>
 

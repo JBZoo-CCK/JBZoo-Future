@@ -38,8 +38,9 @@ class PlgSystemJBZooCCK extends JPlugin
     {
         define('_JBZOO', true);
 
-        /** @var App $app */
-        $this->_app = require_once realpath(JPATH_ROOT . '/administrator/components/com_jbzoo/init.php');
+        require_once realpath(JPATH_ROOT . '/administrator/components/com_jbzoo/init.php');
+
+        $this->_app = App::getInstance();
 
         $this->_app->on('cms.init', function (App $app) {
             //$app['path']->set('jbzoo', 'root:components/com_jbzoo');

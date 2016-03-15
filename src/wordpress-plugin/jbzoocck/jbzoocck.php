@@ -18,8 +18,9 @@ define('_JBZOO', true);
  */
 function JBZooInitAutoload()
 {
-    /** @var App $app */
-    $app = require_once __DIR__ . '/jbzoo/init.php';
+    require_once __DIR__ . '/jbzoo/init.php';
+
+    $app = App::getInstance();
 
     add_action('wp_loaded', function () use ($app) {
         $app->trigger('cms.init');

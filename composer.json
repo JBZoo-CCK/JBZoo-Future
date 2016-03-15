@@ -14,7 +14,7 @@
     ],
 
     "config"            : {
-        "vendor-dir"          : "src/jbzoo/vendor",
+        "vendor-dir"          : "vendor",
         "bin-dir"             : "bin",
         "autoloader-suffix"   : "_JBZoo",
         "optimize-autoloader" : true
@@ -70,7 +70,34 @@
             "JBZoo\\PHPUnit\\" : "tests/classes"
         }
     },
+
     "support"           : {
         "forum" : "http://forum.jbzoo.com"
+    },
+
+    "scripts"           : {
+        "test"              : [
+            "@manifest",
+            "@autoload",
+            "@phpunit",
+            "@phpmd",
+            "@phpcs",
+            "@phpcpd",
+            "@phploc"
+        ],
+        "update-all"        : [
+            "composer self-update --no-interaction",
+            "composer update --no-interaction --optimize-autoloader"
+        ],
+        "git-reset"         : "git reset --hard",
+        "manifest"          : "composer validate --no-interaction",
+        "autoload"          : "composer dump-autoload --optimize --no-interaction",
+        "phpunit-joomla"    : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist",
+        "phpunit-wordpress" : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist",
+        "phpmd"             : "php ./vendor/phpmd/phpmd/src/bin/phpmd ./src text ./vendor/jbzoo/misc/phpmd/jbzoo.xml --verbose",
+        "phpcs"             : "php ./vendor/squizlabs/php_codesniffer/scripts/phpcs ./src --standard=./vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml --report=full",
+        "phpcpd"            : "php ./vendor/sebastian/phpcpd/phpcpd ./src --verbose",
+        "phploc"            : "php ./vendor/phploc/phploc/phploc ./src --verbose",
+        "coveralls"         : "php ./vendor/satooshi/php-coveralls/bin/coveralls --verbose"
     }
 }

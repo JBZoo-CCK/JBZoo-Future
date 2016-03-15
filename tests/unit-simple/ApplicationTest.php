@@ -27,26 +27,4 @@ class ApplicationTest extends JBZooPHPUnit
     {
         isClass('\JBZoo\CCK\App', App::getInstance());
     }
-
-    public function testIsolatedRender()
-    {
-        $uniq = uniqid('somestring');
-
-        $content = $this->helper->runIsolated(
-            'test',
-            function () use ($uniq) {
-                echo $_POST['rand'];
-                \JBZoo\PHPunit\isSame($_POST['rand'], $uniq);
-            },
-            [
-                'rand' => $uniq,
-            ],
-            '/',
-            'POST'
-        );
-
-        //echo $content;
-
-        isContain($uniq, $content);
-    }
 }

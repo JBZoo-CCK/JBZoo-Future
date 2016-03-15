@@ -38,18 +38,20 @@ class Cms extends Command
             ->setName('cms')
             ->setDescription('Run CMS in web browser emulation mode. All params must by serialized!')
             // test
-            ->addOption('test-func', null, InputOption::VALUE_OPTIONAL, 'Serialized test of Closure type')
-            ->addOption('test-name', null, InputOption::VALUE_OPTIONAL, 'Name of test')
+            ->addOption('test-func', null, InputOption::VALUE_REQUIRED, 'Serialized test of Closure type')
+            ->addOption('test-name', null, InputOption::VALUE_REQUIRED, 'Name of test')
             // phpunit
-            ->addOption('phpunit-test', null, InputOption ::VALUE_OPTIONAL, 'PHPUnit test file')
-            ->addOption('phpunit-clover', null, InputOption ::VALUE_OPTIONAL, 'PHPUnit clover xml path')
-            ->addOption('phpunit-html', null, InputOption ::VALUE_OPTIONAL, 'PHPUnit clover html path')
-            ->addOption('phpunit-config', null, InputOption ::VALUE_OPTIONAL, 'PHPUnit configuration path')
+            ->addOption('phpunit-test', null, InputOption ::VALUE_REQUIRED, 'PHPUnit test file')
+            ->addOption('phpunit-clover', null, InputOption ::VALUE_REQUIRED, 'PHPUnit clover xml path')
+            ->addOption('phpunit-html', null, InputOption ::VALUE_REQUIRED, 'PHPUnit clover html path')
+            ->addOption('phpunit-config', null, InputOption ::VALUE_REQUIRED, 'PHPUnit configuration path')
             // env
-            ->addOption('env-method', null, InputOption::VALUE_OPTIONAL, 'GET or POST', 'GET')
-            ->addOption('env-path', null, InputOption ::VALUE_OPTIONAL, 'Query path', '/')
-            ->addOption('env-request', null, InputOption::VALUE_OPTIONAL, 'Query string', '')
-            ->addOption('env-cms', null, InputOption ::VALUE_OPTIONAL, 'CMS type');
+            ->addOption('env-cms', null, InputOption ::VALUE_REQUIRED, 'CMS type')
+            ->addOption('env-method', null, InputOption::VALUE_REQUIRED, 'GET or POST')
+            ->addOption('env-path', null, InputOption ::VALUE_REQUIRED, 'Request uri')
+            ->addOption('env-get', null, InputOption::VALUE_REQUIRED, '$_GET array')
+            ->addOption('env-post', null, InputOption::VALUE_REQUIRED, '$_POST array')
+            ->addOption('env-cookie', null, InputOption::VALUE_REQUIRED, '$_COOKIE array');
     }
 
     /**
@@ -102,21 +104,22 @@ class Cms extends Command
     {
         require_once PROJECT_ROOT . '/tests/autoload/browser_env.php';
 
-        $method    = strtoupper($this->_getOpt('env-method'));
-        $path      = $this->_getOpt('env-path');
-        $queryVars = (array)$this->_getOpt('env-request');
-        $query     = Url::build($queryVars);
+        $method     = strtoupper($this->_getOpt('env-method'));
+        $path       = $this->_getOpt('env-path');
+        $getVars    = (array)$this->_getOpt('env-get');
+        $postVars   = (array)$this->_getOpt('env-post');
+        $cookieVars = (array)$this->_getOpt('env-cookie');
+        $query      = Url::build($getVars);
 
         $_SERVER['QUERY_STRING']   = $query;
         $_SERVER['REQUEST_URI']    = $path;
         $_SERVER['REQUEST_METHOD'] = $method;
+        $_SERVER['REQUEST_URI']    = Url::addArg($getVars, $_SERVER['REQUEST_URI']);
 
-        if ($method == 'GET') {
-            $_REQUEST               = $_GET = $queryVars;
-            $_SERVER['REQUEST_URI'] = Url::addArg($queryVars, $_SERVER['REQUEST_URI']);
-        } elseif ($method == 'POST') {
-            $_REQUEST = $_POST = $queryVars;
-        }
+        $_GET     = $getVars;
+        $_POST    = $postVars;
+        $_COOKIE  = $cookieVars;
+        $_REQUEST = array_merge($_GET, $_POST, $_COOKIE, ['jbzoo-phpunit' => '1']);
     }
 
     /**

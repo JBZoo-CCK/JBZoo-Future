@@ -48,52 +48,57 @@ class App extends Cms
     public function init()
     {
         static $isInit;
-
-        if (!$isInit) {
-
-            $this->trigger('init.app.before');
-
-            // Init quick access debuger
-            $this['debug'] = function (App $app) {
-                return $app['core.debug'];
-            };
-
-            // Init Atom Manager
-            $this['atoms'] = function () {
-                $atomManager = new AtomManager();
-                $atomManager->addPath('jbzoo:atoms');
-
-                return $atomManager;
-            };
-
-            // Extend init for CrossCMS paths
-            $this['path'] = $this->extend('path', function ($path) {
-                $path->set('jbzoo', __DIR__ . '/..');
-
-                // TODO FIX ME!!!
-                $component = $path->get('root:administrator/components/com_jbzoo');
-                $component = realpath($component);
-                $path->setRoot($component);
-
-                return $path;
-            });
-
-            $this->on('cms.shutdown', function (App $app) {
-                if (class_exists('\JBZoo\PimpleDumper\PimpleDumper')) {
-                    $dumper = new PimpleDumper();
-                    $dumper->dumpPimple($app, true);
-                    $dumper->dumpPhpstorm($app);
-                }
-            });
-
-            $this->_initPaths();
-            $this->_initAssets();
-            $this->_initAtoms();
-
-            $this->trigger('init.app.after');
-
-            $isInit = true;
+        if ($isInit) {
+            return false;
         }
+
+        $isInit = true;
+
+        $this->trigger('init.app.before');
+
+        // Init quick access debuger
+        $this['debug'] = function (App $app) {
+            return $app['core.debug'];
+        };
+
+        // Composer autoload
+        $this['loader'] = function () {
+            return \ComposerAutoloaderInit_JBZoo::getLoader();
+        };
+
+        // Init Atom Manager
+        $this['atoms'] = function () {
+            $atomManager = new AtomManager();
+            $atomManager->addPath('jbzoo:atoms');
+
+            return $atomManager;
+        };
+
+        // Extend init for CrossCMS paths
+        $this['path'] = $this->extend('path', function ($path) {
+            $path->set('jbzoo', __DIR__ . '/..');
+
+            // TODO FIX ME!!!
+            $component = $path->get('root:administrator/components/com_jbzoo');
+            $component = realpath($component);
+            $path->setRoot($component);
+
+            return $path;
+        });
+
+        $this->on('cms.shutdown', function (App $app) {
+            if (class_exists('\JBZoo\PimpleDumper\PimpleDumper')) {
+                $dumper = new PimpleDumper();
+                $dumper->dumpPimple($app, true);
+                $dumper->dumpPhpstorm($app);
+            }
+        });
+
+        $this->_initPaths();
+        $this->_initAssets();
+        $this->_initAtoms();
+
+        $this->trigger('init.app.after');
     }
 
     /**

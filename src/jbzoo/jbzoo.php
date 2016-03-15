@@ -16,7 +16,6 @@ use JBZoo\CCK\App;
 
 defined('_JBZOO') or die;
 
-/** @var App $app */
-$app = require __DIR__ . '/init.php';
+require __DIR__ . '/init.php';
 
-$app->execute();
+App::getInstance()->execute();

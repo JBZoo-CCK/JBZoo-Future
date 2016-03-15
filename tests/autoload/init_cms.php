@@ -15,9 +15,8 @@
 
 // You can overwrite it by phpunit.xml
 !defined('CMS_TYPE')      && define('CMS_TYPE',      'undefined');
-!defined('CMS_JOOMLA')    && define('CMS_JOOMLA',    realpath(__DIR__ . '/../../resources/cms-joomla'));
-!defined('CMS_WORDPRESS') && define('CMS_WORDPRESS', realpath(__DIR__ . '/../../resources/cms-wordpress'));
-
+!defined('CMS_JOOMLA')    && define('CMS_JOOMLA',    realpath(__DIR__ . '/../../resources/cck-joomla'));
+!defined('CMS_WORDPRESS') && define('CMS_WORDPRESS', realpath(__DIR__ . '/../../resources/cck-wordpress'));
 
 if (__CMS__ === 'joomla') {
     define('CMS_PATH', CMS_JOOMLA);

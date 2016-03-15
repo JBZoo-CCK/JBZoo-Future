@@ -14,13 +14,25 @@
 
 namespace JBZoo\CCK;
 
-
 defined('_JBZOO') or die;
 
-$loader = require __DIR__ . '/vendor/autoload.php';
-$app    = App::getInstance();
 
-$app['loader'] = $loader;
-$app->init();
+if (!defined('JBZOO_INIT')) {
+    define('JBZOO_INIT', true);
 
-return $app;
+    if ($composerPath = realpath(__DIR__ . '/../../vendor/autoload.php')) {
+        require_once $composerPath;
+        define('JBZOO_DEV', true);
+
+    } elseif ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) {
+        require_once $composerPath;
+        define('JBZOO_DEV', false);
+    } else {
+        throw new Exception('Composer autoload not found!');
+    }
+
+    $app = App::getInstance();
+    $app->init();
+
+    return $app;
+}

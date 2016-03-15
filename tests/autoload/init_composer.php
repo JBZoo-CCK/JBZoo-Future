@@ -16,8 +16,13 @@
 // main autoload
 if ($composerPath = realpath('./composer.json')) {
     $autoloadConfig = json_decode(file_get_contents($composerPath), true);
-    $autoloadPath   = $autoloadConfig['config']['vendor-dir'] . '/autoload.php';
-    require_once $autoloadPath;
+
+    $vendor = 'vendor';
+    if (isset($autoloadConfig['config']['vendor-dir'])) {
+        $vendor = $autoloadConfig['config']['vendor-dir'];
+    }
+
+    require_once './' . $vendor . '/autoload.php';
 
 } else {
     echo 'Please execute "composer update" !' . PHP_EOL;
