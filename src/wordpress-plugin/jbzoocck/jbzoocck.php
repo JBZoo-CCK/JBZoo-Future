@@ -18,7 +18,11 @@ define('_JBZOO', true);
  */
 function JBZooInitAutoload()
 {
-    require_once __DIR__ . '/jbzoo/init.php';
+    if ($initPath = realpath(__DIR__ . '/jbzoo/init.php')) {
+        require_once $initPath;
+    } else {
+        return;
+    }
 
     $app = App::getInstance();
 
