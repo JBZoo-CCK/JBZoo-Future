@@ -17,7 +17,7 @@ namespace JBZoo\PHPUnit;
  * Class CodeStyleTest
  * @package JBZoo\PHPUnit
  */
-class CodeStyleTest extends Codestyle
+abstract class CodeStyleTest extends Codestyle
 {
     protected $_packageName = 'CCK';
     protected $_packageLicense = 'Proprietary http://jbzoo.com/license';
