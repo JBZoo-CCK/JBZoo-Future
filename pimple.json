@@ -7,7 +7,28 @@
     {
         "name": "atoms",
         "type": "container",
-        "value": []
+        "value": [
+            {
+                "name": "assets",
+                "type": "string",
+                "value": "inited"
+            },
+            {
+                "name": "assets-jquery",
+                "type": "string",
+                "value": "inited"
+            },
+            {
+                "name": "assets-jquery-ui",
+                "type": "string",
+                "value": "inited"
+            },
+            {
+                "name": "assets-js-utils",
+                "type": "string",
+                "value": "inited"
+            }
+        ]
     },
     {
         "name": "config",

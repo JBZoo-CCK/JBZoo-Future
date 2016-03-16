@@ -41,6 +41,12 @@ abstract class JBZooPHPUnit extends PHPUnit
     {
         parent::setUp();
 
+        !defined('_JBZOO') && define('_JBZOO', true);
+
+        if (!defined('JBZOO_INIT')) {
+            require_once PROJECT_ROOT . '/src/jbzoo/init.php';
+        }
+
         $this->app = App::getInstance();
 
         $dumper = new PimpleDumper();

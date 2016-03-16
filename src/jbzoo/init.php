@@ -16,10 +16,10 @@ namespace JBZoo\CCK;
 
 defined('_JBZOO') or die;
 
-
 if (!defined('JBZOO_INIT')) {
     define('JBZOO_INIT', true);
 
+    // @codeCoverageIgnoreStart
     if ($composerPath = realpath(__DIR__ . '/../../vendor/autoload.php')) {
         require_once $composerPath;
         define('JBZOO_DEV', true);
@@ -30,6 +30,7 @@ if (!defined('JBZOO_INIT')) {
     } else {
         throw new Exception('Composer autoload not found!');
     }
+    // @codeCoverageIgnoreEnd
 
     $app = App::getInstance();
     $app->init();
