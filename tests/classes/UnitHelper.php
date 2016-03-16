@@ -18,6 +18,7 @@ namespace JBZoo\PHPUnit;
 use JBZoo\Data\Data;
 use JBZoo\Data\JSON;
 use JBZoo\Utils\Cli;
+use JBZoo\Utils\Env;
 use JBZoo\Utils\FS;
 use JBZoo\Utils\Str;
 use SuperClosure\Serializer;
@@ -63,7 +64,16 @@ class UnitHelper
             'env-cookie'     => $this->_prepareQuery($request->get('cookie', [])),
         );
 
-        $result = Cli::exec('php ' . $binPath . ' cms', $this->_prepareOptions($options), PROJECT_ROOT, 1);
+        $binPath = Env::get('PHPUNIT_CMD_BIN', Env::VAR_STRING);
+        $isVerb  = Env::get('PHPUNIT_CMD_VERB', Env::VAR_BOOL);
+        $binPath = $binPath ?: 'php';
+
+        $result = Cli::exec(
+            $binPath . ' ' . $binPath . ' cms',
+            $this->_prepareOptions($options),
+            PROJECT_ROOT,
+            $isVerb
+        );
 
         return $result;
     }

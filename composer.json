@@ -48,7 +48,6 @@
         "smetdenis/jbdump"        : "1.x-dev",
 
         "jeremeamia/superclosure" : "^2.2",
-
         "symfony/var-dumper"      : "^2.8|^3.0",
         "joomlatools/console"     : "^1.4",
         "wp-cli/wp-cli"           : "^0.21"
@@ -81,9 +80,7 @@
             "@autoload",
             "@phpunit",
             "@phpmd",
-            "@phpcs",
-            "@phpcpd",
-            "@phploc"
+            "@phpcs"
         ],
         "update-all"        : [
             "composer self-update --no-interaction",
@@ -96,8 +93,6 @@
         "phpunit-wordpress" : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist",
         "phpmd"             : "php ./vendor/phpmd/phpmd/src/bin/phpmd ./src text ./vendor/jbzoo/misc/phpmd/jbzoo.xml --verbose",
         "phpcs"             : "php ./vendor/squizlabs/php_codesniffer/scripts/phpcs ./src --standard=./vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml --report=full",
-        "phpcpd"            : "php ./vendor/sebastian/phpcpd/phpcpd ./src --verbose",
-        "phploc"            : "php ./vendor/phploc/phploc/phploc ./src --verbose",
-        "coveralls"         : "php ./vendor/satooshi/php-coveralls/bin/coveralls --verbose"
+        "phpcpd"            : "php ./vendor/sebastian/phpcpd/phpcpd ./src --verbose"
     }
 }
