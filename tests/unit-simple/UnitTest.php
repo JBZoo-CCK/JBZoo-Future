@@ -37,6 +37,8 @@ class UnitTest extends JBZooPHPUnit
 
                 $url = \JBZoo\Utils\Url::addArg(['rand' => $uniq], '/index.php');
                 \JBZoo\PHPunit\isSame($url, $_SERVER['REQUEST_URI']);
+
+                echo $uniq;
             },
             [
                 'path'   => '/index.php',
