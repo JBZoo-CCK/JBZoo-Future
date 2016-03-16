@@ -52,8 +52,8 @@ class UnitHelper
             // phpunit
             'phpunit-test'   => FS::clean(PROJECT_ROOT . '/tests/unit-browser/BrowserEmulatorTest.php'),
             'phpunit-config' => FS::clean(PROJECT_ROOT . '/phpunit-browser.xml'),
-            'phpunit-clover' => FS::clean(PROJECT_ROOT . '/build/clover-xml/' . $testname . '.xml'),
-            'phpunit-html'   => FS::clean(PROJECT_ROOT . '/build/clover-html/' . $testname),
+            'phpunit-clover' => FS::clean(PROJECT_ROOT . '/build/clover_xml/' . $testname . '.xml'),
+            'phpunit-html'   => FS::clean(PROJECT_ROOT . '/build/clover_html/' . $testname),
 
             // env
             'env-cms'        => $request->get('cms', __CMS__),
@@ -73,6 +73,10 @@ class UnitHelper
             PROJECT_ROOT,
             Env::get('PHPUNIT_CMD_VERB', Env::VAR_BOOL)
         );
+
+        $savePath = PROJECT_ROOT . '/build/browser_html';
+        mkdir($savePath, 0777, true);
+        file_put_contents($savePath . '/' . $testname . '.html', $result);
 
         return $result;
     }
