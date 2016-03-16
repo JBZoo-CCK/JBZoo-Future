@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Atom;
 
 use JBZoo\CCK\AppAware;
+use JBZoo\CCK\Exception;
 
 /**
  * Class Atom
@@ -41,5 +42,13 @@ class Controller extends AppAware
     public function offsetGet($offset)
     {
         return $this->atom[$offset];
+    }
+
+    /**
+     * Index action
+     */
+    public function index()
+    {
+        throw new Exception('Index action is undefined!');
     }
 }

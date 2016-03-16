@@ -12,22 +12,21 @@
  * @link      http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom\Core\Helper;
+namespace JBZoo\CCK\Atom\Test\Controller;
 
-use JBZoo\CCK\Atom\Helper;
+use JBZoo\CCK\Atom\Controller;
 
 /**
- * Class Test
+ * Class Index
  * @package JBZoo\CCK
  */
-class Test extends Helper
+class Index extends Controller
 {
     /**
-     * @return int
+     * Index action
      */
-    public function getRand()
+    public function checkReturn()
     {
-        //return mt_rand(100, 999);
-        return 1;
+        return 123456;
     }
 }

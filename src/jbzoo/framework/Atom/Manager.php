@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Atom;
 
 use JBZoo\CCK\Container;
+use JBZoo\CCK\Exception;
 use JBZoo\Data\Data;
 use JBZoo\Data\PHPArray;
 use JBZoo\Utils\Filter;
@@ -130,22 +131,17 @@ class Manager extends Container
 
             $nsPart    = Filter::className($atomId);
             $atomClass = implode('\\', ['JBZoo', 'CCK', 'Atom', $nsPart, $nsPart]);
-            $result    = 'inited';
 
             $app->trigger("atom.init.before");
             $app->trigger("atom.init.{$atomId}.before");
 
             if (class_exists($atomClass)) {
-
                 /** @var Atom $atom */
-                $atom = new $atomClass($atomId, $atomInfo);
-                $atom->init($app);
-
-                $result = $atom;
-
+                $result = new $atomClass($atomId, $atomInfo);
+                $result->init($app);
             } else {
-                $atom = new AtomDefault($atomId, $atomInfo);
-                $atom->init($app);
+                $result = new AtomDefault($atomId, $atomInfo);
+                $result->init($app);
             }
 
             $app->trigger("atom.init.{$atomId}.after");

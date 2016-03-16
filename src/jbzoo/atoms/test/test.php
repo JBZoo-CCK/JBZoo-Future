@@ -12,16 +12,15 @@
  * @link      http://jbzoo.com
  */
 
-use JBZoo\CCK\App;
+return [
 
-defined('_JBZOO') or die;
+    'meta' => [
+        'name'    => 'PHPUnit Atom',
+        'desc'    => 'The best of atom by JBZoo Team!',
+        'author'  => 'JBZoo.com',
+        'licence' => 'http://jbzoo.com/license',
+        'created' => '01/01/2016',
+        'version' => '1.0.0',
+    ],
 
-require __DIR__ . '/init.php';
-
-$app = App::getInstance();
-
-try {
-    echo $app->execute();
-} catch (Exception $e) {
-    $app->error($e->getMessage());
-}
+];

@@ -168,21 +168,19 @@ class App extends Cms
     }
 
     /**
-     * Find current Atom, Controller, and Action. Execute them!
+     * Find current Atom, Controller, and Action. And execute them!
+     *
+     * @param string $controller
+     * @param string $action
+     * @return mixed
      */
-    public function execute()
+    public function execute($controller = null, $action = null)
     {
-        $this->trigger('app.exec.before');
-
-        // Get current action
-        $action = $this['request']->get('action', 'index', function ($orginal) {
-            $value  = Filter::cmd($orginal);
-            $action = $value ?: 'index';
-            return $action;
-        });
+        $this->trigger('app.exec.before', func_get_args());
 
         // Get current atom and controller
-        list($atom, $controller) = $this['request']->get('controller', 'core.index', function ($orginal) {
+        $controller = $controller ?: $this['request']->get('controller', 'core.index');
+        list($atom, $controller) = Filter::_($controller, function ($orginal) {
             $value = Filter::cmd($orginal);
 
             $values = explode('.', $value);
@@ -196,16 +194,21 @@ class App extends Cms
             return [$atom, $ctrl];
         });
 
-        try {
-            /** @var Atom $atom */
-            $atom = $this['atoms'][$atom];
-            $atom->execute($controller, $action);
+        // Get current action
+        $action = $action ?: $this['request']->get('action', 'index');
+        $action = Filter::_($action, function ($orginal) {
+            $value  = Filter::cmd($orginal);
+            $action = $value ?: 'index';
+            return $action;
+        });
 
-        } catch (Exception $e) {
-            $this->error($e->getMessage());
-        }
+        /** @var Atom $atom */
+        $atom   = $this['atoms'][$atom];
+        $result = $atom->execute($controller, $action);
 
-        $this->trigger('app.exec.after');
+        $this->trigger('app.exec.after', [$atom, $controller, $action]);
+
+        return $result;
     }
 
     /**

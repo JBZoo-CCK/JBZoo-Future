@@ -158,13 +158,16 @@ abstract class Atom extends Container
                 $this->app->trigger("atom.ctrl.{$controller}.before");
                 $this->app->trigger("atom.ctrl.{$controller}.{$action}.before");
 
-                $result = call_user_func_array([$ctrlObject, $action], [$this]);
+                ob_start();
+                $result  = call_user_func_array([$ctrlObject, $action], [$this]);
+                $content = ob_get_contents();
+                ob_end_clean();
 
                 $this->app->trigger("atom.ctrl.{$controller}.{$action}.after");
                 $this->app->trigger("atom.ctrl.{$controller}.after");
                 $this->app->trigger("atom.ctrl.after");
 
-                return $result;
+                return $content ? $content : $result;
             }
 
             $this->app->error("Action not found:  {$this->_id}.{$controller}.{$action}");

@@ -12,16 +12,15 @@
  * @link      http://jbzoo.com
  */
 
-use JBZoo\CCK\App;
+namespace JBZoo\CCK\Atom\Test;
 
-defined('_JBZOO') or die;
+use JBZoo\CCK\Atom\Atom;
 
-require __DIR__ . '/init.php';
+/**
+ * Class Test
+ * @package JBZoo\CCK\Atom\Test
+ */
+class Test extends Atom
+{
 
-$app = App::getInstance();
-
-try {
-    echo $app->execute();
-} catch (Exception $e) {
-    $app->error($e->getMessage());
 }

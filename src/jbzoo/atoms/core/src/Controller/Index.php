@@ -15,7 +15,6 @@
 namespace JBZoo\CCK\Atom\Core\Controller;
 
 use JBZoo\CCK\Atom\Controller;
-use JBZoo\CCK\Exception;
 
 /**
  * Class Index
@@ -28,5 +27,6 @@ class Index extends Controller
      */
     public function index()
     {
+        return 1;
     }
 }

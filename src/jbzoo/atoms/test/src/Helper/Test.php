@@ -12,16 +12,21 @@
  * @link      http://jbzoo.com
  */
 
-use JBZoo\CCK\App;
+namespace JBZoo\CCK\Atom\Test\Helper;
 
-defined('_JBZOO') or die;
+use JBZoo\CCK\Atom\Helper;
 
-require __DIR__ . '/init.php';
-
-$app = App::getInstance();
-
-try {
-    echo $app->execute();
-} catch (Exception $e) {
-    $app->error($e->getMessage());
+/**
+ * Class Test
+ * @package JBZoo\CCK
+ */
+class Test extends Helper
+{
+    /**
+     * @return int
+     */
+    public function getRand()
+    {
+        return mt_rand(1000000, 9999999);
+    }
 }
