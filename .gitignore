@@ -2,7 +2,10 @@
 /build
 /bin
 logs
-/src/jbzoo/vendor
+
+src/jbzoo/vendor
+src/wordpress-plugin/jbzoocck/jbzoo
+
 vendor
 resources
 composer.lock
