@@ -75,7 +75,7 @@ class UnitHelper
         );
 
         $savePath = PROJECT_ROOT . '/build/browser_html';
-        mkdir($savePath, 0777, true);
+        @mkdir($savePath, 0777, true);
         file_put_contents($savePath . '/' . $testname . '.html', $result);
 
         return $result;
