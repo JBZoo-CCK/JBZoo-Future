@@ -31,7 +31,7 @@
     </php>
 
     <testsuites>
-        <testsuite name="General">
+        <testsuite name="Wordpress Suite">
             <directory suffix="Test.php">./tests/unit-simple</directory>
         </testsuite>
     </testsuites>
@@ -44,10 +44,5 @@
             <file>src/wordpress-plugin/jbzoocck/jbzoocck.php</file>
         </whitelist>
     </filter>
-
-    <logging>
-        <log type="coverage-clover" target="build/clover-xml/wordpress.xml"/>
-        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true" showOnlySummary="true"/>
-    </logging>
 
 </phpunit>
