@@ -63,7 +63,7 @@ class UnitHelper
             'env-cookie'     => $this->_prepareQuery($request->get('cookie', [])),
         );
 
-        $result = Cli::exec('php ' . $binPath . ' cms', $this->_prepareOptions($options), PROJECT_ROOT, 0);
+        $result = Cli::exec('php ' . $binPath . ' cms', $this->_prepareOptions($options), PROJECT_ROOT, 1);
 
         return $result;
     }
