@@ -28,7 +28,7 @@
 
     <testsuites>
         <testsuite name="Utility">
-            <file>./tests/unit-utility/CodeStyleTest.php</file>
+            <directory suffix="Test.php">tests/unit-utility</directory>
         </testsuite>
     </testsuites>
 
