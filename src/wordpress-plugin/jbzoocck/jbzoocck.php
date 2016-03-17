@@ -32,8 +32,6 @@ function JBZooInitAutoload()
 {
     if ($initPath = realpath(__DIR__ . '/jbzoo/init.php')) {
         require_once $initPath;
-    } else {
-        throw new Exception('JBZoo init file not found!');
     }
 
     $app = App::getInstance();
