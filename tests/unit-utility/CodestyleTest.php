@@ -30,34 +30,17 @@ class CodeStyleTest extends PHPUnit
     protected $_packageLink = 'http://jbzoo.com';
     protected $_packageLicense = 'Proprietary http://jbzoo.com/license';
     protected $_packageVendor = 'JBZoo';
-    protected $_packageDesc = array(
+    protected $_packageDesc = [
         'This file is part of the JBZoo CCK package.',
         'For the full copyright and license information, please view the LICENSE',
         'file that was distributed with this source code.',
-    );
-
-    /**
-     * Valid copyright header
-     * @var array
-     */
-    protected static $_validHeader = array(
-        '<?php',
-        '/**',
-        ' * _VENDOR_ _PACKAGE_',
-        ' *',
-        ' * _DESCRIPTION_',
-        ' *',
-        ' * @package    _PACKAGE_',
-        ' * @license    _LICENSE_',
-        ' * @copyright  _COPYRIGHTS_',
-        ' * @link       _LINK_',
-    );
+    ];
 
     /**
      * Ignore list for
      * @var array
      */
-    protected static $_excludeFiles = array(
+    protected $_excludePaths = array(
         '.idea',
         '.git',
         'bin',
@@ -68,52 +51,185 @@ class CodeStyleTest extends PHPUnit
     );
 
     /**
-     * @throws \Exception
-     *
-     * @SuppressWarnings(PHPMD.Superglobals)
+     * Before test
      */
     public function setUp()
     {
-        parent::setUp();
-
-        //@codeCoverageIgnoreStart
-        if (!$this->_packageName) {
-            throw new Exception('$this->_packageName is undefined!');
-        }
-        //@codeCoverageIgnoreEnd
-
         $this->_replace = array(
-            '_LINK_'        => $this->_packageLink,
-            '_NAMESPACE_'   => '_VENDOR_\_PACKAGE_',
-            '_COPYRIGHTS_'  => 'Copyright (C) JBZoo.com,  All rights reserved.',
-            '_PACKAGE_'     => $this->_packageName,
-            '_LICENSE_'     => $this->_packageLicense,
-            '_VENDOR_'      => $this->_packageVendor,
-            '_DESCRIPTION_' => implode($this->_le . ' * ', $this->_packageDesc),
+            '_LINK_'       => $this->_packageLink,
+            '_NAMESPACE_'  => '_VENDOR_\_PACKAGE_',
+            '_COPYRIGHTS_' => 'Copyright (C) JBZoo.com,  All rights reserved.',
+            '_PACKAGE_'    => $this->_packageName,
+            '_LICENSE_'    => $this->_packageLicense,
+            '_VENDOR_'     => $this->_packageVendor,
         );
     }
 
     /**
-     * Test copyright headers
-     *
-     * @return void
+     * Test copyright headers of PHP files
      */
-    public function testHeaders()
+    public function testHeadersPHP()
     {
-        $finder = new Finder();
+        $valid = $this->_replaceCopyright(implode([
+            '<?php',
+            '/**',
+            ' * _VENDOR_ _PACKAGE_',
+            ' *',
+            ' * ' . implode($this->_le . ' * ', $this->_packageDesc),
+            ' *',
+            ' * @package    _PACKAGE_',
+            ' * @license    _LICENSE_',
+            ' * @copyright  _COPYRIGHTS_',
+            ' * @link       _LINK_',
+        ], $this->_le));
 
+        $finder = new Finder();
         $finder
             ->files()
-            ->in([PROJECT_TESTS, PROJECT_SRC])
+            ->in(PROJECT_ROOT)
+            ->exclude($this->_excludePaths)
             ->name('*.php');
 
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
 
             $content = openFile($file->getPathname());
+            isContain($valid, $content, false, 'File has no valid header: ' . $file);
+        }
+    }
 
-            // build copyrights
-            $valid = $this->_replaceCopyright(implode(self::$_validHeader, $this->_le));
+    /**
+     * Test copyright headers of JS files
+     */
+    public function testHeadersJS()
+    {
+        $valid = $this->_replaceCopyright(implode([
+            '/**',
+            ' * _VENDOR_ _PACKAGE_',
+            ' *',
+            ' * ' . implode($this->_le . ' * ', $this->_packageDesc),
+            ' *',
+            ' * @package    _PACKAGE_',
+            ' * @license    _LICENSE_',
+            ' * @copyright  _COPYRIGHTS_',
+            ' * @link       _LINK_',
+            ' */',
+            '',
+        ], $this->_le));
+
+        $finder = new Finder();
+        $finder
+            ->files()
+            ->in(PROJECT_ROOT)
+            ->exclude($this->_excludePaths)
+            ->name('*.js')
+            ->notName('*.min.js');
+
+        /** @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            $content = openFile($file->getPathname());
+            isContain($valid, $content, false, 'File has no valid header: ' . $file);
+        }
+    }
+
+    /**
+     * Test copyright headers of CSS files
+     */
+    public function testHeadersCSS()
+    {
+        $valid = $this->_replaceCopyright(implode([
+            '/**',
+            ' * _VENDOR_ _PACKAGE_',
+            ' *',
+            ' * ' . implode($this->_le . ' * ', $this->_packageDesc),
+            ' *',
+            ' * @package    _PACKAGE_',
+            ' * @license    _LICENSE_',
+            ' * @copyright  _COPYRIGHTS_',
+            ' * @link       _LINK_',
+            ' */',
+            '',
+        ], $this->_le));
+
+        $finder = new Finder();
+        $finder
+            ->files()
+            ->in(PROJECT_ROOT)
+            ->exclude($this->_excludePaths)
+            ->name('*.css')
+            ->notName('*.min.css');
+
+        /** @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            $content = openFile($file->getPathname());
+            isContain($valid, $content, false, 'File has no valid header: ' . $file);
+        }
+    }
+
+    /**
+     * Test copyright headers of LESS files
+     */
+    public function testHeadersLESS()
+    {
+        $valid = $this->_replaceCopyright(implode([
+            '//',
+            '// _VENDOR_ _PACKAGE_',
+            '//',
+            '// ' . implode($this->_le . '// ', $this->_packageDesc),
+            '//',
+            '// @package    _PACKAGE_',
+            '// @license    _LICENSE_',
+            '// @copyright  _COPYRIGHTS_',
+            '// @link       _LINK_',
+            '//',
+            '',
+        ], $this->_le));
+
+        $finder = new Finder();
+        $finder
+            ->files()
+            ->in(PROJECT_ROOT)
+            ->exclude($this->_excludePaths)
+            ->name('*.less');
+
+        /** @var SplFileInfo $file */
+        foreach ($finder as $file) {
+            $content = openFile($file->getPathname());
+            isContain($valid, $content, false, 'File has no valid header: ' . $file);
+        }
+    }
+
+    /**
+     * Test copyright headers of XML files
+     */
+    public function testHeadersXML()
+    {
+        $valid = $this->_replaceCopyright(implode([
+            '<?xml version="1.0" encoding="UTF-8" ?>',
+            '<!--',
+            '    _VENDOR_ _PACKAGE_',
+            '',
+            '    ' . implode($this->_le . '    ', $this->_packageDesc),
+            '',
+            '    @package    _PACKAGE_',
+            '    @license    _LICENSE_',
+            '    @copyright  _COPYRIGHTS_',
+            '    @link       _LINK_',
+            '-->',
+        ], $this->_le));
+
+        $finder = new Finder();
+        $finder
+            ->files()
+            ->in(PROJECT_ROOT)
+            ->exclude($this->_excludePaths)
+            ->name('*.xml')
+            ->name('*.xml.dist');
+
+        /** @var SplFileInfo $file */
+        foreach ($finder as $file) {
+
+            $content = openFile($file->getPathname());
             isContain($valid, $content, false, 'File has no valid header: ' . $file);
         }
     }
@@ -127,7 +243,7 @@ class CodeStyleTest extends PHPUnit
         $finder
             ->files()
             ->in([PROJECT_ROOT])
-            ->exclude(self::$_excludeFiles);
+            ->exclude($this->_excludePaths);
 
         /** @var SplFileInfo $file */
         foreach ($finder as $file) {
@@ -147,7 +263,7 @@ class CodeStyleTest extends PHPUnit
         $finder
             ->files()
             ->in([PROJECT_ROOT])
-            ->exclude(self::$_excludeFiles)
+            ->exclude($this->_excludePaths)
             ->exclude('tests');
 
         /** @var SplFileInfo $file */
