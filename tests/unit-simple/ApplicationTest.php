@@ -1,16 +1,15 @@
 <?php
 /**
- * JBZoo CrossCMS
+ * JBZoo CCK
  *
  * This file is part of the JBZoo CCK package.
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package   CrossCMS
- * @license   MIT
- * @copyright Copyright (C) JBZoo.com,  All rights reserved.
- * @link      https://github.com/JBZoo/CrossCMS
- * @author    Denis Smetannikov <denis@jbzoo.com>
+ * @package    CCK
+ * @license    Proprietary http://jbzoo.com/license
+ * @copyright  Copyright (C) JBZoo.com,  All rights reserved.
+ * @link       http://jbzoo.com
  */
 
 namespace JBZoo\PHPUnit;
@@ -49,7 +48,7 @@ class ApplicationTest extends JBZooPHPUnit
         isSame(jbAtom('core'), $this->app['atoms']['core']);
     }
 
-    public function testGetDebuger()
+    public function testGetHelper()
     {
         isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', $this->app['atoms']['core']['debug']);
         isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', $this->app['core.debug']);
@@ -60,6 +59,18 @@ class ApplicationTest extends JBZooPHPUnit
         isSame($this->app['atoms']['core']['debug'], $this->app['debug']);
         isSame($this->app['atoms']['core']['debug'], $this->app['core.debug']);
         isSame($this->app['debug'], $this->app['core.debug']);
+    }
+
+    public function testRequestedControllerEchoGET()
+    {
+        $uniq = uniqid('var');
+
+        $this->app['request']->set('qwerty', $uniq);
+
+        $actual = $this->app->execute('test.other', strtolower('checkEcho')); // check case-insensetive
+
+        isSame($uniq, $actual);
+        isSame($uniq, $_GET['qwerty']);
     }
 
     public function testGetResultOfController()

@@ -6,8 +6,40 @@
     },
     {
         "name": "atoms",
-        "type": "class",
-        "value": "JBZoo\\CCK\\Atom\\Manager"
+        "type": "container",
+        "value": [
+            {
+                "name": "assets",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\AtomDefault"
+            },
+            {
+                "name": "assets-jquery",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\AtomDefault"
+            },
+            {
+                "name": "assets-jquery-ui",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\AtomDefault"
+            },
+            {
+                "name": "assets-js-utils",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\AtomDefault"
+            },
+            {
+                "name": "core",
+                "type": "container",
+                "value": [
+                    {
+                        "name": "debug",
+                        "type": "class",
+                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
+                    }
+                ]
+            }
+        ]
     },
     {
         "name": "config",

@@ -12,12 +12,21 @@
  * @link       http://jbzoo.com
  */
 
-include __DIR__ . '/php_config.php';
+namespace JBZoo\CCK\Atom\Test\Controller;
 
-require_once __DIR__ . '/init_composer.php';
+use JBZoo\CCK\Atom\Controller;
 
-require_once __DIR__ . '/browser_env.php';
-require_once __DIR__ . '/init_cms.php';
-require_once __DIR__ . '/init_cms_' . __CMS__ . '.php';
-
-include __DIR__ . '/php_config.php'; // Force overwrite important php configs!
+/**
+ * Class Index
+ * @package JBZoo\CCK
+ */
+class Other extends Controller
+{
+    /**
+     * Index action
+     */
+    public function checkEcho()
+    {
+        echo $this->app['request']->get('qwerty');
+    }
+}

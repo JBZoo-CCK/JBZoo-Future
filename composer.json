@@ -47,8 +47,10 @@
         "jbzoo/pimpledumper"      : "^1.0.2",
         "smetdenis/jbdump"        : "^1.4.7",
 
-        "jeremeamia/superclosure" : "^2.2",
+        "symfony/finder"          : "^2.8|^3.0",
         "symfony/var-dumper"      : "^2.8|^3.0",
+
+        "jeremeamia/superclosure" : "^2.2",
         "joomlatools/console"     : "^1.4",
         "wp-cli/wp-cli"           : "^0.21"
     },

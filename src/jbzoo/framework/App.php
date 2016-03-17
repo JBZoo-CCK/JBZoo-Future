@@ -6,10 +6,10 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  *
- * @package   CCK
- * @license   Proprietary http://jbzoo.com/license
- * @copyright Copyright (C) JBZoo.com,  All rights reserved.
- * @link      http://jbzoo.com
+ * @package    CCK
+ * @license    Proprietary http://jbzoo.com/license
+ * @copyright  Copyright (C) JBZoo.com,  All rights reserved.
+ * @link       http://jbzoo.com
  */
 
 namespace JBZoo\CCK;
@@ -181,8 +181,8 @@ class App extends Cms
         $this->trigger('app.exec.before', func_get_args());
 
         // Get current atom and controller
-        $controller = $controller ?: $this['request']->get('controller', 'core.index');
-        list($atom, $controller) = Filter::_($controller, function ($orginal) {
+        $controller = $controller ?: $this['request']->get('ctrl', 'core.index');
+        list($atomName, $controller) = Filter::_($controller, function ($orginal) {
             $value = Filter::cmd($orginal);
 
             $values = explode('.', $value);
@@ -197,7 +197,7 @@ class App extends Cms
         });
 
         // Get current action
-        $action = $action ?: $this['request']->get('action', 'index');
+        $action = $action ?: $this['request']->get('act', 'index');
         $action = Filter::_($action, function ($orginal) {
             $value  = Filter::cmd($orginal);
             $action = $value ?: 'index';
@@ -205,10 +205,10 @@ class App extends Cms
         });
 
         /** @var Atom $atom */
-        $atom   = $this['atoms'][$atom];
+        $atom   = $this['atoms'][$atomName];
         $result = $atom->execute($controller, $action);
 
-        $this->trigger('app.exec.after', [$atom, $controller, $action]);
+        $this->trigger('app.exec.after', [$atomName, $controller, $action, $result]);
 
         return $result;
     }
