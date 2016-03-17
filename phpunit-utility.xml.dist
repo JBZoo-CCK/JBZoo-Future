@@ -11,7 +11,7 @@
     @copyright Copyright (C) JBZoo.com,  All rights reserved.
     @link      http://jbzoo.com
 -->
-<phpunit bootstrap="tests/autoload/init.php"
+<phpunit bootstrap="tests/autoload/init_composer.php"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
@@ -26,24 +26,10 @@
          verbose="false"
 >
 
-    <php>
-        <const name="__CMS__" value="joomla"/>
-    </php>
-
     <testsuites>
-        <testsuite name="Joomla">
-            <directory suffix="Test.php">./tests/unit-simple</directory>
-            <file>./tests/unit-utility/UnitHelperTest.php</file>
+        <testsuite name="Utility">
+            <file>./tests/unit-utility/CodeStyleTest.php</file>
         </testsuite>
     </testsuites>
-
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">./src/jbzoo</directory>
-
-            <!-- extentions -->
-            <file>src/joomla-plugins/plg_sys_jbzoocck/jbzoocck.php</file>
-        </whitelist>
-    </filter>
 
 </phpunit>
