@@ -15,10 +15,10 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class UnitTest
+ * Class UnitHelperTest
  * @package JBZoo\PHPUnit
  */
-class UnitTest extends JBZooPHPUnit
+class UnitHelperTest extends JBZooPHPUnit
 {
     public function testIsolatedRender()
     {
