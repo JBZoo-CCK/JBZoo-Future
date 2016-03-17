@@ -10,6 +10,7 @@
  * @license   Proprietary http://jbzoo.com/license
  * @copyright Copyright (C) JBZoo.com,  All rights reserved.
  * @link      http://jbzoo.com
+ * @codingStandardsIgnoreFile
  */
 
 // no direct access
@@ -17,7 +18,6 @@ defined('_JEXEC') or die('Restricted access');
 
 use JBZoo\CCK\App;
 
-// Load important Joomla Libs
 jimport('joomla.plugin.plugin');
 jimport('joomla.filesystem.file');
 
@@ -42,9 +42,9 @@ class PlgSystemJBZooCCK extends JPlugin
 
         $this->_app = App::getInstance();
 
-        $this->_app->on('cms.init', function (App $app) {
-            //$app['path']->set('jbzoo', 'root:components/com_jbzoo');
-        });
+        //$this->_app->on('cms.init', function (App $app) {
+        //    $app['path']->set('jbzoo', 'root:components/com_jbzoo');
+        //});
 
         $this->_app->trigger('cms.init');
     }

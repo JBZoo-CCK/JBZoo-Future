@@ -6,29 +6,8 @@
     },
     {
         "name": "atoms",
-        "type": "container",
-        "value": [
-            {
-                "name": "assets",
-                "type": "string",
-                "value": "inited"
-            },
-            {
-                "name": "assets-jquery",
-                "type": "string",
-                "value": "inited"
-            },
-            {
-                "name": "assets-jquery-ui",
-                "type": "string",
-                "value": "inited"
-            },
-            {
-                "name": "assets-js-utils",
-                "type": "string",
-                "value": "inited"
-            }
-        ]
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Manager"
     },
     {
         "name": "config",

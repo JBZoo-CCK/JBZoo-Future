@@ -118,6 +118,8 @@ class Debug extends Helper
      * @param bool   $isDie
      * @param string $label
      * @param array  $trace
+     *
+     * @SuppressWarnings(PHPMD.ExitExpression)
      */
     public function dump($data, $isDie = false, $label = '...', $trace = null)
     {
@@ -198,7 +200,11 @@ class Debug extends Helper
             method_exists($this->_jbdump, 'phpArray')
         ) {
             $arrayString = $this->_jbdump->phpArray((array)$array, $arrayName, true);
-            $this->_jbdump->log($arrayString, '$' . $arrayName, ['trace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)]);
+            $this->_jbdump->log(
+                $arrayString,
+                '$' . $arrayName,
+                ['trace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)]
+            );
         }
     }
 
@@ -226,12 +232,14 @@ class Debug extends Helper
             foreach ($lines as $line) {
                 if (preg_match('/#(.*?)  (.*?) called at \[(.*):(.*)\]/', $line, $mathes)) {
 
-                    $result[$mathes[1] . ' ' . $mathes[2]] = Filter::_($mathes[3], function ($path) use ($root) {
-                            $path    = FS::clean($path, '/');
-                            $relPath = preg_replace('#^' . preg_quote($root) . '#i', '', $path);
-                            $relPath = ltrim($relPath, '/');
-                            return $relPath;
-                        }) . ':' . $mathes[4];
+                    $filepath = Filter::_($mathes[3], function ($path) use ($root) {
+                        $path    = FS::clean($path, '/');
+                        $relPath = preg_replace('#^' . preg_quote($root) . '#i', '', $path);
+                        $relPath = ltrim($relPath, '/');
+                        return $relPath;
+                    });
+
+                    $result[$mathes[1] . ' ' . $mathes[2]] = $filepath . ':' . $mathes[4];
 
                 } elseif (preg_match('/#(.*?)  (.*)/', $line, $mathes)) {
                     $result[$mathes[1] . ' ' . $mathes[2]] = 'Undefined path!';

@@ -30,5 +30,4 @@ class Core extends Atom
     {
         //dump($app);
     }
-
 }

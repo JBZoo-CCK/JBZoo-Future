@@ -173,6 +173,8 @@ class App extends Cms
      * @param string $controller
      * @param string $action
      * @return mixed
+     *
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute($controller = null, $action = null)
     {

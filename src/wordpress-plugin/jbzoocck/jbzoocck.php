@@ -7,21 +7,21 @@ Version: 1.0
 Author URI: http://jbzoo.com
 */
 
-// Init
+// @codingStandardsIgnoreFile
+
 use JBZoo\CCK\App;
 use JBZoo\Utils\FS;
 
-define('_JBZOO', true);
-
 /**
  * Init JBZoo Autoloader and general events for CMS
+ * @throws Exception
  */
 function JBZooInitAutoload()
 {
     if ($initPath = realpath(__DIR__ . '/jbzoo/init.php')) {
         require_once $initPath;
     } else {
-        return;
+        throw new Exception('JBZoo init file not found!');
     }
 
     $app = App::getInstance();
@@ -61,4 +61,5 @@ function JBZooInitAutoload()
     }, 8);
 }
 
+define('_JBZOO', true);
 JBZooInitAutoload();

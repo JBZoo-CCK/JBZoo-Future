@@ -16,14 +16,7 @@ use JBZoo\CCK\App;
 
 return [
     'init' => function (App $app) {
-        $app['assets']->register(
-            'jquery-ui',
-            'https://code.jquery.com/ui/1.11.4/jquery-ui.min.js', ['jquery-ui-css']
-        );
-
-        $app['assets']->register(
-            'jquery-ui-css',
-            'https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css', ['jquery']
-        );
+        $app['assets']->register('jquery-ui', 'https://code.jquery.com/ui/1.11.4/jquery-ui.min.js', ['jquery-ui-css']);
+        $app['assets']->register('jquery-ui-css', 'https://code.jquery.com/ui/1.11.4/themes/ui-lightness/jquery-ui.css', ['jquery']);
     },
 ];
