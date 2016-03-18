@@ -61,11 +61,11 @@ class ApplicationTest extends JBZooPHPUnit
     }
 
     /**
-     * @expectedException \Error
+     * @expectedException \JBZoo\CCK\Exception\Exception
      */
     public function testGetUndefinedHelper()
     {
-        skip('Wordpress crash');
+        skip('Create exception');
         jbApp('undefined');
     }
 
@@ -74,6 +74,7 @@ class ApplicationTest extends JBZooPHPUnit
      */
     public function testGetUndefinedAtomHelper()
     {
+        skip('Create exception');
         jbApp('undefined.helper');
     }
 }

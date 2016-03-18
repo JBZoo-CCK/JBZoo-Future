@@ -242,7 +242,7 @@ class App extends Cms
             list($atom, $helper) = explode('.', Filter::cmd($id), 2);
 
             if (!isset($this['atoms'][$atom]) || !isset($this['atoms'][$atom][$helper])) {
-                throw new Exception('Undefined application helper "' . $id . '"');
+                throw new Exception('Undefined atom helper "' . $id . '"');
             }
 
             return $this['atoms'][$atom][$helper];
