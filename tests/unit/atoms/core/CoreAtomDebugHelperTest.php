@@ -34,11 +34,10 @@ class CoreAtomDebugHelperTest extends JBZooPHPUnit
         isSame($this->app['debug'], $this->app['core.debug']);
     }
 
-    public function testCoverageMerge()
+    public function testTraceToLog()
     {
-        if (__CMS__ == 'joomla') {
-            $this->app['debug']->trace(true);
-            isFile(PROJECT_ROOT . '/logs/jbdump_' . date('Y.m.d') . '.log.php');
-        }
+        $this->app['debug']->trace(true);
+        $this->app['debug']->logArray(['key' => 'value']);
+        isFile(PROJECT_ROOT . '/logs/jbdump_' . date('Y.m.d') . '.log.php');
     }
 }

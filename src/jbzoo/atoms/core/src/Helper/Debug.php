@@ -99,6 +99,7 @@ class Debug extends Helper
 
     /**
      * @param string $query
+     * @codeCoverageIgnore
      */
     public function sql($query)
     {
@@ -120,6 +121,7 @@ class Debug extends Helper
      * @param array  $trace
      *
      * @SuppressWarnings(PHPMD.ExitExpression)
+     * @codeCoverageIgnore
      */
     public function dump($data, $isDie = false, $label = '...', $trace = null)
     {
@@ -163,6 +165,8 @@ class Debug extends Helper
      * Mark for profiler
      *
      * @param string $label
+     *
+     * @codeCoverageIgnore
      */
     public function mark($label = '...')
     {
@@ -177,6 +181,8 @@ class Debug extends Helper
      * @param string $message
      * @param string $label
      * @param array  $params
+     *
+     * @codeCoverageIgnore
      */
     public function log($message, $label = '...', $params = null)
     {
@@ -253,7 +259,9 @@ class Debug extends Helper
             if ($isLog) {
                 $this->log($result, 'Backtrace', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
             } else {
+                // @codeCoverageIgnoreStart
                 $this->dump($result, 0, 'Backtrace', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+                // @codeCoverageIgnoreEnd
             }
         }
     }
