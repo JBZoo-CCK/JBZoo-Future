@@ -37,7 +37,8 @@ class CoreAtomDebugHelperTest extends JBZooPHPUnit
     public function testCoverageMerge()
     {
         if (__CMS__ == 'joomla') {
-            jbd()->trace(true);
+            $this->app['debug']->trace(true);
+            isFile(PROJECT_ROOT . '/logs/jbdump_' . date('Y.m.d') . '.log.php');
         }
     }
 }
