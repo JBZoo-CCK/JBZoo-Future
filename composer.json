@@ -95,7 +95,7 @@
         "autoload"          : "composer dump-autoload --optimize --no-interaction",
         "phpunit-joomla"    : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist",
         "phpunit-wordpress" : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist",
-        "phpunit-utility"   : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist ./tests/unit-utility/CodeStyleTest.php",
+        "phpunit-utility"   : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist ./tests/unit/utility/CodeStyleTest.php",
         "phpmd"             : "php ./vendor/phpmd/phpmd/src/bin/phpmd ./src text ./vendor/jbzoo/misc/phpmd/jbzoo.xml --verbose",
         "phpcs"             : "php ./vendor/squizlabs/php_codesniffer/scripts/phpcs ./src --standard=./vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml --report=full",
         "phpcpd"            : "php ./vendor/sebastian/phpcpd/phpcpd ./src --verbose",
