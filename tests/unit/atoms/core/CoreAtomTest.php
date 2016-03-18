@@ -15,22 +15,18 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class AtomTestTest
+ * Class CoreAtomTest
  * @package JBZoo\PHPUnit
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class AtomTestTest extends JBZooPHPUnit
+class AtomCoreTest extends JBZooPHPUnit
 {
-    public function testRequestedControllerEchoGET()
+    public function testAtom()
     {
-        $uniq = uniqid('var');
+        isClass('\JBZoo\CCK\Atom\Core\Core', $this->app['atoms']['core']);
+        isClass('\JBZoo\CCK\Atom\Core\Core', jbAtom('core'));
 
-        $this->app['request']->set('qwerty', $uniq);
-
-        $actual = $this->app->execute('test.other', strtolower('checkEcho')); // check case-insensetive
-
-        isSame($uniq, $actual);
-        isSame($uniq, $_GET['qwerty']);
+        isSame(jbAtom('core'), $this->app['atoms']['core']);
     }
 
     public function testGetResultOfController()
