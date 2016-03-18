@@ -46,6 +46,7 @@
         "jbzoo/phpunit"           : "^1.5.1",
         "jbzoo/pimpledumper"      : "^1.0.2",
         "smetdenis/jbdump"        : "^1.4.7",
+        "phpunit/phpcov"          : "^2.0",
 
         "symfony/finder"          : "^2.8|^3.0",
         "symfony/var-dumper"      : "^2.8|^3.0",

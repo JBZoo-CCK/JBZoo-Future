@@ -42,7 +42,7 @@ class Cms extends Command
             ->addOption('test-name', null, InputOption::VALUE_REQUIRED, 'Name of test')
             // phpunit
             ->addOption('phpunit-test', null, InputOption ::VALUE_REQUIRED, 'PHPUnit test file')
-            ->addOption('phpunit-clover', null, InputOption ::VALUE_REQUIRED, 'PHPUnit clover xml path')
+            ->addOption('phpunit-cov', null, InputOption ::VALUE_REQUIRED, 'PHPUnit clover cov (php) path')
             ->addOption('phpunit-html', null, InputOption ::VALUE_REQUIRED, 'PHPUnit clover html path')
             ->addOption('phpunit-config', null, InputOption ::VALUE_REQUIRED, 'PHPUnit configuration path')
             // env
@@ -79,8 +79,7 @@ class Cms extends Command
             'phpunit',
             $this->_getOpt('phpunit-test'),
             '--configuration ' . $this->_getOpt('phpunit-config'),
-            '--coverage-clover ' . $this->_getOpt('phpunit-clover'),
-            '--coverage-html ' . $this->_getOpt('phpunit-html'),
+            '--coverage-php ' . $this->_getOpt('phpunit-cov'),
             '--stderr',
         ]);
 
