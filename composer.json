@@ -30,6 +30,7 @@
         "jbzoo/event"       : "^1.2.2",
         "jbzoo/html"        : "^1.0.0",
         "jbzoo/image"       : "^3.0.3",
+        "jbzoo/jbdump"      : "^1.5.0",
         "jbzoo/lang"        : "^1.0.1",
         "jbzoo/less"        : "^1.0.3",
         "jbzoo/path"        : "^1.2",
@@ -45,13 +46,13 @@
     "require-dev"       : {
         "jbzoo/phpunit"           : "^1.5.1",
         "jbzoo/pimpledumper"      : "^1.0.2",
-        "jbzoo/jbdump"            : "^1.5.0",
-        "phpunit/phpcov"          : "^2.0",
 
         "symfony/finder"          : "^2.8|^3.0",
         "symfony/var-dumper"      : "^2.8|^3.0",
 
+        "phpunit/phpcov"          : "^2.0",
         "jeremeamia/superclosure" : "^2.2",
+
         "joomlatools/console"     : "^1.4",
         "wp-cli/wp-cli"           : "^0.21"
     },
