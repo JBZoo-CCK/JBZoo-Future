@@ -32,8 +32,9 @@
 
     <testsuites>
         <testsuite name="Joomla">
-            <directory suffix="Test.php">./tests/unit-simple</directory>
-            <file>./tests/unit-utility/UnitHelperTest.php</file>
+            <directory suffix="Test.php">./tests/unit/simple</directory>
+            <directory suffix="Test.php">./tests/unit/atoms</directory>
+            <file>./tests/unit/utility/UnitHelperTest.php</file>
         </testsuite>
     </testsuites>
 

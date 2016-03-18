@@ -19,6 +19,7 @@ use JBZoo\CCK\App;
 /**
  * Class ApplicationTest
  * @package JBZoo\PHPUnit
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class ApplicationTest extends JBZooPHPUnit
 {
@@ -48,33 +49,4 @@ class ApplicationTest extends JBZooPHPUnit
         isSame(jbAtom('core'), $this->app['atoms']['core']);
     }
 
-    public function testGetHelper()
-    {
-        isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', $this->app['atoms']['core']['debug']);
-        isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', $this->app['core.debug']);
-        isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', $this->app['debug']);
-        isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', jbd());
-        isClass('\JBZoo\CCK\Atom\Helper', $this->app['debug']);
-
-        isSame($this->app['atoms']['core']['debug'], $this->app['debug']);
-        isSame($this->app['atoms']['core']['debug'], $this->app['core.debug']);
-        isSame($this->app['debug'], $this->app['core.debug']);
-    }
-
-    public function testRequestedControllerEchoGET()
-    {
-        $uniq = uniqid('var');
-
-        $this->app['request']->set('qwerty', $uniq);
-
-        $actual = $this->app->execute('test.other', strtolower('checkEcho')); // check case-insensetive
-
-        isSame($uniq, $actual);
-        isSame($uniq, $_GET['qwerty']);
-    }
-
-    public function testGetResultOfController()
-    {
-        isSame(123456, $this->app->execute('test.index', 'checkReturn'));
-    }
 }

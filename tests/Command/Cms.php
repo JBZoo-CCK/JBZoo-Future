@@ -25,6 +25,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class Cms
  * @package JBZoo\Console\Command
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class Cms extends Command
 {

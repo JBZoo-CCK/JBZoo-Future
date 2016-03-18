@@ -90,7 +90,6 @@ class App extends Cms
             if (class_exists('\JBZoo\PimpleDumper\PimpleDumper')) {
                 $dumper = new PimpleDumper();
                 $dumper->dumpPimple($app, true);
-                $dumper->dumpPhpstorm($app);
             }
         });
 

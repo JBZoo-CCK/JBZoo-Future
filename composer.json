@@ -56,20 +56,18 @@
     },
 
     "autoload"          : {
-        "files"    : [
+        "files" : [
             "src/jbzoo/framework/defines.php"
         ],
-        "classmap" : [
-            "src/jbzoo/atoms"
-        ],
-        "psr-4"    : {
+        "psr-4" : {
             "JBZoo\\CCK\\" : "src/jbzoo/framework"
         }
     },
     "autoload-dev"      : {
-        "psr-4" : {
-            "JBZoo\\PHPUnit\\" : "tests/classes"
-        }
+        "classmap" : [
+            "tests/classes",
+            "tests/unit"
+        ]
     },
 
     "support"           : {

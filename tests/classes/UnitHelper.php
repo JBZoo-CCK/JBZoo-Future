@@ -49,7 +49,7 @@ class UnitHelper
             'test-name'      => $testname,
 
             // phpunit
-            'phpunit-test'   => FS::clean(PROJECT_ROOT . '/tests/unit-browser/BrowserEmulatorTest.php'),
+            'phpunit-test'   => FS::clean(PROJECT_ROOT . '/tests/unit/browser/BrowserEmulatorTest.php'),
             'phpunit-config' => FS::clean(PROJECT_ROOT . '/phpunit-browser.xml'),
             'phpunit-clover' => FS::clean(PROJECT_ROOT . '/build/clover_xml/' . $testname . '.xml'),
             'phpunit-html'   => FS::clean(PROJECT_ROOT . '/build/clover_html/' . $testname),
