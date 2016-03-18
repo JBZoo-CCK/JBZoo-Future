@@ -49,4 +49,30 @@ class ApplicationTest extends JBZooPHPUnit
         isSame(jbAtom('core'), $this->app['atoms']['core']);
     }
 
+    public function testAliasFunction()
+    {
+        isClass('\JBZoo\CCK\App', jbApp());
+        isClass('\Composer\Autoload\ClassLoader', jbApp('loader'));
+    }
+
+    public function testNotInitTwice()
+    {
+        isSame(false, jbApp()->init());
+    }
+
+    /**
+     * @expectedException \Error
+     */
+    public function testGetUndefinedHelper()
+    {
+        jbApp('undefined');
+    }
+
+    /**
+     * @expectedException \JBZoo\CCK\Exception\Exception
+     */
+    public function testGetUndefinedAtomHelper()
+    {
+        jbApp('undefined.helper');
+    }
 }

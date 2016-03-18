@@ -27,6 +27,6 @@ class Index extends Controller
      */
     public function index()
     {
-        return 1;
+        return 'Some dashboard template';
     }
 }

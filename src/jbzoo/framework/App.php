@@ -15,6 +15,7 @@
 namespace JBZoo\CCK;
 
 use JBZoo\CCK\Atom\Atom;
+use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Atom\Manager as AtomManager;
 use JBZoo\Assets\Manager as AssetsManager;
 use JBZoo\Assets\Factory as AssetsFactory;
@@ -116,7 +117,10 @@ class App extends Cms
 
     /**
      * Show fatal error page
+     *
      * @param string $message
+     *
+     * @codeCoverageIgnore
      */
     public function error($message = 'Internal Server Error')
     {
@@ -125,7 +129,10 @@ class App extends Cms
 
     /**
      * Show not found page
+     *
      * @param string $message
+     *
+     * @codeCoverageIgnore
      */
     public function show404($message = 'Not found')
     {
@@ -134,7 +141,10 @@ class App extends Cms
 
     /**
      * Set profiler mark
+     *
      * @param string $label
+     *
+     * @codeCoverageIgnore
      */
     public function mark($label)
     {
@@ -145,6 +155,7 @@ class App extends Cms
 
     /**
      * Add path for composer autoload
+     *
      * @param string $prefix
      * @param string $paths
      */
@@ -214,6 +225,7 @@ class App extends Cms
 
     /**
      * Return current state of debug config
+     *
      * @return bool
      */
     public function isDebug()

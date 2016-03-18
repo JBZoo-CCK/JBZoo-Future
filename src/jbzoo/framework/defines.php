@@ -14,26 +14,39 @@
 
 use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Atom\Core\Helper\Debug;
+use JBZoo\CCK\Atom\Manager;
 use JBZoo\Data\Data;
 use JBZoo\Data\JSON;
 use JBZoo\CCK\App;
 
 /**
- * @return App
+ * Get JBZoo Application instance
+ *
+ * @param string $helper
+ * @return App|mixed
  */
-function jbApp()
+function jbApp($helper = null)
 {
-    return App::getInstance();
+    $app = App::getInstance();
+    if (null !== $helper) {
+        return $app[$helper];
+    }
+
+    return $app;
 }
 
 /**
  * @param $atomId
- * @return Atom
+ * @return Atom|Manager
  */
-function jbAtom($atomId)
+function jbAtom($atomId = null)
 {
     $app = App::getInstance();
-    return $app['atoms'][$atomId];
+    if (null !== $atomId) {
+        return $app['atoms'][$atomId];
+    }
+
+    return $app['atoms'];
 }
 
 /**

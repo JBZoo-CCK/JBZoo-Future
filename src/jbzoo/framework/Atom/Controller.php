@@ -15,7 +15,7 @@
 namespace JBZoo\CCK\Atom;
 
 use JBZoo\CCK\AppAware;
-use JBZoo\CCK\Exception;
+use JBZoo\CCK\Exception\Exception;
 
 /**
  * Class Atom

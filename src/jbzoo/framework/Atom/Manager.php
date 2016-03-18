@@ -15,7 +15,6 @@
 namespace JBZoo\CCK\Atom;
 
 use JBZoo\CCK\Container;
-use JBZoo\CCK\Exception;
 use JBZoo\Data\Data;
 use JBZoo\Data\PHPArray;
 use JBZoo\Utils\Filter;

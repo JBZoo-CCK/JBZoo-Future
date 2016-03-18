@@ -12,7 +12,7 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK;
+namespace JBZoo\CCK\Exception;
 
 /**
  * Class Exception
