@@ -33,4 +33,11 @@ class CoreAtomDebugHelperTest extends JBZooPHPUnit
         isSame($this->app['atoms']['core']['debug'], $this->app['core.debug']);
         isSame($this->app['debug'], $this->app['core.debug']);
     }
+
+    public function testCoverageMerge()
+    {
+        if (__CMS__ == 'joomla') {
+            jbd()->trace(true);
+        }
+    }
 }
