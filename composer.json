@@ -15,7 +15,7 @@
 
     "config"            : {
         "vendor-dir"          : "vendor",
-        "bin-dir"             : "src/jbzo/bin",
+        "bin-dir"             : "src/jbzoo/bin",
         "bin-compat"          : "full",
         "autoloader-suffix"   : "_JBZoo",
         "optimize-autoloader" : true
