@@ -27,10 +27,10 @@ class ApplicationTest extends JBZooPHPUnit
     {
         isClass('\JBZoo\CCK\App', App::getInstance());
         isClass('\JBZoo\CCK\App', $this->app);
-        isClass('\JBZoo\CCK\App', jbApp());
+        isClass('\JBZoo\CCK\App', jbzoo());
 
-        isSame(App::getInstance(), jbApp());
-        isSame($this->app, jbApp());
+        isSame(App::getInstance(), jbzoo());
+        isSame($this->app, jbzoo());
         isSame($this->app, App::getInstance());
 
         isNotSame($this->app, new App());
@@ -44,29 +44,20 @@ class ApplicationTest extends JBZooPHPUnit
     public function testAtom()
     {
         isClass('\JBZoo\CCK\Atom\Core\Core', $this->app['atoms']['core']);
-        isClass('\JBZoo\CCK\Atom\Core\Core', jbAtom('core'));
+        isClass('\JBZoo\CCK\Atom\Core\Core', jbatom('core'));
 
-        isSame(jbAtom('core'), $this->app['atoms']['core']);
+        isSame(jbatom('core'), $this->app['atoms']['core']);
     }
 
     public function testAliasFunction()
     {
-        isClass('\JBZoo\CCK\App', jbApp());
-        isClass('\Composer\Autoload\ClassLoader', jbApp('loader'));
+        isClass('\JBZoo\CCK\App', jbzoo());
+        isClass('\Composer\Autoload\ClassLoader', jbzoo('loader'));
     }
 
     public function testNotInitTwice()
     {
-        isSame(false, jbApp()->init());
-    }
-
-    /**
-     * @expectedException \JBZoo\CCK\Exception\Exception
-     */
-    public function testGetUndefinedHelper()
-    {
-        skip('Create exception');
-        jbApp('undefined');
+        isSame(false, jbzoo()->init());
     }
 
     /**
@@ -74,7 +65,6 @@ class ApplicationTest extends JBZooPHPUnit
      */
     public function testGetUndefinedAtomHelper()
     {
-        skip('Create exception');
-        jbApp('undefined.helper');
+        jbzoo('undefined.helper');
     }
 }

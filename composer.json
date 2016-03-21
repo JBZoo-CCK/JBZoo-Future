@@ -13,14 +13,6 @@
         }
     ],
 
-    "config"            : {
-        "vendor-dir"          : "vendor",
-        "bin-dir"             : "src/jbzoo/bin",
-        "bin-compat"          : "full",
-        "autoloader-suffix"   : "_JBZoo",
-        "optimize-autoloader" : true
-    },
-
     "require"           : {
         "php"               : ">=5.4",
 
@@ -77,6 +69,14 @@
         "forum" : "http://forum.jbzoo.com"
     },
 
+    "config"            : {
+        "vendor-dir"          : "vendor",
+        "bin-dir"             : "src/jbzoo/bin",
+        "bin-compat"          : "full",
+        "autoloader-suffix"   : "_JBZoo",
+        "optimize-autoloader" : true
+    },
+
     "scripts"           : {
         "test"              : [
             "@manifest",
@@ -94,14 +94,14 @@
             "composer update --no-interaction --optimize-autoloader"
         ],
         "git-reset"         : "git reset --hard",
-        "manifest"          : "composer validate --no-interaction",
-        "autoload"          : "composer dump-autoload --optimize --no-interaction",
+        "manifest"          : "composer validate      --no-interaction",
+        "autoload"          : "composer dump-autoload --no-interaction --optimize",
         "phpunit-joomla"    : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist",
         "phpunit-wordpress" : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist",
         "phpunit-utility"   : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist ./tests/unit/utility/CodeStyleTest.php",
-        "phpmd"             : "php ./vendor/phpmd/phpmd/src/bin/phpmd ./src text ./vendor/jbzoo/misc/phpmd/jbzoo.xml --verbose",
-        "phpcs"             : "php ./vendor/squizlabs/php_codesniffer/scripts/phpcs ./src --standard=./vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml --report=full",
-        "phpcpd"            : "php ./vendor/sebastian/phpcpd/phpcpd ./src --verbose",
-        "phploc"            : "php ./vendor/phploc/phploc/phploc ./src --verbose"
+        "phpmd"             : "php ./vendor/phpmd/phpmd/src/bin/phpmd               ./src text ./vendor/jbzoo/misc/phpmd/jbzoo.xml --verbose",
+        "phpcs"             : "php ./vendor/squizlabs/php_codesniffer/scripts/phpcs ./src       --standard=./vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml --report=full",
+        "phpcpd"            : "php ./vendor/sebastian/phpcpd/phpcpd                 ./src --verbose",
+        "phploc"            : "php ./vendor/phploc/phploc/phploc                    ./src --verbose"
     }
 }

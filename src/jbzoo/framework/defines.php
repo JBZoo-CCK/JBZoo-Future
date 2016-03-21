@@ -25,7 +25,7 @@ use JBZoo\CCK\App;
  * @param string $helper
  * @return App|mixed
  */
-function jbApp($helper = null)
+function jbzoo($helper = null)
 {
     $app = App::getInstance();
     if (null !== $helper) {
@@ -39,7 +39,7 @@ function jbApp($helper = null)
  * @param $atomId
  * @return Atom|Manager
  */
-function jbAtom($atomId = null)
+function jbatom($atomId = null)
 {
     $app = App::getInstance();
     if (null !== $atomId) {
@@ -53,7 +53,7 @@ function jbAtom($atomId = null)
  * @param array $data
  * @return Data
  */
-function jbData($data = [])
+function jbdata($data = [])
 {
     if ($data instanceof Data) {
         return $data;

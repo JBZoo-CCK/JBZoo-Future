@@ -22,29 +22,29 @@ class FunctionsTest extends JBZooPHPUnit
 {
     public function test_JBApp()
     {
-        isClass('\JBZoo\CCK\App', jbApp());
+        isClass('\JBZoo\CCK\App', jbzoo());
     }
 
     public function test_JBAppHelper()
     {
-        isClass('\JBZoo\Path\Path', jbApp('path'));
+        isClass('\JBZoo\Path\Path', jbzoo('path'));
     }
 
     public function test_JBAtom()
     {
-        isClass('\JBZoo\CCK\Atom\Core\Core', jbAtom('core'));
-        isClass('\JBZoo\CCK\Atom\Manager', jbAtom());
+        isClass('\JBZoo\CCK\Atom\Core\Core', jbatom('core'));
+        isClass('\JBZoo\CCK\Atom\Manager', jbatom());
     }
 
     public function test_JBData()
     {
-        isClass('\JBZoo\Data\JSON', jbData());
+        isClass('\JBZoo\Data\JSON', jbdata());
 
-        $data  = jbData();
-        $data2 = jbData($data);
+        $data  = jbdata();
+        $data2 = jbdata($data);
         isSame($data, $data2);
 
-        isSame('{"key":"value"}', json_encode(jbData('{"key":"value"}')));
+        isSame('{"key":"value"}', json_encode(jbdata('{"key":"value"}')));
     }
 
     public function test_JBT()
