@@ -1,0 +1,27 @@
+{
+    "name"         : "jbzoo",
+    "description"  : "JBZoo Content Construction Kit",
+    "version"      : "3.0",
+    "keywords"     : ["jbzoo", "joomla", "cck"],
+    "license"      : "MIT",
+    "homepage"     : "http://jbzoo.com/",
+
+    "authors"      : [
+        "SmetDenis <denis@jbzoo.com>"
+    ],
+
+    "dependencies" : {
+        "jquery"    : "1.9.*",
+        "jqueryui"  : "1.9.*",
+        "uikit"     : "*",
+        "bootstrap" : "*"
+    },
+
+    "ignore"       : [
+        "**/.*",
+        "node_modules",
+        "bower_components",
+        "test",
+        "tests"
+    ]
+}

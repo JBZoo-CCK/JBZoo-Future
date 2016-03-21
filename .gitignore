@@ -1,13 +1,13 @@
 .idea
+.DS_Store
 /build
 /bin
-logs
+/logs
 
-src/jbzoo/vendor
-src/wordpress-plugin/jbzoocck/jbzoo
+/src/jbzoo/vendor
+/src/wordpress-plugin/jbzoocck/jbzoo
 
-vendor
-resources
-composer.lock
-phpunit-joomla.xml
-phpunit-wordpress.xml
+/vendor
+/resources
+/composer.lock
+node_modules
