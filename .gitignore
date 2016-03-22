@@ -3,6 +3,7 @@
 /build
 /bin
 /logs
+/tmp
 
 /src/jbzoo/vendor
 /src/wordpress-plugin/jbzoocck/jbzoo
@@ -10,4 +11,7 @@
 /vendor
 /resources
 /composer.lock
-node_modules
+
+# Assets
+/node_modules
+/bower_components

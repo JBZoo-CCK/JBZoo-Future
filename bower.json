@@ -1,22 +1,19 @@
 {
-    "name"         : "jbzoo",
-    "description"  : "JBZoo Content Construction Kit",
-    "version"      : "3.0",
-    "keywords"     : ["jbzoo", "joomla", "cck"],
-    "license"      : "MIT",
+    "name"         : "jbzoo-cck",
+    "description"  : "Awesome CCK for Joomla and Wordpress CMS",
+    "version"      : "3.x-dev",
+    "keywords"     : ["Joomla", "Wordpress", "CCK", "JBZoo"],
+    "license"      : "proprietary",
     "homepage"     : "http://jbzoo.com/",
-
     "authors"      : [
         "SmetDenis <denis@jbzoo.com>"
     ],
-
     "dependencies" : {
-        "jquery"    : "1.9.*",
-        "jqueryui"  : "1.9.*",
-        "uikit"     : "*",
-        "bootstrap" : "*"
+        "jquery"    : "~1.12.2",
+        "jqueryui"  : "~1.11.4",
+        "uikit"     : "~2.25.0",
+        "bootstrap" : "~3.3.6"
     },
-
     "ignore"       : [
         "**/.*",
         "node_modules",

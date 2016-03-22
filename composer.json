@@ -1,10 +1,10 @@
 {
     "name"              : "jbzoo/cck",
     "type"              : "project",
-    "description"       : "Awesome CCK for Joomla CMS",
+    "description"       : "Awesome CCK for Joomla and Wordpress CMS",
     "license"           : "proprietary",
     "minimum-stability" : "stable",
-    "keywords"          : ["Joomla", "CCK", "JBZoo"],
+    "keywords"          : ["Joomla", "Wordpress", "CCK", "JBZoo"],
     "authors"           : [
         {
             "name"  : "SmetDenis",
