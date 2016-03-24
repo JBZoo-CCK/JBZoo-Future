@@ -77,6 +77,11 @@
         "value": "JBZoo\\CrossCMS\\AbstractLang"
     },
     {
+        "name": "libs",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractLibs"
+    },
+    {
         "name": "loader",
         "type": "class",
         "value": "Composer\\Autoload\\ClassLoader"
