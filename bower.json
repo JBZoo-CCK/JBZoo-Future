@@ -2,17 +2,23 @@
     "name"         : "jbzoo-cck",
     "description"  : "Awesome CCK for Joomla and Wordpress CMS",
     "version"      : "3.x-dev",
-    "keywords"     : ["Joomla", "Wordpress", "CCK", "JBZoo"],
+    "keywords"     : [
+        "Joomla",
+        "Wordpress",
+        "CCK",
+        "JBZoo"
+    ],
     "license"      : "proprietary",
     "homepage"     : "http://jbzoo.com/",
     "authors"      : [
         "SmetDenis <denis@jbzoo.com>"
     ],
     "dependencies" : {
-        "jquery"    : "~1.12.2",
-        "jqueryui"  : "~1.11.4",
-        "uikit"     : "~2.25.0",
-        "bootstrap" : "~3.3.6"
+        "uikit"       : "~2.25.0",
+        "bootstrap"   : "~3.3.6",
+        "material-ui" : "~0.14.4",
+        "react"       : "~0.14.7",
+        "jbzoo-utils" : "^1.1.0"
     },
     "ignore"       : [
         "**/.*",
