@@ -16,9 +16,6 @@ use JBZoo\CCK\App;
 
 return [
     'init' => function (App $app) {
-        return;
-        $app['libs']->register('jquery', function () use ($app) {
-            $app['libs']->jQuery();
-        });
+        $app['assets']->register('jbzoo-utils', 'atom-asstes-jbzoo-utils:assets/js/jbzoo-utils.min.js', ['jquery']);
     },
 ];

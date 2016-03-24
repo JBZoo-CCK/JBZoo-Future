@@ -16,9 +16,15 @@ use JBZoo\CCK\App;
 
 return [
     'init' => function (App $app) {
-        return;
-        $app['libs']->register('jquery', function () use ($app) {
-            $app['libs']->jQuery();
-        });
+
+        $app['assets']->register(
+            'uikit',
+            [
+                'atom-assets-uikit:assets/js/uikit.min.js',
+                'atom-assets-uikit:assets/css/uikit.min.css',
+            ],
+            'jquery'
+        );
+
     },
 ];
