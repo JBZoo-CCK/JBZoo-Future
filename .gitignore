@@ -15,3 +15,6 @@
 # Assets
 /node_modules
 /bower_components
+
+# Atoms assets
+/src/jbzoo/atoms/assets-*/assets
