@@ -196,12 +196,16 @@ class App extends Cms
             $value = Filter::cmd($orginal);
 
             $values = explode('.', $value);
+            if (count($values) === 1) {
+                $values[] = 'index';
+            }
+
             if (count($values) !== 2) {
                 App::getInstance()->error('No valid controller: ' . $orginal);
             }
 
             $atom = $values[0] ?: 'core';
-            $ctrl = $values[1] ?: 'ndex';
+            $ctrl = $values[1] ?: 'index';
 
             return [$atom, $ctrl];
         });
