@@ -285,14 +285,12 @@ class App extends Cms
 
         $this['assets'] = function () use ($app) {
 
-            $root = $app['path']->getRoot();
-
-            $factory = new AssetsFactory($root, [
-                'cache_path' => $app['path']->get('cache:'),
-                'debug'      => $app->isDebug(),
+            $manager = new AssetsManager($app['path'], [
+                'debug' => $app->isDebug(),
+                'less'  => [
+                    'cache_path' => $app['path']->get('cache:'),
+                ],
             ]);
-
-            $manager = new AssetsManager($factory);
 
             return $manager;
         };

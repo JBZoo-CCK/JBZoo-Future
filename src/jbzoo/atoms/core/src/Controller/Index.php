@@ -27,6 +27,8 @@ class Index extends Controller
      */
     public function index()
     {
+        $this->app['assets']->add('react');
+
         return 'Some dashboard template';
     }
 }

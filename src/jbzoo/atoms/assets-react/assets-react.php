@@ -16,7 +16,12 @@ use JBZoo\CCK\App;
 
 return [
     'init' => function (App $app) {
-        $app['assets']->register('react', 'atom-assets-react:assets\js\react.min.js');
-        $app['assets']->register('react-dom', 'atom-assets-react:assets\js\react-dom.min.js', ['react']);
+        $app['assets']->register(
+            'react',
+            [
+                'atom-assets-react:assets\js\react.min.js',
+                'atom-assets-react:assets\js\react-dom.min.js',
+            ]
+        );
     },
 ];
