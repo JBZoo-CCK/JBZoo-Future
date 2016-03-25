@@ -173,10 +173,12 @@ class Manager extends Container
 
             // Get paths
             $this->_atoms[$atomId]->set('dir', $dir);
+            $this->app['path']->set('atom-' . $atomId, $dir);
             $srcDir = $dir . '/src';
 
             // Add autoload
             $this->app->addLoadPath(['Atom', $atomId], $srcDir);
+
         }
     }
 }

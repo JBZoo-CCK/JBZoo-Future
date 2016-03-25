@@ -23,6 +23,7 @@ return [
 
             $app->trigger('atom.assets.header');
 
+            $rootPath = $app['path']->getRoot();
 
             // Resolve all dependencies for registered assets
             $app->trigger('atom.assets.header.build.before');
@@ -32,12 +33,12 @@ return [
             // Include styles
             $app->trigger('atom.assets.header.css.before', [&$list['css']]);
             foreach ($list['css'] as $fullPath) {
-                $file = $fullPath;
-                if (!Url::isAbsolute($fullPath)) {
-                    $file = FS::getRelative($fullPath);
-                }
+                //if (!Url::isAbsolute($fullPath)) {
+                    $file     = FS::getRelative($fullPath, $rootPath, '/', false);
+                    $fullPath = Url::root() . '/administrator/components/com_jbzoo/' . $file;
+                //}
 
-                $app['header']->cssFile($file);
+                $app['header']->cssFile($fullPath);
             }
             $app->trigger('atom.assets.header.css.after');
 
@@ -45,11 +46,13 @@ return [
             // Include JS-scripts
             $app->trigger('atom.assets.header.js.before', [&$list['js']]);
             foreach ($list['js'] as $fullPath) {
-                $file = $fullPath;
-                if (!Url::isAbsolute($fullPath)) {
-                    $file = FS::getRelative($fullPath);
-                }
-                $app['header']->jsFile($file);
+
+                //if (!Url::isAbsolute($fullPath)) {
+                    $file     = FS::getRelative($fullPath, $rootPath, '/', false);
+                    $fullPath = Url::root() . '/administrator/components/com_jbzoo/' . $file;
+                //}
+
+                $app['header']->jsFile($fullPath);
             }
             $app->trigger('atom.assets.header.js.before');
         },
