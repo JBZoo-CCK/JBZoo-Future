@@ -79,8 +79,12 @@ class App extends Cms
         $this['path'] = $this->extend('path', function ($path) {
             $path->set('jbzoo', __DIR__ . '/..');
 
-            // TODO FIX ME!!!
-            $component = $path->get('root:administrator/components/com_jbzoo');
+            if ($this['type'] === Cms::TYPE_JOOMLA) {
+                $component = $path->get('root:administrator/components/com_jbzoo');
+            } elseif ($this['type'] === Cms::TYPE_WORDPRESS) {
+                $component = $path->get('root:wp-content/plugins/jbzoocck/jbzoo');
+            }
+
             $component = realpath($component);
             $path->setRoot($component);
 
