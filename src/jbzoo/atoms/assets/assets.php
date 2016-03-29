@@ -37,13 +37,12 @@ return [
 
                     $relPath = FS::getRelative($fullPath, $rootJBZoo, '/', false);
 
-                    if (FS::clean($relPath) !== FS::clean($fullPath)) {
+                    if (FS::clean('/' . $relPath) !== FS::clean('/' . $fullPath)) {
                         $fullPath = Url::buildAll(Url::root(), [
                             'path'  => '/' . JBZOO_EXT_PATH . '/' . $relPath,
                             'query' => 'mtime=' . $mtime,
                         ]);
                     } else {
-
                         $relPath  = FS::getRelative($fullPath, $rootGlobal, '/', true);
                         $fullPath = Url::buildAll(Url::root(), [
                             'path'  => '/' . $relPath,
