@@ -36,15 +36,12 @@ class PlgSystemJBZooCCK extends JPlugin
      */
     public function onAfterInitialise()
     {
-        define('_JBZOO', true);
+        define('JBZOO', true);
+        define('JBZOO_EXT_PATH', 'administrator/components/com_jbzoo'); // TODO: remove hardcode to fix dev symlinks
 
-        require_once realpath(JPATH_ROOT . '/administrator/components/com_jbzoo/init.php');
+        require_once JPATH_ROOT . '/' . JBZOO_EXT_PATH . '/init.php';
 
         $this->_app = App::getInstance();
-
-        //$this->_app->on('cms.init', function (App $app) {
-        //    $app['path']->set('jbzoo', 'root:components/com_jbzoo');
-        //});
 
         $this->_app->trigger('cms.init');
     }
@@ -65,5 +62,16 @@ class PlgSystemJBZooCCK extends JPlugin
         $body = JFactory::getApplication()->getBody();
         $this->_app->trigger('cms.shutdown', [&$body]);
         JFactory::getApplication()->setBody($body);
+    }
+}
+
+if (!function_exists('dump')) {
+    /**
+     * Overload Symfony dump() function
+     * @return mixed
+     */
+    function dump()
+    {
+        return call_user_func_array('jbd', func_get_args());
     }
 }

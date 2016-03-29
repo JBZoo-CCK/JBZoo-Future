@@ -72,9 +72,9 @@ abstract class Atom extends Container
 
         $this->_id = Filter::_($atomId, 'cmd,low');
 
-        $this->_config = jbData($info->get('config', []));
-        $this->_meta   = jbData($info->get('meta', []));
-        $this->_extra  = jbData($info->get('extra', []));
+        $this->_config = jbdata($info->get('config', []));
+        $this->_meta   = jbdata($info->get('meta', []));
+        $this->_extra  = jbdata($info->get('extra', []));
         $this->_init   = $info->get('init');
 
         $this->_ns   = __NAMESPACE__ . '\\' . Filter::className($this->_id);
@@ -154,18 +154,23 @@ abstract class Atom extends Container
 
             if (method_exists($ctrlObject, $action)) {
 
+                ob_start();
+
                 $this->app->trigger("atom.ctrl.before");
                 $this->app->trigger("atom.ctrl.{$controller}.before");
                 $this->app->trigger("atom.ctrl.{$controller}.{$action}.before");
 
-                ob_start();
-                $result  = call_user_func_array([$ctrlObject, $action], [$this]);
-                $content = ob_get_contents();
-                ob_end_clean();
+                $result = call_user_func_array([$ctrlObject, $action], [$this]);
 
                 $this->app->trigger("atom.ctrl.{$controller}.{$action}.after");
                 $this->app->trigger("atom.ctrl.{$controller}.after");
                 $this->app->trigger("atom.ctrl.after");
+
+                $this->app->trigger("jbzoo.assets");
+
+                $content = ob_get_contents();
+                ob_end_clean();
+
 
                 return $content ? $content : $result;
             }

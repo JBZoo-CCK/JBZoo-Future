@@ -92,12 +92,13 @@ if (!function_exists('jbd')) {
      */
     function jbd($mixed = '__no_dump__', $isDie = true, $label = '...')
     {
-        $app = App::getInstance();
+        $app    = App::getInstance();
+        $helper = $app['atoms']['core']['debug'];
 
         if ($mixed === '__no_dump__') {
-            return $app['debug'];
+            return $helper;
         }
 
-        $app['debug']->dump($mixed, $isDie, $label, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+        $helper->dump($mixed, $isDie, $label, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
     }
 }

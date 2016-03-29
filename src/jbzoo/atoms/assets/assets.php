@@ -19,42 +19,44 @@ use JBZoo\Utils\Url;
 return [
 
     'events' => [
-        'cms.header' => function (App $app) {
 
-            $app->trigger('atom.assets.header');
+        // TODO: Add cutsom filter for Assets helepr
+        'jbzoo.assets' => function (App $app) {
+
+            $app->trigger('atom.assets.header.before');
 
             $rootPath = $app['path']->getRoot();
 
             // Resolve all dependencies for registered assets
-            $app->trigger('atom.assets.header.build.before');
             $list = $app['assets']->build();
-            $app->trigger('atom.assets.header.build.after', [&$list]);
 
             // Include styles
-            $app->trigger('atom.assets.header.css.before', [&$list['css']]);
             foreach ($list['css'] as $fullPath) {
-                //if (!Url::isAbsolute($fullPath)) {
+                if (!Url::isAbsolute($fullPath)) {
                     $file     = FS::getRelative($fullPath, $rootPath, '/', false);
                     $fullPath = Url::root() . '/administrator/components/com_jbzoo/' . $file;
-                //}
+                }
 
                 $app['header']->cssFile($fullPath);
             }
-            $app->trigger('atom.assets.header.css.after');
-
 
             // Include JS-scripts
-            $app->trigger('atom.assets.header.js.before', [&$list['js']]);
             foreach ($list['js'] as $fullPath) {
 
-                //if (!Url::isAbsolute($fullPath)) {
-                    $file     = FS::getRelative($fullPath, $rootPath, '/', false);
-                    $fullPath = Url::root() . '/administrator/components/com_jbzoo/' . $file;
-                //}
+                if (!Url::isAbsolute($fullPath)) {
+                    $relatedPath = FS::getRelative($fullPath, $app['path']->get('jbzoo:'), '/', false);
+                    $fullPath    = Url::buildAll(Url::root(), ['path' => '/' . JBZOO_EXT_PATH . '/' . $relatedPath]);
+                }
 
-                $app['header']->jsFile($fullPath);
+                if ($app['env']->isAdmin()) {
+                    echo '<script src="' . $fullPath . '" type="text/javascript"></script>' . PHP_EOL;
+                } else {
+                    $app['header']->jsFile($fullPath);
+                }
+
             }
-            $app->trigger('atom.assets.header.js.before');
+
+            $app->trigger('atom.assets.header.after');
         },
     ],
 ];

@@ -15,7 +15,7 @@
 
 namespace JBZoo\CCK;
 
-defined('_JBZOO') or die;
+defined('JBZOO') or die;
 
 if (!defined('JBZOO_INIT')) {
     define('JBZOO_INIT', true);

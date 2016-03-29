@@ -22,7 +22,17 @@ Author URI: http://jbzoo.com
 */
 
 use JBZoo\CCK\App;
-use JBZoo\Utils\FS;
+
+if (!function_exists('dump')) {
+    /**
+     * Overload Symfony dump() function
+     * @return mixed
+     */
+    function dump()
+    {
+        return call_user_func_array('jbd', func_get_args());
+    }
+}
 
 /**
  * Init JBZoo Autoloader and general events for CMS
@@ -56,11 +66,6 @@ function JBZooInitAutoload()
         $app->trigger('cms.shutdown');
     });
 
-    // Init CMS Paths
-    $app->on('paths.init.after', function () use ($app) {
-        $app['path']->set('jbzoo', FS::dirname(__FILE__));
-    });
-
     // Add admin dashboard and page
     add_action('admin_menu', function () {
 
@@ -71,5 +76,8 @@ function JBZooInitAutoload()
     }, 8);
 }
 
-define('_JBZOO', true);
+define('JBZOO', true);
+define('JBZOO_EXT_PATH', 'wp-content/plugins/jbzoocck/jbzoo'); // TODO: remove hardcode to fix dev symlinks
+
+// Start!
 JBZooInitAutoload();

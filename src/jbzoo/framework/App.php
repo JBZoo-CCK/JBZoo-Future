@@ -58,9 +58,9 @@ class App extends Cms
         $this->trigger('init.app.before');
 
         // Init quick access debuger
-        $this['debug'] = function (App $app) {
-            return $app['core.debug'];
-        };
+        //$this['debug'] = function (App $app) {
+        //return $app['core.debug'];
+        //};
 
         // Composer autoload
         $this['loader'] = function () {
@@ -74,18 +74,6 @@ class App extends Cms
 
             return $atomManager;
         };
-
-        // Extend init for CrossCMS paths
-        $this['path'] = $this->extend('path', function ($path) {
-            $path->set('jbzoo', __DIR__ . '/..');
-
-            // TODO FIX ME!!!
-            $component = $path->get('root:administrator/components/com_jbzoo');
-            $component = realpath($component);
-            $path->setRoot($component);
-
-            return $path;
-        });
 
         $this->on('cms.shutdown', function (App $app) {
             if (class_exists('\JBZoo\PimpleDumper\PimpleDumper')) {
@@ -245,8 +233,12 @@ class App extends Cms
         if (strpos($id, '.') !== false && !isset($this[$id])) {
             list($atom, $helper) = explode('.', Filter::cmd($id), 2);
 
-            if (!isset($this['atoms'][$atom]) || !isset($this['atoms'][$atom][$helper])) {
-                throw new Exception('Undefined atom helper "' . $id . '"');
+            if (!isset($this['atoms'][$atom])) {
+                throw new Exception('Undefined atom "' . $atom . '"');
+            }
+
+            if (!isset($this['atoms'][$atom][$helper])) {
+                throw new Exception('Undefined atom helper "' . $atom . ':' . $helper . '"');
             }
 
             return $this['atoms'][$atom][$helper];
@@ -261,6 +253,12 @@ class App extends Cms
      */
     protected function _initPaths()
     {
+        // Extend init for CrossCMS paths
+        $this['path'] = $this->extend('path', function ($path) {
+            $path->set('jbzoo', 'root:' . JBZOO_EXT_PATH);
+            return $path;
+        });
+
         // Assets
         $this['path']->set('assets', 'jbzoo:assets');
         $this['path']->set('js', 'assets:js');

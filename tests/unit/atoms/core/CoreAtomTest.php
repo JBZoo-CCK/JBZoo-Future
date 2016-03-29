@@ -24,9 +24,9 @@ class AtomCoreTest extends JBZooPHPUnit
     public function testAtom()
     {
         isClass('\JBZoo\CCK\Atom\Core\Core', $this->app['atoms']['core']);
-        isClass('\JBZoo\CCK\Atom\Core\Core', jbAtom('core'));
+        isClass('\JBZoo\CCK\Atom\Core\Core', jbatom('core'));
 
-        isSame(jbAtom('core'), $this->app['atoms']['core']);
+        isSame(jbatom('core'), $this->app['atoms']['core']);
     }
 
     public function testGetResultOfController()

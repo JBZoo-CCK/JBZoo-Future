@@ -14,14 +14,8 @@
 
 use JBZoo\CCK\App;
 
-defined('JBZOO') or die;
-
-require __DIR__ . '/init.php';
-
-$app = App::getInstance();
-
-try {
-    echo $app->execute();
-} catch (Exception $e) {
-    $app->error($e->getMessage());
-}
+return [
+    'init' => function (App $app) {
+        $app['assets']->register('material-ui', 'atom-assets-material-ui:assets/js/material-ui.js', ['react']);
+    },
+];

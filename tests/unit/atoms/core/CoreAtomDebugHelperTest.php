@@ -25,19 +25,16 @@ class CoreAtomDebugHelperTest extends JBZooPHPUnit
     {
         isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', $this->app['atoms']['core']['debug']);
         isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', $this->app['core.debug']);
-        isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', $this->app['debug']);
         isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', jbd());
-        isClass('\JBZoo\CCK\Atom\Helper', $this->app['debug']);
 
-        isSame($this->app['atoms']['core']['debug'], $this->app['debug']);
+        isSame($this->app['atoms']['core']['debug'], jbd());
         isSame($this->app['atoms']['core']['debug'], $this->app['core.debug']);
-        isSame($this->app['debug'], $this->app['core.debug']);
     }
 
     public function testTraceToLog()
     {
-        $this->app['debug']->trace(true);
-        $this->app['debug']->logArray(['key' => 'value']);
+        jbd()->trace(true);
+        jbd()->logArray(['key' => 'value']);
         isFile(PROJECT_ROOT . '/logs/jbdump_' . date('Y.m.d') . '.log.php');
     }
 }

@@ -121,18 +121,25 @@ class Debug extends Helper
      * @param array  $trace
      *
      * @SuppressWarnings(PHPMD.ExitExpression)
+     * @SuppressWarnings(PHPMD.NPathComplexity)
      * @codeCoverageIgnore
      */
     public function dump($data, $isDie = false, $label = '...', $trace = null)
     {
         if ($this->isShow() && $this->_config['dump'] && $this->_jbdump) {
 
-            // TODO Write nice code!
-            $trace = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+            $trace     = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+            $traceItem = $trace[0];
 
-            $callplace  = '"' . FS::getRelative($trace[0]['file'], $this->_root, '/', false) . ":{$trace[0]['line']}\"";
-            $dieMessage = $isDie ? ' / AutoDie' : '';
-            $message    = "{$label} = {$callplace} {$dieMessage}";
+            foreach ($trace as $item) {
+                if (isset($item['file']) && $item['function'] != 'call_user_func_array') {
+                    $traceItem = $item;
+                    break;
+                }
+            }
+
+            $relative = FS::getRelative($traceItem['file'], $this->_root, '/', false);
+            $message  = sprintf('%s = "%s:%s" %s', $label, $relative, $traceItem['line'], ($isDie ? ' / AutoDie' : ''));
 
             // Select Dumper and show var!
             if ($this->_config['mode'] == 'jbdump') {

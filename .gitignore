@@ -1,20 +1,24 @@
+# OS, IDE, editors
 .idea
 .DS_Store
+
+# Root system or dev dirs
 /build
 /bin
 /logs
 /tmp
-
-/src/jbzoo/vendor
-/src/wordpress-plugin/jbzoocck/jbzoo
-
 /vendor
 /resources
 /composer.lock
-
-# Assets
 /node_modules
 /bower_components
 
+# Framework
+/src/jbzoo/vendor
+/src/wordpress-plugin/jbzoocck/jbzoo
+/src/jbzoo/bin
+
 # Atoms assets
-/src/jbzoo/atoms/assets-*/assets
+/src/jbzoo/atoms/assets-*/assets/*
+!/src/jbzoo/atoms/assets-material-ui/assets/jsx/app.jsx
+!/src/jbzoo/atoms/assets-material-ui/assets/jsx/Main.jsx

@@ -20,23 +20,23 @@ namespace JBZoo\PHPUnit;
  */
 class FunctionsTest extends JBZooPHPUnit
 {
-    public function test_JBApp()
+    public function testJzoo()
     {
         isClass('\JBZoo\CCK\App', jbzoo());
     }
 
-    public function test_JBAppHelper()
+    public function testJzooHelper()
     {
         isClass('\JBZoo\Path\Path', jbzoo('path'));
     }
 
-    public function test_JBAtom()
+    public function testJbatom()
     {
         isClass('\JBZoo\CCK\Atom\Core\Core', jbatom('core'));
         isClass('\JBZoo\CCK\Atom\Manager', jbatom());
     }
 
-    public function test_JBData()
+    public function testJbdata()
     {
         isClass('\JBZoo\Data\JSON', jbdata());
 
@@ -47,7 +47,7 @@ class FunctionsTest extends JBZooPHPUnit
         isSame('{"key":"value"}', json_encode(jbdata('{"key":"value"}')));
     }
 
-    public function test_JBT()
+    public function testJbt()
     {
         isSame('undefined_test_message', jbt('undefined_test_message'));
     }
