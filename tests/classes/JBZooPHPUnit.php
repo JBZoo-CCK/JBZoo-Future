@@ -42,13 +42,6 @@ abstract class JBZooPHPUnit extends PHPUnit
 
         !defined('JBZOO') && define('JBZOO', true);
 
-        if (__CMS__ === 'joomla') {
-            !defined('JBZOO_EXT_PATH') && define('JBZOO_EXT_PATH', 'administrator/components/com_jbzoo');
-
-        } elseif (__CMS__ === 'wordpress') {
-            !defined('JBZOO_EXT_PATH') && define('JBZOO_EXT_PATH', 'wp-content/plugins/jbzoocck/jbzoo');
-        }
-
         if (!defined('JBZOO_INIT')) {
             require_once PROJECT_ROOT . '/src/jbzoo/init.php';
         }
