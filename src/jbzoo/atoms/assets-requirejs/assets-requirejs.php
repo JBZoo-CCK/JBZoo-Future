@@ -1,3 +1,4 @@
+<?php
 /**
  * JBZoo CCK
  *
@@ -11,16 +12,10 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+use JBZoo\CCK\App;
 
-var gulp = require('gulp');
-
-// Task: Update all
-gulp.task('update', [
-    'update:requirejs',
-    'update:material-ui',
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:bootstrap'
-]);
+return [
+    'init' => function (App $app) {
+        $app['assets']->register('requirejs', 'atom-assets-requirejs:assets/js/requirejs.min.js');
+    },
+];
