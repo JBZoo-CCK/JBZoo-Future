@@ -13,7 +13,13 @@
 
 'use strict';
 
-var requireDir = require('require-dir');
+var gulp = require('gulp');
 
-// Require all tasks in gulp/tasks, including subfolders
-requireDir('./gulp/tasks', {recurse: true});
+// Task: Update all
+gulp.task('update', [
+    //'update:material-ui',
+    'update:react',
+    'update:jbzoo-utils',
+    'update:uikit',
+    'update:bootstrap'
+]);

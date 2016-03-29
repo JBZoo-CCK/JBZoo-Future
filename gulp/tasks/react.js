@@ -13,7 +13,14 @@
 
 'use strict';
 
-var requireDir = require('require-dir');
+var gulp   = require('gulp'),
+    config = require('../config');
 
-// Require all tasks in gulp/tasks, including subfolders
-requireDir('./gulp/tasks', {recurse: true});
+// Task: ReactJS
+gulp.task('update:react', function () {
+    return gulp.src([
+            config.path.bower + '/react/react.min.js',
+            config.path.bower + '/react/react-dom.min.js'
+        ])
+        .pipe(gulp.dest(config.path.atoms + 'react/assets/js'));
+});
