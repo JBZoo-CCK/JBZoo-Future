@@ -37,7 +37,7 @@
     },
 
     "require-dev"       : {
-        "jbzoo/phpunit"           : "1.x-dev",
+        "jbzoo/phpunit"           : "^1.5.7",
         "jbzoo/misc"              : "1.x-dev",
         "jbzoo/pimpledumper"      : "^1.1.0",
 
@@ -92,7 +92,10 @@
         ],
         "update-all"        : [
             "composer self-update --no-interaction",
-            "composer update --no-interaction --optimize-autoloader"
+            "composer update --no-interaction --optimize-autoloader",
+            "npm update",
+            "bower update",
+            "gulp update"
         ],
         "git-reset"         : "git reset --hard",
         "manifest"          : "composer validate      --no-interaction",
