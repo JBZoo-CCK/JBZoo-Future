@@ -17,6 +17,7 @@ namespace JBZoo\CCK\Atom;
 use JBZoo\CCK\App;
 use JBZoo\CCK\Container;
 use JBZoo\Data\Data;
+use JBZoo\Utils\Cli;
 use JBZoo\Utils\Filter;
 use JBZoo\Utils\FS;
 
@@ -166,11 +167,13 @@ abstract class Atom extends Container
                 $this->app->trigger("atom.ctrl.{$controller}.after");
                 $this->app->trigger("atom.ctrl.after");
 
-                $this->app->trigger("jbzoo.assets");
+                // TODO: Move it to helper
+                if (!(Cli::check() || $this->app['request']->isAjax())) {
+                    $this->app->trigger('jbzoo.assets');
+                }
 
                 $content = ob_get_contents();
                 ob_end_clean();
-
 
                 return $content ? $content : $result;
             }
