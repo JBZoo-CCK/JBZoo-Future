@@ -44,7 +44,7 @@ class Index extends Controller
                 s.parentNode.insertBefore(wf, s);
             })();
         </script>
-        <div id="app">123</div>
+        <div id="jbzoo-react-app">Loading ...</div>
         <?php
     }
 }
