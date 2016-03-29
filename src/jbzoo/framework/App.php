@@ -18,7 +18,6 @@ use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Atom\Manager as AtomManager;
 use JBZoo\Assets\Manager as AssetsManager;
-use JBZoo\Assets\Factory as AssetsFactory;
 use JBZoo\CrossCMS\Cms;
 use JBZoo\Utils\Filter;
 use JBZoo\PimpleDumper\PimpleDumper;
@@ -56,11 +55,6 @@ class App extends Cms
         $isInit = true;
 
         $this->trigger('init.app.before');
-
-        // Init quick access debuger
-        //$this['debug'] = function (App $app) {
-        //return $app['core.debug'];
-        //};
 
         // Composer autoload
         $this['loader'] = function () {
