@@ -16,7 +16,6 @@
 var gulp         = require('gulp'),
     browserify   = require('browserify'),
     uglify       = require('gulp-uglify'),
-    watchify     = require('watchify'),
     source       = require('vinyl-source-stream'),
     babelify     = require('babelify'),
     bundleLogger = require('../util/bundleLogger'),
@@ -68,14 +67,6 @@ gulp.task('update:material-ui', function (callback) {
         };
 
         bundler.transform(babelify.configure());
-
-        if (global.isWatching) {
-            // Wrap with watchify and rebundle on changes
-            bundler = watchify(bundler);
-
-            // Rebundle on update
-            bundler.on('update', bundle);
-        }
 
         var reportFinished = function () {
             // Log when bundling completes
