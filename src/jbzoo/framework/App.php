@@ -280,7 +280,7 @@ class App extends Cms
             $manager = new AssetsManager($app['path'], [
                 'debug' => $app->isDebug(),
                 'less'  => [
-                    'cache_path' => $app['path']->get('cache:'),
+                    'cache_path' => $app['path']->get('cache:') . '/jbzoo_less',
                 ],
             ]);
 
