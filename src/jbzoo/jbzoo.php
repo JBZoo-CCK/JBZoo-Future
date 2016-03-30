@@ -16,13 +16,14 @@ use JBZoo\CCK\App;
 
 defined('JBZOO') or die;
 
-require __DIR__ . '/init.php';
+require_once __DIR__ . '/init.php';
 
 $app = App::getInstance();
 
 try {
     echo $app->execute();
     $app->trigger('jbzoo.assets');
+
 } catch (Exception $e) {
     $app->error($e->getMessage());
 }

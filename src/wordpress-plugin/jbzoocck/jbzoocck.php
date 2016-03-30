@@ -77,9 +77,7 @@ function JBZooInitAutoload()
     add_action('admin_menu', function () {
 
         add_object_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {
-            $app = App::getInstance();
-            echo $app->execute();
-            $app->trigger('jbzoo.assets');
+            require_once __DIR__ . '/jbzoo/jbzoo.php';
         }, 'dashicons-admin-jbzoo');
 
     }, 8);
