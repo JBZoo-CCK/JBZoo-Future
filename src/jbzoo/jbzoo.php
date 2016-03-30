@@ -22,6 +22,7 @@ $app = App::getInstance();
 
 try {
     echo $app->execute();
+    $app->trigger('jbzoo.assets');
 } catch (Exception $e) {
     $app->error($e->getMessage());
 }

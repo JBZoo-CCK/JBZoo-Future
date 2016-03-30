@@ -14,6 +14,7 @@
 
 use JBZoo\Assets\Asset\Asset;
 use JBZoo\CCK\App;
+use JBZoo\Utils\Cli;
 use JBZoo\Utils\FS;
 use JBZoo\Utils\Url;
 
@@ -23,6 +24,11 @@ return [
 
         // TODO: Add cutsom filters for Assets helper (join, compress, mdata, resolver, path rewriter)
         'jbzoo.assets' => function (App $app) {
+
+            if (Cli::check() || $app['request']->isAjax()) {
+                return;
+            }
+
             $app->trigger('atom.assets.header.before');
 
             // Vars
@@ -33,22 +39,17 @@ return [
 
                 if (!Url::isAbsolute($fullPath)) {
 
-                    $mtime = substr(filemtime($fullPath), -3);
-
                     $relPath = FS::getRelative($fullPath, $rootJBZoo, '/', false);
-
                     if (FS::clean('/' . $relPath) !== FS::clean('/' . $fullPath)) {
-                        $fullPath = Url::buildAll(Url::root(), [
-                            'path'  => '/' . JBZOO_EXT_PATH . '/' . $relPath,
-                            'query' => 'mtime=' . $mtime,
-                        ]);
+                        $relPath = '/' . JBZOO_EXT_PATH . '/' . $relPath;
                     } else {
-                        $relPath  = FS::getRelative($fullPath, $rootGlobal, '/', true);
-                        $fullPath = Url::buildAll(Url::root(), [
-                            'path'  => '/' . $relPath,
-                            'query' => 'mtime=' . $mtime,
-                        ]);
+                        $relPath = '/' . FS::getRelative($fullPath, $rootGlobal, '/', true);
                     }
+
+                    $fullPath = Url::buildAll(Url::root(false), [
+                        'path'  => $relPath,
+                        'query' => 'mtime=' . substr(filemtime($fullPath), -3),
+                    ]);
                 }
 
                 return $fullPath;

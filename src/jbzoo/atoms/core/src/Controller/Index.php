@@ -31,7 +31,7 @@ class Index extends Controller
             'my',
             [
                 'atom-assets-material-ui:assets/jsx/my.jsx',
-                'atom-core:assets/less/admin.less',
+                'assets:less/admin.less',
             ],
             ['babel', 'material-ui']
         );
