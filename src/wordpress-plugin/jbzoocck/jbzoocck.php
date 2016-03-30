@@ -17,8 +17,9 @@
 Plugin Name: JBZoo CCK
 Description: JBZoo Content Construction Kit (CCK)
 Author: JBZoo Team <admin@jbzoo.com>
-Version: 1.0
+Version: 3.x-dev
 Author URI: http://jbzoo.com
+License: Proprietary http://jbzoo.com/license
 */
 
 use JBZoo\CCK\App;
@@ -40,8 +41,13 @@ if (!function_exists('dump')) {
  */
 function JBZooInitAutoload()
 {
-    if ($initPath = realpath(__DIR__ . '/jbzoo/init.php')) {
-        require_once $initPath;
+    $initPath     = __DIR__ . '/jbzoo/init.php';
+    $initRealPath = realpath($initPath);
+
+    if ($initRealPath) {
+        require_once $initRealPath;
+    } else {
+        throw new \Exception('Init file not found: ' . $initPath);
     }
 
     $app = App::getInstance();

@@ -29,7 +29,7 @@ if (!defined('JBZOO_INIT')) {
         require_once $composerPath;
         define('JBZOO_DEV', false);
     } else {
-        throw new Exception('Composer autoload not found!');
+        throw new \Exception('Composer autoload not found!');
     }
     // @codeCoverageIgnoreEnd
 
