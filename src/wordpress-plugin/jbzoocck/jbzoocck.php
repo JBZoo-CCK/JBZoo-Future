@@ -68,9 +68,10 @@ function JBZooInitAutoload()
     });
 
     // Add admin dashboard and page
-    add_action('admin_menu', function () use ($app) {
+    add_action('admin_menu', function () {
 
-        add_object_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () use ($app) {
+        add_object_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {
+            $app = App::getInstance();
             echo $app->execute();
             $app->trigger('jbzoo.assets');
         }, 'dashicons-admin-jbzoo');
