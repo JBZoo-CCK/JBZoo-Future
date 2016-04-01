@@ -23,11 +23,4 @@ use JBZoo\CCK\Atom\Atom;
  */
 class Core extends Atom
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function init(App $app)
-    {
-        //dump($app);
-    }
 }
