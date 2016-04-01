@@ -148,8 +148,8 @@ class Debug extends Helper
 
             } elseif ($this->_config['mode'] == 'symfony' && class_exists('\Symfony\Component\VarDumper\VarDumper')) {
                 VarDumper::dump($data);
-                Cli::out('<pre>' . $message . '</pre>');
 
+                Cli::out('<style>.sf-dump{font-size:14px!important;}</style> <pre>' . $message . '</pre>');
 
             } elseif ($this->_config['mode'] == 'var_dump') {
 
