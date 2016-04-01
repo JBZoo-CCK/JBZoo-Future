@@ -53,6 +53,11 @@ function JBZooInitAutoload()
     $app = App::getInstance();
     $app['assets']->add(null, 'assets:less/admin.less');
 
+    // Hack for admin menu
+    $app->on('cms.header', function (App $app) {
+        $app->trigger('jbzoo.assets');
+    });
+
     add_action('wp_loaded', function () use ($app) {
         $app->trigger('cms.init');
     });
