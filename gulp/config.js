@@ -29,9 +29,9 @@ module.exports = {
 
             // A separate bundle will be generated for each bundle config in the list below
             bundleConfigs: [{
-                entries   : atomPath + 'material-ui/assets/jsx/app.jsx',
-                dest      : atomPath + 'material-ui/assets/js',
-                outputName: 'material-ui.js'
+                entries   : './src/jbzoo/atoms/core/assets/jsx/CoreApplication.jsx',
+                dest      : './src/jbzoo/atoms/core/assets/js',
+                outputName: 'material-ui.min.js'
             }],
 
             extensions: ['.jsx']

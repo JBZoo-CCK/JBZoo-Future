@@ -20,6 +20,7 @@ var gulp         = require('gulp'),
     babelify     = require('babelify'),
     bundleLogger = require('../util/bundleLogger'),
     handleErrors = require('../util/handleErrors'),
+    buffer       = require('vinyl-buffer'),
     config       = require('../config').materialui.browserify;
 
 gulp.task('update:material-ui', function (callback) {
@@ -44,24 +45,17 @@ gulp.task('update:material-ui', function (callback) {
             debug: config.debug
         });
 
+
         var bundle = function () {
             // Log when bundling starts
             bundleLogger.start(bundleConfig.outputName);
 
             return bundler
                 .bundle()
-
-                // Report compile errors
                 .on('error', handleErrors)
-
-                // Use vinyl-source-stream to make the
-                // stream gulp compatible. Specifiy the
-                // desired output filename here.
                 .pipe(source(bundleConfig.outputName))
-
-                //.pipe(uglify({preserveComments: 'license'}))
-
-                // Specify the output destination
+                .pipe(buffer())
+                .pipe(uglify())
                 .pipe(gulp.dest(bundleConfig.dest))
                 .on('end', reportFinished);
         };
