@@ -59,7 +59,6 @@ return [
             $list = $app['assets']->build();
             $app->trigger('atom.assets.build');
 
-
             // Include styles
             foreach ($list[Asset::TYPE_CSS_FILE] as $fullPath) {
                 $app['header']->cssFile($resolvePath($fullPath));

@@ -30,15 +30,14 @@ class Index extends Controller
         $this->app['assets']->add(
             'my',
             [
-                'atom-assets-material-ui:assets/jsx/my.jsx',
+                'atom-core:assets/jsx/my.jsx',
                 'assets:less/admin.less',
             ],
-            ['babel', 'material-ui']
+            ['material-ui']
         );
 
         ?>
         <div id="jbzoo-react-app">Loading ...</div>
-        <div id="example">Loading 2 ...</div>
         <?php
     }
 }
