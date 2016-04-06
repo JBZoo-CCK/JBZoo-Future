@@ -1,21 +1,22 @@
 {
-    "name"         : "jbzoo-cck",
-    "version"      : "3.0.0",
-    "license"      : "SEE LICENSE IN LICENSE file",
-    "description"  : "Awesome CCK for Joomla and Wordpress CMS",
-    "keywords"     : [
+    "name"            : "jbzoo-cck",
+    "version"         : "3.0.0",
+    "license"         : "SEE LICENSE IN LICENSE file",
+    "description"     : "Awesome CCK for Joomla and Wordpress CMS",
+    "keywords"        : [
         "Joomla",
         "Wordpress",
         "CCK",
         "JBZoo"
     ],
-    "homepage"     : "https://gitlab.com/JBZoo/cck#README",
-    "author"       : "SmetDenis <denis@jbzoo.com>",
-    "main"         : "gulpfile.js",
-    "directories"  : {
+    "homepage"        : "https://gitlab.com/JBZoo/cck#README",
+    "author"          : "SmetDenis <denis@jbzoo.com>",
+    "main"            : "gulpfile.js",
+    "directories"     : {
         "test" : "tests"
     },
-    "dependencies" : {
+    "dependencies"    : {
+        "babel-loader"                   : "^6.2.4",
         "babel-plugin-transform-runtime" : "^6.6.0",
         "babel-polyfill"                 : "^6.7.4",
         "babel-preset-es2015"            : "^6.3.13",
@@ -33,11 +34,14 @@
         "gulp-stylus"                    : "^2.3.1",
         "gulp-uglify"                    : "^1.5.3",
         "gulp-util"                      : "^3.0.1",
+        "jsx-loader"                     : "^0.13.2",
         "main-bower-files"               : "^2.11.1",
         "material-ui"                    : "^0.14.4",
+        "path"                           : "^0.12.7",
         "pretty-hrtime"                  : "^1.0.1",
         "react"                          : "^0.14.0",
         "react-dom"                      : "^0.14.0",
+        "react-hot-loader"               : "^1.3.0",
         "react-redux"                    : "^4.4.1",
         "react-router"                   : "^2.0.1",
         "react-router-redux"             : "^4.0.0",
@@ -48,10 +52,14 @@
         "underscore"                     : "^1.7.0",
         "vinyl-buffer"                   : "^1.0.0",
         "vinyl-source-stream"            : "^1.0.0",
-        "watchify"                       : "^3.7.0"
+        "watchify"                       : "^3.7.0",
+        "webpack"                        : "^1.12.14"
     },
-    "repository"   : {
+    "repository"      : {
         "type" : "git",
         "url"  : "git+https://gitlab.com/JBZoo/cck.git"
+    },
+    "devDependencies" : {
+        "react-hot-loader" : "^1.3.0"
     }
 }
