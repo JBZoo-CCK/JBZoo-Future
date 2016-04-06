@@ -11,18 +11,17 @@
  * @link       http://jbzoo.com
  */
 
-var webpack   = require('webpack');
-var path      = require('path');
-var isDev     = process.env.NODE_ENV === 'development';
-var sourceMap = "eval";
-
+var webpack           = require('webpack');
+var path              = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
+var isDev             = process.env.NODE_ENV === 'development';
+var sourceMap         = isDev ? "eval" : "source-map";
 
 var pluginList = [
     new webpack.BannerPlugin("This file is part of the JBZoo CCK package."),
     new webpack.optimize.CommonsChunkPlugin({
         name     : "assets-common",
-        minChunks: 1
+        minChunks: 2
     }),
     new ExtractTextPlugin('assets-common/assets/css/assets-common.min.css', {allChunks: true})
 ];
