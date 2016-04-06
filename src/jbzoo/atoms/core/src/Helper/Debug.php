@@ -82,7 +82,6 @@ class Debug extends Helper
 
         // Only for developer env
         if ($this->isShow() && class_exists('\JBDump')) {
-
             $this->_root = $this->app['path']->get('jbzoo:..');
 
             $jbdump = \JBDump::i();
@@ -127,7 +126,6 @@ class Debug extends Helper
     public function dump($data, $isDie = false, $label = '...', $trace = null)
     {
         if ($this->isShow() && $this->_config['dump'] && $this->_jbdump) {
-
             $trace     = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             $traceItem = $trace[0];
 
@@ -152,7 +150,6 @@ class Debug extends Helper
                 Cli::out('<style>.sf-dump{font-size:14px!important;}</style> <pre>' . $message . '</pre>');
 
             } elseif ($this->_config['mode'] == 'var_dump') {
-
                 ob_start();
                 var_dump($data);
                 $output = ob_get_contents();
@@ -229,7 +226,6 @@ class Debug extends Helper
     public function trace($isLog = false)
     {
         if ($this->isShow() && $this->_config['trace'] && $this->_jbdump) {
-
             // Render simple trace data
             ob_start();
             debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
@@ -244,7 +240,6 @@ class Debug extends Helper
             $result = array();
             foreach ($lines as $line) {
                 if (preg_match('/#(.*?)  (.*?) called at \[(.*):(.*)\]/', $line, $mathes)) {
-
                     $filepath = Filter::_($mathes[3], function ($path) use ($root) {
                         $path    = FS::clean($path, '/');
                         $relPath = preg_replace('#^' . preg_quote($root) . '#i', '', $path);

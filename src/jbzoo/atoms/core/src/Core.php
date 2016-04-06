@@ -14,7 +14,6 @@
 
 namespace JBZoo\CCK\Atom\Core;
 
-use JBZoo\CCK\App;
 use JBZoo\CCK\Atom\Atom;
 
 /**
