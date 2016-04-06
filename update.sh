@@ -19,3 +19,7 @@ NODE_ENV=development gulp update
 echo ""
 echo ">>> >>> Webpack"
 NODE_ENV=development webpack --progress -v
+
+echo "TODO: Joomla install"
+echo "TODO: Wordpress install"
+

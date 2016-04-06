@@ -21,10 +21,10 @@
 # Atoms assets
 !/src/jbzoo/atoms/assets-*/assets/
 /src/jbzoo/atoms/assets-*/assets/*
-!/src/**/jsx
+!/src/**/*.jsx
 
 # Misc
 *.log
 *.log.php
-*.js.map
-*.css.map
+*.*.map
+
