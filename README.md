@@ -3,5 +3,7 @@
 
 ### License
 
-http://jbzoo.com/license
-http://jbzoo.ru/license
+
+ENG - http://jbzoo.com/license
+
+RUS - http://jbzoo.ru/license
