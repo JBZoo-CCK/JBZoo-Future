@@ -56,9 +56,7 @@ class Manager extends Container
         $path  = 'atoms:' . $names . '/' . $names . '.php';
 
         if ($manifests = $this->app['path']->glob($path)) {
-
             foreach ($manifests as $initFile) {
-
                 $this->app->trigger("atom.loadinfo.before");
                 $this->app->trigger("atom.loadinfo.{$names}.before");
 
@@ -84,7 +82,6 @@ class Manager extends Container
         $path  = 'atoms:' . $names . '/' . $names . '.php';
 
         if ($manifests = $this->app['path']->glob($path)) {
-
             foreach ($manifests as $initFile) {
                 $atomId = FS::filename($initFile);
                 $atomId = strtolower($atomId);
@@ -178,7 +175,6 @@ class Manager extends Container
 
             // Add autoload
             $this->app->addLoadPath(['Atom', $atomId], $srcDir);
-
         }
     }
 }
