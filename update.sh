@@ -1,15 +1,18 @@
 #!/usr/bin/env sh
 
 echo ">>> >>> Composer"
+echo "TODO: Remove vendor"
 composer self-update
 composer update --optimize-autoloader
 
 echo ""
 echo ">>> >>> npm"
+echo "TODO: Remove node_modules"
 NODE_ENV=development npm install
 
 echo ""
 echo ">>> >>> Bower"
+echo "TODO: Remove bower_components"
 NODE_ENV=development bower update
 
 echo ""
@@ -29,3 +32,5 @@ echo "TODO: Wordpress - install"
 echo "TODO: Wordpress - PHPUnit Plugin Install"
 echo "TODO: Wordpress - JBZooCCK Plugin Install"
 echo "TODO: Wordpress - Create symlinks"
+
+echo "TODO: Create empty folders : build, logs, tmp"
