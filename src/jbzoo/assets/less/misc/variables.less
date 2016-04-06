@@ -1,0 +1,26 @@
+//
+// JBZoo CCK
+//
+// This file is part of the JBZoo CCK package.
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+//
+// @package    CCK
+// @license    Proprietary http://jbzoo.com/license
+// @copyright  Copyright (C) JBZoo.com,  All rights reserved.
+// @link       http://jbzoo.com
+//
+// ***************************************** Media queries for different devices ***************************************
+// more info https://gist.github.com/gitawego/5803557
+@print:       ~"print";                               // print version of website
+@desktop:     ~"(min-width: 1200px)";                          //  Responsive: Large desktop and up
+@mobile:      ~"(max-width: 767px)";                           //  Landscape phone to desktop/tablet
+@tablet:      ~"(min-width: 768px) and (max-width: 979px)";    //  Tablet to desktop
+
+// devices with retina display (http://css-tricks.com/snippets/css/retina-display-media-query/)
+@retina: ~"only screen and (-webkit-min-device-pixel-ratio: 2)",
+         ~"only screen and (   min--moz-device-pixel-ratio: 2)",
+         ~"only screen and (     -o-min-device-pixel-ratio: 2/1)",
+         ~"only screen and (        min-device-pixel-ratio: 2)",
+         ~"only screen and (           min-resolution: 192dpi)",
+         ~"only screen and (            min-resolution: 2dppx)";
