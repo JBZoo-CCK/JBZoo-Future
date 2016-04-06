@@ -7,7 +7,7 @@ composer update --optimize-autoloader
 
 echo ""
 echo ">>> npm"
-npm update
+npm install
 
 echo ""
 echo ">>> Bower"
@@ -19,4 +19,4 @@ gulp update
 
 echo ""
 echo ">>> Webpack"
-webpack-dev-server --config=webpack.config.js --inline --hot --progress
+webpack --config=webpack.config.js --progress -v
