@@ -25,7 +25,7 @@ var pluginList = [
 
 if (isDev) {
     pluginList.push(
-        // new webpack.HotModuleReplacementPlugin()
+        //new webpack.HotModuleReplacementPlugin()
     )
 
 } else {
@@ -87,10 +87,5 @@ module.exports = {
         ]
     },
 
-    plugins: pluginList,
-
-    devServer: {
-        host: 'localhost',
-        port: '8888'
-    }
+    plugins: pluginList
 };
