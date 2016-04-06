@@ -20,5 +20,10 @@
 
 # Atoms assets
 /src/jbzoo/atoms/assets-*/assets/*
-!/src/jbzoo/atoms/assets-material-ui/assets/jsx/app.jsx
-!/src/jbzoo/atoms/assets-material-ui/assets/jsx/Main.jsx
+!/src/jbzoo/atoms/assets-*/assets/jsx/*.jsx
+
+# Misc
+*.log
+*.log.php
+*.js.map
+*.css.map
