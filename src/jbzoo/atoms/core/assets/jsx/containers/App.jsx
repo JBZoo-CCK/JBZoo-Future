@@ -11,19 +11,19 @@
  * @link       http://jbzoo.com
  */
 
-import React, { Component } from 'react'
-import { Link } from 'react-router'
+import React from 'react';
+const {Grid, Row, Col} = require('react-flexbox-grid');
 
-export default class NotFound extends Component {
+const App = React.createClass({
     render() {
         return (
-            <div className='container'>
-                <div className='row'>
-                    <div className='col-md-12'>
-                        Page not found <Link to='/'>goto main</Link>?
-                    </div>
-                </div>
-            </div>
-        )
+            <Row>
+                <Col md>1</Col>
+                <Col md>2</Col>
+                <Col md>3</Col>
+            </Row>
+        );
     }
-}
+});
+
+export default App;

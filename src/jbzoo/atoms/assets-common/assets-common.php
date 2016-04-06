@@ -16,6 +16,12 @@ use JBZoo\CCK\App;
 
 return [
     'init' => function (App $app) {
-        $app['assets']->register('common', 'atom-assets-common:assets/js/assets-common.min.js');
+        $app['assets']->register(
+            'common',
+            [
+                'atom-assets-common:assets/css/assets-common.min.css',
+                'atom-assets-common:assets/js/assets-common.min.js',
+            ]
+        );
     },
 ];
