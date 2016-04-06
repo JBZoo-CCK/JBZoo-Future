@@ -16,10 +16,6 @@ use JBZoo\CCK\App;
 
 return [
     'init' => function (App $app) {
-        $app['assets']->register(
-            'material-ui',
-            'atom-assets-material-ui:assets/js/assets-material-ui.min.js',
-            'common'
-        );
+        $app['assets']->register('common', 'atom-assets-common:assets/js/assets-common.min.js');
     },
 ];

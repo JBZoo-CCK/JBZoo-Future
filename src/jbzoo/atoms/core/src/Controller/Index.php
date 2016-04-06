@@ -30,10 +30,10 @@ class Index extends Controller
         $this->app['assets']->add(
             'my',
             [
-                'atom-core:assets/jsx/my.jsx',
+                'atom-core:assets/js/core.min.js',
                 'assets:less/admin.less',
             ],
-            ['material-ui']
+            ['common']
         );
 
         ?>

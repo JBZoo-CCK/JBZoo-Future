@@ -22,7 +22,8 @@ import themeDecorator from 'material-ui/lib/styles/theme-decorator';
 const styles = {
     container: {
         textAlign : 'center',
-        paddingTop: 200
+        paddingTop: 50
+
     }
 };
 
@@ -48,6 +49,7 @@ class Main extends React.Component {
     }
 
     handleTouchTap() {
+
         this.setState({
             open: true
         });
@@ -70,7 +72,7 @@ class Main extends React.Component {
                     actions={standardActions}
                     onRequestClose={this.handleRequestClose}
                 >
-                    1-2-3-4-5
+                    1-2-3-4-888
                 </Dialog>
                 <h1>material-ui</h1>
                 <h2>example project</h2>

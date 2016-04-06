@@ -18,15 +18,12 @@ use JBZoo\CCK\App;
 return [
     'init' => function (App $app) {
 
-        $list = [
-            'atom-assets-react:assets\js\react.min.js',
-            'atom-assets-react:assets\js\react-dom.min.js',
-        ];
+        $list = ['atom-assets-react:assets\js\react.min.js'];
 
-        if (0 && $app->isDebug()) {
+        if (0) {
             $list = [
                 'https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js',
+                //'https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js',
                 'https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js',
             ];
         }
