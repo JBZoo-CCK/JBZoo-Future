@@ -19,22 +19,5 @@ module.exports = {
     path: {
         bower: './bower_components',
         atoms: atomPath
-    },
-
-    materialui: {
-        browserify: {
-
-            // Enable source maps
-            debug: false,
-
-            // A separate bundle will be generated for each bundle config in the list below
-            bundleConfigs: [{
-                entries   : './src/jbzoo/atoms/core/assets/jsx/CoreApplication.jsx',
-                dest      : './src/jbzoo/atoms/core/assets/js',
-                outputName: 'material-ui.min.js'
-            }],
-
-            extensions: ['.jsx']
-        }
     }
 };

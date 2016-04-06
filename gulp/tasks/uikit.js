@@ -17,23 +17,13 @@ var gulp      = require('gulp'),
     mainFiles = require('main-bower-files'),
     atomsPath = require('../config').path.atoms;
 
-gulp.task('update:uikit', [
-    'update:uikit:fonts',
-    'update:uikit:js',
-    'update:uikit:css'
-]);
-
-gulp.task('update:uikit:fonts', function () {
-    return gulp.src(mainFiles({filter: '**/uikit/fonts/*.*'}))
+gulp.task('update:uikit', function () {
+    gulp.src(mainFiles({filter: '**/uikit/fonts/*.*'}))
         .pipe(gulp.dest(atomsPath + 'uikit/assets/fonts'));
-});
 
-gulp.task('update:uikit:js', function () {
-    return gulp.src(mainFiles({filter: '**/uikit/**/*.js'}))
+    gulp.src(mainFiles({filter: '**/uikit/**/*.js'}))
         .pipe(gulp.dest(atomsPath + 'uikit/assets/js'));
-});
 
-gulp.task('update:uikit:css', function () {
-    return gulp.src(mainFiles({filter: '**/uikit/**/*.css'}))
+    gulp.src(mainFiles({filter: '**/uikit/**/*.css'}))
         .pipe(gulp.dest(atomsPath + 'uikit/assets/css'));
 });

@@ -14,6 +14,7 @@
 'use strict';
 
 var gulp   = require('gulp'),
+    concat = require('gulp-concat'),
     config = require('../config');
 
 // Task: ReactJS
@@ -22,5 +23,6 @@ gulp.task('update:react', function () {
             config.path.bower + '/react/react.min.js',
             config.path.bower + '/react/react-dom.min.js'
         ])
+        .pipe(concat('react.min.js'))
         .pipe(gulp.dest(config.path.atoms + 'react/assets/js'));
 });

@@ -18,23 +18,13 @@ var gulp   = require('gulp'),
     source = config.path.bower + '/bootstrap/dist',
     atoms  = config.path.atoms;
 
-gulp.task('update:bootstrap:fonts', function () {
-    return gulp.src(source + '/fonts/*.*')
+gulp.task('update:bootstrap', function () {
+    gulp.src(source + '/fonts/*.*')
         .pipe(gulp.dest(atoms + 'bootstrap/assets/fonts'));
-});
 
-gulp.task('update:bootstrap:js', function () {
-    return gulp.src(source + '/js/bootstrap.min.js')
+    gulp.src(source + '/js/bootstrap.min.js')
         .pipe(gulp.dest(atoms + 'bootstrap/assets/js'));
-});
 
-gulp.task('update:bootstrap:css', function () {
-    return gulp.src(source + '/css/bootstrap.min.css')
+    gulp.src(source + '/css/bootstrap.min.css')
         .pipe(gulp.dest(atoms + 'bootstrap/assets/css/'));
 });
-
-gulp.task('update:bootstrap', [
-    'update:bootstrap:fonts',
-    'update:bootstrap:js',
-    'update:bootstrap:css'
-]);
