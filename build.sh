@@ -1,22 +1,21 @@
 #!/usr/bin/env sh
 
-echo ""
-echo ">>> Composer"
+echo ">>> >>> Composer"
 composer self-update
 composer update --optimize-autoloader
 
 echo ""
-echo ">>> npm"
-npm install
+echo ">>> >>> npm"
+NODE_ENV=development npm install
 
 echo ""
-echo ">>> Bower"
-bower update
+echo ">>> >>> Bower"
+NODE_ENV=development bower update
 
 echo ""
-echo ">>> Gulp"
-gulp update
+echo ">>> >>> Gulp"
+NODE_ENV=development gulp update
 
 echo ""
-echo ">>> Webpack"
-webpack --config=webpack.config.js --progress -v
+echo ">>> >>> Webpack"
+NODE_ENV=development webpack --progress -v
