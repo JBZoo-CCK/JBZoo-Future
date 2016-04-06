@@ -11,17 +11,16 @@
  * @link       http://jbzoo.com
  */
 
-var React                = require('react');
-var ReactDOM             = require('react-dom');
-var injectTapEventPlugin = require('react-tap-event-plugin');
-
-import Main from './Main'; // Our custom react component
+import React from 'react'
+import ReactDOM from 'react-dom'
+import injectTapEventPlugin from 'react-tap-event-plugin'
+import { Router, hashHistory } from 'react-router'
+import { routes } from './routes'
 
 // Needed for onTouchTap
 injectTapEventPlugin();
 
-// Render the main app react component into the app div.
-// For more details see: https://facebook.github.io/react/docs/top-level-api.html#react.render
-if (document.getElementById('jbzoo-react-app')) {
-    ReactDOM.render(<Main />, document.getElementById('jbzoo-react-app'));
-}
+ReactDOM.render(
+    <Router history={hashHistory} routes={routes} />,
+    document.getElementById('jbzoo-react-app')
+);
