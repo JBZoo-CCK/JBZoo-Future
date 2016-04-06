@@ -19,8 +19,9 @@
 /src/jbzoo/bin
 
 # Atoms assets
+!/src/jbzoo/atoms/assets-*/assets/
 /src/jbzoo/atoms/assets-*/assets/*
-!/src/jbzoo/atoms/assets-*/assets/jsx/*.jsx
+!/src/**/jsx
 
 # Misc
 *.log
