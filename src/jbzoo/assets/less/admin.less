@@ -12,11 +12,34 @@
 //
 
 body {
+
+    // Joomla Admin Panel
     &.admin.com_jbzoo {
         height: auto !important;
+
+        header.header {
+            display: none;
+        }
+
+        .subhead-collapse {
+            display: none;
+        }
+
+        .container-fluid {
+            padding-right: 6px;
+            padding-left: 6px;
+        }
     }
 
-    .dashicons-admin-jbzoo {
-        background: data-uri('../img/logo-wp.png') 50% 50% no-repeat;
+    // Wordpress
+    &.wp-admin {
+        // Wordpress
+        .dashicons-admin-jbzoo {
+            background: data-uri('../img/logo-wp.png') 50% 50% no-repeat;
+        }
+
+        #wpcontent {
+            padding-left: 6px;
+        }
     }
 }
