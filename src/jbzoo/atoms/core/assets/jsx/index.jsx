@@ -13,11 +13,10 @@
 
 import React from 'react'
 import ReactDOM from 'react-dom'
-import injectTapEventPlugin from 'react-tap-event-plugin'
 import { Router, hashHistory } from 'react-router'
 import { routes } from './routes'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-// Needed for onTouchTap
 injectTapEventPlugin();
 
 ReactDOM.render(
