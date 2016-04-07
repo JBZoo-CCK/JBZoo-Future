@@ -11,16 +11,15 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router, hashHistory } from 'react-router'
+import { routes } from './routes'
+import injectTapEventPlugin from 'react-tap-event-plugin'
 
-var gulp = require('gulp');
+injectTapEventPlugin();
 
-// Task: Update all
-gulp.task('update', [
-    'update:babel',
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:bootstrap',
-    'update:materialize'
-]);
+ReactDOM.render(
+    <Router history={hashHistory} routes={routes} />,
+    document.getElementById('jbzoo-react-app')
+);

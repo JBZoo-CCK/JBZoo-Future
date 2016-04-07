@@ -21,7 +21,8 @@
         "requirejs"   : "^2.2.0",
         "requirejsx"  : "*",
         "babel"       : "*",
-        "uikit"       : "2.26.1"
+        "uikit"       : "2.26.1",
+        "Materialize" : "materialize#^0.97.6"
     },
     "ignore"       : [
         "**/.*",

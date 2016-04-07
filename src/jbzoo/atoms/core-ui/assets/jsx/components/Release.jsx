@@ -11,16 +11,15 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+import React, { Component } from 'react'
 
-var gulp = require('gulp');
-
-// Task: Update all
-gulp.task('update', [
-    'update:babel',
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:bootstrap',
-    'update:materialize'
-]);
+export default class Release extends Component {
+    render() {
+        return (
+            <div>
+                <div className='col-md-12'>Category /genre/release</div>
+                {this.props.children}
+            </div>
+        )
+    }
+}

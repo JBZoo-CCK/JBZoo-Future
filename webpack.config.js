@@ -17,7 +17,24 @@ var glob          = require('glob');
 var ExtractPlugin = require('extract-text-webpack-plugin');
 var isDev         = process.env.NODE_ENV === 'development';
 var sourceMap     = isDev ? "eval" : false;
-var pluginList    = [
+var entries       = function (globPath, basepath) {
+    var files   = glob.sync(globPath);
+    var entries = {};
+
+    basepath = path.normalize('/' + basepath);
+
+    for (var i = 0; i < files.length; i++) {
+        var entry = path.normalize('/' + files[i]);
+        entry     = entry.replace(basepath, '');
+        var parts = entry.split(path.sep);
+
+        entries[parts[1]] = './' + entry;
+    }
+
+    return entries;
+}('src/jbzoo/atoms/**/index.jsx', 'src/jbzoo/atoms');
+
+var pluginList = [
     new webpack.optimize.CommonsChunkPlugin({
         name     : "assets-common",
         minChunks: 2
@@ -45,25 +62,8 @@ if (isDev) {
 }
 
 module.exports = {
-    context: path.resolve(__dirname, 'src/jbzoo/atoms'),
-
-    entry: function (globPath, basepath) {
-        var files   = glob.sync(globPath);
-        var entries = {};
-
-        basepath = path.normalize('/' + basepath);
-
-        for (var i = 0; i < files.length; i++) {
-            var entry = path.normalize('/' + files[i]);
-            entry     = entry.replace(basepath, '');
-            var parts = entry.split(path.sep);
-
-            entries[parts[1]] = './' + entry;
-        }
-
-        return entries;
-    }('src/jbzoo/atoms/**/index.jsx', 'src/jbzoo/atoms'),
-
+    context  : path.resolve(__dirname, 'src/jbzoo/atoms'),
+    entry    : entries,
     output   : {
         path    : path.resolve(__dirname, 'src/jbzoo/atoms'),
         filename: "[name]/assets/js/[name].min.js"

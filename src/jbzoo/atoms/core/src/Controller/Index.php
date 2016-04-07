@@ -33,11 +33,11 @@ class Index extends Controller
                 'atom-core:assets/js/core.min.js',
                 'assets:less/admin.less',
             ],
-            ['common']
+            ['materialize', 'common']
         );
 
         ?>
-        <div id="jbzoo-react-app">Loading ...</div>
+        <div id="jbzoo-react-app" class="jbzoo">Loading ...</div>
         <?php
     }
 }

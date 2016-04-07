@@ -11,16 +11,14 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+import React, { Component } from 'react'
 
-var gulp = require('gulp');
-
-// Task: Update all
-gulp.task('update', [
-    'update:babel',
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:bootstrap',
-    'update:materialize'
-]);
+export default class Home extends Component {
+    render() {
+        return (
+            <div>
+                Category / SD
+            </div>
+        )
+    }
+}

@@ -21,6 +21,7 @@
 # Atoms assets
 /src/**/*.min.*
 /src/**/*.min.*.map
+/src/**/fonts
 !/src/**/*.jsx
 
 # Misc

@@ -1,3 +1,4 @@
+<?php
 /**
  * JBZoo CCK
  *
@@ -11,16 +12,19 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+use JBZoo\CCK\App;
 
-var gulp = require('gulp');
+return [
+    'init' => function (App $app) {
 
-// Task: Update all
-gulp.task('update', [
-    'update:babel',
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:bootstrap',
-    'update:materialize'
-]);
+        $app['assets']->register(
+            'materialize',
+            [
+                'atom-assets-materialize:assets/css/materialize.min.css',
+                'atom-assets-materialize:assets/js/materialize.min.js',
+            ],
+            'jquery'
+        );
+
+    },
+];
