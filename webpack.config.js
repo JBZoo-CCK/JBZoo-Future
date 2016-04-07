@@ -11,19 +11,18 @@
  * @link       http://jbzoo.com
  */
 
-var webpack           = require('webpack');
-var path              = require('path');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var isDev             = process.env.NODE_ENV === 'development';
-var sourceMap         = isDev ? "eval" : "source-map";
-
-var pluginList = [
-    new webpack.BannerPlugin("This file is part of the JBZoo CCK package."),
+var webpack       = require('webpack');
+var path          = require('path');
+var glob          = require('glob');
+var ExtractPlugin = require('extract-text-webpack-plugin');
+var isDev         = process.env.NODE_ENV === 'development';
+var sourceMap     = isDev ? "eval" : false;
+var pluginList    = [
     new webpack.optimize.CommonsChunkPlugin({
         name     : "assets-common",
         minChunks: 2
     }),
-    new ExtractTextPlugin('assets-common/assets/css/assets-common.min.css', {allChunks: true})
+    new ExtractPlugin('assets-common/assets/css/assets-common.min.css', {allChunks: true})
 ];
 
 if (isDev) {
@@ -40,41 +39,49 @@ if (isDev) {
                 NODE_ENV: JSON.stringify('production')
             }
         }),
-        new webpack.NoErrorsPlugin()
+        new webpack.NoErrorsPlugin(),
+        new webpack.BannerPlugin("This file is part of the JBZoo CCK package.")
     );
 }
 
 module.exports = {
-
     context: path.resolve(__dirname, 'src/jbzoo/atoms'),
 
-    entry: {
-        // "AtomName"       : "./**/index/path.jsx"
-        "assets-material-ui": './assets-material-ui/assets/jsx/material-ui.jsx',
-        "core"              : './core/assets/jsx/index.jsx'
-    },
+    entry: function (globPath, basepath) {
+        var files   = glob.sync(globPath);
+        var entries = {};
 
-    output: {
+        basepath = path.normalize('/' + basepath);
+
+        for (var i = 0; i < files.length; i++) {
+            var entry = path.normalize('/' + files[i]);
+            entry     = entry.replace(basepath, '');
+            var parts = entry.split(path.sep);
+
+            entries[parts[1]] = './' + entry;
+        }
+
+        return entries;
+    }('src/jbzoo/atoms/**/index.jsx', 'src/jbzoo/atoms'),
+
+    output   : {
         path    : path.resolve(__dirname, 'src/jbzoo/atoms'),
         filename: "[name]/assets/js/[name].min.js"
     },
-
     externals: {
         'jquery': 'jQuery'
     },
-
-    resolve: {
+    resolve  : {
         extensions        : ["", ".js", ".jsx"],
         modulesDirectories: [
             path.resolve(__dirname, 'src/jbzoo/assets/js'),
             path.resolve(__dirname, 'node_modules')
         ]
     },
-
-    devtool: isDev ? sourceMap : false,
-    debug  : isDev,
-
-    module: {
+    devtool  : isDev ? sourceMap : false,
+    debug    : isDev,
+    plugins  : pluginList,
+    module   : {
         loaders: [
             {
                 test  : /\.jsx$/,
@@ -86,11 +93,9 @@ module.exports = {
             {
                 test   : /\.css$/,
                 //loader : 'style!css?modules',
-                loader : ExtractTextPlugin.extract('css?modules'),
+                loader : ExtractPlugin.extract('css?modules'),
                 include: /flexboxgrid/
             }
         ]
-    },
-
-    plugins: pluginList
+    }
 };
