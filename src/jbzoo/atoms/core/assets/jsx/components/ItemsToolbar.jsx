@@ -24,7 +24,19 @@ import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
 import ToolbarSeparator from 'material-ui/lib/toolbar/toolbar-separator';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
+import TextField from 'material-ui/lib/text-field';
+import SvgIcon from 'material-ui/lib/svg-icon';
+
+const HomeIcon = (props) => (
+    <SvgIcon {...props}>
+        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+    </SvgIcon>
+);
+
+
 const ItemsToolbar = () => (
+
+
     <Toolbar>
         <ToolbarGroup >
 
@@ -35,6 +47,10 @@ const ItemsToolbar = () => (
             <RaisedButton label="Move" primary={true} />
             <RaisedButton label="Publish" secondary={true} />
             <RaisedButton label="Unpublish" secondary={true} />
+
+            <TextField hintText={
+                    <HomeIcon style={{float:"right"}} />
+            } />
 
 
         </ToolbarGroup>

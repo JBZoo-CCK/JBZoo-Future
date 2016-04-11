@@ -12,23 +12,82 @@
  */
 
 import React from 'react';
-import Dropdown from 'react-materialize/lib/Dropdown';
-import Button from 'react-materialize/lib/Button';
-import NavItem from 'react-materialize/lib/NavItem';
+const {Grid, Row, Col} = require('react-flexbox-grid');
+
+import List from 'material-ui/lib/lists/list';
+import ListItem from 'material-ui/lib/lists/list-item';
+import AppBar from 'material-ui/lib/app-bar';
+import Paper from 'material-ui/lib/paper';
+import LeftNav from 'material-ui/lib/left-nav';
+import MenuItem from 'material-ui/lib/menus/menu-item';
+import LinearProgress from 'material-ui/lib/linear-progress';
+import Toolbar from 'material-ui/lib/toolbar/toolbar';
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
+import SvgIcon from 'material-ui/lib/svg-icon';
+
+import Theme from '../components/ActiveTheme';
+import Table from '../components/Table';
+import ItemsToolbar from '../components/ItemsToolbar';
+import FloatingActionButtonList from '../components/FAB.jsx';
+
 
 const App = React.createClass({
 
+    //the key passed through context must be called "muiTheme"
+    childContextTypes: {
+        muiTheme: React.PropTypes.object
+    },
+
+    getChildContext() {
+        return ({muiTheme: Theme});
+    },
+
     render() {
+
+
         return (
-            <div>
-                <Dropdown trigger={
-                    <Button>Drop me!</Button>
-                  }>
-                    <NavItem>one</NavItem>
-                    <NavItem>two</NavItem>
-                    <NavItem divider />
-                    <NavItem>three</NavItem>
-                </Dropdown>
+            <div style={{marginBottom: '24px'}}>
+
+                <Row style={{marginBottom:'24px', marginRight:0 }}>
+                    <Col md={12}>
+
+                        <Toolbar style={{backgroundColor:"#10223e"}}>
+                            <ToolbarTitle
+                                text={
+                                    <span className="jbzoo-logo-20">
+                                        JBZoo CCK Panel
+                                        <span style={{fontSize:'0.5em'}}> 3.x-dev</span>
+                                    </span>
+                                }
+                                style={{color:"#fff", marginTop:"8px"}}
+                            />
+                        </Toolbar>
+
+                        <LinearProgress mode="determinate" value={40} />
+                    </Col>
+                </Row>
+
+                <Row style={{marginRight:0 }}>
+                    <Col md={2}>
+                        <Paper zDepth={1}>
+                            <List>
+                                <ListItem primaryText="Items" />
+                                <ListItem primaryText="Cart" />
+                                <ListItem primaryText="Configurations" />
+                                <ListItem primaryText="Atoms" />
+                                <ListItem primaryText="Something..." />
+                            </List>
+                        </Paper>
+                    </Col>
+                    <Col md={10}>
+                        <Paper zDepth={1}>
+                            <ItemsToolbar />
+                            <Table />
+                            <FloatingActionButtonList />
+                        </Paper>
+                    </Col>
+                </Row>
+
             </div>
         );
     }
