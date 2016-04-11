@@ -35,9 +35,6 @@ export default getMuiTheme(
             popover       : 210,
             snackbar      : 290,
             tooltip       : 300
-        },
-        appBar   : {
-            height: 48
         }
     }
 );

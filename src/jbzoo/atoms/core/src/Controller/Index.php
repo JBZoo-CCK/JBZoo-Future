@@ -33,7 +33,9 @@ class Index extends Controller
                 'atom-core:assets/js/core.min.js',
                 'assets:less/admin.less',
             ],
-            ['common']
+            [
+                'materialize-fonts'
+            ]
         );
 
         ?>

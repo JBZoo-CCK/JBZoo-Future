@@ -19,7 +19,9 @@ return [
         $app['assets']->register(
             'material-ui',
             'atom-assets-material-ui:assets/js/assets-material-ui.min.js',
-            'common'
+            [
+                'common',
+            ]
         );
     },
 ];

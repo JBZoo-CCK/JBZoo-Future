@@ -26,33 +26,24 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
 import TextField from 'material-ui/lib/text-field';
 import SvgIcon from 'material-ui/lib/svg-icon';
+import IconAdd from 'material-ui/lib/svg-icons/content/add';
+import IconEdit from 'material-ui/lib/svg-icons/image/edit';
+import IconMove from 'material-ui/lib/svg-icons/action/compare-arrows';
+import IconPublish from 'material-ui/lib/svg-icons/navigation/check';
 
-const HomeIcon = (props) => (
-    <SvgIcon {...props}>
-        <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
-    </SvgIcon>
-);
-
+var stylesss = {
+    height: 16,
+    width : 16
+};
 
 const ItemsToolbar = () => (
-
-
     <Toolbar>
         <ToolbarGroup >
-
             <ToolbarTitle text="Item list of catalog" />
-
-            <RaisedButton label="New" primary={true} />
-            <RaisedButton label="Edit" primary={true} />
-            <RaisedButton label="Move" primary={true} />
-            <RaisedButton label="Publish" secondary={true} />
-            <RaisedButton label="Unpublish" secondary={true} />
-
-            <TextField hintText={
-                    <HomeIcon style={{float:"right"}} />
-            } />
-
-
+            <RaisedButton label="New" labelPosition="before"  primary={true} icon={<IconAdd  style={stylesss} />} />
+            <RaisedButton label="Edit" labelPosition="before"  secondary={true} icon={<IconEdit  style={stylesss} />} />
+            <RaisedButton label="Move" labelPosition="before" icon={<IconMove  style={stylesss} />} />
+            <RaisedButton label="Publish" labelPosition="before" icon={<IconPublish  style={stylesss} />} />
         </ToolbarGroup>
     </Toolbar>
 );

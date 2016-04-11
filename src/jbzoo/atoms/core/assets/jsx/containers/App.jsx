@@ -23,7 +23,21 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import LinearProgress from 'material-ui/lib/linear-progress';
 import Toolbar from 'material-ui/lib/toolbar/toolbar';
 import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
-import SvgIcon from 'material-ui/lib/svg-icon';
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
+import SvgIcon from 'material-ui/lib/svg-icons/image/adjust';
+import Divider from 'material-ui/lib/divider';
+import TextField from 'material-ui/lib/text-field';
+
+import SearchIcon from 'material-ui/lib/svg-icons/action/search';
+import IconList from 'material-ui/lib/svg-icons/action/list';
+import IconCategory from 'material-ui/lib/svg-icons/file/folder';
+import IconApps from 'material-ui/lib/svg-icons/navigation/apps';
+import IconTags from 'material-ui/lib/svg-icons/action/label';
+import IconSettings from 'material-ui/lib/svg-icons/action/settings';
+import IconComments from 'material-ui/lib/svg-icons/communication/comment';
+import IconCart from 'material-ui/lib/svg-icons/action/shopping-cart';
+import IconOrders from 'material-ui/lib/svg-icons/action/reorder';
+
 
 import Theme from '../components/ActiveTheme';
 import Table from '../components/Table';
@@ -43,24 +57,43 @@ const App = React.createClass({
     },
 
     render() {
-
-
         return (
-            <div style={{marginBottom: '24px'}}>
+            <div style={{marginBottom: "24px", marginTop:"8px"}}>
 
-                <Row style={{marginBottom:'24px', marginRight:0 }}>
+                <Row style={{marginBottom:"24px", marginRight:0 }}>
                     <Col md={12}>
-
                         <Toolbar style={{backgroundColor:"#10223e"}}>
-                            <ToolbarTitle
-                                text={
-                                    <span className="jbzoo-logo-20">
-                                        JBZoo CCK Panel
-                                        <span style={{fontSize:'0.5em'}}> 3.x-dev</span>
-                                    </span>
-                                }
-                                style={{color:"#fff", marginTop:"8px"}}
-                            />
+
+                            <ToolbarGroup>
+                                <img
+                                    src="http://cck-joomla.jbzoo/administrator/components/com_jbzoo/assets/img/jbzoo-64.png"
+                                    style={{
+                                        position:"absolute",
+                                        marginTop:"8px"
+                                    }}
+                                />
+                                <ToolbarTitle
+                                    text="JBZoo CCK Panel — 3.x-dev"
+                                    style={{
+                                        color:"#fff",
+                                        lineHeight:"40px",
+                                        marginTop:"8px",
+                                        marginLeft:"52px"
+                                    }}
+                                />
+
+                            </ToolbarGroup>
+
+                            <ToolbarGroup firstChild={true} float="right" style={{lineHeight:"40px"}}>
+                                <TextField hintText="Global search"
+                                           hintStyle={{color:"#aaa"}}
+                                           inputStyle={{
+                                                color:"#fff",
+                                                backgroundCcolor: "#eee"
+                                            }}
+                                />
+
+                            </ToolbarGroup>
                         </Toolbar>
 
                         <LinearProgress mode="determinate" value={40} />
@@ -71,10 +104,36 @@ const App = React.createClass({
                     <Col md={2}>
                         <Paper zDepth={1}>
                             <List>
-                                <ListItem primaryText="Items" />
-                                <ListItem primaryText="Cart" />
-                                <ListItem primaryText="Configurations" />
+                                <ListItem
+                                    leftIcon={<IconList />}
+                                    primaryText="Content"
+                                    primaryTogglesNestedList={true}
+                                    nestedItems={[
+                                        <ListItem primaryText="Catalogs" leftIcon={<IconApps />} />,
+                                        <ListItem primaryText="Categories" leftIcon={<IconCategory />} />,
+                                        <ListItem primaryText="Items" leftIcon={<IconList />} />,
+                                        <ListItem primaryText="Tags" leftIcon={<IconTags />} />,
+                                        <ListItem primaryText="Types" leftIcon={<IconSettings />} />
+                                    ]}
+                                />
+                                <ListItem primaryText="Comments" leftIcon={<IconComments />} />
+                                <ListItem primaryText="Orders" leftIcon={<IconOrders />} />
+                                <ListItem
+                                    leftIcon={<IconCart />}
+                                    primaryText="Cart"
+                                    primaryTogglesNestedList={true}
+                                    nestedItems={[
+                                        <ListItem primaryText="Payments" />,
+                                        <ListItem primaryText="Categories" />,
+                                        <ListItem primaryText="Items" />,
+                                        <ListItem primaryText="Tags" />,
+                                        <ListItem primaryText="Types" />
+                                    ]}
+                                />
+                                <Divider />
                                 <ListItem primaryText="Atoms" />
+                                <ListItem primaryText="Modules" />
+                                <ListItem primaryText="Configurations" />
                                 <ListItem primaryText="Something..." />
                             </List>
                         </Paper>
