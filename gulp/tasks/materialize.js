@@ -17,6 +17,7 @@ var gulp      = require('gulp'),
     mainFiles = require('main-bower-files'),
     rename    = require('gulp-rename'),
     cssmin    = require('gulp-cssmin'),
+    prefix    = require('gulp-css-prefix'),
     cssWrap   = require('gulp-css-wrap'),
     atomsPath = require('../config').path.atoms;
 
@@ -32,8 +33,9 @@ gulp.task('update:materialize', function () {
         .pipe(gulp.dest(atomsPath + 'materialize/assets/js'));
 
     gulp.src(mainFiles({filter: '**/Materialize/**/*.css'}))
-        .pipe(cssWrap({selector: '.jbzoo'}))
-        .pipe(cssmin({debug:true}))
+        //.pipe(prefix({            prefix: 'jb-'        }))
+        .pipe(cssWrap({selector: '#jbzoo-react-app.jbzoo '}))
+        .pipe(cssmin())
         .pipe(rename({
             suffix: '.min'
         }))

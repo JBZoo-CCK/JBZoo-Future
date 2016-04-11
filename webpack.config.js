@@ -11,43 +11,40 @@
  * @link       http://jbzoo.com
  */
 
-var webpack       = require('webpack');
-var path          = require('path');
-var glob          = require('glob');
-var ExtractPlugin = require('extract-text-webpack-plugin');
-var isDev         = process.env.NODE_ENV === 'development';
-var sourceMap     = isDev ? "eval" : false;
-var entries       = function (globPath, basepath) {
-    var files   = glob.sync(globPath);
-    var entries = {};
+var webpack       = require('webpack'),
+    path          = require('path'),
+    glob          = require('glob'),
+    ExtractPlugin = require('extract-text-webpack-plugin'),
+    isDev         = process.env.NODE_ENV === 'development',
+    sourceMap     = isDev ? "eval" : false,
 
-    basepath = path.normalize('/' + basepath);
+    entries       = function (globPath, basepath) {
+        var files   = glob.sync(globPath);
+        var entries = {};
 
-    for (var i = 0; i < files.length; i++) {
-        var entry = path.normalize('/' + files[i]);
-        entry     = entry.replace(basepath, '');
-        var parts = entry.split(path.sep);
+        basepath = path.normalize('/' + basepath);
 
-        entries[parts[1]] = './' + entry;
-    }
+        for (var i = 0; i < files.length; i++) {
+            var entry = path.normalize('/' + files[i]);
+            entry     = entry.replace(basepath, '');
+            var parts = entry.split(path.sep);
 
-    return entries;
-}('src/jbzoo/atoms/**/index.jsx', 'src/jbzoo/atoms');
+            entries[parts[1]] = './' + entry;
+        }
 
-var pluginList = [
-    new webpack.optimize.CommonsChunkPlugin({
-        name     : "assets-common",
-        minChunks: 2
-    }),
-    new ExtractPlugin('assets-common/assets/css/assets-common.min.css', {allChunks: true})
-];
+        return entries;
+    }('src/jbzoo/atoms/**/index.jsx', 'src/jbzoo/atoms'),
 
-if (isDev) {
-    pluginList.push(
-        //new webpack.HotModuleReplacementPlugin()
-    )
+    pluginList    = [
+        new webpack.optimize.CommonsChunkPlugin({
+            name     : "assets-common",
+            minChunks: 2
+        }),
+        new ExtractPlugin('assets-common/assets/css/assets-common.min.css', {allChunks: true})
+    ];
 
-} else {
+
+if (!isDev) {
     pluginList.push(
         new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
         new webpack.optimize.DedupePlugin(),
@@ -74,11 +71,11 @@ module.exports = {
     resolve  : {
         extensions        : ["", ".js", ".jsx"],
         modulesDirectories: [
-            path.resolve(__dirname, 'src/jbzoo/assets/js'),
+            path.resolve(__dirname, 'src/jbzoo/assets'),
             path.resolve(__dirname, 'node_modules')
         ]
     },
-    devtool  : isDev ? sourceMap : false,
+    devtool  : sourceMap,
     debug    : isDev,
     plugins  : pluginList,
     module   : {
@@ -92,7 +89,6 @@ module.exports = {
             },
             {
                 test   : /\.css$/,
-                //loader : 'style!css?modules',
                 loader : ExtractPlugin.extract('css?modules'),
                 include: /flexboxgrid/
             }
