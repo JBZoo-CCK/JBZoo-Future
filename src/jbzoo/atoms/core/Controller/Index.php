@@ -27,16 +27,14 @@ class Index extends Controller
      */
     public function index()
     {
-        $this->app['assets']->add(
-            'my',
-            [
-                'atom-core:assets/js/core.min.js',
-                'assets:less/admin.less',
-            ],
-            [
-                'materialize-fonts'
-            ]
-        );
+        $this->app['assets']->add('my', [
+            'atom-core:assets/js/core.min.js',
+            'assets:less/admin.less',
+        ]);
+
+
+        $list = $this->app['atoms']['core']['route']->loadAllAtoms();
+        dump($list, 0);
 
         ?>
         <div id="jbzoo-react-app" class="jbzoo">

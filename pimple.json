@@ -9,24 +9,64 @@
         "type": "container",
         "value": [
             {
-                "name": "assets",
-                "type": "class",
-                "value": "JBZoo\\CCK\\Atom\\AtomDefault"
+                "name": "asset111",
+                "type": "container",
+                "value": []
+            },
+            {
+                "name": "assets-babel",
+                "type": "container",
+                "value": []
+            },
+            {
+                "name": "assets-bootstrap",
+                "type": "container",
+                "value": []
+            },
+            {
+                "name": "assets-common",
+                "type": "container",
+                "value": []
+            },
+            {
+                "name": "assets-jbzoo-utils",
+                "type": "container",
+                "value": []
             },
             {
                 "name": "assets-jquery",
-                "type": "class",
-                "value": "JBZoo\\CCK\\Atom\\AtomDefault"
+                "type": "container",
+                "value": []
             },
             {
                 "name": "assets-jquery-ui",
-                "type": "class",
-                "value": "JBZoo\\CCK\\Atom\\AtomDefault"
+                "type": "container",
+                "value": []
             },
             {
-                "name": "assets-js-utils",
-                "type": "class",
-                "value": "JBZoo\\CCK\\Atom\\AtomDefault"
+                "name": "assets-material-ui",
+                "type": "container",
+                "value": []
+            },
+            {
+                "name": "assets-materialize",
+                "type": "container",
+                "value": []
+            },
+            {
+                "name": "assets-react",
+                "type": "container",
+                "value": []
+            },
+            {
+                "name": "assets-uikit",
+                "type": "container",
+                "value": []
+            },
+            {
+                "name": "assets11",
+                "type": "container",
+                "value": []
             },
             {
                 "name": "core",
@@ -36,6 +76,11 @@
                         "name": "debug",
                         "type": "class",
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
+                    },
+                    {
+                        "name": "route",
+                        "type": "class",
+                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Route"
                     }
                 ]
             }
@@ -89,7 +134,7 @@
     {
         "name": "ns",
         "type": "string",
-        "value": "JBZoo\\CrossCMS"
+        "value": "JBZoo\\CrossCMS\\Abstract"
     },
     {
         "name": "path",
@@ -109,6 +154,6 @@
     {
         "name": "type",
         "type": "string",
-        "value": "__CMS__"
+        "value": "Joomla"
     }
 ]

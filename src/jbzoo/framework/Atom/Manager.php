@@ -53,7 +53,7 @@ class Manager extends Container
     public function loadInfo($names)
     {
         $names = strtolower($names);
-        $path  = 'atoms:' . $names . '/' . $names . '.php';
+        $path  = 'atoms:' . $names . '/atom.php';
 
         if ($manifests = $this->app['path']->glob($path)) {
             foreach ($manifests as $initFile) {
@@ -79,12 +79,11 @@ class Manager extends Container
     public function init($names)
     {
         $names = strtolower($names);
-        $path  = 'atoms:' . $names . '/' . $names . '.php';
+        $path  = 'atoms:' . $names . '/atom.php';
 
         if ($manifests = $this->app['path']->glob($path)) {
             foreach ($manifests as $initFile) {
-                $atomId = FS::filename($initFile);
-                $atomId = strtolower($atomId);
+                $atomId = $this->_getIdFromPath($initFile);
                 $this[$atomId]; // Only init via Container ArrayAccess feature!
             }
 
@@ -117,6 +116,9 @@ class Manager extends Container
         $app = $this->app;
 
         if (!isset($this->_atoms[$atomId]) && !$this->loadInfo($atomId)) {
+            $app->error('Atom "' . $atomId . '" not found and can\'t be loaded.');
+
+        } elseif (!isset($this->_atoms[$atomId])) {
             $app->error('Atom "' . $atomId . '" not found.');
         }
 
@@ -155,7 +157,7 @@ class Manager extends Container
      */
     protected function _registerAtom($initFile, $isOverload = false)
     {
-        $atomId = FS::filename($initFile);
+        $atomId = $this->_getIdFromPath($initFile);
 
         if ($isOverload) {
             $this->_atoms[$atomId] = new PHPArray($initFile);
@@ -167,14 +169,22 @@ class Manager extends Container
         if (isset($this->_atoms[$atomId])) { // Only if we need it
 
             $dir = FS::dirname($initFile);
-
-            // Get paths
             $this->_atoms[$atomId]->set('dir', $dir);
             $this->app['path']->set('atom-' . $atomId, $dir);
-            $srcDir = $dir . '/src';
-
-            // Add autoload
-            $this->app->addLoadPath(['Atom', $atomId], $srcDir);
+            $this->app->addLoadPath(['Atom', $atomId], $dir);
         }
+    }
+
+    /**
+     * @param $initFile
+     * @return string
+     */
+    protected function _getIdFromPath($initFile)
+    {
+        $result = FS::dirname($initFile);
+        $result = FS::filename($result);
+        $result = strtolower($result);
+
+        return $result;
     }
 }

@@ -18,6 +18,7 @@ use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Atom\Manager as AtomManager;
 use JBZoo\Assets\Manager as AssetsManager;
+use JBZoo\CrossCMS\AbstractEvents;
 use JBZoo\CrossCMS\Cms;
 use JBZoo\Utils\Filter;
 use JBZoo\PimpleDumper\PimpleDumper;
@@ -69,9 +70,10 @@ class App extends Cms
             return $atomManager;
         };
 
-        $this->on('cms.shutdown', function (App $app) {
+        $this->on(AbstractEvents::EVENT_SHUTDOWN, function (App $app) {
             if (class_exists('\JBZoo\PimpleDumper\PimpleDumper')) {
                 $dumper = new PimpleDumper();
+                $dumper->setRoot(dirname(__FILE__) . '/../../..'); // Real root
                 $dumper->dumpPimple($app, true);
             }
         });
