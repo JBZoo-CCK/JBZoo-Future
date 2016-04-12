@@ -9,7 +9,7 @@
         "type": "container",
         "value": [
             {
-                "name": "asset111",
+                "name": "assets",
                 "type": "container",
                 "value": []
             },
@@ -60,11 +60,6 @@
             },
             {
                 "name": "assets-uikit",
-                "type": "container",
-                "value": []
-            },
-            {
-                "name": "assets11",
                 "type": "container",
                 "value": []
             },

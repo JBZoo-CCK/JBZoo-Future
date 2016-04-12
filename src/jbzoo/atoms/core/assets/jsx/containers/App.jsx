@@ -65,13 +65,7 @@ const App = React.createClass({
                         <Toolbar style={{backgroundColor:"#10223e"}}>
 
                             <ToolbarGroup>
-                                <img
-                                    src="http://cck-joomla.jbzoo/administrator/components/com_jbzoo/assets/img/jbzoo-64.png"
-                                    style={{
-                                        position:"absolute",
-                                        marginTop:"8px"
-                                    }}
-                                />
+                                <span className="jbzoo-logo" />
                                 <ToolbarTitle
                                     text="JBZoo CCK Panel — 3.x-dev"
                                     style={{
@@ -105,36 +99,38 @@ const App = React.createClass({
                         <Paper zDepth={1}>
                             <List>
                                 <ListItem
+                                    key="list_1"
                                     leftIcon={<IconList />}
                                     primaryText="Content"
                                     primaryTogglesNestedList={true}
                                     nestedItems={[
-                                        <ListItem primaryText="Catalogs" leftIcon={<IconApps />} />,
-                                        <ListItem primaryText="Categories" leftIcon={<IconCategory />} />,
-                                        <ListItem primaryText="Items" leftIcon={<IconList />} />,
-                                        <ListItem primaryText="Tags" leftIcon={<IconTags />} />,
-                                        <ListItem primaryText="Types" leftIcon={<IconSettings />} />
+                                        <ListItem primaryText="Catalogs" leftIcon={<IconApps />} key="list_2" />,
+                                        <ListItem primaryText="Categories" leftIcon={<IconCategory />} key="list_3" />,
+                                        <ListItem primaryText="Items" leftIcon={<IconList />} key="list_4" />,
+                                        <ListItem primaryText="Tags" leftIcon={<IconTags />} key="list_5" />,
+                                        <ListItem primaryText="Types" leftIcon={<IconSettings />} key="list_6" />
                                     ]}
                                 />
-                                <ListItem primaryText="Comments" leftIcon={<IconComments />} />
-                                <ListItem primaryText="Orders" leftIcon={<IconOrders />} />
+                                <ListItem primaryText="Comments" leftIcon={<IconComments />} key="list_7" />
+                                <ListItem primaryText="Orders" leftIcon={<IconOrders />} key="list_8" />
                                 <ListItem
+                                    key="list_9"
                                     leftIcon={<IconCart />}
                                     primaryText="Cart"
                                     primaryTogglesNestedList={true}
                                     nestedItems={[
-                                        <ListItem primaryText="Payments" />,
-                                        <ListItem primaryText="Categories" />,
-                                        <ListItem primaryText="Items" />,
-                                        <ListItem primaryText="Tags" />,
-                                        <ListItem primaryText="Types" />
+                                        <ListItem primaryText="Payments" key="list_10" />,
+                                        <ListItem primaryText="Categories" key="list_11" />,
+                                        <ListItem primaryText="Items" key="list_12" />,
+                                        <ListItem primaryText="Tags" key="list_13" />,
+                                        <ListItem primaryText="Types" key="list_14" />
                                     ]}
                                 />
                                 <Divider />
-                                <ListItem primaryText="Atoms" />
-                                <ListItem primaryText="Modules" />
-                                <ListItem primaryText="Configurations" />
-                                <ListItem primaryText="Something..." />
+                                <ListItem primaryText="Atoms" key="list_15" />
+                                <ListItem primaryText="Modules" key="list_16" />
+                                <ListItem primaryText="Configurations" key="list_17" />
+                                <ListItem primaryText="Something..." key="list_18" />
                             </List>
                         </Paper>
                     </Col>

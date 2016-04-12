@@ -34,7 +34,6 @@ class Index extends Controller
 
 
         $list = $this->app['atoms']['core']['route']->loadAllAtoms();
-        dump($list, 0);
 
         ?>
         <div id="jbzoo-react-app" class="jbzoo">
