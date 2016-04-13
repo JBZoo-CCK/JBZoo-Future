@@ -33,7 +33,7 @@ class Index extends Controller
         ]);
 
 
-        $list = $this->app['atoms']['core']['route']->loadAllAtoms();
+        $list = $this->app['route']->loadAllAtoms();
 
         ?>
         <div id="jbzoo-react-app" class="jbzoo">

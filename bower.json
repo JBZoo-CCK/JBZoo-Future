@@ -15,15 +15,12 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.6",
-    "material-ui": "~0.14.4",
     "react": "~0.14.7",
     "jbzoo-utils": "^1.1.0",
     "requirejs": "^2.2.0",
-    "requirejsx": "*",
     "babel": "*",
     "uikit": "2.26.1",
-    "Materialize": "materialize#^0.97.6",
-    "material-design-icons": "^2.2.3"
+    "Materialize": "materialize#^0.97.6"
   },
   "ignore": [
     "**/.*",

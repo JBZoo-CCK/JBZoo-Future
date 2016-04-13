@@ -81,6 +81,7 @@ class App extends Cms
         $this->_initPaths();
         $this->_initAssets();
         $this->_initAtoms();
+        $this->_initAliases();
 
         $this->trigger('init.app.after');
     }
@@ -307,5 +308,19 @@ class App extends Cms
         $atomManager->init('assets-*');
 
         $this->trigger('init.atoms');
+    }
+
+    /**
+     * Load and init core atoms
+     */
+    protected function _initAliases()
+    {
+        $this['route'] = function () {
+            return $this['atoms']['core']['route'];
+        };
+
+        $this['dbg'] = function () {
+            return $this['atoms']['core']['debug'];
+        };
     }
 }
