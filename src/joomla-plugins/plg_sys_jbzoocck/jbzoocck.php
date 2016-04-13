@@ -17,6 +17,7 @@
 defined('_JEXEC') or die('Restricted access');
 
 use JBZoo\CCK\App;
+use JBZoo\CrossCMS\AbstractEvents;
 
 jimport('joomla.plugin.plugin');
 jimport('joomla.filesystem.file');
@@ -43,7 +44,7 @@ class PlgSystemJBZooCCK extends JPlugin
 
         $this->_app = App::getInstance();
 
-        $this->_app->trigger('cms.init');
+        $this->_app->trigger(AbstractEvents::EVENT_INIT);
     }
 
     /**
@@ -51,7 +52,7 @@ class PlgSystemJBZooCCK extends JPlugin
      */
     public function onBeforeCompileHead()
     {
-        $this->_app->trigger('cms.header');
+        $this->_app->trigger(AbstractEvents::EVENT_HEADER);
     }
 
     /**
@@ -60,7 +61,7 @@ class PlgSystemJBZooCCK extends JPlugin
     public function onAfterRespond()
     {
         $body = JFactory::getApplication()->getBody();
-        $this->_app->trigger('cms.shutdown', [&$body]);
+        $this->_app->trigger(AbstractEvents::EVENT_SHUTDOWN, [&$body]);
         JFactory::getApplication()->setBody($body);
     }
 }

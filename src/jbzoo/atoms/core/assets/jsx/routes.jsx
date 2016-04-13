@@ -14,24 +14,17 @@
 import React from 'react'
 import { Route, IndexRoute } from 'react-router'
 import App from './containers/App'
-import Admin from './components/Admin'
-import Genre from './components/Genre'
-import Release from './components/Release'
-import ReleaseItem from './components/ReleaseItem'
-import Home from './components/Home'
-import NotFound from './components/NotFound'
+
+import PageNotFound from './pages/NotFound'
+import PageHome from './pages/Home'
+import PageItems from './pages/Items'
 
 export const routes = (
     <div>
         <Route path='/' component={App}>
-            <IndexRoute component={Home} />
-            <Route path='admin' component={Admin} />
-            <Route path='genre' component={Genre}>
-                <Route path='release' component={Release}>
-                    <Route path=':name' component={ReleaseItem} />
-                </Route>
-            </Route>
+            <IndexRoute component={PageHome} />
+            <Route path='items' component={PageItems} />
+            <Route path='*' component={PageNotFound} />
         </Route>
-        <Route path='*' component={NotFound} />
     </div>
 );

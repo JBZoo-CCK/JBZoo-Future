@@ -12,17 +12,12 @@
  */
 
 import React, { Component } from 'react'
-import { Link } from 'react-router'
 
-export default class NotFound extends Component {
+export default class Home extends Component {
     render() {
         return (
-            <div className='container'>
-                <div className='row'>
-                    <div className='col-md-12'>
-                        Page not found <Link to='/'>goto main</Link>?
-                    </div>
-                </div>
+            <div>
+                Home
             </div>
         )
     }

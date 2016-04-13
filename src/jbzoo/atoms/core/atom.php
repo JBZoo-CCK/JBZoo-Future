@@ -21,21 +21,6 @@ return [
         'licence' => 'http://jbzoo.com/license',
         'created' => '01/01/2016',
         'version' => '1.0.0',
-    ],
+    ]
 
-    'routes' => [
-        '/dashboard' => ['dashboard', 'index', 'CoreDashboardIndex'],
-        '/index'     => [
-            ['index', 'index', 'CoreIndexIndex'],
-            [
-                '/:module' => ['index', 'module', 'CoreIndexModule'],
-                '/page'    => [
-                    ['index', 'page', 'CoreIndexConfig'],
-                    [
-                        '(/:id)' => ['index', 'item', 'CoreIndexItem'],
-                    ],
-                ],
-            ],
-        ],
-    ],
 ];

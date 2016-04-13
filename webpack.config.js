@@ -16,7 +16,7 @@ var webpack       = require('webpack'),
     glob          = require('glob'),
     ExtractPlugin = require('extract-text-webpack-plugin'),
     isDev         = process.env.NODE_ENV === 'development',
-    sourceMap     = isDev ? "eval" : false,
+    sourceMap     = isDev ? "source-map" : false,
 
     entries       = function (globPath, basepath) {
         var files   = glob.sync(globPath);

@@ -12,13 +12,13 @@
  */
 
 import React, { Component } from 'react'
+import { Link } from 'react-router'
 
-export default class Release extends Component {
+export default class NotFound extends Component {
     render() {
         return (
             <div>
-                <div className='col-md-12'>Category /genre/release</div>
-                {this.props.children}
+                Page not found <Link to='/'>goto main</Link>?
             </div>
         )
     }

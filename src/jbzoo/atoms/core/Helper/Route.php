@@ -27,11 +27,15 @@ class Route extends Helper
      */
     public function loadAllAtoms()
     {
-        $path  = 'atoms:*/routes.php';
+        $manifests = $this->app['path']->glob('atoms:*/atom.routes.php');
 
-        $manifests = $this->app['path']->glob($path);
-        dump($manifests);
+        $allRoutes = [];
 
-        return [];
+        foreach ($manifests as $manifest) {
+            $routes = include $manifest;
+            $allRoutes += $routes;
+        }
+
+        return $allRoutes;
     }
 }

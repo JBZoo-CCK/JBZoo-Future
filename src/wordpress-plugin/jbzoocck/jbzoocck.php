@@ -23,6 +23,7 @@ License: Proprietary http://jbzoo.com/license
 */
 
 use JBZoo\CCK\App;
+use JBZoo\CrossCMS\AbstractEvents;
 
 if (!function_exists('dump')) {
     /**
@@ -54,17 +55,17 @@ function JBZooInitAutoload()
     $app['assets']->add(null, 'assets:less/admin.less');
 
     // Hack for admin menu
-    $app->on('cms.header', function (App $app) {
+    $app->on(AbstractEvents::EVENT_HEADER, function (App $app) {
         $app->trigger('jbzoo.assets');
     });
 
     add_action('wp_loaded', function () use ($app) {
-        $app->trigger('cms.init');
+        $app->trigger(AbstractEvents::EVENT_INIT);
     });
 
     // Header render
     add_action($app['env']->isAdmin() ? 'admin_footer' : 'wp_footer', function () use ($app) {
-        $app->trigger('cms.header');
+        $app->trigger(AbstractEvents::EVENT_HEADER);
     });
 
     // Content handlers (for macroses)
@@ -75,16 +76,14 @@ function JBZooInitAutoload()
 
     // Shutdown callback
     add_action('shutdown', function () use ($app) {
-        $app->trigger('cms.shutdown');
+        $app->trigger(AbstractEvents::EVENT_SHUTDOWN);
     });
 
     // Add admin dashboard and page
     add_action('admin_menu', function () {
-
-        add_object_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {
+        add_menu_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {
             require_once __DIR__ . '/jbzoo/jbzoo.php';
-        }, 'dashicons-admin-jbzoo');
-
+        }, 'dashicons-admin-jbzoo', 9);
     }, 8);
 }
 

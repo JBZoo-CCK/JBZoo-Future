@@ -1,3 +1,4 @@
+<?php
 /**
  * JBZoo CCK
  *
@@ -11,14 +12,10 @@
  * @link       http://jbzoo.com
  */
 
-import React, { Component } from 'react'
-
-export default class Home extends Component {
-    render() {
-        return (
-            <div>
-                Category / SD
-            </div>
-        )
-    }
-}
+return [
+    '/' => [
+        'action' => 'core.index.index',
+        'jsx'    => 'CoreIndexIndex',
+        'menu'   => jbt('Dashboard')
+    ]
+];
