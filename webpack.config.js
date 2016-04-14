@@ -33,7 +33,7 @@ var webpack       = require('webpack'),
         }
 
         return entries;
-    }('src/jbzoo/atoms/**/index.jsx', 'src/jbzoo/atoms'),
+    }('src/jbzoo/atoms/**/atom.jsx', 'src/jbzoo/atoms'),
 
     pluginList    = [
         new webpack.optimize.CommonsChunkPlugin({
@@ -84,7 +84,7 @@ module.exports = {
                 test  : /\.jsx$/,
                 loader: 'babel-loader',
                 query : {
-                    presets: ['es2015', 'react']
+                    presets: ['es2015', 'react', 'stage-0']
                 }
             },
             {

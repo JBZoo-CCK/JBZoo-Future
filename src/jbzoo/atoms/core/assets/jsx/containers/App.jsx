@@ -11,8 +11,9 @@
  * @link       http://jbzoo.com
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import { Link } from 'react-router'
+import { connect } from 'react-redux'
 
 const {Grid, Row, Col} = require('react-flexbox-grid');
 
@@ -31,19 +32,23 @@ import Divider from 'material-ui/lib/divider';
 import TextField from 'material-ui/lib/text-field';
 
 import Theme from '../components/ActiveTheme';
+import Year from '../components/Year';
 
-const App = React.createClass({
+import { bindActionCreators } from 'redux'
+import * as pageActions from '../actions/PageActions'
 
-    //the key passed through context must be called "muiTheme"
-    childContextTypes: {
-        muiTheme: React.PropTypes.object
-    },
+
+class App extends Component {
 
     getChildContext() {
         return ({muiTheme: Theme});
-    },
+    }
 
     render() {
+
+        const { user, page } = this.props;
+        const { getPhotos } = this.props.pageActions;
+
         return (
             <div style={{marginBottom: "24px", marginTop:"8px"}}>
 
@@ -90,6 +95,10 @@ const App = React.createClass({
                         </Paper>
                     </Col>
                     <Col md={10}>
+                        <div>
+                            <Year photos={page.photos} year={page.year} getPhotos={getPhotos} fetching={page.fetching} />
+                        </div>
+
                         {this.props.children}
                     </Col>
                 </Row>
@@ -97,6 +106,24 @@ const App = React.createClass({
             </div>
         );
     }
-});
+}
 
-export default App;
+//the key passed through context must be called "muiTheme"
+App.childContextTypes = {
+    muiTheme: React.PropTypes.object
+};
+
+function mapStateToProps(state) {
+    return {
+        user: state.user,
+        page: state.page
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        pageActions: bindActionCreators(pageActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)

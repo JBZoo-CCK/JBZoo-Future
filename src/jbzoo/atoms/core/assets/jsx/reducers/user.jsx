@@ -11,15 +11,10 @@
  * @link       http://jbzoo.com
  */
 
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { Router, hashHistory } from 'react-router'
-import { routes } from './routes'
-import injectTapEventPlugin from 'react-tap-event-plugin'
+const initialState = {
+  name: 'Anonim'
+}
 
-injectTapEventPlugin();
-
-ReactDOM.render(
-    <Router history={hashHistory} routes={routes} />,
-    document.getElementById('jbzoo-react-app')
-);
+export default function user(state = initialState) {
+  return state
+}
