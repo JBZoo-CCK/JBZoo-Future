@@ -28,13 +28,13 @@ export default class Year extends Component {
                 <button onClick={this.onYearBtnClick.bind(this)}>2015</button>
                 <button onClick={this.onYearBtnClick.bind(this)}>2014</button>
             </p>
-            <h3>{year} год</h3>
-            <p>У тебя {photos.length} фото.</p>
+            <h3>{year}</h3>
+            <p>Photos: {photos.length}.</p>
             {
                 fetching ?
-                    <p>Загрузка...</p>
+                    <p>loading...</p>
                     :
-                    <p>У тебя {photos.length} фото.</p>
+                    <p>You have {photos.length} photos.</p>
             }
         </div>
     }
