@@ -83,6 +83,11 @@
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Route"
                     }
                 ]
+            },
+            {
+                "name": "test",
+                "type": "container",
+                "value": []
             }
         ]
     },
@@ -90,6 +95,11 @@
         "name": "config",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractConfig"
+    },
+    {
+        "name": "core.debug",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
     },
     {
         "name": "core.js",

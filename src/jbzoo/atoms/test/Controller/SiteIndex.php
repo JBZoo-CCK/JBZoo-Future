@@ -14,19 +14,19 @@
 
 namespace JBZoo\CCK\Atom\Test\Controller;
 
-use JBZoo\CCK\Atom\Controller;
+use JBZoo\CCK\Atom\SiteController;
 
 /**
- * Class Index
+ * Class SiteIndex
  * @package JBZoo\CCK
  */
-class Other extends Controller
+class SiteIndex extends SiteController
 {
     /**
      * Index action
      */
-    public function checkEcho()
+    public function checkReturn()
     {
-        echo $this->app['request']->get('qwerty');
+        return 123456;
     }
 }
