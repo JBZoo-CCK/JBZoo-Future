@@ -18,10 +18,10 @@ use JBZoo\CCK\AppAware;
 use JBZoo\CCK\Exception\Exception;
 
 /**
- * Class Atom
+ * Class Controller
  * @package JBZoo\CCK
  */
-class Controller extends AppAware
+abstract class Controller extends AppAware
 {
     /**
      * @var Atom

@@ -144,18 +144,16 @@ abstract class Atom extends Container
      */
     public function execute($controller = 'index', $action = 'index')
     {
-        $ctrlClass = $this->getClass('controller', $controller);
+        $prefix    = $this->app['env']->isAdmin() ? 'Admin' : 'Site';
+        $ctrlClass = $this->getClass('controller', $prefix . ' ' . $controller);
 
         if (class_exists($ctrlClass)) {
-
             /** @var Controller $ctrlObject */
             $ctrlObject = new $ctrlClass();
             $ctrlObject->setAtom($this);
 
             if (method_exists($ctrlObject, $action)) {
-
                 ob_start();
-
                 $this->app->trigger("atom.ctrl.before");
                 $this->app->trigger("atom.ctrl.{$controller}.before");
                 $this->app->trigger("atom.ctrl.{$controller}.{$action}.before");
@@ -175,7 +173,7 @@ abstract class Atom extends Container
             $this->app->error("Action not found: {$this->_id}.{$controller}.{$action}");
 
         } else {
-            $this->app->error("Controller not found: {$this->_id}.{$controller}");
+            $this->app->error("Controller not found: {$this->_id}.{$controller}; PHP Class: {$ctrlClass}");
         }
 
         return null;

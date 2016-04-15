@@ -38,8 +38,8 @@ return [
             $resolvePath = function ($fullPath) use ($rootJBZoo, $rootGlobal) {
 
                 if (!Url::isAbsolute($fullPath)) {
-
                     $relPath = FS::getRelative($fullPath, $rootJBZoo, '/', false);
+
                     if (FS::clean('/' . $relPath) !== FS::clean('/' . $fullPath)) {
                         $relPath = '/' . JBZOO_EXT_PATH . '/' . $relPath;
                     } else {

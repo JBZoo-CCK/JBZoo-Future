@@ -235,10 +235,14 @@ class App extends Cms
             }
 
             if (!isset($this['atoms'][$atom][$helper])) {
-                throw new Exception('Undefined atom helper "' . $atom . ':' . $helper . '"');
+                //throw new Exception('Undefined atom helper "' . $atom . ':' . $helper . '"');
             }
 
-            return $this['atoms'][$atom][$helper];
+            $this[$id] = function ($app) use ($atom, $helper) {
+                return $app['atoms'][$atom][$helper];
+            };
+
+            return $this[$id];
         }
 
         return parent::offsetGet($id);

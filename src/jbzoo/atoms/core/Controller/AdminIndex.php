@@ -14,14 +14,13 @@
 
 namespace JBZoo\CCK\Atom\Core\Controller;
 
-use JBZoo\Assets\Asset\Asset;
-use JBZoo\CCK\Atom\Controller;
+use JBZoo\CCK\Atom\AdminController;
 
 /**
  * Class Index
  * @package JBZoo\CCK
  */
-class Index extends Controller
+class AdminIndex extends AdminController
 {
     /**
      * Index action
@@ -35,12 +34,8 @@ class Index extends Controller
 
         $routes = $this->app['route']->loadAllAtoms();
 
-        $this->app['assets']->add(
-            'routes',
-            'window.JBZooRoutes = ' . json_encode($routes) . '; ',
-            [],
-            ['type' => Asset::TYPE_JS_CODE]
-        );
+        $this->app['core.js']->addVar('routes', $routes);
+        $this->app['core.js']->addVar('ajax_url', JBZOO_AJAX_URL);
 
         ?>
         <div id="jbzoo-react-app" class="jbzoo">

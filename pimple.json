@@ -73,6 +73,11 @@
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
                     },
                     {
+                        "name": "js",
+                        "type": "class",
+                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Js"
+                    },
+                    {
                         "name": "route",
                         "type": "class",
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Route"
@@ -85,6 +90,11 @@
         "name": "config",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractConfig"
+    },
+    {
+        "name": "core.js",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Js"
     },
     {
         "name": "db",

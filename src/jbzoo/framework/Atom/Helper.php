@@ -44,6 +44,8 @@ abstract class Helper extends AppAware
         $this->atom = $atom;
         $this->_id  = strtolower($this->atom->getId() . '.' . $helperName);
 
+        $this->_init();
+
         $this->app->trigger('helper.init.' . $this->_id);
     }
 
@@ -53,5 +55,13 @@ abstract class Helper extends AppAware
     public function getId()
     {
         return $this->_id;
+    }
+
+    /**
+     * Pseudo constructor
+     */
+    protected function _init()
+    {
+        // noop
     }
 }

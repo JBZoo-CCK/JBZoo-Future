@@ -89,6 +89,7 @@ function JBZooInitAutoload()
 
 define('JBZOO', true);
 define('JBZOO_EXT_PATH', 'wp-content/plugins/jbzoocck/jbzoo'); // TODO: remove hardcode to fix dev symlinks
+define('JBZOO_AJAX_URL', site_url() . '/wp-admin/admin.php?page=jbzoo');
 
 // Start!
 JBZooInitAutoload();
