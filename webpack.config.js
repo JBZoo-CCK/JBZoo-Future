@@ -11,22 +11,24 @@
  * @link       http://jbzoo.com
  */
 
+var isDev = process.env.NODE_ENV === 'development';
+console.log('Dev mode:', isDev);
+
 var webpack       = require('webpack'),
     path          = require('path'),
     glob          = require('glob'),
     ExtractPlugin = require('extract-text-webpack-plugin'),
-    isDev         = process.env.NODE_ENV === 'development',
     sourceMap     = isDev ? "source-map" : false,
 
     entries       = function (globPath, basepath) {
-        var files   = glob.sync(globPath);
+        var files = glob.sync(globPath);
         var entries = {};
 
         basepath = path.normalize('/' + basepath);
 
         for (var i = 0; i < files.length; i++) {
             var entry = path.normalize('/' + files[i]);
-            entry     = entry.replace(basepath, '');
+            entry = entry.replace(basepath, '');
             var parts = entry.split(path.sep);
 
             entries[parts[1]] = './' + entry;
@@ -40,7 +42,10 @@ var webpack       = require('webpack'),
             name     : "assets-common",
             minChunks: 2
         }),
-        new ExtractPlugin('assets-common/assets/css/assets-common.min.css', {allChunks: true})
+        new ExtractPlugin('assets-common/assets/css/assets-common.min.css', {allChunks: true}),
+        new webpack.DefinePlugin({
+            __DEV__: isDev
+        })
     ];
 
 
