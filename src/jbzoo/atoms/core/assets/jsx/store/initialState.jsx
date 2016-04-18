@@ -11,10 +11,6 @@
  * @link       http://jbzoo.com
  */
 
-const initialState = {
-  name: 'Anonim'
-}
+let initialState = window.__INITIAL_STATE__ ? window.__INITIAL_STATE__ : {};
 
-export default function user(state = initialState) {
-  return state
-}
+export default initialState;

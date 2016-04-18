@@ -61,6 +61,7 @@
     "react-tap-event-plugin": "^0.2.1",
     "redux": "^3.4.0",
     "redux-devtools": "^3.2.0",
+    "redux-devtools-chart-monitor": "^1.4.1",
     "redux-logger": "^2.6.1",
     "redux-thunk": "^2.0.1",
     "remote-redux-devtools": "^0.1.6",

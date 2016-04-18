@@ -17,25 +17,17 @@ import { connect } from 'react-redux'
 
 const {Grid, Row, Col} = require('react-flexbox-grid');
 
+import Toolbar from 'material-ui/lib/toolbar/toolbar';
+import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
+import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
+import TextField from 'material-ui/lib/text-field';
+import LinearProgress from 'material-ui/lib/linear-progress';
+import Paper from 'material-ui/lib/paper';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
-import AppBar from 'material-ui/lib/app-bar';
-import Paper from 'material-ui/lib/paper';
-import LeftNav from 'material-ui/lib/left-nav';
-import MenuItem from 'material-ui/lib/menus/menu-item';
-import LinearProgress from 'material-ui/lib/linear-progress';
-import Toolbar from 'material-ui/lib/toolbar/toolbar';
-import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
-import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
-import SvgIcon from 'material-ui/lib/svg-icons/image/adjust';
-import Divider from 'material-ui/lib/divider';
-import TextField from 'material-ui/lib/text-field';
+
 
 import Theme from '../components/ActiveTheme';
-import Year from '../components/Year';
-
-import { bindActionCreators } from 'redux'
-import * as pageActions from '../actions/PageActions'
 
 
 class App extends Component {
@@ -45,9 +37,6 @@ class App extends Component {
     }
 
     render() {
-
-        const { user, page } = this.props;
-        const { getPhotos } = this.props.pageActions;
 
         return (
             <div style={{marginBottom: "24px", marginTop:"8px"}}>
@@ -95,10 +84,6 @@ class App extends Component {
                         </Paper>
                     </Col>
                     <Col md={10}>
-                        <div>
-                            <Year photos={page.photos} year={page.year} getPhotos={getPhotos} fetching={page.fetching} />
-                        </div>
-
                         {this.props.children}
                     </Col>
                 </Row>
@@ -113,17 +98,4 @@ App.childContextTypes = {
     muiTheme: React.PropTypes.object
 };
 
-function mapStateToProps(state) {
-    return {
-        user: state.user,
-        page: state.page
-    }
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
-        pageActions: bindActionCreators(pageActions, dispatch)
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default App;

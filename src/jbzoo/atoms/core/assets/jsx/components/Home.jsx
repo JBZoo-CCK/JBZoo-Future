@@ -11,5 +11,12 @@
  * @link       http://jbzoo.com
  */
 
-export const GET_PHOTOS_REQUEST = 'GET_PHOTOS_REQUEST'
-export const GET_PHOTOS_SUCCESS = 'GET_PHOTOS_SUCCESS'
+import React, {PropTypes, Component } from 'react'
+
+export default class Home extends Component {
+    render() {
+        return <p>Hi!</p>;
+    }
+}
+
+export default Home;

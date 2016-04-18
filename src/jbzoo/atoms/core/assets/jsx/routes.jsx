@@ -11,20 +11,25 @@
  * @link       http://jbzoo.com
  */
 
-import React from 'react'
-import { Route, IndexRoute } from 'react-router'
 import App from './containers/App'
+import Home from './components/Home'
+import NotFound from './components/NotFound'
 
-import PageNotFound from './pages/NotFound'
-import PageHome from './pages/Home'
-import PageItems from './pages/Items'
-
-export const routes = (
-    <div>
-        <Route path='/' component={App}>
-            <IndexRoute component={PageHome} />
-            <Route path='items' component={PageItems} />
-            <Route path='*' component={PageNotFound} />
-        </Route>
-    </div>
-);
+export const routes = {
+    component  : 'div',
+    childRoutes: [
+        {
+            path       : '/',
+            component  : App,
+            childRoutes: [
+                {
+                    indexRoute: {component: Home}
+                },
+                {
+                    path     : '*',
+                    component: NotFound
+                }
+            ]
+        }
+    ]
+};

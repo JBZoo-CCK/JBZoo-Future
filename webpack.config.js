@@ -11,14 +11,13 @@
  * @link       http://jbzoo.com
  */
 
-var isDev = process.env.NODE_ENV === 'development';
-console.log('Dev mode:', isDev);
+const __DEV__ = process.env.NODE_ENV === 'development';
 
 var webpack       = require('webpack'),
     path          = require('path'),
     glob          = require('glob'),
     ExtractPlugin = require('extract-text-webpack-plugin'),
-    sourceMap     = isDev ? "source-map" : false,
+    sourceMap     = __DEV__ ? "source-map" : false,
 
     entries       = function (globPath, basepath) {
         var files = glob.sync(globPath);
@@ -44,13 +43,16 @@ var webpack       = require('webpack'),
         }),
         new ExtractPlugin('assets-common/assets/css/assets-common.min.css', {allChunks: true}),
         new webpack.DefinePlugin({
-            __DEV__: isDev
+            "__DEV__": __DEV__
         })
     ];
 
+console.log('Dev mode:', __DEV__);
+console.log('Source map:', sourceMap);
 
-if (!isDev) {
+if (!__DEV__) {
     pluginList.push(
+        new webpack.optimize.OccurenceOrderPlugin(),
         new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
         new webpack.optimize.DedupePlugin(),
         new webpack.DefinePlugin({
@@ -81,7 +83,7 @@ module.exports = {
         ]
     },
     devtool  : sourceMap,
-    debug    : isDev,
+    debug    : __DEV__,
     plugins  : pluginList,
     module   : {
         loaders: [
