@@ -13,14 +13,9 @@
  */
 
 return [
-    '/'      => [
-        'action' => 'core.index.index',
-        'jsx'    => '../../../core/assets/jsx/pages/CoreIndexIndex',
-        'menu'   => jbt('Dashboard')
-    ],
-    '/about' => [
-        'action' => 'core.index.about',
-        'jsx'    => 'CoreIndexAbout',
-        'menu'   => jbt('About')
+    'atoms' => [
+        'action' => 'atoms.index.index',
+        'jsx'    => 'AtomsIndexIndex',
+        'menu'   => jbt('Atoms'),
     ]
 ];

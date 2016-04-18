@@ -11,11 +11,16 @@
  * @link       http://jbzoo.com
  */
 
-export let initialState = window.JBZOO_INITIAL_STATE ? window.JBZOO_INITIAL_STATE : {};
+import React, { Component } from 'react'
 
-export let routes = initialState.routes ? initialState.routes : {};
-export let states = initialState.states ? initialState.states : {};
-export let defines = initialState.defines ? initialState.defines : {};
-export let sidebar = initialState.sidebar ? initialState.sidebar : [];
+class AtomsApp extends Component {
 
+    render() {
+        return (
+            <div>Atoms App </div>
+        )
+    }
 
+}
+
+module.exports = AtomsApp;

@@ -11,11 +11,13 @@
  * @link       http://jbzoo.com
  */
 
-export let initialState = window.JBZOO_INITIAL_STATE ? window.JBZOO_INITIAL_STATE : {};
 
-export let routes = initialState.routes ? initialState.routes : {};
-export let states = initialState.states ? initialState.states : {};
-export let defines = initialState.defines ? initialState.defines : {};
-export let sidebar = initialState.sidebar ? initialState.sidebar : [];
+module.exports = {
+    path: 'atoms',
 
-
+    getComponent(nextState, cb) {
+        require.ensure([], (require) => {
+            cb(null, require('./atom'));
+        })
+    }
+};

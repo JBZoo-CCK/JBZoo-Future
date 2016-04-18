@@ -18,7 +18,6 @@ import injectTapEventPlugin from 'react-tap-event-plugin'
 import { Router, hashHistory } from 'react-router'
 import { routes } from './routes'
 
-
 injectTapEventPlugin();
 ReactDOM.render(
     <Router history={hashHistory} routes={routes} />,

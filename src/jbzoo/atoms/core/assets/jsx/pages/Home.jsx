@@ -13,10 +13,10 @@
 
 import React, {PropTypes, Component } from 'react'
 
-export default class Home extends Component {
+class Home extends Component {
     render() {
         return <p>Hi!</p>;
     }
 }
 
-export default Home;
+module.exports = Home;

@@ -11,23 +11,23 @@
  * @link       http://jbzoo.com
  */
 
-import App from './containers/App'
-import Home from './components/Home'
-import NotFound from './components/NotFound'
+import { routes as initRoutes } from './store/initialState'
 
 export const routes = {
     component  : 'div',
     childRoutes: [
         {
             path       : '/',
-            component  : App,
+            component  : require('./containers/App'),
             childRoutes: [
                 {
-                    indexRoute: {component: Home}
+                    indexRoute: {
+                        component: require('./pages/Home')
+                    }
                 },
                 {
                     path     : '*',
-                    component: NotFound
+                    component: require('./pages/NotFound')
                 }
             ]
         }

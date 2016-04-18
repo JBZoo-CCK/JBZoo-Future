@@ -32,10 +32,13 @@ class AdminIndex extends AdminController
             'assets:less/admin.less',
         ]);
 
-        $routes = $this->app['route']->loadAllAtoms();
-
-        $this->app['core.js']->addVar('routes', $routes);
-        $this->app['core.js']->addVar('ajax_url', JBZOO_AJAX_URL);
+        $this->app['core.js']->addVar('JBZOO_INITIAL_STATE', [
+            'routes'  => $this->app['route']->loadAllAtoms(),
+            'defines' => [
+                'AJAX_URL' => JBZOO_AJAX_URL,
+                '__DEV__'  => $this->app['config']->isDebug()
+            ]
+        ], true);
 
         ?>
         <div id="jbzoo-react-app" class="jbzoo">
