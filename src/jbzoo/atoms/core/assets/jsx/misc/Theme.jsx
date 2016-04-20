@@ -11,7 +11,7 @@
  * @link       http://jbzoo.com
  */
 
-import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 export default getMuiTheme(
     {

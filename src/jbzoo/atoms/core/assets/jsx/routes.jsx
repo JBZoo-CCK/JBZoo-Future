@@ -13,23 +13,30 @@
 
 import { routes as initRoutes } from './store/initialState'
 
+var atomList    = ['atoms'],
+    childRoutes = [];
+
+
+atomList.map((item) => {
+    childRoutes.push(require(`../../../${item}/assets/jsx/routes`));
+});
+
+
+__webpack_public_path__ = (function () {
+    return '/asdasdasd/';
+}());
+
 export const routes = {
     component  : 'div',
     childRoutes: [
         {
             path       : '/',
             component  : require('./containers/App'),
-            childRoutes: [
-                {
-                    indexRoute: {
-                        component: require('./pages/Home')
-                    }
-                },
-                {
-                    path     : '*',
-                    component: require('./pages/NotFound')
-                }
-            ]
+            childRoutes: Array.prototype.concat(
+                [{indexRoute: {component: require('./pages/Home')}}],
+                childRoutes,
+                [{path: '*', component: require('./pages/NotFound')}]
+            )
         }
     ]
 };

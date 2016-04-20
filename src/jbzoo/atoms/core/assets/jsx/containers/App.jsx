@@ -12,10 +12,10 @@
  */
 
 import React, {Component} from 'react';
-import Theme from '../misc/Theme';
-import Paper from 'material-ui/lib/paper';
-import Header from '../components/Header';
-import Sidebar from '../components/Sidebar';
+import Paper    from 'material-ui/Paper';
+import Theme    from '../misc/Theme';
+import Header   from '../components/Header';
+import Sidebar  from '../components/Sidebar';
 
 const {Grid, Row, Col} = require('react-flexbox-grid');
 
@@ -44,7 +44,7 @@ class App extends Component {
                         </Paper>
                     </Col>
                     <Col md={10}>
-                        <Paper zDepth={1} style={{minHeight:"200px", padding: "16px"}}>
+                        <Paper zDepth={0} style={{minHeight:"200px"}}>
                             {this.props.children}
                         </Paper>
                     </Col>

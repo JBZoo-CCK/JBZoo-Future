@@ -11,13 +11,10 @@
  * @link       http://jbzoo.com
  */
 
-
 module.exports = {
     path: 'atoms',
 
     getComponent(nextState, cb) {
-        require.ensure([], (require) => {
-            cb(null, require('./atom'));
-        })
+        cb(null, require('./index'));
     }
 };

@@ -12,11 +12,12 @@
  */
 
 import React, {PropTypes, Component } from 'react'
-import Toolbar from 'material-ui/lib/toolbar/toolbar';
-import ToolbarGroup from 'material-ui/lib/toolbar/toolbar-group';
-import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
-import TextField from 'material-ui/lib/text-field';
-import LinearProgress from 'material-ui/lib/linear-progress';
+
+import Toolbar          from 'material-ui/Toolbar/Toolbar';
+import ToolbarGroup     from 'material-ui/Toolbar/ToolbarGroup';
+import ToolbarTitle     from 'material-ui/Toolbar/ToolbarTitle';
+import TextField        from 'material-ui/TextField';
+import LinearProgress   from 'material-ui/LinearProgress';
 
 class Sidebar extends Component {
 

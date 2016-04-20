@@ -34,6 +34,11 @@ class AdminIndex extends AdminController
 
         $this->app['core.js']->addVar('JBZOO_INITIAL_STATE', [
             'routes'  => $this->app['route']->loadAllAtoms(),
+            'sidebar' => [
+                ['path' => 'atoms', 'name' => 'Atoms'],
+                ['path' => 'modules', 'name' => 'Modules'],
+                ['path' => 'config', 'name' => 'Configuration']
+            ],
             'defines' => [
                 'AJAX_URL' => JBZOO_AJAX_URL,
                 '__DEV__'  => $this->app['config']->isDebug()

@@ -11,16 +11,10 @@
  * @link       http://jbzoo.com
  */
 
-import React, { Component } from 'react'
+module.exports = {
+    path: 'test',
 
-class AtomsApp extends Component {
-
-    render() {
-        return (
-            <div>Atoms App </div>
-        )
+    getComponent(nextState, cb) {
+        console.log(1);
     }
-
-}
-
-module.exports = AtomsApp;
+};

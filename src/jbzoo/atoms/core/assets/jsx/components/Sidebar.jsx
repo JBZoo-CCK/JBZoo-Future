@@ -12,28 +12,30 @@
  */
 
 import React, {PropTypes, Component } from 'react'
-import { Link } from 'react-router'
+import { Link, IndexLink } from 'react-router'
 
-import Divider from 'material-ui/lib/divider';
-import List from 'material-ui/lib/lists/list';
-import ListItem from 'material-ui/lib/lists/list-item';
+import Divider  from 'material-ui/Divider/Divider';
+import List     from 'material-ui/List/List';
+import ListItem from 'material-ui/List/ListItem';
 
 import { sidebar } from '../store/initialState'
+
+const ACTIVE = {fontWeight: "bold"};
 
 class Sidebar extends Component {
     render() {
 
         return <List>
-            <ListItem containerElement={<Link to="/" />} primaryText="Dashboard" />
+            <ListItem containerElement={<IndexLink activeStyle={ACTIVE} to="/" />} primaryText="Dashboard" />
             <Divider />
             {
                 sidebar.map(function (item, key) {
                     let link = <Link to={item.path} />;
-                    return <ListItem key={key} containerElement={link} primaryText={item.name} />;
+                    return <ListItem key={key} activeStyle={ACTIVE} containerElement={link} primaryText={item.name} />;
                 })
             }
             <Divider />
-            <ListItem containerElement={<Link to="/about" />} primaryText="...about JBZoo" />
+            <ListItem containerElement={<Link activeStyle={ACTIVE} to="/about" />} primaryText="...about JBZoo" />
 
         </List>;
     }
