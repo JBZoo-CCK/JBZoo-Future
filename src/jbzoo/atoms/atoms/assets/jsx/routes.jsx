@@ -15,6 +15,6 @@ module.exports = {
     path: 'atoms',
 
     getComponent(nextState, cb) {
-        cb(null, require('./index'));
+        cb(null, require('./AtomsApp'));
     }
 };

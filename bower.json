@@ -20,7 +20,8 @@
     "requirejs": "^2.2.0",
     "babel": "*",
     "uikit": "2.26.1",
-    "Materialize": "materialize#^0.97.6"
+    "Materialize": "materialize#^0.97.6",
+    "jbzoo-jquery-factory": "*"
   },
   "ignore": [
     "**/.*",

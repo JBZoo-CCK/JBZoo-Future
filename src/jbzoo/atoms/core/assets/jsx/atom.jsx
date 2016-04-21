@@ -20,6 +20,8 @@ import { routes }               from './routes'
 
 injectTapEventPlugin();
 
+jQuery('html').addClass('jbzoo-wp-admin');
+
 ReactDOM.render(
     <Router history={hashHistory} routes={routes} />,
     document.getElementById('jbzoo-react-app')

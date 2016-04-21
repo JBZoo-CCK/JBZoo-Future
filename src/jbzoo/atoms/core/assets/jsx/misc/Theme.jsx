@@ -19,7 +19,7 @@ export default getMuiTheme(
 
         fontFamily: 'Roboto, sans-serif',
         palette   : {
-            primary1Color: '#10223e'
+            // primary1Color: '#10223e'
         }
     },
     {
