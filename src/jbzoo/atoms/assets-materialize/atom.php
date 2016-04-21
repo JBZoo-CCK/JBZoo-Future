@@ -28,8 +28,8 @@ return [
             ->register(
                 'materialize',
                 [
-                    'atom-assets-materialize:assets/css/materialize.min.css',
-                    'atom-assets-materialize:assets/js/materialize.min.js',
+                    'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css',
+                    'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js',
                 ],
                 [
                     'jquery',

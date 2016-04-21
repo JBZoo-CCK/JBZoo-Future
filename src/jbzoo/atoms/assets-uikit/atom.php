@@ -17,14 +17,24 @@ use JBZoo\CCK\App;
 return [
     'init' => function (App $app) {
 
-        $app['assets']->register(
-            'uikit',
-            [
-                'atom-assets-uikit:assets/js/uikit.min.js',
-                'atom-assets-uikit:assets/css/uikit.min.css',
-            ],
-            'jquery'
-        );
+        $app['assets']
+            ->register(
+                'uikit',
+                [
+                    'atom-assets-uikit:assets/js/uikit.min.js',
+                    'atom-assets-uikit:assets/css/uikit.min.css',
+                ],
+                'jquery'
+            )
+            ->register(
+                'uikit-cdn',
+                [
+                    'https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.2/js/uikit.min.js',
+                    'https://cdnjs.cloudflare.com/ajax/libs/uikit/2.26.2/css/uikit.min.css',
+                ],
+                'jquery'
+            )
+        ;
 
     },
 ];

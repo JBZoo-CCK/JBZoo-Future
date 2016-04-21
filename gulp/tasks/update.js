@@ -17,10 +17,8 @@ var gulp = require('gulp');
 
 // Task: Update all
 gulp.task('update', [
-    'update:babel',
     'update:react',
     'update:jbzoo-utils',
     'update:uikit',
     'update:bootstrap',
-    'update:materialize'
 ]);

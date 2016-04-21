@@ -44,7 +44,7 @@
     "gulp-stylus": "^2.3.1",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.1",
-    "jbzoo-jquery-factory": "0.0.2",
+    "jbzoo-jquery-factory": "*",
     "jsx-loader": "^0.13.2",
     "lodash": "^4.11.0",
     "main-bower-files": "^2.11.1",

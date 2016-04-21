@@ -16,6 +16,9 @@ use JBZoo\CCK\App;
 
 return [
     'init' => function (App $app) {
-        $app['assets']->register('babel', 'atom-assets-babel:assets/js/browser.min.js');
+        $app['assets']->register(
+            'babel-cdn',
+            'https://cdnjs.cloudflare.com/ajax/libs/babel-core/6.1.19/browser.min.js'
+        );
     },
 ];
