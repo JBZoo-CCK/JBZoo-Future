@@ -46,7 +46,7 @@ class AdminIndex extends AdminController
         ], true);
 
         ?>
-        <div id="jbzoo-react-app" class="jbzoo">
+        <div id="jbzoo-app" class="jbzoo">
             Loading...
         </div>
         <?php

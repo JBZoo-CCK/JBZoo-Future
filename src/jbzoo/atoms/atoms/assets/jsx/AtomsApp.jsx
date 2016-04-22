@@ -30,7 +30,11 @@ import SelectField  from 'material-ui/SelectField';
 import TimePicker   from 'material-ui/TimePicker';
 import DatePicker   from 'material-ui/DatePicker';
 
+import * as colors  from 'material-ui/styles/colors';
+
 import _ from 'lodash';
+
+var rowStyles = {marginBottom: "16px"};
 
 class AtomsApp extends Component {
 
@@ -45,18 +49,18 @@ class AtomsApp extends Component {
         return <Row>
             <Col md={9}>
 
-                {_.times(30, i =>
+                {_.times(2, i =>
                     <Card key={i}>
                         <CardHeader
                             title="Gravatar"
-                            titleStyle={{fontWeight:"bold", fontSize:"16px"}}
+                            titleStyle={{fontSize:"16px", color:colors.lightBlue700}}
                             subtitle="Add support gravatar"
                             actAsExpander={true}
                             showExpandableButton={true}
                         />
                         <CardText expandable={true} style={{paddingTop:"0px"}}>
                             <Divider style={{width:"80%"}} />
-                            <Row>
+                            <Row style={rowStyles}>
                                 <Col md={2} style={{paddingTop:"42px"}}>Text field</Col>
                                 <Col md={5}>
                                     <TextField
@@ -68,20 +72,22 @@ class AtomsApp extends Component {
                                         name="text"
                                         hintText="a sda das dasd asdas d?"
                                         floatingLabelText="asd as dasd"
+                                        defaultValue="Default Value"
                                     />
                                 </Col>
-                                <Col md={5} style={{paddingTop:"24px", color:"#ccc"}}>
+                                <Col md={5} style={{paddingTop:"24px", color:"#aaa"}}>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                     sed do eiusmod tempor incididunt ut labore
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row style={rowStyles}>
                                 <Col md={2}>Toggle field</Col>
                                 <Col md={5}>
                                     <Toggle
                                         name="text"
                                         label="What is your name?"
                                         labelPosition="right"
+                                        defaultToggled={true}
                                     />
                                     <Toggle
                                         name="text"
@@ -89,12 +95,12 @@ class AtomsApp extends Component {
                                         labelPosition="right"
                                     />
                                 </Col>
-                                <Col md={5} style={{color:"#ccc"}}>
+                                <Col md={5} style={{color:"#aaa"}}>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                     sed do eiusmod tempor incididunt ut labore
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row style={rowStyles}>
                                 <Col md={2}>Checkbox field</Col>
                                 <Col md={5}>
                                     <Checkbox
@@ -102,17 +108,18 @@ class AtomsApp extends Component {
                                     />
                                     <Checkbox
                                         label="Simple asdasd"
+                                        defaultChecked={true}
                                     />
                                     <Checkbox
                                         label="Simple asdasd adas dasd "
                                     />
                                 </Col>
-                                <Col md={5} style={{color:"#ccc"}}>
+                                <Col md={5} style={{color:"#aaa"}}>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                     sed do eiusmod tempor incididunt ut labore
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row style={rowStyles}>
                                 <Col md={2}>RadioButtonGroup field</Col>
                                 <Col md={5}>
                                     <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
@@ -130,12 +137,12 @@ class AtomsApp extends Component {
                                         />
                                     </RadioButtonGroup>
                                 </Col>
-                                <Col md={5} style={{color:"#ccc"}}>
+                                <Col md={5} style={{color:"#aaa"}}>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                     sed do eiusmod tempor incididunt ut labore
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row style={rowStyles}>
                                 <Col md={2}>Select field</Col>
                                 <Col md={5}>
                                     <SelectField value={this.state.select} onChange={this.handleChange}>
@@ -146,12 +153,12 @@ class AtomsApp extends Component {
                                         <MenuItem value={5} primaryText="Weekly" />
                                     </SelectField>
                                 </Col>
-                                <Col md={5} style={{color:"#ccc"}}>
+                                <Col md={5} style={{color:"#aaa"}}>
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                                     sed do eiusmod tempor incididunt ut labore
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row style={rowStyles}>
                                 <Col md={2}>TimePicker field</Col>
                                 <Col md={5}>
                                     <TimePicker
@@ -159,16 +166,16 @@ class AtomsApp extends Component {
                                         hintText="24hr Format"
                                     />
                                 </Col>
-                                <Col md={5} style={{color:"#ccc"}}>
+                                <Col md={5} style={{color:"#aaa"}}>
                                     Lorem ipsum dolor sit amet
                                 </Col>
                             </Row>
-                            <Row>
+                            <Row style={rowStyles}>
                                 <Col md={2}>TimePicker field</Col>
                                 <Col md={5}>
                                     <DatePicker hintText="Portrait Dialog" />
                                 </Col>
-                                <Col md={5} style={{color:"#ccc"}}>
+                                <Col md={5} style={{color:"#aaa"}}>
                                     Lorem ipsum dolor sit amet
                                 </Col>
                             </Row>

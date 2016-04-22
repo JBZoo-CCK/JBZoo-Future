@@ -18,9 +18,11 @@ import Divider  from 'material-ui/Divider/Divider';
 import List     from 'material-ui/List/List';
 import ListItem from 'material-ui/List/ListItem';
 
+import * as colors  from 'material-ui/styles/colors';
+
 import { sidebar } from '../store/initialState'
 
-const ACTIVE = {fontWeight: "bold"};
+const ACTIVE = {fontWeight: "bold", color:colors.lightBlue700};
 
 class Sidebar extends Component {
     render() {
