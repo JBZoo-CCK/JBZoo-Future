@@ -55,18 +55,26 @@ class Manager extends Container
         $names = strtolower($names);
         $path  = 'atoms:' . $names . '/atom.php';
 
+        $result = [];
         if ($manifests = $this->app['path']->glob($path)) {
             foreach ($manifests as $initFile) {
                 $this->app->trigger("atom.loadinfo.before");
-                $this->app->trigger("atom.loadinfo.{$names}.before");
+                if ($names != '*') {
+                    $this->app->trigger("atom.loadinfo.{$names}.before");
+                }
 
-                $this->_registerAtom($initFile);
+                if ($info = $this->_registerAtom($initFile)) {
+                    $result[$this->_getIdFromPath($initFile)] = $info;
+                }
 
-                $this->app->trigger("atom.loadinfo.{$names}.after");
+                if ($names != '*') {
+                    $this->app->trigger("atom.loadinfo.{$names}.after");
+                }
+
                 $this->app->trigger("atom.loadinfo.after");
             }
 
-            return true;
+            return $result;
         }
 
         return false;
@@ -154,6 +162,8 @@ class Manager extends Container
     /**
      * @param string $initFile
      * @param bool   $isOverload
+     * @return PHPArray[]
+     * @throws \JBZoo\Path\Exception
      */
     protected function _registerAtom($initFile, $isOverload = false)
     {
@@ -172,6 +182,8 @@ class Manager extends Container
             $this->_atoms[$atomId]->set('dir', $dir);
             $this->app['path']->set('atom-' . $atomId, $dir);
             $this->app->addLoadPath(['Atom', $atomId], $dir);
+
+            return $this->_atoms[$atomId];
         }
     }
 

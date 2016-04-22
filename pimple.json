@@ -64,6 +64,11 @@
                 "value": []
             },
             {
+                "name": "atoms",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "core",
                 "type": "container",
                 "value": [
