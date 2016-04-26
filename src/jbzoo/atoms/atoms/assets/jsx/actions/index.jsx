@@ -16,17 +16,19 @@ import {
     GET_ATOMS_SUCCESS
 } from '../defines';
 
+export function getAtoms() {
 
-export default function atoms(state = initialState, action) {
+    return (dispatch) => {
+        dispatch({
+            type   : GET_ATOMS_REQUEST,
+            payload: []
+        });
 
-    switch (action.type) {
-        case GET_ATOMS_REQUEST:
-            return {...state, atoms: action.payload, fetching: true};
-
-        case GET_ATOMS_SUCCESS:
-            return {...state, atoms: action.payload, fetching: false};
-
-        default:
-            return state;
+        setTimeout(() => {
+            dispatch({
+                type   : GET_ATOMS_SUCCESS,
+                payload: [1, 2, 3, 4, 5]
+            })
+        }, 5000);
     }
 }

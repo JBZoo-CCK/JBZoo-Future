@@ -12,22 +12,23 @@
  */
 
 import { createStore, applyMiddleware, compose } from 'redux'
-import createLogger from 'redux-logger'
-import thunk from 'redux-thunk'
-import rootReducer from '../reducers'
+import reduxThunk   from 'redux-thunk'
+import rootReducer  from '../reducers'
 
-export default function configureStore(initialState) {
+export default function configureStore(initialState = {}) {
 
     var enhancer = compose(
-        applyMiddleware(thunk)
+        applyMiddleware(reduxThunk)
     );
 
     if (__DEV__) {
         enhancer = compose(
-            applyMiddleware(thunk),
+            applyMiddleware(reduxThunk),
             window.devToolsExtension ? window.devToolsExtension() : f => f
         );
     }
+
+    initialState.fetching = false;
 
     return createStore(rootReducer, initialState, enhancer);
 }

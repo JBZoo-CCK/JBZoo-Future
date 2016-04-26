@@ -1,4 +1,3 @@
-<?php
 /**
  * JBZoo CCK
  *
@@ -12,20 +11,6 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom;
 
-/**
- * Class AdminController
- * @package JBZoo\CCK
- */
-class AdminController extends Controller
-{
-    /**
-     * @param array $data
-     * @param bool  $result
-     */
-    protected function _json($data, $result = true)
-    {
-        $this->app['response']->json($data, $result);
-    }
-}
+export const GET_ATOMS_REQUEST = 'GET_ATOMS_REQUEST';
+export const GET_ATOMS_SUCCESS = 'GET_ATOMS_SUCCESS';

@@ -32,7 +32,12 @@ import DatePicker   from 'material-ui/DatePicker';
 
 import * as colors  from 'material-ui/styles/colors';
 
+import { connect }              from 'react-redux';
+import { bindActionCreators }   from 'redux';
+import * as atomsActions        from './actions/index';
+
 import _ from 'lodash';
+
 
 var rowStyles = {marginBottom: "16px"};
 
@@ -40,12 +45,18 @@ class AtomsApp extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {select: 1};
+        this.state = {
+            atoms : props.atomsActions.getAtoms(),
+            select: 1
+        };
     }
 
     handleChange = (event, index, select) => this.setState({select});
 
     render() {
+
+        console.log(this.state.atoms);
+
         return <Row>
             <Col md={9}>
 
@@ -207,4 +218,20 @@ class AtomsApp extends Component {
     }
 }
 
-module.exports = AtomsApp;
+function mapStateToProps(state) {
+
+    return {
+        atoms: state.atoms
+    };
+}
+
+
+function mapDispatchToProps(dispatch) {
+    return {
+        atomsActions: bindActionCreators(atomsActions, dispatch)
+    }
+}
+
+let connectResult = connect(mapStateToProps, mapDispatchToProps)(AtomsApp);
+
+module.exports = connectResult;

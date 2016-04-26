@@ -59,18 +59,13 @@ class Manager extends Container
         if ($manifests = $this->app['path']->glob($path)) {
             foreach ($manifests as $initFile) {
                 $this->app->trigger("atom.loadinfo.before");
-                if ($names != '*') {
-                    $this->app->trigger("atom.loadinfo.{$names}.before");
-                }
+                $this->app->trigger("atom.loadinfo.{$names}.before");
 
                 if ($info = $this->_registerAtom($initFile)) {
                     $result[$this->_getIdFromPath($initFile)] = $info;
                 }
 
-                if ($names != '*') {
-                    $this->app->trigger("atom.loadinfo.{$names}.after");
-                }
-
+                $this->app->trigger("atom.loadinfo.{$names}.after");
                 $this->app->trigger("atom.loadinfo.after");
             }
 

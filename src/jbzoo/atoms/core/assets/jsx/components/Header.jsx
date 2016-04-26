@@ -12,7 +12,7 @@
  */
 
 import React, {PropTypes, Component } from 'react'
-
+import { connect }      from 'react-redux'
 import Toolbar          from 'material-ui/Toolbar/Toolbar';
 import ToolbarGroup     from 'material-ui/Toolbar/ToolbarGroup';
 import ToolbarTitle     from 'material-ui/Toolbar/ToolbarTitle';
@@ -22,6 +22,12 @@ import LinearProgress   from 'material-ui/LinearProgress';
 class Sidebar extends Component {
 
     render() {
+
+        let progressMode = 'determinate';
+        if (this.props.fetching) {
+            progressMode = 'indeterminate';
+        }
+
         return <div>
             <Toolbar style={{backgroundColor:"#10223e"}}>
                 <ToolbarGroup>
@@ -29,27 +35,27 @@ class Sidebar extends Component {
                     <ToolbarTitle
                         text="JBZoo CCK Panel — 3.x-dev"
                         style={{
-                        color:"#fff",
-                        lineHeight:"40px",
-                        marginTop:"8px",
-                        marginLeft:"52px"
-                    }}
+                            color      :"#fff",
+                            lineHeight :"40px",
+                            marginTop  :"8px",
+                            marginLeft : "52px"
+                        }}
                     />
                 </ToolbarGroup>
                 <ToolbarGroup firstChild={true} float="right" style={{lineHeight:"40px"}}>
                     <TextField hintText="Global search"
                                hintStyle={{color:"#aaa"}}
                                inputStyle={{
-                                color:"#fff",
-                                backgroundCcolor: "#eee"
-                            }}
+                                   color:"#fff",
+                                   backgroundCcolor: "#eee"
+                               }}
                     />
                 </ToolbarGroup>
             </Toolbar>
 
-            <LinearProgress mode="determinate" value={40} />
+            <LinearProgress mode={progressMode} />
         </div>;
     }
 }
 
-module.exports = Sidebar;
+export default Sidebar;

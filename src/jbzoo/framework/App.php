@@ -95,9 +95,12 @@ class App extends Cms
      */
     public function trigger($event, array $arguments = array())
     {
-        //$this->mark($event); // Super profiler!
+        if (strpos($event, '*') === false) {
+            //$this->mark($event); // Super profiler!
+            parent::trigger($event, $arguments);
+        }
 
-        return parent::trigger($event, $arguments);
+        return 0;
     }
 
     /**
@@ -196,7 +199,7 @@ class App extends Cms
         });
 
         // Get current action
-        $action = $action ?: $this['request']->get('act', 'index');
+        $action = $action ?: $this['request']->get('task', 'index');
         $action = Filter::_($action, function ($orginal) {
             $value  = Filter::cmd($orginal);
             $action = $value ?: 'index';

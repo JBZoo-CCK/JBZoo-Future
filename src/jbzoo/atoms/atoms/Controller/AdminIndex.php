@@ -18,7 +18,7 @@ use JBZoo\CCK\Atom\AdminController;
 use JBZoo\Data\PHPArray;
 
 /**
- * Class Index
+ * Class AdminIndex
  * @package JBZoo\CCK
  */
 class AdminIndex extends AdminController
@@ -26,20 +26,22 @@ class AdminIndex extends AdminController
     /**
      * Index action
      */
-    public function index()
+    public function atoms()
     {
-
         $atomList = $this->app['atoms']->loadInfo('*');
 
         $configs = [];
 
         /** @var PHPArray $atomInfo */
         foreach ($atomList as $atomId => $atomInfo) {
-            if ($configRow = $atomInfo->get('config')) {
-                $configs[$atomId] = $configRow;
+            $atomInfo->remove('init');
+            $atomInfo->remove('dir');
+
+            if ($atomInfo->get('config') && $atomInfo->find('meta.name')) {
+                $configs[$atomId] = $atomInfo->getArrayCopy();
             }
         }
 
-        $this->app['response']->json(['list' => $configs]);
+        $this->_json(['list' => $configs]);
     }
 }

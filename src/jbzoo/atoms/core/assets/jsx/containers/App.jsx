@@ -17,6 +17,9 @@ import Theme    from '../misc/Theme';
 import Header   from '../components/Header';
 import Sidebar  from '../components/Sidebar';
 
+import { connect }              from 'react-redux'
+import { bindActionCreators }   from 'redux'
+
 const {Grid, Row, Col} = require('react-flexbox-grid');
 
 
@@ -33,7 +36,7 @@ class App extends Component {
 
                 <Row style={{marginBottom:"24px", marginRight:0 }}>
                     <Col md={12}>
-                        <Header />
+                        <Header fetching={this.props.fetching} />
                     </Col>
                 </Row>
 
@@ -55,9 +58,20 @@ class App extends Component {
     }
 }
 
-//the key passed through context must be called "muiTheme"
 App.childContextTypes = {
     muiTheme: React.PropTypes.object
 };
 
-module.exports = App;
+function mapStateToProps(state) {
+    return {
+        fetching: state.fetching
+    };
+}
+
+function mapDispatchToProps(dispatch) {
+    return {};
+}
+
+let connectResult = connect(mapStateToProps, mapDispatchToProps)(App);
+
+module.exports = connectResult;

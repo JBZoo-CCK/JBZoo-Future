@@ -187,7 +187,6 @@ abstract class Atom extends Container
         $helperClass = $this->getClass('helper', $offset);
 
         if (!isset($this[$offset]) && class_exists($helperClass)) {
-
             $this[$offset] = function () use ($helperClass, $offset) {
                 return new $helperClass($this, $offset);
             };
