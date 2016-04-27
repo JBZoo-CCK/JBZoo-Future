@@ -11,24 +11,48 @@
  * @link       http://jbzoo.com
  */
 
-import { createStore, applyMiddleware, compose } from 'redux'
-import reduxThunk   from 'redux-thunk'
-import rootReducer  from '../reducers'
+import * as redux       from 'redux'
+import reduxThunk       from 'redux-thunk'
+import createReducer    from '../reducers/createReducer'
 
-export default function configureStore(initialState = {}) {
+var configureReducers = require('./configureReducers');
 
-    var enhancer = compose(
-        applyMiddleware(reduxThunk)
+var createStoreWithMiddleware = redux.applyMiddleware(reduxThunk)(redux.createStore);
+
+module.exports = function configureStore(initialState = {}, reducerRegistry) {
+
+    var enhancer = redux.compose(
+        redux.applyMiddleware(reduxThunk)
     );
 
     if (__DEV__) {
-        enhancer = compose(
-            applyMiddleware(reduxThunk),
+        enhancer = redux.compose(
+            redux.applyMiddleware(reduxThunk),
             window.devToolsExtension ? window.devToolsExtension() : f => f
         );
     }
 
-    initialState.fetching = false;
+    var rootReducer = configureReducers(reducerRegistry.getReducers());
 
-    return createStore(rootReducer, initialState, enhancer);
+    var store       = createStoreWithMiddleware(rootReducer, initialState, enhancer);
+
+    reducerRegistry.setChangeListener((reducers) => {
+        store.replaceReducer(configureReducers(reducers))
+    });
+
+    return store
+};
+
+/*
+export default function configureStore(initialState = {}) {
+    var enhancer = redux.compose(
+        redux.applyMiddleware(reduxThunk)
+    );
+
+
+
+    let store = redux.createStore(createReducer(), initialState, enhancer);
+
+    return store;
 }
+*/

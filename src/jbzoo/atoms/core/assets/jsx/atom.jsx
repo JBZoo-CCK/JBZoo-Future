@@ -14,19 +14,25 @@
 import React                from 'react'
 import ReactDOM             from 'react-dom'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-
 import { Provider }         from 'react-redux'
-import configureStore       from './store/configureStore'
-import initialState         from './store/initialState'
-
 import { Router, hashHistory }  from 'react-router'
-import { routes }               from './routes'
 
+import initialState         from './store/initialState'
+import configureStore       from './store/configureStore'
+
+var configureRoutes = require('./routes');
+var ReducerRegistry = require('./store/ReducerRegistry');
+var coreReducers    = require('./reducers/core');
+
+// Prepare store
+var reducerRegister = new ReducerRegistry(coreReducers);
+var routes = configureRoutes(reducerRegister);
+var store = configureStore(initialState, reducerRegister);
+
+
+// Global hacks
 injectTapEventPlugin();
-
 jQuery('html').addClass('jbzoo-wp-admin');
-
-const store = configureStore(initialState);
 
 ReactDOM.render(
     <Provider store={store}>

@@ -11,10 +11,18 @@
  * @link       http://jbzoo.com
  */
 
-module.exports = {
-    path: 'atoms',
+import { injectAsyncReducer } from '../../../core/assets/jsx/store/configureStore';
 
-    getComponent(nextState, cb) {
-        cb(null, require('./AtomsApp'));
+module.exports.default = function (reducerRegistry, atomKey) {
+    return {
+        path: 'atoms',
+        getComponent(nextState, callback) {
+
+            let addObj = {};
+            addObj[atomKey] = require('./reducers/atoms');
+            reducerRegistry.register(addObj);
+
+            callback(null, require('./AtomsApp'));
+        }
     }
 };

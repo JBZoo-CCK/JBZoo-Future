@@ -14,19 +14,24 @@
 import {
     GET_ATOMS_REQUEST,
     GET_ATOMS_SUCCESS
-} from '../defines';
+} from '../defines'
 
+const initialState = {
+    atoms   : [],
+    fetching: false
+};
 
 export default function atoms(state = initialState, action) {
 
     switch (action.type) {
         case GET_ATOMS_REQUEST:
-            return {...state, atoms: action.payload, fetching: true};
+            return {...state, fetching: true};
 
         case GET_ATOMS_SUCCESS:
-            return {...state, atoms: action.payload, fetching: false};
+            return {...state, atoms: action.atoms, fetching: false};
 
         default:
             return state;
     }
+
 }

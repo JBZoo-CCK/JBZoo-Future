@@ -13,30 +13,29 @@
 
 import { routes as initRoutes } from './store/initialState'
 
-var atomList    = ['atoms'],
-    childRoutes = [];
 
+module.exports = function configureRoutes(reducerRegistry) {
 
-atomList.map((item) => {
-    childRoutes.push(require(`../../../${item}/assets/jsx/routes`));
-});
+    var atomList    = ['atoms'],
+        childRoutes = [];
 
+    atomList.map((item) => {
+        let cb = require(`../../../${item}/assets/jsx/routes`).default;
+        childRoutes.push(cb(reducerRegistry, item));
+    });
 
-__webpack_public_path__ = (function () {
-    return '/asdasdasd/';
-}());
-
-export const routes = {
-    component  : 'div',
-    childRoutes: [
-        {
-            path       : '/',
-            component  : require('./containers/App'),
-            childRoutes: Array.prototype.concat(
-                [{indexRoute: {component: require('./pages/Home')}}],
-                childRoutes,
-                [{path: '*', component: require('./pages/NotFound')}]
-            )
-        }
-    ]
+    return {
+        component  : 'div',
+        childRoutes: [
+            {
+                path       : '/',
+                component  : require('./containers/App'),
+                childRoutes: Array.prototype.concat(
+                    [{indexRoute: {component: require('./pages/Home')}}],
+                    childRoutes,
+                    [{path: '*', component: require('./pages/NotFound')}]
+                )
+            }
+        ]
+    }
 };
