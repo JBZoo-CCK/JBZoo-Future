@@ -17,5 +17,6 @@ export let routes = initialState.routes ? initialState.routes : {};
 export let states = initialState.states ? initialState.states : {};
 export let defines = initialState.defines ? initialState.defines : {};
 export let sidebar = initialState.sidebar ? initialState.sidebar : [];
+export let atoms = initialState.atoms ? initialState.atoms : [];
 
 export default initialState;

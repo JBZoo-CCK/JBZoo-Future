@@ -34,7 +34,7 @@ module.exports = function configureStore(initialState = {}, reducerRegistry) {
 
     var rootReducer = configureReducers(reducerRegistry.getReducers());
 
-    var store       = createStoreWithMiddleware(rootReducer, initialState, enhancer);
+    var store = createStoreWithMiddleware(rootReducer, initialState, enhancer);
 
     reducerRegistry.setChangeListener((reducers) => {
         store.replaceReducer(configureReducers(reducers))
@@ -42,17 +42,3 @@ module.exports = function configureStore(initialState = {}, reducerRegistry) {
 
     return store
 };
-
-/*
-export default function configureStore(initialState = {}) {
-    var enhancer = redux.compose(
-        redux.applyMiddleware(reduxThunk)
-    );
-
-
-
-    let store = redux.createStore(createReducer(), initialState, enhancer);
-
-    return store;
-}
-*/

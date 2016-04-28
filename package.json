@@ -42,6 +42,7 @@
     "gulp-stylus": "^2.3.1",
     "gulp-uglify": "^1.5.3",
     "gulp-util": "^3.0.1",
+    "isomorphic-fetch": "^2.2.1",
     "jbzoo-jquery-factory": "^1.0.1",
     "jsx-loader": "^0.13.2",
     "lodash": "^4.11.0",

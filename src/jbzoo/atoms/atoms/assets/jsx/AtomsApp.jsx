@@ -36,6 +36,8 @@ import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import * as atomsActions        from './actions/index';
 
+import { fetchAtomsIfNeeded } from './actions'
+
 import _ from 'lodash';
 
 
@@ -43,17 +45,19 @@ var rowStyles = {marginBottom: "16px"};
 
 class AtomsApp extends Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            atoms : props.atomsActions.getAtoms(),
-            select: 1
-        };
-    }
-
     handleChange = (event, index, select) => this.setState({select});
 
+    componentWillMount() {
+        this.setState({select: 1});
+    }
+
+    componentDidMount() {
+        this.props.atomsActions.fetchAtomsIfNeeded();
+    }
+
     render() {
+
+        console.log(this.props.atoms, 'render');
 
         return <Row>
             <Col md={9}>
@@ -197,7 +201,7 @@ class AtomsApp extends Component {
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                    labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
                    nisi culpa qui officia deserunt mollit anim id est laborum.</p>
-                <h2>asd</h2>
+                <h2>asd asd</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                    aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
@@ -208,11 +212,8 @@ class AtomsApp extends Component {
 }
 
 function mapStateToProps(state) {
-    return {
-        atoms: state.atoms
-    };
+    return {atoms: state.atoms};
 }
-
 
 function mapDispatchToProps(dispatch) {
     return {

@@ -17,15 +17,20 @@ import {
 } from '../defines'
 
 const initialState = {
-    atoms   : [],
+    atoms   : false,
     fetching: false
 };
 
+
+console.log('reducer load');
+
 export default function atoms(state = initialState, action) {
+
+    console.log('reducer');
 
     switch (action.type) {
         case GET_ATOMS_REQUEST:
-            return {...state, fetching: true};
+            return {...state, atoms: false, fetching: true};
 
         case GET_ATOMS_SUCCESS:
             return {...state, atoms: action.atoms, fetching: false};

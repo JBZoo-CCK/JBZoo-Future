@@ -13,6 +13,7 @@
 
 module.exports = {
     sidebar: (state = {}) => state,
-    routes : (state = {}) => state,
-    defines: (state = {}) => state
+    //routes : (state = {}) => state,
+    //defines: (state = {}) => state
+    atoms  : (state = {}) => state
 };
