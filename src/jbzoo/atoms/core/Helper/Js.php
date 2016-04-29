@@ -32,7 +32,18 @@ class Js extends Helper
     {
         $this->app['assets']->register(
             'var_' . self::GLOBAL_VAR . '_1',
-            '    window.' . self::GLOBAL_VAR . ' = {};',
+            implode(PHP_EOL . ';', [
+                '    window.' . self::GLOBAL_VAR . ' = {};',
+                '    var dump = function(mixed, label, trace) {
+                         if (label) {
+                            console.log(label + \': \', mixed);
+                         } else {
+                            console.log(mixed);
+                         }
+                         if (trace) { console.trace(); }
+                     };
+                ',
+            ]),
             [],
             ['type' => Asset::TYPE_JS_CODE]
         );

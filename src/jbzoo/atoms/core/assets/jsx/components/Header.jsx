@@ -17,15 +17,15 @@ import Toolbar          from 'material-ui/Toolbar/Toolbar';
 import ToolbarGroup     from 'material-ui/Toolbar/ToolbarGroup';
 import ToolbarTitle     from 'material-ui/Toolbar/ToolbarTitle';
 import TextField        from 'material-ui/TextField';
-import LinearProgress   from 'material-ui/LinearProgress';
+import RefreshIndicator from 'material-ui/RefreshIndicator';
 
 class Sidebar extends Component {
 
     render() {
 
-        let progressMode = 'determinate';
-        if (this.props.fetching) {
-            progressMode = 'indeterminate';
+        let progressMode = 'hide';
+        if (this.props.isLoading) {
+            progressMode = 'loading';
         }
 
         return <div>
@@ -50,10 +50,15 @@ class Sidebar extends Component {
                                    backgroundCcolor: "#eee"
                                }}
                     />
+                    <RefreshIndicator
+                        size={50}
+                        left={10}
+                        top={4}
+                        status={progressMode}
+                        style={{backgroundColor:"none", position:"relative"}}
+                    />
                 </ToolbarGroup>
             </Toolbar>
-
-            <LinearProgress mode={progressMode} />
         </div>;
     }
 }

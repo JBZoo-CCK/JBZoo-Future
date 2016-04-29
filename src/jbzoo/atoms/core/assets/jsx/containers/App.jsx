@@ -36,7 +36,7 @@ class App extends Component {
 
                 <Row style={{marginBottom:"24px", marginRight:0 }}>
                     <Col md={12}>
-                        <Header fetching={this.props.fetching} />
+                        <Header isLoading={this.props.isLoading} />
                     </Col>
                 </Row>
 
@@ -64,14 +64,8 @@ App.childContextTypes = {
 
 function mapStateToProps(state) {
     return {
-        fetching: state.fetching
+        isLoading: state.isLoading
     };
 }
 
-function mapDispatchToProps(dispatch) {
-    return {};
-}
-
-let connectResult = connect(mapStateToProps, mapDispatchToProps)(App);
-
-module.exports = connectResult;
+module.exports = connect(mapStateToProps)(App);

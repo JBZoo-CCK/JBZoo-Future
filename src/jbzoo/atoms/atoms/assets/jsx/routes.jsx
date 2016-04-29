@@ -13,16 +13,22 @@
 
 import { injectAsyncReducer } from '../../../core/assets/jsx/store/configureStore';
 
+var AtomsApp;
+
 module.exports.default = function (reducerRegistry, atomKey) {
     return {
         path: 'atoms',
         getComponent(nextState, callback) {
 
-            let addObj = {};
-            addObj[atomKey] = require('./reducers/atoms');
-            reducerRegistry.register(addObj);
+            if (!AtomsApp) {
+                let addObj = {};
+                addObj[atomKey] = require('./reducers').default;
+                reducerRegistry.register(addObj);
 
-            callback(null, require('./AtomsApp'));
+                AtomsApp = require('./AtomsApp');
+            }
+
+            callback(null, AtomsApp);
         }
     }
 };

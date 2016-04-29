@@ -14,42 +14,42 @@
 import fetch from 'isomorphic-fetch'
 
 import {
-    GET_ATOMS_REQUEST,
-    GET_ATOMS_SUCCESS
+    ATOMS_LIST_REQUEST,
+    ATOMS_LIST_SUCCESS
 } from '../defines';
 
 
 var link = '/administrator/index.php?option=com_jbzoo&ctrl=atoms.index&task=atoms';
 
-function receiveAtoms(atoms) {
+function requestAtoms() {
     return {
-        type : GET_ATOMS_SUCCESS,
-        atoms: atoms.list
+        type   : ATOMS_LIST_REQUEST,
+        payload: false
     }
 }
 
-function requestAtoms() {
+function receiveAtoms(atoms) {
     return {
-        type : GET_ATOMS_REQUEST,
-        atoms: []
+        type   : ATOMS_LIST_SUCCESS,
+        payload: atoms
     }
 }
 
 function fetchAtoms() {
     return dispatch => {
         dispatch(requestAtoms());
+        dispatch({type: 'LOADER_START'});
         return fetch(link, {credentials: 'same-origin'})
             .then(response => response.json())
-            .then(json => dispatch(receiveAtoms(json)))
+            .then(function(json) {
+                dispatch({type: 'LOADER_STOP'});
+                return dispatch(receiveAtoms(json.list));
+            })
     }
 }
 
 function shouldFetchAtoms(state) {
-    if (!state.atoms) {
-        return true;
-    } else {
-        return state.fetching;
-    }
+    return !state.atoms;
 }
 
 export function fetchAtomsIfNeeded() {

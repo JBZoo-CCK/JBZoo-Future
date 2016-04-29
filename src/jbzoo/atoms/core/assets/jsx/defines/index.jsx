@@ -11,22 +11,6 @@
  * @link       http://jbzoo.com
  */
 
-import {
-    LOADER_START,
-    LOADER_STOP
-} from '../defines'
 
-module.exports = {
-    sidebar  : (state = {}) => state,
-    isLoading: function (state = false, action) {
-
-        switch (action.type) {
-            case LOADER_START:
-                return true;
-            case LOADER_STOP:
-                return false;
-        }
-
-        return state;
-    }
-};
+export const LOADER_START = 'LOADER_START';
+export const LOADER_STOP = 'LOADER_STOP';

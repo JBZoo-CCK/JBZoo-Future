@@ -12,31 +12,18 @@
  */
 
 import {
-    GET_ATOMS_REQUEST,
-    GET_ATOMS_SUCCESS
+    ATOMS_LIST_REQUEST,
+    ATOMS_LIST_SUCCESS
 } from '../defines'
 
-const initialState = {
-    atoms   : false,
-    fetching: false
-};
-
-
-console.log('reducer load');
-
-export default function atoms(state = initialState, action) {
-
-    console.log('reducer');
+export default function atoms(state = false, action) {
 
     switch (action.type) {
-        case GET_ATOMS_REQUEST:
-            return {...state, atoms: false, fetching: true};
-
-        case GET_ATOMS_SUCCESS:
-            return {...state, atoms: action.atoms, fetching: false};
+        case ATOMS_LIST_REQUEST:
+        case ATOMS_LIST_SUCCESS:
+            return action.payload;
 
         default:
             return state;
     }
-
 }

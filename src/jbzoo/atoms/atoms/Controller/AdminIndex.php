@@ -28,6 +28,8 @@ class AdminIndex extends AdminController
      */
     public function atoms()
     {
+        //sleep(5);
+
         $atomList = $this->app['atoms']->loadInfo('*');
 
         $configs = [];

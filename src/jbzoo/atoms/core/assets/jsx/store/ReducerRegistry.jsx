@@ -34,6 +34,7 @@ module.exports = class ReducerRegistry {
         if (this._emitChange != null) {
             throw new Error('Can only set the listener for a ReducerRegistry once.')
         }
+
         this._emitChange = listener
     }
 };
