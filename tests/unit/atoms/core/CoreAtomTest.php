@@ -33,4 +33,14 @@ class AtomCoreTest extends JBZooPHPUnit
     {
         isSame(123456, $this->app->execute('test.index.checkReturn'));
     }
+
+    public function testHelperAddVar()
+    {
+        $this->app['core.js']->addVar('Some_var', 42);
+    }
+
+    public function testLoadAllAtoms()
+    {
+        isTrue(is_array($this->app['route']->loadAllAtoms()));
+    }
 }
