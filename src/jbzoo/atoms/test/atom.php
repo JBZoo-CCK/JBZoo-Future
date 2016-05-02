@@ -15,15 +15,28 @@
 return [
 
     'meta' => [
-        'name'        => 'PHPUnit Atom',
+        'name'        => 'PHPUnit',
         'description' => 'The best of atom by JBZoo Team!',
-        'author'      => 'JBZoo.com',
-        'licence'     => 'http://jbzoo.com/license',
-        'created'     => '01/01/2016',
-        'version'     => '1.0.0',
     ],
 
     'config' => [
+
+        'checkbox' => [
+            'type'        => 'checkbox',
+            'label'       => 'Checkbox field',
+            'description' => 'Checkbox Lorem ipsum doloretur adipiscing elit',
+            'hint'        => 'Is it enable?',
+            'default'     => true,
+        ],
+
+        'text'  => [
+            'type'        => 'text',
+            'label'       => 'Text field',
+            'description' => 'Text Lorem amet, consectetur adipiscing elit',
+            'placeholder' => 'Name',
+            'hint'        => 'What is your name?',
+            'default'     => 'Some text',
+        ],
         'group' => [
             'type'        => 'group',
             'label'       => 'Grouped field',
@@ -34,28 +47,20 @@ return [
             ],
 
             'childs' => [
-                'text1' => [
-                    'type'        => 'text',
-                    'placeholder' => 'Name',
+                'toggle' => [
+                    'type'        => 'toggle',
+                    'label'       => 'Toggle field',
+                    'description' => 'Toggle Lorem ipsum dolor sit amet, colit',
                     'hint'        => 'What is your name?',
-                    'default'     => '',
+                    'default'     => false,
                 ],
-                'text2' => [
+                'text1'  => [
                     'type'        => 'text',
                     'placeholder' => 'Name',
                     'hint'        => 'What is your name?',
                     'default'     => '',
                 ],
             ]
-        ],
-
-        'text' => [
-            'type'        => 'text',
-            'label'       => 'Text field',
-            'description' => 'Text Lorem amet, consectetur adipiscing elit',
-            'placeholder' => 'Name',
-            'hint'        => 'What is your name?',
-            'default'     => 'Some text',
         ],
 
         'textarea' => [
@@ -75,13 +80,6 @@ return [
             'default'     => true,
         ],
 
-        'checkbox' => [
-            'type'        => 'checkbox',
-            'label'       => 'Checkbox field',
-            'description' => 'Checkbox Lorem ipsum doloretur adipiscing elit',
-            'hint'        => 'Is it enable?',
-            'default'     => true,
-        ],
 
         'date' => [
             'type'        => 'date',
@@ -111,7 +109,6 @@ return [
                 '4' => "Weekends",
                 '5' => "Weekly",
             ],
-            'default'     => 2,
         ],
 
         'radio' => [

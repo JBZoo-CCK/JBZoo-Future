@@ -31,15 +31,13 @@ export default class FieldText extends Component {
 
     render() {
 
-        var fieldId = 'field_' + this.props.name;
-
         return <TextField
-            id={fieldId}
+            id={this.props.id}
             name={this.props.name}
             hintText={this.props.data.hint}
             floatingLabelText={this.props.data.placeholder}
+            defaultValue={this.props.data.default}
             key={this.props.name}
-            fullWidth={this.props.isTextarea ? true : false}
             multiLine={this.props.isTextarea ? true : false}
             rows={this.props.isTextarea ? 2 : 1}
             onChange={this.handleChange}

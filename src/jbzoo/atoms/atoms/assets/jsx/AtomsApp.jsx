@@ -17,7 +17,7 @@ import React, { Component } from 'react';
 const {Grid, Row, Col} = require('react-flexbox-grid');
 import Paper        from 'material-ui/Paper';
 
-import AtomConfig from './components/AtomConfig';
+import AtomConfig from './components/Form/AtomConfig';
 
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
@@ -41,7 +41,7 @@ class AtomsApp extends Component {
 
         var rows = [];
         _.forEach(this.props.atoms, function(atom, key) {
-            rows.push(<AtomConfig key={key} atom={atom} atomid={key} />);
+            rows.push(<AtomConfig key={key} atom={atom} atomId={key} />);
         });
 
         return <Row>

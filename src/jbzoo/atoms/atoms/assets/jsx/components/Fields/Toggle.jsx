@@ -13,21 +13,18 @@
 
 import React, { Component } from 'react'
 
-import TimePicker    from 'material-ui/TimePicker';
+import Toggle   from 'material-ui/Toggle';
 
-export default class FieldTime extends Component {
+export default class FieldToggle extends Component {
 
     render() {
-
-        var fieldId = 'field_' + this.props.name;
-
-        return <TimePicker
-            id={fieldId}
+        return <Toggle
+            id={this.props.id}
             name={this.props.name}
-            /* defaultTime={this.props.data.default} */
-            hintText={this.props.data.hint}
-            format="24hr"
+            key={this.props.name}
+            label={this.props.data.hint}
+            labelPosition="right"
+            defaultToggled={this.props.data.default}
         />;
     }
-
 }

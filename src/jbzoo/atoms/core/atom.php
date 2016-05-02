@@ -15,12 +15,36 @@
 return [
 
     'meta' => [
-        'name'    => 'PHPUnit Atom',
-        'desc'    => 'The best of atom by JBZoo Team!',
-        'author'  => 'JBZoo.com',
-        'licence' => 'http://jbzoo.com/license',
-        'created' => '01/01/2016',
-        'version' => '1.0.0',
-    ]
+        'name'        => 'Core',
+        'description' => 'General configurations',
+    ],
 
+    'config' => [
+        'debug'    => [
+            'type'        => 'toggle',
+            'label'       => 'Debug mode',
+            'description' => 'Show profiler, SQL-queries and var dumps',
+            'default'     => false,
+        ],
+        'debug_ip' => [
+            'type'        => 'textarea',
+            'label'       => 'Debug IP',
+            'placeholder' => 'One line is one address',
+            'description' => 'Only this IP list can see debug info',
+            'default'     => implode(PHP_EOL, ["127.0.0.1", "192.168.0.1"]),
+        ],
+        'select' => [
+            'type'        => 'select',
+            'label'       => 'Select field',
+            'description' => 'Select Lorem iing elit',
+            'options'     => [
+                '1' => "Never",
+                '2' => "Every Night",
+                '3' => "Weeknights",
+                '4' => "Weekends",
+                '5' => "Weekly",
+            ],
+            'default'     => 2,
+        ],
+    ],
 ];

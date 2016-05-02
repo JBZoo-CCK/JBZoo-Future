@@ -19,10 +19,8 @@ export default class FieldDate extends Component {
 
     render() {
 
-        var fieldId = 'field_' + this.props.name;
-
         return <DatePicker
-            id={fieldId}
+            id={this.props.id}
             name={this.props.name}
             hintText={this.props.data.hint}
         />;

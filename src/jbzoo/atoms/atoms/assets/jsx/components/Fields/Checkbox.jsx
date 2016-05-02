@@ -22,9 +22,8 @@ export default class FieldCheckbox extends Component {
         var fieldId = 'field_' + this.props.name;
 
         return <Checkbox
-            id={fieldId}
+            id={this.props.id}
             name={this.props.name}
-            key={this.props.name}
             label={this.props.data.label}
             labelPosition="right"
             defaultChecked={this.props.data.default}

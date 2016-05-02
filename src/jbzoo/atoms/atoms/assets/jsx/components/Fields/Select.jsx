@@ -20,31 +20,30 @@ export default class FieldSelect extends Component {
 
     constructor(props) {
         super(props);
-        this.state = {select: 1};
+
+        for (var first in props.data.options) break;
+        var selected = props.data.value !== undefined ? props.data.value : props.data.default;
+        selected = selected !== undefined ? selected : first;
+
+        this.state = {value: "" + selected};
     }
 
-    handleChange = (event, index, select) => this.setState({select});
+    handleChange = (event, index, value) => this.setState({value});
 
     render() {
 
-        for (var first in this.props.data.options) break;
-
-        var fieldId = 'field_' + this.props.name;
-        var rows = [],
-            selected = this.state.select !== undefined ? this.state.select : first;
-
+        var rows = [];
         _.forEach(this.props.data.options, function (text, key) {
             rows.push(<MenuItem key={key} value={key} primaryText={text} />);
         });
 
         return <SelectField
-            id={fieldId}
-            value={selected}
+            id={this.props.id}
+            value={this.state.value}
             name={this.props.name}
             onChange={this.handleChange}
         >
             {rows}
         </SelectField>;
     }
-
 }
