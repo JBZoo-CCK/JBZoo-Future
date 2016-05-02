@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 // Based on https://github.com/rackt/redux/issues/37#issue-85098222
 module.exports = class ReducerRegistry {
     constructor(initialReducers = {}) {

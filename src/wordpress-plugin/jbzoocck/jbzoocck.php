@@ -79,6 +79,7 @@ function JBZooInitAutoload()
         $app->trigger(AbstractEvents::EVENT_SHUTDOWN);
     });
 
+
     // Add admin dashboard and page
     add_action('admin_menu', function () {
         add_menu_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {

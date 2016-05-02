@@ -11,8 +11,10 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, { Component } from 'react'
-import { Link } from 'react-router'
+import { Link }             from 'react-router'
 
 class NotFound extends Component {
     render() {

@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 module.exports = {
     path: 'test',
 

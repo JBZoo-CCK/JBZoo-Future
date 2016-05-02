@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, {PropTypes, Component } from 'react'
 
 class Home extends Component {

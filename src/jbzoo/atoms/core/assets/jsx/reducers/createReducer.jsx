@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import { combineReducers } from 'redux';
 
 export default function createReducer(asyncReducers) {

@@ -11,19 +11,18 @@
  * @link       http://jbzoo.com
  */
 
-import {
-    LOADER_START,
-    LOADER_STOP
-} from '../defines'
+'use strict';
+
+import * as defines from '../defines'
 
 module.exports = {
     sidebar  : (state = {}) => state,
     isLoading: function (state = false, action) {
 
         switch (action.type) {
-            case LOADER_START:
+            case defines.LOADER_START:
                 return true;
-            case LOADER_STOP:
+            case defines.LOADER_STOP:
                 return false;
         }
 

@@ -32,19 +32,17 @@ class AdminIndex extends AdminController
             'assets:less/admin.less',
         ]);
 
-        $this->app['core.js']->addVar('JBZOO_INITIAL_STATE', [
-            //'routes'  => $this->app['route']->loadAllAtoms(),
+        $this->app['core.js']->addVar('JBZOO_INIT', [
+            'state'   => new \stdClass(),
             'sidebar' => [
-                ['path' => 'atoms', 'name' => 'Atoms'],
-                ['path' => 'modules', 'name' => 'Modules'],
-                ['path' => 'config', 'name' => 'Configuration']
+                ['path' => 'atoms',     'name' => 'Atoms'],
+                ['path' => 'modules',   'name' => 'Modules'],
+                ['path' => 'config',    'name' => 'Configuration']
             ],
-            /*
             'defines' => [
                 'AJAX_URL' => JBZOO_AJAX_URL,
                 '__DEV__'  => $this->app['config']->isDebug()
             ]
-            */
         ], true);
 
         ?>

@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import * as redux       from 'redux'
 import reduxThunk       from 'redux-thunk'
 import createLogger     from 'redux-logger'

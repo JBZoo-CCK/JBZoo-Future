@@ -11,16 +11,15 @@
  * @link       http://jbzoo.com
  */
 
-import {
-    ATOMS_LIST_REQUEST,
-    ATOMS_LIST_SUCCESS
-} from '../defines'
+'use strict';
+
+import * as defines from '../defines'
 
 export default function atoms(state = false, action) {
 
     switch (action.type) {
-        case ATOMS_LIST_REQUEST:
-        case ATOMS_LIST_SUCCESS:
+        case defines.ATOMS_LIST_REQUEST:
+        case defines.ATOMS_LIST_SUCCESS:
             return action.payload;
 
         default:

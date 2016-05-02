@@ -41,4 +41,23 @@ class CodeStyleTest extends Codestyle
         ' * @link       _LINK_',
     );
 
+    /**
+     * Valid header for JavaScript files
+     * @var array
+     */
+    protected $_validHeaderJS = array(
+        '/**',
+        ' * _VENDOR_ _PACKAGE_',
+        ' *',
+        ' * _DESCRIPTION_JS_',
+        ' *',
+        ' * @package    _PACKAGE_',
+        ' * @license    _LICENSE_',
+        ' * @copyright  _COPYRIGHTS_',
+        ' * @link       _LINK_',
+        ' */',
+        '',
+        '\'use strict\';',
+        '',
+    );
 }

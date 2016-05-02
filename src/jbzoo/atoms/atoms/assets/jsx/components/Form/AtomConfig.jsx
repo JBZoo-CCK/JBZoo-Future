@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, {PropTypes, Component } from 'react'
 const {Grid, Row, Col} = require('react-flexbox-grid');
 
@@ -29,8 +31,10 @@ export default class AtomConfig extends Component {
 
     render() {
 
-        var rows   = [],
-            atomId = this.props.atomId;
+        var rows        = [],
+            atomId      = this.props.atomId,
+            title       = <span>{this.props.atom.meta.name} <span style={{color:"#ccc"}}>[{atomId}]</span></span>,
+            description = this.props.atom.meta.description;
 
         _.forEach(this.props.atom.config, function (row, key) {
             let rowId   = 'field_' + atomId + '_' + key,
@@ -47,8 +51,8 @@ export default class AtomConfig extends Component {
         return (
             <Card>
                 <CardHeader
-                    title={this.props.atom.meta.name}
-                    subtitle={this.props.atom.meta.description}
+                    title={title}
+                    subtitle={description}
                     titleStyle={{fontSize:"16px", color:colors.lightBlue700}}
                     actAsExpander={true}
                     showExpandableButton={true}

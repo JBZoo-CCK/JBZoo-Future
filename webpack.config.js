@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 const __DEV__ = process.env.NODE_ENV === 'development';
 
 var webpack       = require('webpack'),
@@ -78,7 +80,7 @@ module.exports = {
     resolve  : {
         extensions        : ["", ".js", ".jsx"],
         modulesDirectories: [
-            path.resolve(__dirname, 'src/jbzoo/assets'),
+            path.resolve(__dirname, 'src/jbzoo/assets/jsx'),
             path.resolve(__dirname, 'node_modules')
         ]
     },

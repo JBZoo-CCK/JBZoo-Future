@@ -11,6 +11,7 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
 
 export const ATOMS_LIST_REQUEST = 'ATOMS_LIST_REQUEST';
 export const ATOMS_LIST_SUCCESS = 'ATOMS_LIST_SUCCESS';

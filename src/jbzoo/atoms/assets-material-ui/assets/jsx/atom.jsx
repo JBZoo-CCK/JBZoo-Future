@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 var MaterialUI = require('material-ui');
 
 module.exports = MaterialUI;

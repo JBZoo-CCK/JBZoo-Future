@@ -168,19 +168,19 @@ class App extends Cms
     /**
      * Find current Atom, Controller, and Action. And execute them!
      *
-     * @param string $controller
+     * @param string $act
      * @param string $action
      * @return mixed
      *
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
-    public function execute($controller = null, $action = null)
+    public function execute($act = null, $action = null)
     {
         $this->trigger('app.exec.before', func_get_args());
 
         // Get current atom and controller
-        $controller = $controller ?: $this['request']->get('ctrl', 'core.index');
-        list($atomName, $controller) = Filter::_($controller, function ($orginal) {
+        $act = $act ?: $this['request']->get('act', 'core.index.index');
+        list($atomName, $controller, $action) = Filter::_($act, function ($orginal) {
             $value = Filter::cmd($orginal);
 
             $values = explode('.', $value);
@@ -188,22 +188,15 @@ class App extends Cms
                 $values[] = 'index';
             }
 
-            if (count($values) !== 2) {
+            if (count($values) !== 3) {
                 App::getInstance()->error('No valid controller: ' . $orginal);
             }
 
-            $atom = $values[0] ?: 'core';
-            $ctrl = $values[1] ?: 'index';
+            $atom   = $values[0] ?: 'core';
+            $ctrl   = $values[1] ?: 'index';
+            $action = $values[2] ?: 'index';
 
-            return [$atom, $ctrl];
-        });
-
-        // Get current action
-        $action = $action ?: $this['request']->get('task', 'index');
-        $action = Filter::_($action, function ($orginal) {
-            $value  = Filter::cmd($orginal);
-            $action = $value ?: 'index';
-            return $action;
+            return [$atom, $ctrl, $action];
         });
 
         /** @var Atom $atom */

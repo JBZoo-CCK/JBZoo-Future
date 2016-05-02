@@ -20,31 +20,56 @@ return [
     ],
 
     'config' => [
-        'debug'    => [
-            'type'        => 'toggle',
-            'label'       => 'Debug mode',
-            'description' => 'Show profiler, SQL-queries and var dumps',
+        'debug' => [
+            'type'        => 'group',
+            'label'       => 'Debuging config',
+            'description' => 'Show profiler, SQL-queries and var dumps and etc',
             'default'     => false,
-        ],
-        'debug_ip' => [
-            'type'        => 'textarea',
-            'label'       => 'Debug IP',
-            'placeholder' => 'One line is one address',
-            'description' => 'Only this IP list can see debug info',
-            'default'     => implode(PHP_EOL, ["127.0.0.1", "192.168.0.1"]),
-        ],
-        'select' => [
-            'type'        => 'select',
-            'label'       => 'Select field',
-            'description' => 'Select Lorem iing elit',
-            'options'     => [
-                '1' => "Never",
-                '2' => "Every Night",
-                '3' => "Weeknights",
-                '4' => "Weekends",
-                '5' => "Weekly",
-            ],
-            'default'     => 2,
+            'childs'      => [
+                'dumper' => [
+                    'type'    => 'select',
+                    'hint'    => 'Dumper type',
+                    'options' => [
+                        'none'     => "Disable",
+                        'symfony'  => "Symfony VarDumper",
+                        'jbdump'   => "JBDump",
+                        'var_dump' => "function var_dump()",
+                    ],
+                    'default' => 'symfony',
+                ],
+                'ip'     => [
+                    'type'        => 'textarea',
+                    'label'       => 'Debug IP',
+                    'placeholder' => 'Only this IP list can see debug info',
+                    'hint'        => 'One line is one address',
+                    'default'     => implode(PHP_EOL, ["127.0.0.1", "192.168.0.1"]),
+                ],
+                'log'      => [
+                    'type'    => 'toggle',
+                    'hint'    => 'Log messages',
+                    'default' => false,
+                ],
+                'dump'     => [
+                    'type'    => 'toggle',
+                    'hint'    => 'Show dumps of vars',
+                    'default' => true,
+                ],
+                'sql'      => [
+                    'type'    => 'toggle',
+                    'hint'    => 'Show SQL-queries',
+                    'default' => true,
+                ],
+                'profiler' => [
+                    'type'    => 'toggle',
+                    'hint'    => 'Show profiler',
+                    'default' => true,
+                ],
+                'trace'    => [
+                    'type'    => 'toggle',
+                    'hint'    => 'Show backtraces for dumps',
+                    'default' => false,
+                ],
+            ]
         ],
     ],
 ];

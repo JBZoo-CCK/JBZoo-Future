@@ -11,41 +11,27 @@
  * @link       http://jbzoo.com
  */
 
-import fetch from 'isomorphic-fetch'
+'use strict';
 
-import {
-    ATOMS_LIST_REQUEST,
-    ATOMS_LIST_SUCCESS
-} from '../defines';
-
-
-var link = '/administrator/index.php?option=com_jbzoo&ctrl=atoms.index&task=atoms';
+import JBZoo        from '../../../../../assets/jsx/Globals';
+import * as defines from '../defines';
 
 function requestAtoms() {
     return {
-        type   : ATOMS_LIST_REQUEST,
+        type   : defines.ATOMS_LIST_REQUEST,
         payload: false
     }
 }
 
 function receiveAtoms(atoms) {
     return {
-        type   : ATOMS_LIST_SUCCESS,
-        payload: atoms
+        type   : defines.ATOMS_LIST_SUCCESS,
+        payload: atoms.list
     }
 }
 
 function fetchAtoms() {
-    return dispatch => {
-        dispatch(requestAtoms());
-        dispatch({type: 'LOADER_START'});
-        return fetch(link, {credentials: 'same-origin'})
-            .then(response => response.json())
-            .then(function(json) {
-                dispatch({type: 'LOADER_STOP'});
-                return dispatch(receiveAtoms(json.list));
-            })
-    }
+    return dispatch => JBZoo.ajax('atoms.index.atoms', {}, dispatch, receiveAtoms);
 }
 
 function shouldFetchAtoms(state) {

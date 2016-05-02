@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, { Component } from 'react'
 
 import TextField    from 'material-ui/TextField';

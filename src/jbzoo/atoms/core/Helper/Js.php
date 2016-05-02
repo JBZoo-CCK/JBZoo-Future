@@ -47,8 +47,6 @@ class Js extends Helper
             [],
             ['type' => Asset::TYPE_JS_CODE]
         );
-
-
     }
 
     /**

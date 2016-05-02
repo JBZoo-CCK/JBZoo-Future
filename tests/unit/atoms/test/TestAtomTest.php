@@ -27,7 +27,7 @@ class TestAtomTest extends JBZooPHPUnit
 
         $this->app['request']->set('qwerty', $uniq);
 
-        $actual = $this->app->execute('test.other', strtolower('checkEcho')); // check case-insensetive
+        $actual = $this->app->execute('test.other.' . strtolower('checkEcho')); // check case-insensetive
 
         isSame($uniq, $actual);
         isSame($uniq, $_GET['qwerty']);
@@ -35,7 +35,6 @@ class TestAtomTest extends JBZooPHPUnit
 
     public function testGetResultOfController()
     {
-        isSame(123456, $this->app->execute('test.index', 'checkReturn'));
-        isSame(123456, $this->app->execute('test', 'checkReturn'));
+        isSame(123456, $this->app->execute('test.index.checkReturn'));
     }
 }

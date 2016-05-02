@@ -11,24 +11,23 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React                from 'react'
 import ReactDOM             from 'react-dom'
 import injectTapEventPlugin from 'react-tap-event-plugin'
 import { Provider }         from 'react-redux'
 import { Router, hashHistory }  from 'react-router'
-
-import initialState         from './store/initialState'
+import JBZoo                from '../../../../assets/jsx/Globals';
 import configureStore       from './store/configureStore'
 
-var configureRoutes = require('./routes');
-var ReducerRegistry = require('./store/ReducerRegistry');
-var coreReducers    = require('./reducers/core');
-
 // Prepare store
-var reducerRegister = new ReducerRegistry(coreReducers);
-var routes = configureRoutes(reducerRegister);
-var store = configureStore(initialState, reducerRegister);
-
+var configureRoutes = require('./routes'),
+    ReducerRegistry = require('./store/ReducerRegistry'),
+    coreReducers    = require('./reducers/core'),
+    reducerRegister = new ReducerRegistry(coreReducers),
+    routes          = configureRoutes(reducerRegister),
+    store           = configureStore(JBZoo.initState, reducerRegister);
 
 // Global hacks
 injectTapEventPlugin();

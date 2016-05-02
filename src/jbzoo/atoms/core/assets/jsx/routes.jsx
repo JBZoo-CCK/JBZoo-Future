@@ -11,8 +11,7 @@
  * @link       http://jbzoo.com
  */
 
-import { routes as initRoutes } from './store/initialState'
-
+'use strict';
 
 module.exports = function configureRoutes(reducerRegistry) {
 

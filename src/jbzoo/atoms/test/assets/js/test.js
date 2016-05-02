@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 (function ($, window, document, undefined) {
 // Some JS Code
 })(jQuery, window, document);

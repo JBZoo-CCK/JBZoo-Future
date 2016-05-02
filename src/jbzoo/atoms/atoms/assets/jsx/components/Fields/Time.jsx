@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, { Component } from 'react'
 
 import TimePicker    from 'material-ui/TimePicker';
@@ -20,8 +22,6 @@ export default class FieldTime extends Component {
     render() {
 
         var defaultTime = new Date();
-
-        dump(this.props.data.default);
 
         if (this.props.data.default) {
             let parts = this.props.data.default.split(':');

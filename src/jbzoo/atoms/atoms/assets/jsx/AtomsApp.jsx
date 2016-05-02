@@ -11,21 +11,19 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, { Component } from 'react';
-
-
 const {Grid, Row, Col} = require('react-flexbox-grid');
-import Paper        from 'material-ui/Paper';
-
-import AtomConfig from './components/Form/AtomConfig';
-
+import Paper                    from 'material-ui/Paper';
+import AtomConfig               from './components/Form/AtomConfig';
+import AtomsToolbar             from './components/AtomsToolbar';
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import * as atomsActions        from './actions/index';
+import { fetchAtomsIfNeeded }   from './actions'
+import _                        from 'lodash';
 
-import { fetchAtomsIfNeeded } from './actions'
-
-import _ from 'lodash';
 
 class AtomsApp extends Component {
 
@@ -40,26 +38,32 @@ class AtomsApp extends Component {
         }
 
         var rows = [];
-        _.forEach(this.props.atoms, function(atom, key) {
+        _.forEach(this.props.atoms, function (atom, key) {
             rows.push(<AtomConfig key={key} atom={atom} atomId={key} />);
         });
 
-        return <Row>
-            <Col md={9}>
-                {rows}
-            </Col>
-            <Col md={3}>
-                <h2>asd</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                   labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-                   nisi culpa qui officia deserunt mollit anim id est laborum.</p>
-                <h2>asd asd</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                   aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                   cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-                   qui officia deserunt mollit anim id est laborum.</p>
-            </Col>
-        </Row>;
+        return (
+            <div>
+                <AtomsToolbar />
+                <br />
+                <Row>
+                    <Col md={9}>
+                        {rows}
+                    </Col>
+                    <Col md={3}>
+                        <h2>asd</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                           labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                           laboris nisi culpa qui officia deserunt mollit anim id est laborum.</p>
+                        <h2>asd asd</h2>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                           aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit
+                           esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+                           sunt in qui officia deserunt mollit anim id est laborum.</p>
+                    </Col>
+                </Row>
+            </div>
+        );
     }
 }
 

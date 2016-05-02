@@ -31,6 +31,6 @@ class AtomCoreTest extends JBZooPHPUnit
 
     public function testGetResultOfController()
     {
-        isSame(123456, $this->app->execute('test.index', 'checkReturn'));
+        isSame(123456, $this->app->execute('test.index.checkReturn'));
     }
 }

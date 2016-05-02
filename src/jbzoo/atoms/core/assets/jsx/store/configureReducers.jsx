@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 var {combineReducers} = require('redux')
 
 module.exports = function configureReducers(reducers) {

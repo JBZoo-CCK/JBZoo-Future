@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import { injectAsyncReducer } from '../../../core/assets/jsx/store/configureStore';
 
 var AtomsApp;

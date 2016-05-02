@@ -11,18 +11,17 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, {PropTypes, Component } from 'react'
 import { Link, IndexLink } from 'react-router'
-
-import Divider  from 'material-ui/Divider/Divider';
-import List     from 'material-ui/List/List';
-import ListItem from 'material-ui/List/ListItem';
-
+import Divider      from 'material-ui/Divider/Divider';
+import List         from 'material-ui/List/List';
+import ListItem     from 'material-ui/List/ListItem';
 import * as colors  from 'material-ui/styles/colors';
+import JBZoo        from '../../../../../assets/jsx/Globals';
 
-import { sidebar } from '../store/initialState'
-
-const ACTIVE = {fontWeight: "bold", color:colors.lightBlue700};
+const ACTIVE = {fontWeight: "bold", color: colors.lightBlue700};
 
 class Sidebar extends Component {
     render() {
@@ -31,7 +30,7 @@ class Sidebar extends Component {
             <ListItem containerElement={<IndexLink activeStyle={ACTIVE} to="/" />} primaryText="Dashboard" />
             <Divider />
             {
-                sidebar.map(function (item, key) {
+                JBZoo.sidebar.map(function (item, key) {
                     let link = <Link to={item.path} />;
                     return <ListItem key={key} activeStyle={ACTIVE} containerElement={link} primaryText={item.name} />;
                 })

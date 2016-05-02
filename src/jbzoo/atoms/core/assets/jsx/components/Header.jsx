@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, {PropTypes, Component } from 'react'
 import { connect }      from 'react-redux'
 import Toolbar          from 'material-ui/Toolbar/Toolbar';

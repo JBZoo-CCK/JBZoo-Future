@@ -11,10 +11,11 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import getMuiTheme  from 'material-ui/styles/getMuiTheme';
 import * as colors  from 'material-ui/styles/colors';
 import {fade}       from 'material-ui/utils/colorManipulator';
-
 
 export default getMuiTheme(
     {

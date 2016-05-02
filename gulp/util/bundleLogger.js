@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 /* bundleLogger
  ------------
  Provides gulp style logs to the bundle method in browserify.js

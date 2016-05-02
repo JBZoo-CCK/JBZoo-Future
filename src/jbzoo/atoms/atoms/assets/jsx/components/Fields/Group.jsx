@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, {PropTypes, Component } from 'react'
 
 const {Grid, Row, Col} = require('react-flexbox-grid');

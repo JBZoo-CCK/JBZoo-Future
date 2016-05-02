@@ -11,6 +11,8 @@
  * @link       http://jbzoo.com
  */
 
+'use strict';
+
 import React, {Component} from 'react';
 import Paper    from 'material-ui/Paper';
 import Theme    from '../misc/Theme';
