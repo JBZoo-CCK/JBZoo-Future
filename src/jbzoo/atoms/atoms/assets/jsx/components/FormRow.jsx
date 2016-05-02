@@ -15,17 +15,15 @@ import React, {PropTypes, Component } from 'react'
 const {Grid, Row, Col} = require('react-flexbox-grid');
 
 import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton';
-import Toggle       from 'material-ui/Toggle';
-import TextField    from 'material-ui/TextField';
-import MenuItem     from 'material-ui/MenuItem';
-import Checkbox     from 'material-ui/Checkbox';
-import SelectField  from 'material-ui/SelectField';
-import TimePicker   from 'material-ui/TimePicker';
-import DatePicker   from 'material-ui/DatePicker';
+
+import FieldText        from './FieldText';
+import FieldToggle      from './FieldToggle';
+import FieldCheckbox    from './FieldCheckbox';
+import FieldTime        from './FieldTime';
+import FieldDate        from './FieldDate';
+import FieldSelect      from './FieldSelect';
 
 import * as colors  from 'material-ui/styles/colors';
-
-var rowStyles = {marginBottom: "16px"};
 
 export default class FormRow extends Component {
 
@@ -34,26 +32,21 @@ export default class FormRow extends Component {
         var field, styles = {};
 
         if (this.props.row.type == 'text') {
-            field = <TextField />;
+            field = <FieldText data={this.props.row} name={this.props.rowname} />;
             styles = {paddingTop: "42px"};
 
         } else if (this.props.row.type == 'textarea') {
-            field = <TextField />;
+            field = <FieldText data={this.props.row} name={this.props.rowname} isTextarea={true} />;
+            styles = {paddingTop: "42px"};
 
         } else if (this.props.row.type == 'toggle') {
-            field = <Toggle />;
+            field = <FieldToggle data={this.props.row} name={this.props.rowname} />;
 
         } else if (this.props.row.type == 'checkbox') {
-            field = <Checkbox />;
+            field = <FieldCheckbox data={this.props.row} name={this.props.rowname} />;
 
         } else if (this.props.row.type == 'select') {
-            field = <SelectField value={1}>
-                <MenuItem value={1} primaryText="Never" />
-                <MenuItem value={2} primaryText="Every Night" />
-                <MenuItem value={3} primaryText="Weeknights" />
-                <MenuItem value={4} primaryText="Weekends" />
-                <MenuItem value={5} primaryText="Weekly" />
-            </SelectField>;
+            field = <FieldSelect data={this.props.row} name={this.props.rowname} />;
 
         } else if (this.props.row.type == 'radio') {
             field = <RadioButtonGroup name="shipSpeed" defaultSelected="not_light">
@@ -63,17 +56,20 @@ export default class FormRow extends Component {
             </RadioButtonGroup>;
 
         } else if (this.props.row.type == 'time') {
-            field = <TimePicker format="24hr" hintText="24hr Format" />;
+            field = <FieldTime data={this.props.row} name={this.props.rowname} />;
 
         } else if (this.props.row.type == 'date') {
-            field = <DatePicker hintText="Portrait Dialog" />;
+            field = <FieldDate data={this.props.row} name={this.props.rowname} />;
+
+        } else if (this.props.row.type == 'datetime') {
+            field = <FieldDatetime data={this.props.row} name={this.props.rowname} />;
         }
 
         if (!field) {
-            return <span />;
+            return <span>Undefined field type: {this.props.row.type}</span>;
         }
 
-        return <Row style={rowStyles}>
+        return <Row style={{marginBottom: "16px"}}>
             <Col md={2} style={styles}>{this.props.row.label}</Col>
             <Col md={5}>
                 {field}
@@ -83,5 +79,4 @@ export default class FormRow extends Component {
             </Col>
         </Row>;
     }
-
 }

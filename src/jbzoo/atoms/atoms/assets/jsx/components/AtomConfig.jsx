@@ -36,7 +36,7 @@ export default class AtomConfig extends Component {
         return <Card>
             <CardHeader
                 title={this.props.atom.meta.name}
-                subtitle={this.props.atom.meta.desc}
+                subtitle={this.props.atom.meta.description}
                 titleStyle={{fontSize:"16px", color:colors.lightBlue700}}
                 actAsExpander={true}
                 showExpandableButton={true}

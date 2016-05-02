@@ -15,12 +15,12 @@
 return [
 
     'meta' => [
-        'name'    => 'PHPUnit Atom',
-        'desc'    => 'The best of atom by JBZoo Team!',
-        'author'  => 'JBZoo.com',
-        'licence' => 'http://jbzoo.com/license',
-        'created' => '01/01/2016',
-        'version' => '1.0.0',
+        'name'        => 'PHPUnit Atom',
+        'description' => 'The best of atom by JBZoo Team!',
+        'author'      => 'JBZoo.com',
+        'licence'     => 'http://jbzoo.com/license',
+        'created'     => '01/01/2016',
+        'version'     => '1.0.0',
     ],
 
     'config' => [
@@ -55,7 +55,7 @@ return [
             'description' => 'Text Lorem amet, consectetur adipiscing elit',
             'placeholder' => 'Name',
             'hint'        => 'What is your name?',
-            'default'     => '',
+            'default'     => 'Some text',
         ],
 
         'textarea' => [
@@ -81,6 +81,23 @@ return [
             'description' => 'Checkbox Lorem ipsum doloretur adipiscing elit',
             'hint'        => 'Is it enable?',
             'default'     => true,
+        ],
+
+        'date' => [
+            'type'        => 'date',
+            'label'       => 'Date',
+            'description' => 'Date Lorem ipsum dolor sit amet',
+            'default'     => '2016-04-22',
+            'format'      => 'YYYY-MM-DD',
+            'hint'        => 'plz, choose a date'
+        ],
+
+        'time' => [
+            'type'        => 'time',
+            'label'       => 'Time',
+            'description' => 'Time Lorem ipsum dolor asd adas dasd asda amet',
+            'default'     => '00:42',
+            'hint'        => '24hr Format'
         ],
 
         'select' => [
@@ -109,19 +126,5 @@ return [
             'default'     => 3,
         ],
 
-        'date' => [
-            'type'        => 'date',
-            'label'       => 'Date',
-            'description' => 'Date Lorem ipsum dolor sit amet',
-            'default'     => '2016-04-22',
-            'format'      => 'YYYY-MM-DD',
-        ],
-
-        'time' => [
-            'type'        => 'time',
-            'label'       => 'Time',
-            'description' => 'Time Lorem ipsum dolor asd adas dasd asda amet',
-            'default'     => '18:25',
-        ],
     ]
 ];
