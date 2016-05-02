@@ -79,6 +79,14 @@ function JBZooInitAutoload()
         $app->trigger(AbstractEvents::EVENT_SHUTDOWN);
     });
 
+    if (isset($_REQUEST['page'])
+        && $_REQUEST['page'] == 'jbzoo'
+        && $_SERVER['REQUEST_METHOD'] == 'POST'
+    ) {
+        add_action('admin_init', function () {
+            require_once __DIR__ . '/jbzoo/jbzoo.php';
+        });
+    }
 
     // Add admin dashboard and page
     add_action('admin_menu', function () {
