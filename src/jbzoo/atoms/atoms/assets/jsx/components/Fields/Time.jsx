@@ -19,10 +19,19 @@ export default class FieldTime extends Component {
 
     render() {
 
+        var defaultTime = new Date();
+
+        dump(this.props.data.default);
+
+        if (this.props.data.default) {
+            let parts = this.props.data.default.split(':');
+            defaultTime = new Date(0, 0, 0, parts[0], parts[1]);
+        }
+
         return <TimePicker
             id={this.props.id}
             name={this.props.name}
-            /* defaultTime={this.props.data.default} */
+            value={defaultTime}
             hintText={this.props.data.hint}
             format="24hr"
         />;

@@ -120,7 +120,7 @@ return [
                 '2' => "Second option",
                 '3' => "3 option",
             ],
-            'default'     => 3,
+            'default'     => 2,
         ],
 
     ]
