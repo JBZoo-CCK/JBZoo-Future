@@ -16,6 +16,7 @@
 import React, { Component } from 'react'
 
 import TextField    from 'material-ui/TextField';
+import JBZoo        from '../../../../../../assets/jsx/Globals';
 
 export default class FieldText extends Component {
 
@@ -26,6 +27,16 @@ export default class FieldText extends Component {
 
     handleChange(event) {
         this.setState({value: event.target.value});
+
+        if (this.props.data.onChange) {
+            var onChange = this.props.data.onChange,
+                newValue = this.state.value,
+                name     = this.props.name;
+
+            JBZoo.delay(function () {
+                onChange(name, newValue);
+            });
+        }
     };
 
     handleBlur() {

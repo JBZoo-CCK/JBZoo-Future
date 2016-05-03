@@ -74,4 +74,16 @@ JBZoo.ajax = function (task, data, dispatch, action) {
         });
 };
 
+var _timers = {};
+
+JBZoo.delay = function (handler, delay = 300, timerName = 'default') {
+    clearTimeout(_timers[timerName]);
+    _timers[timerName] = setTimeout(function () {
+        handler();
+    }, delay || 1);
+
+    return _timers[timerName];
+};
+
+
 export default JBZoo;
