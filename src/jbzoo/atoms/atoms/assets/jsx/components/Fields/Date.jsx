@@ -21,10 +21,11 @@ export default class FieldDate extends Component {
 
     render() {
 
+        var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
         var defaultDate = new Date();
 
-        if (this.props.data.default) {
-            let parts = this.props.data.default.split('-');
+        if (value) {
+            let parts = value.split('-');
             defaultDate = new Date(parts[0], parts[1] - 1, parts[2]);
         }
 

@@ -31,44 +31,45 @@ export default class FormRow extends Component {
 
     render() {
 
-        var output  = false,
-            styles  = {},
-            rowData = this.props.rowData,
-            rowType = this.props.rowData.type,
-            rowName = this.props.rowName,
-            rowId   = this.props.rowId;
+        var output   = false,
+            styles   = {},
+            rowData  = this.props.rowData,
+            rowValue = this.props.rowValue,
+            rowType  = this.props.rowData.type,
+            rowName  = this.props.rowName,
+            rowId    = this.props.rowId;
 
         if (rowType == 'text') {
-            output = <FieldText data={rowData} name={rowName} id={rowId} isTextarea={false} />;
+            output = <FieldText data={rowData} name={rowName} id={rowId} value={rowValue} isTextarea={false} />;
             styles = {paddingTop: "24px"};
 
         } else if (rowType == 'textarea') {
-            output = <FieldText data={rowData} name={rowName} id={rowId} isTextarea={true} />;
+            output = <FieldText data={rowData} name={rowName} id={rowId} value={rowValue} isTextarea={true} />;
             styles = {paddingTop: "24px"};
 
         } else if (rowType == 'toggle') {
-            output = <FieldToggle data={rowData} name={rowName} id={rowId} />;
+            output = <FieldToggle data={rowData} name={rowName} id={rowId} value={rowValue} />;
 
         } else if (rowType == 'checkbox') {
-            output = <FieldCheckbox data={rowData} name={rowName} id={rowId} />;
+            output = <FieldCheckbox data={rowData} name={rowName} id={rowId} value={rowValue} />;
 
         } else if (rowType == 'select') {
-            output = <FieldSelect data={rowData} name={rowName} id={rowId} />;
+            output = <FieldSelect data={rowData} name={rowName} id={rowId} value={rowValue} />;
 
         } else if (rowType == 'radio') {
-            output = <FieldRadio data={rowData} name={rowName} id={rowId} />;
+            output = <FieldRadio data={rowData} name={rowName} id={rowId} value={rowValue} />;
 
         } else if (rowType == 'time') {
-            output = <FieldTime data={rowData} name={rowName} id={rowId} />;
+            output = <FieldTime data={rowData} name={rowName} id={rowId} value={rowValue} />;
 
         } else if (rowType == 'date') {
-            output = <FieldDate data={rowData} name={rowName} id={rowId} />;
+            output = <FieldDate data={rowData} name={rowName} id={rowId} value={rowValue} />;
 
         } else if (rowType == 'datetime') {
-            output = <FieldDatetime data={rowData} name={rowName} id={rowId} />;
+            output = <FieldDatetime data={rowData} name={rowName} id={rowId} value={rowValue} />;
 
         } else if (rowType == 'group') {
-            output = <FieldGroup data={rowData} name={rowName} id={rowId} />;
+            output = <FieldGroup data={rowData} name={rowName} id={rowId} value={rowValue} />;
         }
 
         if (!output) {

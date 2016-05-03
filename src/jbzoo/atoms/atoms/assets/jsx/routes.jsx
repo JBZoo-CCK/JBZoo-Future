@@ -23,9 +23,9 @@ module.exports.default = function (reducerRegistry, atomKey) {
         getComponent(nextState, callback) {
 
             if (!AtomsApp) {
-                let addObj = {};
-                addObj[atomKey] = require('./reducers').default;
-                reducerRegistry.register(addObj);
+                reducerRegistry.register({
+                    atomsForms: require('./reducers').default
+                });
 
                 AtomsApp = require('./AtomsApp');
             }

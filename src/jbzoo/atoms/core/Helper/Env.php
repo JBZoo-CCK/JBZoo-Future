@@ -51,32 +51,45 @@ class Env extends Helper
      */
     public function getState()
     {
-        $state = [];
+        $result = [];
 
         // get configs
-        $atomList = $this->app['atoms']->loadInfo('*');
-        $configs  = [];
+        $atomList   = $this->app['atoms']->loadInfo('*');
+        $atomConfig = [];
+
+        $this->app->trigger('state.init.before');
 
         /** @var PHPArray $atomInfo */
         foreach ($atomList as $atomId => $atomInfo) {
             $atomInfo->remove('init');
             $atomInfo->remove('dir');
-
             if ($atomCfg = $atomInfo->get('config')) {
+                $atomId = 'atom.' . $atomId;
+                $stored = jbdata($this->app['core.config']->get($atomId));
+
                 foreach ($atomCfg as $name => $field) {
                     if ($field['type'] == 'group') {
                         foreach ($field['childs'] as $childName => $childField) {
-                            $configs[$atomId][$name][$childName] = $childField['default'];
+                            $default = isset($childField['default']) ? $childField['default'] : null;
+                            $value   = $stored->find($name . '.' . $childName, $default);
+
+                            $atomConfig[$atomId][$name][$childName] = $value;
                         }
+
                     } else {
-                        $configs[$atomId][$name] = isset($field['default']) ? $field['default'] : null;
+                        $default = isset($childField['default']) ? $childField['default'] : null;
+                        $value   = $stored->get($name, $default);
+
+                        $atomConfig[$atomId][$name] = $value;
                     }
                 }
             }
         }
 
-        $state['config'] = $configs;
+        $result['config'] = $atomConfig;
 
-        return $state;
+        $this->app->trigger('state.init.after', [&$result]);
+
+        return $result;
     }
 }

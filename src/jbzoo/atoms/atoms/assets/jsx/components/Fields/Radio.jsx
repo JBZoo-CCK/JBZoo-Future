@@ -21,6 +21,8 @@ export default class FieldRadio extends Component {
 
     render() {
 
+        var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
+
         var rows = [];
         _.forEach(this.props.data.options, function (text, key) {
             rows.push(<RadioButton key={key} value={key} label={text} />);
@@ -29,7 +31,7 @@ export default class FieldRadio extends Component {
         return <RadioButtonGroup
             id={this.props.id}
             name={this.props.name}
-            defaultSelected={""+this.props.data.default}
+            defaultSelected={""+value}
         >
             {rows}
         </RadioButtonGroup>;

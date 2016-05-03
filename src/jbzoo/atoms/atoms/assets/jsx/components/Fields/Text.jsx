@@ -19,10 +19,9 @@ import TextField    from 'material-ui/TextField';
 
 export default class FieldText extends Component {
 
-    componentDidMount() {
-        this.setState({
-            value: this.props.data.default
-        });
+    componentWillMount() {
+        var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
+        this.setState({value: "" + value});
     }
 
     handleChange = (event) => {
@@ -33,17 +32,18 @@ export default class FieldText extends Component {
 
     render() {
 
+        var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
+
         return <TextField
             id={this.props.id}
             name={this.props.name}
             hintText={this.props.data.hint}
             floatingLabelText={this.props.data.placeholder}
-            defaultValue={this.props.data.default}
-            key={this.props.name}
+            defaultValue={value}
+            key={this.props.value}
             multiLine={this.props.isTextarea ? true : false}
             rows={this.props.isTextarea ? 2 : 1}
             onChange={this.handleChange}
         />;
     }
-
 }

@@ -13,8 +13,7 @@
 
 'use strict';
 
-import React, { Component } from 'react';
-const {Grid, Row, Col} = require('react-flexbox-grid');
+import React, { Component }     from 'react';
 import Paper                    from 'material-ui/Paper';
 import AtomConfig               from './components/Form/AtomConfig';
 import AtomsToolbar             from './components/AtomsToolbar';
@@ -24,6 +23,7 @@ import * as atomsActions        from './actions/index';
 import { fetchAtomsIfNeeded }   from './actions'
 import _                        from 'lodash';
 
+const {Grid, Row, Col} = require('react-flexbox-grid');
 
 class AtomsApp extends Component {
 
@@ -33,13 +33,15 @@ class AtomsApp extends Component {
 
     render() {
 
-        if (!this.props.atoms) {
+        var configs = this.props.config;
+
+        if (!this.props.atomsForms) {
             return <div>Loading atoms configs...</div>
         }
 
         var rows = [];
-        _.forEach(this.props.atoms, function (atom, key) {
-            rows.push(<AtomConfig key={key} atom={atom} atomId={key} />);
+        _.forEach(this.props.atomsForms, function (atomForm, key) {
+            rows.push(<AtomConfig key={key} atom={atomForm} atomId={key} atomConfig={configs[`atom.${key}`]} />);
         });
 
         return (
@@ -69,8 +71,9 @@ class AtomsApp extends Component {
 
 function mapStateToProps(state) {
     return {
-        atoms    : state.atoms,
-        isLoading: state.isLoading
+        atomsForms: state.atomsForms,
+        config    : state.config,
+        isLoading : state.isLoading
     };
 }
 

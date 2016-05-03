@@ -13,9 +13,8 @@
 
 'use strict';
 
-import React, {PropTypes, Component } from 'react'
-
-import RaisedButton from 'material-ui/RaisedButton';
+import React, {PropTypes, Component }   from 'react'
+import RaisedButton                     from 'material-ui/RaisedButton';
 import {Toolbar, ToolbarGroup, ToolbarSeparator, ToolbarTitle} from 'material-ui/Toolbar';
 
 export default class AtomsToolbar extends Component {
@@ -24,10 +23,12 @@ export default class AtomsToolbar extends Component {
 
         return (
             <Toolbar>
-                <ToolbarGroup>
-                    <ToolbarTitle text="Atoms general configurations" />
-                    <ToolbarSeparator />
+                <ToolbarGroup float="left">
                     <RaisedButton label="Save" primary={true} />
+                </ToolbarGroup>
+
+                <ToolbarGroup float="right">
+                    <ToolbarTitle text="Atoms general configurations" />
                 </ToolbarGroup>
             </Toolbar>
         );

@@ -71,6 +71,10 @@ class Debug extends Helper
             'showEnd'    => 1,
             'showOnAjax' => 0,
         ],
+        'dump'     => [
+            'maxDepth'    => 5,
+            'expandLevel' => 3,
+        ]
     ];
 
     /**

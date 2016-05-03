@@ -21,14 +21,15 @@ export default class FieldCheckbox extends Component {
 
     render() {
 
-        var fieldId = 'field_' + this.props.name;
+        var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
+        value = value ? true : false;
 
         return <Checkbox
             id={this.props.id}
             name={this.props.name}
             label={this.props.data.label}
             labelPosition="right"
-            defaultChecked={this.props.data.default}
+            defaultChecked={value}
         />;
     }
 }

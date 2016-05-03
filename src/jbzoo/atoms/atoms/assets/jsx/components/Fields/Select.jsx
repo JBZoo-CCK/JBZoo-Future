@@ -24,7 +24,7 @@ export default class FieldSelect extends Component {
         super(props);
 
         for (var first in props.data.options) break;
-        var selected = props.data.value !== undefined ? props.data.value : props.data.default;
+        var selected = this.props.value !== undefined ? this.props.value : this.props.data.default;
         selected = selected !== undefined ? selected : first;
 
         this.state = {value: "" + selected};
@@ -34,10 +34,17 @@ export default class FieldSelect extends Component {
 
     render() {
 
+        var value = this.state.value;
+
         var rows = [];
         _.forEach(this.props.data.options, function (text, key) {
             rows.push(<MenuItem key={key} value={key} primaryText={text} />);
         });
+
+        if (!this.props.data.options[value]) {
+            let text = `Undefined option: ${value}`;
+            rows.push(<MenuItem key={value} value={value} primaryText={text}  style={{color:"red"}}/>);
+        }
 
         return <SelectField
             id={this.props.id}

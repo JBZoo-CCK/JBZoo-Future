@@ -35,7 +35,7 @@ function fetchAtoms() {
 }
 
 function shouldFetchAtoms(state) {
-    return !state.atoms;
+    return !state.atomsForms;
 }
 
 export function fetchAtomsIfNeeded() {

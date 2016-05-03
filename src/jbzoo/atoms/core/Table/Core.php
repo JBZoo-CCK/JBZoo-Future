@@ -1,3 +1,4 @@
+<?php
 /**
  * JBZoo CCK
  *
@@ -11,21 +12,27 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+namespace JBZoo\CCK\Atom\Core\Table;
 
-import * as defines from '../defines'
+use JBZoo\CrossCMS\AbstractDatabase;
 
-module.exports = {
-    config   : (state = {}) => state,
-    isLoading: function (state = false, action) {
 
-        switch (action.type) {
-            case defines.LOADER_START:
-                return true;
-            case defines.LOADER_STOP:
-                return false;
-        }
+/**
+ * Class Core
+ * @package JBZoo\CCK
+ */
+abstract class Core
+{
+    /**
+     * @var AbstractDatabase
+     */
+    protected $_db;
 
-        return state;
+    /**
+     * Core constructor
+     */
+    public function __construct()
+    {
+        $this->_db = jbzoo('db');
     }
-};
+}

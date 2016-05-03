@@ -73,6 +73,11 @@
                 "type": "container",
                 "value": [
                     {
+                        "name": "config",
+                        "type": "class",
+                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Config"
+                    },
+                    {
                         "name": "debug",
                         "type": "class",
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
@@ -105,6 +110,11 @@
         "name": "config",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractConfig"
+    },
+    {
+        "name": "core.config",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Config"
     },
     {
         "name": "core.debug",

@@ -33,6 +33,7 @@ export default class AtomConfig extends Component {
 
         var rows        = [],
             atomId      = this.props.atomId,
+            atomConfig  = this.props.atomConfig,
             title       = <span>{this.props.atom.meta.name} <span style={{color:"#ccc"}}>[{atomId}]</span></span>,
             description = this.props.atom.meta.description;
 
@@ -44,6 +45,7 @@ export default class AtomConfig extends Component {
                 key={key}
                 rowData={row}
                 rowName={rowName}
+                rowValue={atomConfig[key]}
                 rowId={rowId}
             />);
         });

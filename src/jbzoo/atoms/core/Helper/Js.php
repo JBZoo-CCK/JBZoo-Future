@@ -35,11 +35,7 @@ class Js extends Helper
             implode(PHP_EOL . ';', [
                 '    window.' . self::GLOBAL_VAR . ' = {};',
                 '    var dump = function(mixed, label, trace) {
-                         if (label) {
-                            console.log(label + \': \', mixed);
-                         } else {
-                            console.log(mixed);
-                         }
+                         if (label) {console.log(label + \': \', mixed);} else {console.log(mixed);}
                          if (trace) { console.trace(); }
                      };
                 ',
