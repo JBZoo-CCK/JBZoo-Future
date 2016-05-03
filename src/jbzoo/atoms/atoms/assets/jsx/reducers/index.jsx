@@ -31,14 +31,18 @@ export function changeOption(state = false, action) {
 
     if (action.type == defines.ATOMS_SAVE_STORE) {
 
-        let paths = action.payload.name.split('.');
-        let atomConfigName = 'atom.' + paths[0];
+        let newState   = Object.assign({}, state),
+            paths      = action.payload.name.split('.'),
+            atomName   = 'atom.' + paths[0],
+            configName = paths[1];
 
-        let subConfig = {};
-        subConfig[atomConfigName] = Object.assign({}, state[atomConfigName]);
-        subConfig[atomConfigName][paths[1]] = action.payload.value;
+        if (paths.length == 2) {
+            newState[atomName][configName] = action.payload.value;
+        } else {
+            newState[atomName][configName][paths[2]] = action.payload.value;
+        }
 
-        return Object.assign({}, state, subConfig);
+        return newState;
     }
 
     return state;

@@ -19,22 +19,43 @@ import TimePicker    from 'material-ui/TimePicker';
 
 export default class FieldTime extends Component {
 
-    render() {
+    componentWillMount() {
 
-        var defaultTime = new Date();
+        var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
+        var defaultTime = new Date(value);
 
-        if (this.props.data.default) {
-            let parts = this.props.data.default.split(':');
-            defaultTime = new Date(0, 0, 0, parts[0], parts[1]);
+        if (value) {
+
+            if (typeof value === 'string') {
+                let parts = value.split(':');
+                if (parts.length === 2) {
+                    defaultTime = new Date(0, 0, 0, parts[0], parts[1]);
+                }
+
+            } else {
+                defaultTime = new Date(value);
+            }
         }
 
+        this.setState({value: defaultTime});
+    }
+
+    handleChange(event, value) {
+        if (this.props.data.onChange) {
+            this.props.data.onChange(this.props.name, value);
+        }
+
+        this.setState({value});
+    }
+
+    render() {
         return <TimePicker
             id={this.props.id}
             name={this.props.name}
-            value={defaultTime}
             hintText={this.props.data.hint}
             format="24hr"
+            value={this.state.value}
+            onChange={::this.handleChange}
         />;
     }
-
 }

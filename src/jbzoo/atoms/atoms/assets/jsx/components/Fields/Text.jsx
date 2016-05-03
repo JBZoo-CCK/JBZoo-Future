@@ -24,26 +24,28 @@ export default class FieldText extends Component {
         this.setState({value: "" + value});
     }
 
-    handleChange = (event) => {
-        this.setState({
-            value: event.target.value
-        });
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    };
+
+    handleBlur() {
+        if (this.props.data.onChange) {
+            this.props.data.onChange(this.props.name, this.state.value);
+        }
     };
 
     render() {
-
-        var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
 
         return <TextField
             id={this.props.id}
             name={this.props.name}
             hintText={this.props.data.hint}
             floatingLabelText={this.props.data.placeholder}
-            defaultValue={value}
-            key={this.props.value}
+            value={this.state.value}
             multiLine={this.props.isTextarea ? true : false}
             rows={this.props.isTextarea ? 2 : 1}
-            onChange={this.handleChange}
+            onChange={::this.handleChange}
+            onBlur={::this.handleBlur}
         />;
     }
 }

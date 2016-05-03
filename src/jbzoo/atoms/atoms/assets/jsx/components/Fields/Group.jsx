@@ -36,6 +36,7 @@ export default class FieldGroup extends Component {
             groupId    = this.props.id,
             groupName  = this.props.name,
             groupValue = this.props.value,
+            onChange   = this.props.data.onChange,
             rows       = [];
 
         _.forEach(this.props.data.childs, function (fieldData, key) {
@@ -45,34 +46,43 @@ export default class FieldGroup extends Component {
                 fieldName = groupName + '.' + key,
                 rowValue  = groupValue[key];
 
+            fieldData.onChange = onChange;
+
             if (fieldData.type == 'text') {
-                field = <FieldText key={key} data={fieldData} name={fieldName}
+                field = <FieldText key={key} data={fieldData} name={fieldName} onChange={onChange}
                                    id={fieldId} value={rowValue} isTextarea={false} />;
 
             } else if (fieldData.type == 'textarea') {
-                field = <FieldText key={key} data={fieldData} name={fieldName}
+                field = <FieldText key={key} data={fieldData} name={fieldName} onChange={onChange}
                                    id={fieldId} value={rowValue} isTextarea={true} />;
 
             } else if (fieldData.type == 'toggle') {
-                field = <FieldToggle key={key} data={fieldData} name={fieldName} id={fieldId} value={rowValue} />;
+                field = <FieldToggle key={key} data={fieldData} name={fieldName}
+                                     id={fieldId} value={rowValue} onChange={onChange} />;
 
             } else if (fieldData.type == 'checkbox') {
-                field = <FieldCheckbox key={key} data={fieldData} name={fieldName} id={fieldId} value={rowValue} />;
+                field = <FieldCheckbox key={key} data={fieldData} name={fieldName}
+                                       id={fieldId} value={rowValue} onChange={onChange} />;
 
             } else if (fieldData.type == 'select') {
-                field = <FieldSelect key={key} data={fieldData} name={fieldName} id={fieldId} value={rowValue} />;
+                field = <FieldSelect key={key} data={fieldData} name={fieldName}
+                                     id={fieldId} value={rowValue} onChange={onChange} />;
 
             } else if (fieldData.type == 'radio') {
-                field = <FieldRadio key={key} data={fieldData} name={fieldName} id={fieldId} value={rowValue} />;
+                field = <FieldRadio key={key} data={fieldData} name={fieldName}
+                                    id={fieldId} value={rowValue} onChange={onChange} />;
 
             } else if (fieldData.type == 'time') {
-                field = <FieldTime key={key} data={fieldData} name={fieldName} id={fieldId} value={rowValue} />;
+                field = <FieldTime key={key} data={fieldData} name={fieldName}
+                                   id={fieldId} value={rowValue} onChange={onChange} />;
 
             } else if (fieldData.type == 'date') {
-                field = <FieldDate key={key} data={fieldData} name={fieldName} id={fieldId} value={rowValue} />;
+                field = <FieldDate key={key} data={fieldData} name={fieldName}
+                                   id={fieldId} value={rowValue} onChange={onChange} />;
 
             } else if (fieldData.type == 'datetime') {
-                field = <FieldDatetime key={key} data={fieldData} name={fieldName} id={fieldId} value={rowValue} />;
+                field = <FieldDatetime key={key} data={fieldData} name={fieldName}
+                                       id={fieldId} value={rowValue} onChange={onChange} />;
             }
 
             if (!field) {

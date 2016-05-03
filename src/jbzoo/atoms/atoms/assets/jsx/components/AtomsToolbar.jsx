@@ -23,11 +23,7 @@ export default class AtomsToolbar extends Component {
 
         return (
             <Toolbar>
-                <ToolbarGroup float="left">
-                    <RaisedButton label="Save" primary={true} />
-                </ToolbarGroup>
-
-                <ToolbarGroup float="right">
+                <ToolbarGroup>
                     <ToolbarTitle text="Atoms general configurations" />
                 </ToolbarGroup>
             </Toolbar>

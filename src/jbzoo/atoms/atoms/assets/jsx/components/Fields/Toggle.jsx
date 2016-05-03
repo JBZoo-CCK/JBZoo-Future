@@ -19,18 +19,30 @@ import Toggle   from 'material-ui/Toggle';
 
 export default class FieldToggle extends Component {
 
-    render() {
-
+    componentWillMount() {
         var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
         value = value ? true : false;
 
+        this.setState({value});
+    }
+
+    handleChange(event, value) {
+        this.setState({value});
+
+        if (this.props.data.onChange) {
+            this.props.data.onChange(this.props.name, value ? 1 : 0);
+        }
+    }
+
+    render() {
         return <Toggle
             id={this.props.id}
             name={this.props.name}
             key={this.props.name}
             label={this.props.data.hint}
+            onToggle={::this.handleChange}
             labelPosition="right"
-            defaultToggled={value}
+            toggled={this.state.value}
         />;
     }
 }

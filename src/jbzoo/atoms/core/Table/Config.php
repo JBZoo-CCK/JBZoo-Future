@@ -94,7 +94,7 @@ class Config extends Core
         $oldValues = $this->_store->get($key);
 
         if ($oldValues && is_array($oldValues)) {
-            $newValue = array_merge($oldValues, $newValue);
+            $newValue = array_replace_recursive($oldValues, $newValue);
         }
 
         $this->_store->set($key, $newValue);

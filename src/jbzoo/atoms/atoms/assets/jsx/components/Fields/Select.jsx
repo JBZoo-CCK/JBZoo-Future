@@ -30,7 +30,13 @@ export default class FieldSelect extends Component {
         this.state = {value: "" + selected};
     }
 
-    handleChange = (event, index, value) => this.setState({value});
+    handleChange(event, index, value) {
+        if (this.props.data.onChange) {
+            this.props.data.onChange(this.props.name, value);
+        }
+
+        this.setState({value});
+    }
 
     render() {
 
@@ -43,14 +49,14 @@ export default class FieldSelect extends Component {
 
         if (!this.props.data.options[value]) {
             let text = `Undefined option: ${value}`;
-            rows.push(<MenuItem key={value} value={value} primaryText={text}  style={{color:"red"}}/>);
+            rows.push(<MenuItem key={value} value={value} primaryText={text} style={{color:"red"}} />);
         }
 
         return <SelectField
             id={this.props.id}
             value={this.state.value}
             name={this.props.name}
-            onChange={this.handleChange}
+            onChange={::this.handleChange}
         >
             {rows}
         </SelectField>;

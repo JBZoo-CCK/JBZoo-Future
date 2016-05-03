@@ -27,12 +27,11 @@ export default class FieldCheckbox extends Component {
     }
 
     handleChange(event, value) {
+        if (this.props.data.onChange) {
+            this.props.data.onChange(this.props.name, value ? 1 : 0);
+        }
 
         this.setState({value});
-
-        if (this.props.data.onChange) {
-            this.props.data.onChange(event.target.name, value ? 1 : 0);
-        }
     }
 
     render() {

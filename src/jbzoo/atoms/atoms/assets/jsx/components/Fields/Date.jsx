@@ -19,22 +19,34 @@ import DatePicker    from 'material-ui/DatePicker';
 
 export default class FieldDate extends Component {
 
-    render() {
+    componentWillMount() {
 
         var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
         var defaultDate = new Date();
 
         if (value) {
-            let parts = value.split('-');
-            defaultDate = new Date(parts[0], parts[1] - 1, parts[2]);
+            defaultDate = new Date(value);
         }
+
+        this.setState({value:defaultDate});
+    }
+
+    handleChange(event, value) {
+        if (this.props.data.onChange) {
+            this.props.data.onChange(this.props.name, value);
+        }
+
+        this.setState({value});
+    }
+
+    render() {
 
         return <DatePicker
             id={this.props.id}
             name={this.props.name}
             hintText={this.props.data.hint}
-            defaultDate={defaultDate}
+            value={this.state.value}
+            onChange={::this.handleChange}
         />;
     }
-
 }
