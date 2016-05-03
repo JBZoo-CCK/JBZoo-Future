@@ -26,10 +26,8 @@ class AdminIndex extends AdminController
     /**
      * Index action
      */
-    public function atoms()
+    public function getConfigForms()
     {
-        //sleep(3);
-
         $atomList = $this->app['atoms']->loadInfo('*');
 
         $configs = [];
@@ -45,5 +43,23 @@ class AdminIndex extends AdminController
         }
 
         $this->_json(['list' => $configs]);
+    }
+
+    public function saveOption()
+    {
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        list($atomId, $path) = explode('.', $data['name'], 2);
+
+        $subpath = false;
+        if (strpos($path, '.')) {
+            list($path, $subpath) = explode('.', $path, 2);
+        }
+
+        $this->app['atoms']['core']['config']->set('atom.' . $atomId, [
+            $path => $subpath ? [$subpath => $data['value']] : $data['value']
+        ]);
+
+        $this->_json();
     }
 }

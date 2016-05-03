@@ -18,10 +18,10 @@ use JBZoo\CCK\Atom\Helper;
 use JBZoo\Data\PHPArray;
 
 /**
- * Class Env
+ * Class State
  * @package JBZoo\CCK
  */
-class Env extends Helper
+class State extends Helper
 {
     /**
      * @return array

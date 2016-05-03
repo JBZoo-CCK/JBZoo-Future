@@ -22,9 +22,9 @@ return [
 
         if (0) {
             $list = [
-                'https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react.js',
                 //'https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-with-addons.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/react/0.14.7/react-dom.js',
+                'https://cdnjs.cloudflare.com/ajax/libs/react/15.0.1/react-dom.js',
             ];
         }
 

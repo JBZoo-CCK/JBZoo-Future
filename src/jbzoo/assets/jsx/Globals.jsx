@@ -29,8 +29,6 @@ JBZoo.ajax = function (task, data, dispatch, action) {
         dispatch({type: 'LOADER_START'});
     }
 
-    data.act = task;
-
     var noCache = Math.floor(Math.random() * (100000)) + 1;
 
     return fetch(
@@ -39,11 +37,24 @@ JBZoo.ajax = function (task, data, dispatch, action) {
             credentials: 'same-origin',
             redirect   : 'follow',
             method     : 'POST',
-            body       : data
+            body       : JSON.stringify(data),
+            headers    : {
+                'X-Requested-With': 'XMLHttpRequest',
+                'Accept'          : 'application/json',
+                'Content-Type'    : 'application/json'
+            }
+        })
+        .then(function checkStatus(response) {
+            if (response.status >= 200 && response.status < 300) {
+                return response;
+            } else {
+                var error = new Error(response.statusText);
+                error.response = response;
+                throw error;
+            }
         })
         .then(response => response.json())
         .then(function (json) {
-
             if (dispatch) {
                 dispatch({type: 'LOADER_STOP'});
                 return dispatch(action(json));
@@ -58,7 +69,7 @@ JBZoo.ajax = function (task, data, dispatch, action) {
             }
 
             if (JBZoo.defines.__DEV__) {
-                console.log('JBZoo Ajax Error:', error);
+                dump('JBZoo Ajax Error:', error);
             }
         });
 };

@@ -33,11 +33,13 @@ export default class FormRow extends Component {
 
         var output   = false,
             styles   = {},
+            rowId    = this.props.rowId,
             rowData  = this.props.rowData,
-            rowValue = this.props.rowValue,
-            rowType  = this.props.rowData.type,
             rowName  = this.props.rowName,
-            rowId    = this.props.rowId;
+            rowValue = this.props.rowValue,
+            rowType  = this.props.rowData.type;
+
+        rowData.onChange = this.props.rowOnChange;
 
         if (rowType == 'text') {
             output = <FieldText data={rowData} name={rowName} id={rowId} value={rowValue} isTextarea={false} />;

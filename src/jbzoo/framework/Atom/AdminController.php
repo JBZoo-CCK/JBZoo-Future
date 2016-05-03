@@ -21,10 +21,20 @@ namespace JBZoo\CCK\Atom;
 class AdminController extends Controller
 {
     /**
+     * {@inheritdoc}
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // TODO: Check cuurent user. Should be admin
+    }
+
+    /**
      * @param array $data
      * @param bool  $result
      */
-    protected function _json($data, $result = true)
+    protected function _json($data = [], $result = true)
     {
         $this->app['response']->json($data, $result);
     }

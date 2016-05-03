@@ -42,7 +42,7 @@ export default class FieldGroup extends Component {
 
             field = false;
             var fieldId   = groupId + '_' + key,
-                fieldName = groupName + '[' + key + ']',
+                fieldName = groupName + '.' + key,
                 rowValue  = groupValue[key];
 
             if (fieldData.type == 'text') {

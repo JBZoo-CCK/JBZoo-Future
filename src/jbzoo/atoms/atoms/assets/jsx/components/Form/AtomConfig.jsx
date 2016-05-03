@@ -31,22 +31,25 @@ export default class AtomConfig extends Component {
 
     render() {
 
-        var rows        = [],
-            atomId      = this.props.atomId,
-            atomConfig  = this.props.atomConfig,
-            title       = <span>{this.props.atom.meta.name} <span style={{color:"#ccc"}}>[{atomId}]</span></span>,
-            description = this.props.atom.meta.description;
+        var rows         = [],
+            atomId       = this.props.atomId,
+            atomConfig   = this.props.atomConfig,
+            atomOnChange = this.props.atomOnChange,
+            title        = <span>{this.props.atom.meta.name} <span style={{color:"#ccc"}}>[{atomId}]</span> </span>,
+            description  = this.props.atom.meta.description;
 
-        _.forEach(this.props.atom.config, function (row, key) {
-            let rowId   = 'field_' + atomId + '_' + key,
-                rowName = atomId + '[' + key + ']';
+        _.forEach(this.props.atom.config, function (rowData, key) {
+            let rowId    = 'field_' + atomId + '_' + key,
+                rowName  = atomId + '.' + key,
+                rowValue = atomConfig[key];
 
             rows.push(<FormRow
                 key={key}
-                rowData={row}
-                rowName={rowName}
-                rowValue={atomConfig[key]}
                 rowId={rowId}
+                rowData={rowData}
+                rowName={rowName}
+                rowValue={rowValue}
+                rowOnChange={atomOnChange}
             />);
         });
 

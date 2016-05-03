@@ -33,9 +33,9 @@ class AdminIndex extends AdminController
         ]);
 
         $this->app['core.js']->addVar('JBZOO_INIT', [
-            'state'   => $this->app['core.env']->getState(),
-            'sidebar' => $this->app['core.env']->getSidebar(),
-            'defines' => $this->app['core.env']->getInitDefines()
+            'state'   => $this->app['core.state']->getState(),
+            'sidebar' => $this->app['core.state']->getSidebar(),
+            'defines' => $this->app['core.state']->getInitDefines()
         ], true);
 
         ?>

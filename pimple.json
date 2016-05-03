@@ -83,11 +83,6 @@
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
                     },
                     {
-                        "name": "env",
-                        "type": "class",
-                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Env"
-                    },
-                    {
                         "name": "js",
                         "type": "class",
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Js"
@@ -96,6 +91,11 @@
                         "name": "route",
                         "type": "class",
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Route"
+                    },
+                    {
+                        "name": "state",
+                        "type": "class",
+                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\State"
                     }
                 ]
             },
@@ -122,14 +122,14 @@
         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
     },
     {
-        "name": "core.env",
-        "type": "class",
-        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Env"
-    },
-    {
         "name": "core.js",
         "type": "class",
         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Js"
+    },
+    {
+        "name": "core.state",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\State"
     },
     {
         "name": "db",
@@ -205,5 +205,10 @@
         "name": "type",
         "type": "string",
         "value": "Joomla"
+    },
+    {
+        "name": "user",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractUser"
     }
 ]

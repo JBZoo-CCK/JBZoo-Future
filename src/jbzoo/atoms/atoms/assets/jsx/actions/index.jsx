@@ -30,8 +30,31 @@ function receiveAtoms(atoms) {
     }
 }
 
+function saveOptionReceive() {
+    return {
+        type   : defines.ATOMS_SAVE_OPTION,
+        payload: true
+    }
+}
+
 function fetchAtoms() {
-    return dispatch => JBZoo.ajax('atoms.index.atoms', {}, dispatch, receiveAtoms);
+    return dispatch => JBZoo.ajax('atoms.index.getConfigForms', {}, dispatch, receiveAtoms);
+}
+
+function saveAtomOption(name, newValue) {
+    let data = {
+        name : name,
+        value: newValue
+    };
+
+    return function (dispatch) {
+        dispatch({
+            type   : defines.ATOMS_SAVE_STORE,
+            payload: data
+        });
+
+        return JBZoo.ajax('atoms.index.saveOption', data, dispatch, saveOptionReceive)
+    };
 }
 
 function shouldFetchAtoms(state) {
@@ -43,5 +66,11 @@ export function fetchAtomsIfNeeded() {
         if (shouldFetchAtoms(getState())) {
             return dispatch(fetchAtoms())
         }
+    }
+}
+
+export function onOptionChange(name, newValue) {
+    return (dispatch, getState) => {
+        return dispatch(saveAtomOption(name, newValue))
     }
 }

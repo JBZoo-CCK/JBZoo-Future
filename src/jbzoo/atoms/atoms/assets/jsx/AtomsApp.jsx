@@ -33,7 +33,8 @@ class AtomsApp extends Component {
 
     render() {
 
-        var configs = this.props.config;
+        var configs        = this.props.config,
+            onOptionChange = this.props.atomsActions.onOptionChange;
 
         if (!this.props.atomsForms) {
             return <div>Loading atoms configs...</div>
@@ -41,7 +42,13 @@ class AtomsApp extends Component {
 
         var rows = [];
         _.forEach(this.props.atomsForms, function (atomForm, key) {
-            rows.push(<AtomConfig key={key} atom={atomForm} atomId={key} atomConfig={configs[`atom.${key}`]} />);
+            rows.push(<AtomConfig
+                key={key}
+                atom={atomForm}
+                atomId={key}
+                atomConfig={configs[`atom.${key}`]}
+                atomOnChange={onOptionChange}
+            />);
         });
 
         return (

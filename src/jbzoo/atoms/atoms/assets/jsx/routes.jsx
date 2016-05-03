@@ -24,7 +24,8 @@ module.exports.default = function (reducerRegistry, atomKey) {
 
             if (!AtomsApp) {
                 reducerRegistry.register({
-                    atomsForms: require('./reducers').default
+                    atomsForms: require('./reducers').default,
+                    config    : require('./reducers').changeOption
                 });
 
                 AtomsApp = require('./AtomsApp');

@@ -3,6 +3,7 @@
 .DS_Store
 
 # Root system or dev dirs
+/none
 /build
 /bin
 /logs

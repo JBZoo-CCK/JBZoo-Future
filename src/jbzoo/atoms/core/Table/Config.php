@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Atom\Core\Table;
 
 use JBZoo\Data\Data;
+use JBZoo\SqlBuilder\Query\Replace;
 use JBZoo\SqlBuilder\Query\Select;
 
 /**
@@ -90,7 +91,21 @@ class Config extends Core
      */
     public function set($key, $newValue)
     {
+        $oldValues = $this->_store->get($key);
+
+        if ($oldValues && is_array($oldValues)) {
+            $newValue = array_merge($oldValues, $newValue);
+        }
+
         $this->_store->set($key, $newValue);
+
+        $replace = (new Replace('#__jbzoo_config'))
+            ->row([
+                'option' => $key,
+                'value'  => $this->_encode($newValue)
+            ]);
+
+        $this->_db->query($replace);
     }
 
     /**

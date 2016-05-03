@@ -26,3 +26,20 @@ export default function atoms(state = false, action) {
             return state;
     }
 }
+
+export function changeOption(state = false, action) {
+
+    if (action.type == defines.ATOMS_SAVE_STORE) {
+
+        let paths = action.payload.name.split('.');
+        let atomConfigName = 'atom.' + paths[0];
+
+        let subConfig = {};
+        subConfig[atomConfigName] = Object.assign({}, state[atomConfigName]);
+        subConfig[atomConfigName][paths[1]] = action.payload.value;
+
+        return Object.assign({}, state, subConfig);
+    }
+
+    return state;
+}
