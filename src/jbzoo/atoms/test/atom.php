@@ -23,7 +23,7 @@ return [
 
         'checkbox' => [
             'type'        => 'checkbox',
-            'label'       => 'Checkbox field',
+            'label'       => 'Checkbox field dsfsdfdsfsd',
             'description' => 'Checkbox Lorem ipsum doloretur adipiscing elit',
             'hint'        => 'Is it enable?',
             'default'     => true,

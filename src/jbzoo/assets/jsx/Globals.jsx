@@ -18,19 +18,23 @@ import fetch from 'isomorphic-fetch'
 var JBZoo = window.JBZOO_INIT !== undefined ? window.JBZOO_INIT : {};
 
 JBZoo = Object.assign({}, {
-    defines  : {},
-    initState: {}
+    defines: {},
+    state  : {}
 }, JBZoo);
 
 
 JBZoo.ajax = function (task, data, dispatch, action) {
 
-    dispatch({type: 'LOADER_START'});
+    if (dispatch) {
+        dispatch({type: 'LOADER_START'});
+    }
 
     data.act = task;
 
+    var noCache = Math.floor(Math.random() * (100000)) + 1;
+
     return fetch(
-        `${JBZoo.defines.AJAX_URL}&act=${task}`, {
+        `${JBZoo.defines.AJAX_URL}&act=${task}&nocache=${noCache}`, {
             cache      : 'no-cache',
             credentials: 'same-origin',
             redirect   : 'follow',
@@ -39,13 +43,23 @@ JBZoo.ajax = function (task, data, dispatch, action) {
         })
         .then(response => response.json())
         .then(function (json) {
-            dispatch({type: 'LOADER_STOP'});
-            return dispatch(action(json));
+
+            if (dispatch) {
+                dispatch({type: 'LOADER_STOP'});
+                return dispatch(action(json));
+            }
+
+            return json;
         })
         .catch(function (error) {
-            dispatch({type: 'LOADER_STOP'});
-            dispatch({type: 'LOADER_STOP_ERROR'});
-            console.log('JBZoo Ajax Error:', error);
+            if (dispatch) {
+                dispatch({type: 'LOADER_STOP'});
+                dispatch({type: 'LOADER_STOP_ERROR'});
+            }
+
+            if (JBZoo.defines.__DEV__) {
+                console.log('JBZoo Ajax Error:', error);
+            }
         });
 };
 

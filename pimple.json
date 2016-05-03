@@ -78,6 +78,11 @@
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
                     },
                     {
+                        "name": "env",
+                        "type": "class",
+                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Env"
+                    },
+                    {
                         "name": "js",
                         "type": "class",
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Js"
@@ -105,6 +110,11 @@
         "name": "core.debug",
         "type": "class",
         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
+    },
+    {
+        "name": "core.env",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Env"
     },
     {
         "name": "core.js",

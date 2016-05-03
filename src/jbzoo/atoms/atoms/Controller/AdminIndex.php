@@ -28,7 +28,7 @@ class AdminIndex extends AdminController
      */
     public function atoms()
     {
-        //sleep(5);
+        //sleep(3);
 
         $atomList = $this->app['atoms']->loadInfo('*');
 
