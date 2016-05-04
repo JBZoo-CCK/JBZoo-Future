@@ -14,10 +14,8 @@
 
 namespace JBZoo\CCK\Atom\Core\Helper;
 
-use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Atom\Core\Table\Config as ConfigTable;
 use JBZoo\CCK\Atom\Helper;
-use JBZoo\Data\Data;
 
 /**
  * Class Config
@@ -33,10 +31,8 @@ class Config extends Helper
     /**
      * {@inheritdoc}
      */
-    public function __construct(Atom $atom, $helperName)
+    protected function _init()
     {
-        parent::__construct($atom, $helperName);
-
         $this->_model = new ConfigTable();
     }
 
@@ -80,10 +76,7 @@ class Config extends Helper
      */
     protected function _prepareKey($key)
     {
-        if (is_array($key)) {
-            $key = implode('.', $key);
-        }
-
+        $key = is_array($key) ? implode('.', $key) : $key;
         $key = trim(strtolower($key));
 
         return $key;

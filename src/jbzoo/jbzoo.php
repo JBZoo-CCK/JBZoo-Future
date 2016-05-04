@@ -21,6 +21,7 @@ require_once __DIR__ . '/init.php';
 $app = App::getInstance();
 
 try {
+    $app->checkRequest();
     echo $app->execute();
     $app->trigger('jbzoo.assets');
 

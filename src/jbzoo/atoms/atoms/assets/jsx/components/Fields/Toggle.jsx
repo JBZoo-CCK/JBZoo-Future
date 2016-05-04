@@ -16,25 +16,36 @@
 import React, { Component } from 'react'
 
 import Toggle   from 'material-ui/Toggle';
+import JBZoo    from '../../../../../../assets/jsx/Globals';
 
 export default class FieldToggle extends Component {
 
     componentWillMount() {
         var value = this.props.value !== undefined ? this.props.value : this.props.data.default;
-        value = value ? true : false;
 
+        value = value ? true : false;
         this.setState({value});
     }
 
     handleChange(event, value) {
+
+        value = value ? true : false;
         this.setState({value});
 
         if (this.props.data.onChange) {
-            this.props.data.onChange(this.props.name, value ? 1 : 0);
+            var onChange = this.props.data.onChange,
+                name     = this.props.name;
+
+            JBZoo.delay(function () {
+                onChange(name, value ? 1 : 0);
+            });
         }
     }
 
     render() {
+
+        var value = this.state.value ? true : false;
+
         return <Toggle
             id={this.props.id}
             name={this.props.name}
@@ -42,7 +53,7 @@ export default class FieldToggle extends Component {
             label={this.props.data.hint}
             onToggle={::this.handleChange}
             labelPosition="right"
-            toggled={this.state.value}
+            toggled={value}
         />;
     }
 }

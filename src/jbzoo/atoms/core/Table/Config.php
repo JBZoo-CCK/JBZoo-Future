@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Atom\Core\Table;
 
 use JBZoo\Data\Data;
+use JBZoo\Data\JSON;
 use JBZoo\SqlBuilder\Query\Replace;
 use JBZoo\SqlBuilder\Query\Select;
 
@@ -93,8 +94,8 @@ class Config extends Core
     {
         $oldValues = $this->_store->get($key);
 
-        if ($oldValues && is_array($oldValues)) {
-            $newValue = array_replace_recursive($oldValues, $newValue);
+        if ($oldValues && (is_array($oldValues) || $oldValues instanceof Data)) {
+            $newValue = array_replace_recursive((array)$oldValues, $newValue);
         }
 
         $this->_store->set($key, $newValue);
@@ -114,7 +115,7 @@ class Config extends Core
      */
     protected function _decode($value)
     {
-        return json_decode($value, true);
+        return new JSON($value);
     }
 
     /**

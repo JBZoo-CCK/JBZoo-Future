@@ -14,8 +14,8 @@
 
 namespace JBZoo\CCK\Atom\Core\Helper;
 
-use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Atom\Helper;
+use JBZoo\Data\Data;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Filter;
 use JBZoo\Utils\FS;
@@ -28,6 +28,11 @@ use Symfony\Component\VarDumper\VarDumper;
  */
 class Debug extends Helper
 {
+    const MODE_NONE     = 'none';
+    const MODE_JBDUMP   = 'jbdump';
+    const MODE_SYMFONY  = 'symfony';
+    const MODE_VAR_DUMP = 'var_dump';
+
     /**
      * @var \JBDump
      */
@@ -39,16 +44,16 @@ class Debug extends Helper
     protected $_root;
 
     /**
-     * @var array
+     * @var Data
      */
     protected $_config = [
-        'mode'     => 'symfony', // jbdump|symfony|var_dump
-        'log'      => 1,         // Log message
-        'dump'     => 1,         // Show dumps of vars
-        'sql'      => 1,         // Show SQL queries
-        'profiler' => 1,         // Show profiler
-        'trace'    => 1,         // Show backtraces
-        'ip'       => [          // Ony for local or developer env!
+        'mode'     => self::MODE_SYMFONY,   // jbdump|symfony|var_dump
+        'log'      => 1,                    // Log message
+        'dump'     => 1,                    // Show dumps of vars
+        'sql'      => 1,                    // Show SQL queries
+        'profiler' => 1,                    // Show profiler
+        'trace'    => 1,                    // Show backtraces
+        'ip'       => [                     // Ony for local or developer env!
             '127.0.0.1',
         ],
     ];
@@ -60,9 +65,6 @@ class Debug extends Helper
     protected $_params = [
         'log'      => [
             //'format' => '{DATETIME}    {CLIENT_IP}    {FILE}    {NAME}    {JBDUMP_MESSAGE}',
-        ],
-        'personal' => [
-            'ip' => [],
         ],
         'profiler' => [
             'render'     => 4, // Bit: 1 - log; 2 - echo; 4 - table; 8 - chart; 16 - total
@@ -80,9 +82,9 @@ class Debug extends Helper
     /**
      * {@inheritdoc}
      */
-    public function __construct(Atom $atom, $helperName)
+    protected function _init()
     {
-        parent::__construct($atom, $helperName);
+        $this->_initConfig();
 
         // Only for developer env
         if ($this->isShow() && class_exists('\JBDump')) {
@@ -101,12 +103,25 @@ class Debug extends Helper
     }
 
     /**
+     * Load config from database
+     */
+    protected function _initConfig()
+    {
+        $stored = $this->app['cfg']->get('atom.core')->get('debug', [], 'arr');
+        $config = jbdata(array_merge((array)$this->_config, $stored));
+
+        $config->set('ip', $config->get('ip', '', 'parseLines'));
+
+        $this->_config = $config;
+    }
+
+    /**
      * @param string $query
      * @codeCoverageIgnore
      */
     public function sql($query)
     {
-        if ($this->isShow() && $this->_config['sql'] && $this->_jbdump) {
+        if ($this->isShow() && $this->_config->get('sql') && $this->_jbdump) {
             if ($this->_jbdump) {
                 $this->_jbdump->sql($query);
             } else {
@@ -129,7 +144,7 @@ class Debug extends Helper
      */
     public function dump($data, $isDie = false, $label = '...', $trace = null)
     {
-        if ($this->isShow() && $this->_config['dump'] && $this->_jbdump) {
+        if ($this->isShow() && $this->_config->get('dump') && $this->_jbdump) {
             $trace     = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             $traceItem = $trace[0];
 
@@ -144,16 +159,17 @@ class Debug extends Helper
             $message  = sprintf('%s = "%s:%s" %s', $label, $relative, $traceItem['line'], ($isDie ? ' / AutoDie' : ''));
 
             // Select Dumper and show var!
-            if ($this->_config['mode'] == 'jbdump') {
+            if ($this->_config->get('mode') == self::MODE_JBDUMP) {
                 $this->_jbdump->dump($data, $label, ['trace' => $trace]);
 
-
-            } elseif ($this->_config['mode'] == 'symfony' && class_exists('\Symfony\Component\VarDumper\VarDumper')) {
+            } elseif (class_exists('\Symfony\Component\VarDumper\VarDumper')
+                && $this->_config->get('mode') == self::MODE_SYMFONY
+            ) {
                 VarDumper::dump($data);
 
                 Cli::out('<style>.sf-dump{font-size:14px!important;}</style> <pre>' . $message . '</pre>');
 
-            } elseif ($this->_config['mode'] == 'var_dump') {
+            } elseif ($this->_config->get('mode') == self::MODE_VAR_DUMP) {
                 ob_start();
                 var_dump($data);
                 $output = ob_get_contents();
@@ -178,7 +194,7 @@ class Debug extends Helper
      */
     public function mark($label = '...')
     {
-        if ($this->isShow() && $this->_config['profiler'] && $this->_jbdump) {
+        if ($this->isShow() && $this->_config->get('profiler') && $this->_jbdump) {
             $this->_jbdump->mark($label);
         }
     }
@@ -194,7 +210,7 @@ class Debug extends Helper
      */
     public function log($message, $label = '...', $params = null)
     {
-        if ($this->isShow() && $this->_config['log'] && $this->_jbdump) {
+        if ($this->isShow() && $this->_config->get('log') && $this->_jbdump) {
             $trace = $params ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             $this->_jbdump->log($message, $label, ['trace' => $trace]);
         }
@@ -209,7 +225,7 @@ class Debug extends Helper
     public function logArray($array, $arrayName = 'data')
     {
         if ($this->isShow() &&
-            $this->_config['log'] &&
+            $this->_config->get('log') &&
             $this->_jbdump &&
             method_exists($this->_jbdump, 'phpArray')
         ) {
@@ -229,7 +245,7 @@ class Debug extends Helper
      */
     public function trace($isLog = false)
     {
-        if ($this->isShow() && $this->_config['trace'] && $this->_jbdump) {
+        if ($this->isShow() && $this->_config->get('trace') && $this->_jbdump) {
             // Render simple trace data
             ob_start();
             debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
@@ -279,7 +295,15 @@ class Debug extends Helper
      */
     public function isShow()
     {
-        $ip = Sys::IP(false);
-        return in_array($ip, $this->_config['ip'], true);
+        if ($this->_config->get('mode') === self::MODE_NONE) {
+            return false;
+        }
+
+        $whiteList = $this->_config->get('ip', [], 'arr');
+        if (count($whiteList) == 0) {
+            return true;
+        }
+
+        return in_array(Sys::IP(false), $whiteList, true);
     }
 }

@@ -100,11 +100,21 @@
                 ]
             },
             {
+                "name": "core-csrf",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "test",
                 "type": "container",
                 "value": []
             }
         ]
+    },
+    {
+        "name": "cfg",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Config"
     },
     {
         "name": "config",
@@ -200,6 +210,11 @@
         "name": "route",
         "type": "class",
         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Route"
+    },
+    {
+        "name": "session",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractSession"
     },
     {
         "name": "type",

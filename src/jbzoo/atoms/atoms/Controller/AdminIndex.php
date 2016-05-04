@@ -45,20 +45,25 @@ class AdminIndex extends AdminController
         $this->_json(['list' => $configs]);
     }
 
+    /**
+     * Save option action
+     */
     public function saveOption()
     {
-        $data = json_decode(file_get_contents('php://input'), true);
+        $name  = $this->app['request']->getJSON('name', '', 'cmd');
+        $value = $this->app['request']->getJSON('value');
+        $parts = explode('.', $name);
 
-        list($atomId, $path) = explode('.', $data['name'], 2);
+        if (count($parts) == 2) {
+            $this->app['atoms']['core']['config']->set('atom.' . $parts[0], [
+                $parts[1] => $value
+            ]);
 
-        $subpath = false;
-        if (strpos($path, '.')) {
-            list($path, $subpath) = explode('.', $path, 2);
+        } elseif (count($parts) == 3) {
+            $this->app['atoms']['core']['config']->set('atom.' . $parts[0], [
+                $parts[1] => [$parts[2] => $value]
+            ]);
         }
-
-        $this->app['atoms']['core']['config']->set('atom.' . $atomId, [
-            $path => $subpath ? [$subpath => $data['value']] : $data['value']
-        ]);
 
         $this->_json();
     }

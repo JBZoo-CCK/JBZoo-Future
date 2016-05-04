@@ -296,22 +296,24 @@ class App extends Cms
      */
     protected function _initAtoms()
     {
-        /** @var AtomManager $atomManager */
-        $atomManager = $this['atoms'];
+        /** @var AtomManager $aManager */
+        $aManager = $this['atoms'];
 
         // Define important classes
-        $atomManager->loadInfo('core');
-        $atomManager->loadInfo('core-*');
+        $aManager->loadInfo('core');
+        $aManager->init('core');
+        $aManager->loadInfo('core-*');
+        $aManager->init('core-*');
 
         // Register assets' dependencies
-        $atomManager->init('assets');
-        $atomManager->init('assets-*');
+        $aManager->init('assets');
+        $aManager->init('assets-*');
 
         $this->trigger('init.atoms');
     }
 
     /**
-     * Load and init core atoms
+     * Create aliases
      */
     protected function _initAliases()
     {
@@ -322,5 +324,21 @@ class App extends Cms
         $this['dbg'] = function () {
             return $this['atoms']['core']['debug'];
         };
+
+        $this['cfg'] = function () {
+            return $this['atoms']['core']['config'];
+        };
+    }
+
+    /**
+     * Check request
+     */
+    public function checkRequest()
+    {
+        $this->trigger('request');
+
+        if ($this['request']->isAjax()) {
+            $this->trigger('request.ajax');
+        }
     }
 }

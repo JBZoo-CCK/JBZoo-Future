@@ -23,16 +23,29 @@ JBZoo = Object.assign({}, {
 }, JBZoo);
 
 
-JBZoo.ajax = function (task, data, dispatch, action) {
+JBZoo.ajax = function (task, data, atoreDispatch, storeAction) {
 
-    if (dispatch) {
-        dispatch({type: 'LOADER_START'});
+    if (atoreDispatch) {
+        atoreDispatch({type: 'LOADER_START'});
     }
 
-    var noCache = Math.floor(Math.random() * (100000)) + 1;
+    var noCacheParam = Math.floor(Math.random() * 100000) + 1,
+        ajaxUrl      = `${JBZoo.defines.AJAX_URL}&nocache=${noCacheParam}&act=${task}`,
+        errorHandler = function (error) {
+
+            if (atoreDispatch) {
+                atoreDispatch({type: 'LOADER_STOP'});
+                atoreDispatch({type: 'LOADER_STOP_ERROR'});
+            }
+
+            if (JBZoo.defines.__DEV__) {
+                dump(error, 'JBZoo Ajax Error');
+            }
+        };
 
     return fetch(
-        `${JBZoo.defines.AJAX_URL}&act=${task}&nocache=${noCache}`, {
+        ajaxUrl,
+        {
             cache      : 'no-cache',
             credentials: 'same-origin',
             redirect   : 'follow',
@@ -40,11 +53,12 @@ JBZoo.ajax = function (task, data, dispatch, action) {
             body       : JSON.stringify(data),
             headers    : {
                 'X-Requested-With': 'XMLHttpRequest',
+                'X-XSRF-Token'    : window.JBZooVars.csrf,
                 'Accept'          : 'application/json',
                 'Content-Type'    : 'application/json'
             }
         })
-        .then(function checkStatus(response) {
+        .then(function (response) {
             if (response.status >= 200 && response.status < 300) {
                 return response;
             } else {
@@ -53,25 +67,27 @@ JBZoo.ajax = function (task, data, dispatch, action) {
                 throw error;
             }
         })
-        .then(response => response.json())
-        .then(function (json) {
-            if (dispatch) {
-                dispatch({type: 'LOADER_STOP'});
-                return dispatch(action(json));
+        .then(function (response) {
+
+            var contentType = response.headers.get('Content-Type');
+
+            if (contentType.indexOf('application/json;') === 0) {
+
+                return response.json()
+                    .then(function (json) {
+
+                        if (atoreDispatch) {
+                            atoreDispatch({type: 'LOADER_STOP'});
+                            return atoreDispatch(storeAction(json));
+                        }
+
+                        return json;
+                    });
             }
 
-            return json;
+            return response.text();
         })
-        .catch(function (error) {
-            if (dispatch) {
-                dispatch({type: 'LOADER_STOP'});
-                dispatch({type: 'LOADER_STOP_ERROR'});
-            }
-
-            if (JBZoo.defines.__DEV__) {
-                dump('JBZoo Ajax Error:', error);
-            }
-        });
+        .catch(errorHandler);
 };
 
 var _timers = {};
