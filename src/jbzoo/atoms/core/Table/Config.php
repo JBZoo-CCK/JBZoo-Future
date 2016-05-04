@@ -98,7 +98,7 @@ class Config extends Core
             $newValue = array_replace_recursive((array)$oldValues, $newValue);
         }
 
-        $this->_store->set($key, $newValue);
+        $this->_store->set($key, $this->_decode($newValue));
 
         $replace = (new Replace('#__jbzoo_config'))
             ->row([
