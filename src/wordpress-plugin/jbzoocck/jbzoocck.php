@@ -44,7 +44,7 @@ function JBZoo_createTable()
     global $wpdb;
     global $your_db_name;
 
-    $tableName = $wpdb->prefix . '_jbzoo_config';
+    $tableName = $wpdb->prefix . 'jbzoo_config';
 
     // create the ECPT metabox database table
     if ($wpdb->get_var("show tables like '{$your_db_name}'") != $tableName) {
