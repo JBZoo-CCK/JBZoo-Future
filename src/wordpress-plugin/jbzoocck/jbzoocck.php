@@ -37,34 +37,6 @@ if (!function_exists('dump')) {
 }
 
 /**
- * Run the install scripts upon plugin activation
- */
-function JBZoo_createTable()
-{
-    global $wpdb;
-    global $your_db_name;
-
-    $tableName = $wpdb->prefix . 'jbzoo_config';
-
-    // create the ECPT metabox database table
-    if ($wpdb->get_var("show tables like '{$your_db_name}'") != $tableName) {
-
-        $sql = "CREATE TABLE `{$tableName}` (
-                `option` VARCHAR(250) NOT NULL DEFAULT '',
-                `value` LONGTEXT NOT NULL,
-                `autoload` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1',
-                UNIQUE INDEX `option_name` (`option`),
-                INDEX `autoload` (`autoload`)
-            )
-            COLLATE='utf8_general_ci'
-            ENGINE=InnoDB;";
-
-        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-        dbDelta($sql);
-    }
-}
-
-/**
  * Init JBZoo Autoloader and general events for CMS
  * @throws Exception
  */
@@ -112,22 +84,28 @@ function JBZoo_initAutoload()
         && $_SERVER['REQUEST_METHOD'] == 'POST'
     ) {
         add_action('admin_init', function () {
-            require_once __DIR__ . '/jbzoo/jbzoo.php';
+            require_once __DIR__ . '/jbzoo/index.php';
         });
     }
 
     // Add admin dashboard and page
     add_action('admin_menu', function () {
         add_menu_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {
-            require_once __DIR__ . '/jbzoo/jbzoo.php';
+            require_once __DIR__ . '/jbzoo/index.php';
         }, 'dashicons-admin-jbzoo', 9);
     }, 8);
 
-    register_activation_hook(__FILE__, 'JBZoo_createTable');
+    register_activation_hook(__FILE__, function () use ($app) {
+        $app['core.installer']->install();
+    });
+
+    register_deactivation_hook(__FILE__, function () use ($app) {
+        $app['core.installer']->uninstall();
+    });
 }
 
 define('JBZOO', true);
-define('JBZOO_EXT_PATH', 'wp-content/plugins/jbzoocck/jbzoo'); // TODO: remove hardcode to fix dev symlinks
+define('JBZOO_PATH', 'wp-content/plugins/jbzoocck/jbzoo'); // TODO: remove hardcode to fix dev symlinks
 define('JBZOO_AJAX_URL', site_url() . '/wp-admin/admin.php?page=jbzoo');
 
 // Start!

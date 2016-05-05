@@ -41,7 +41,7 @@ return [
                     $relPath = FS::getRelative($fullPath, $rootJBZoo, '/', false);
 
                     if (FS::clean('/' . $relPath) !== FS::clean('/' . $fullPath)) {
-                        $relPath = '/' . JBZOO_EXT_PATH . '/' . $relPath;
+                        $relPath = '/' . JBZOO_PATH . '/' . $relPath;
                     } else {
                         $relPath = '/' . FS::getRelative($fullPath, $rootGlobal, '/', true);
                     }

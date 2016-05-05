@@ -252,7 +252,7 @@ class App extends Cms
     {
         // Extend init for CrossCMS paths
         $this['path'] = $this->extend('path', function ($path) {
-            $path->set('jbzoo', 'root:' . JBZOO_EXT_PATH);
+            $path->set('jbzoo', 'root:' . JBZOO_PATH);
             return $path;
         });
 
