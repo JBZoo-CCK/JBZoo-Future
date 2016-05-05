@@ -37,7 +37,7 @@ class com_jbzooInstallerScript
         $this->_loadJBZoo();
 
         $app = App::getInstance();
-        $app['core.installer']->install();
+        $app['atoms']['core']['installer']->install();
     }
 
     /**
@@ -48,7 +48,7 @@ class com_jbzooInstallerScript
         $this->_loadJBZoo();
 
         $app = App::getInstance();
-        $app['core.installer']->uninstall();
+        $app['atoms']['core']['installer']->uninstall();
     }
 
     /**
@@ -59,6 +59,6 @@ class com_jbzooInstallerScript
         $this->_loadJBZoo();
 
         $app = App::getInstance();
-        $app['core.installer']->update();
+        $app['atoms']['core']['installer']->update();
     }
 }

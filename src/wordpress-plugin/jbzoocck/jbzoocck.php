@@ -96,11 +96,11 @@ function JBZoo_initAutoload()
     }, 8);
 
     register_activation_hook(__FILE__, function () use ($app) {
-        $app['core.installer']->install();
+        $app['atoms']['core']['installer']->install();
     });
 
     register_deactivation_hook(__FILE__, function () use ($app) {
-        $app['core.installer']->uninstall();
+        $app['atoms']['core']['installer']->uninstall();
     });
 }
 
