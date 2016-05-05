@@ -1,4 +1,16 @@
-<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    JBZoo CCK
+
+    This file is part of the JBZoo CCK package.
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @package    CCK
+    @license    Proprietary http://jbzoo.com/license
+    @copyright  Copyright (C) JBZoo.com,  All rights reserved.
+    @link       http://jbzoo.com
+-->
 <access component="com_widgetkit">
     <section name="component">
         <action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
