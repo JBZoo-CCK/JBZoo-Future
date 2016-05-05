@@ -37,6 +37,7 @@ class com_jbzooInstallerScript
         $this->_loadJBZoo();
 
         $app = App::getInstance();
+        die('11111111');
         $app['atoms']['core']['installer']->install();
     }
 

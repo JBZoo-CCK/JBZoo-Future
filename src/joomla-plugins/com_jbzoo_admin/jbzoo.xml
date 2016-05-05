@@ -23,14 +23,11 @@
     <description>The Best CCK</description>
     <updateUrl>http://server.jbzoo.com/updates</updateUrl>
 
-    <files folder="site">
-        <filename>widgetkit.php</filename>
-    </files>
-
     <administration>
         <menu img="class:jbzoo">COM_JBZOO</menu>
         <files folder="admin">
             <folder>jbzoo</folder>
+            <filename>access.xml</filename>
             <filename>jbzoo.php</filename>
             <filename>jbzoo.xml</filename>
             <filename>script.php</filename>
@@ -40,5 +37,5 @@
         </languages>
     </administration>
 
-    <scriptfile>script.php</scriptfile>
+    <scriptfile>scriptfile.php</scriptfile>
 </extension>
