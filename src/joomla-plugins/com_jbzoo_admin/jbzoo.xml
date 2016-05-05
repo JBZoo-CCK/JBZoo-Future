@@ -15,10 +15,30 @@
     <name>com_jbzoo</name>
     <author>JBZoo.com</author>
     <creationDate>2016</creationDate>
-    <copyright>(C) 2009 - 2016 Copyright (C) JBZoo.com,  All rights reserved.</copyright>
+    <copyright>(C) 2009 - 2016 Copyright (C) JBZoo.com, All rights reserved.</copyright>
     <license>JBZoo Proprietary License http://jbzoo.com/license</license>
     <authorEmail>admin@jbzoo.com</authorEmail>
     <authorUrl>www.jbzoo.com</authorUrl>
     <version>3.x Dev</version>
-    <description>COM_JBZOO_XML_DESCRIPTION</description>
+    <description>The Best CCK</description>
+    <updateUrl>http://server.jbzoo.com/updates</updateUrl>
+
+    <files folder="site">
+        <filename>widgetkit.php</filename>
+    </files>
+
+    <administration>
+        <menu img="class:jbzoo">COM_JBZOO</menu>
+        <files folder="admin">
+            <folder>jbzoo</folder>
+            <filename>jbzoo.php</filename>
+            <filename>jbzoo.xml</filename>
+            <filename>script.php</filename>
+        </files>
+        <languages folder="admin">
+            <language tag="en-GB">language/en-GB/en-GB.com_jbzoo.sys.ini</language>
+        </languages>
+    </administration>
+
+    <scriptfile>script.php</scriptfile>
 </extension>

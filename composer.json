@@ -18,7 +18,7 @@
 
         "jbzoo/assets"      : "^1.1.2",
         "jbzoo/console"     : "^1.1.0",
-        "jbzoo/crosscms"    : "1.x-dev",
+        "jbzoo/crosscms"    : "^1.1.7",
         "jbzoo/data"        : "^1.4.1",
         "jbzoo/event"       : "^1.2.2",
         "jbzoo/html"        : "^1.0.0",
