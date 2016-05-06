@@ -25,6 +25,10 @@
     <authorUrl>http://jbzoo.com</authorUrl>
     <description>JBZoo CCK for Joomla developed by JBZoo.com</description>
 
+    <updateservers>
+        <server type="extension" priority="1" name="JBZOO">http://server.jbzoo.com/updates</server>
+    </updateservers>
+
     <files folder="packages">
         <file type="component" id="com_jbzoo">com_jbzoo</file>
         <file type="plugin" id="plg_sys_jbzoocck" group="system">plg_sys_jbzoocck</file>
@@ -32,7 +36,4 @@
 
     <scriptfile>file.script.php</scriptfile>
 
-    <updateservers>
-        <server type="extension" priority="1" name="JBZOO">http://server.jbzoo.com/updates</server>
-    </updateservers>
 </extension>

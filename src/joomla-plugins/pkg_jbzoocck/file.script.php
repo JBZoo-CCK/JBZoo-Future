@@ -55,5 +55,18 @@ class pkg_jbzooInstallerScript
     public function postflight()
     {
         echo __METHOD__ . PHP_EOL . PHP_EOL;
+
+        self::_enablePlugin('jbzoocck');
+    }
+
+    /**
+     * Enable plugin by name
+     * @param $plugin
+     */
+    private static function _enablePlugin($plugin)
+    {
+        $db = JFactory::getDbo();
+        $db->setQuery('UPDATE #__extensions SET enabled = 1 WHERE element = "' . $plugin . '"');
+        $db->execute();
     }
 }

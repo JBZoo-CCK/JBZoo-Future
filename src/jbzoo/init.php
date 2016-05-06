@@ -20,18 +20,11 @@ defined('JBZOO') or die;
 if (!defined('JBZOO_INIT')) {
     define('JBZOO_INIT', true);
 
-    // @codeCoverageIgnoreStart
-    if ($composerPath = realpath(__DIR__ . '/../../vendor/autoload.php')) {
+    if ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) {
         require_once $composerPath;
-        define('JBZOO_DEV', true);
-
-    } elseif ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) {
-        require_once $composerPath;
-        define('JBZOO_DEV', false);
     } else {
         throw new \Exception('Composer autoload not found!');
     }
-    // @codeCoverageIgnoreEnd
 
     $app = App::getInstance();
     $app->init();
