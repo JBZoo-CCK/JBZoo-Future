@@ -71,8 +71,8 @@
     },
 
     "config"            : {
+        "bin-dir"             : "../../bin",
         "vendor-dir"          : "vendor",
-        "bin-dir"             : "bin",
         "bin-compat"          : "full",
         "autoloader-suffix"   : "_JBZoo",
         "optimize-autoloader" : true
