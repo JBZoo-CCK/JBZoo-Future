@@ -30,7 +30,7 @@
             <filename>access.xml</filename>
             <filename>jbzoo.php</filename>
             <filename>jbzoo.xml</filename>
-            <filename>script.php</filename>
+            <filename>scriptfile.php</filename>
         </files>
         <languages folder="admin">
             <language tag="en-GB">language/en-GB/en-GB.com_jbzoo.sys.ini</language>

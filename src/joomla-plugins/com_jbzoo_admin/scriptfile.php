@@ -14,6 +14,9 @@
 
 use JBZoo\CCK\App;
 
+echo ('scriptfile.php!!');
+die(100);
+
 /**
  * Class com_jbzooInstallerScript
  */

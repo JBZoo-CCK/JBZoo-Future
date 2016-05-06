@@ -34,7 +34,7 @@ class Manager extends Container
     /**
      * @var PHPArray[]
      */
-    protected $_atoms = [];
+    protected $_atomsInfo = [];
 
     /**
      * @param string $paths
@@ -58,15 +58,20 @@ class Manager extends Container
         $result = [];
         if ($manifests = $this->app['path']->glob($path)) {
             foreach ($manifests as $initFile) {
-                $this->app->trigger("atom.loadinfo.before");
-                $this->app->trigger("atom.loadinfo.{$names}.before");
+                $aitomId = $this->_getIdFromPath($initFile);
 
-                if ($info = $this->_registerAtom($initFile)) {
-                    $result[$this->_getIdFromPath($initFile)] = $info;
+                if (isset($_atomsInfo[$aitomId])) {
+                    $result[$aitomId] = $_atomsInfo[$aitomId];
+
+                } else {
+                    $this->app->trigger("atom.loadinfo.{$names}.before");
+
+                    if ($info = $this->_registerAtom($initFile)) {
+                        $result[$aitomId] = $info;
+                    }
+
+                    $this->app->trigger("atom.loadinfo.{$names}.after");
                 }
-
-                $this->app->trigger("atom.loadinfo.{$names}.after");
-                $this->app->trigger("atom.loadinfo.after");
             }
 
             return $result;
@@ -118,22 +123,21 @@ class Manager extends Container
     {
         $app = $this->app;
 
-        if (!isset($this->_atoms[$atomId]) && !$this->loadInfo($atomId)) {
+        if (!isset($this->_atomsInfo[$atomId]) && !$this->loadInfo($atomId)) {
             $app->error('Atom "' . $atomId . '" not found and can\'t be loaded.');
 
-        } elseif (!isset($this->_atoms[$atomId])) {
+        } elseif (!isset($this->_atomsInfo[$atomId])) {
             $app->error('Atom "' . $atomId . '" not found.');
         }
 
         /** @var Data $atomInfo */
-        $atomInfo = $this->_atoms[$atomId];
+        $atomInfo = $this->_atomsInfo[$atomId];
 
         $callback = function () use ($app, $atomInfo, $atomId) {
 
             $nsPart    = Filter::className($atomId);
             $atomClass = implode('\\', ['JBZoo', 'CCK', 'Atom', $nsPart, $nsPart]);
 
-            $app->trigger("atom.init.before");
             $app->trigger("atom.init.{$atomId}.before");
 
             if (class_exists($atomClass)) {
@@ -146,7 +150,6 @@ class Manager extends Container
             }
 
             $app->trigger("atom.init.{$atomId}.after");
-            $app->trigger('atom.init.after');
 
             return $result;
         };
@@ -165,20 +168,20 @@ class Manager extends Container
         $atomId = $this->_getIdFromPath($initFile);
 
         if ($isOverload) {
-            $this->_atoms[$atomId] = new PHPArray($initFile);
+            $this->_atomsInfo[$atomId] = new PHPArray($initFile);
 
-        } elseif (!isset($this->_atoms[$atomId])) {
-            $this->_atoms[$atomId] = new PHPArray($initFile);
+        } elseif (!isset($this->_atomsInfo[$atomId])) {
+            $this->_atomsInfo[$atomId] = new PHPArray($initFile);
         }
 
-        if (isset($this->_atoms[$atomId])) { // Only if we need it
+        if (isset($this->_atomsInfo[$atomId])) { // Only if we need it
 
             $dir = FS::dirname($initFile);
-            $this->_atoms[$atomId]->set('dir', $dir);
+            $this->_atomsInfo[$atomId]->set('dir', $dir);
             $this->app['path']->set('atom-' . $atomId, $dir);
             $this->app->addLoadPath(['Atom', $atomId], $dir);
 
-            return $this->_atoms[$atomId];
+            return $this->_atomsInfo[$atomId];
         }
     }
 

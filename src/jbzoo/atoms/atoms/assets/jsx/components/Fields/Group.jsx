@@ -79,10 +79,6 @@ export default class FieldGroup extends Component {
             } else if (fieldData.type == 'date') {
                 field = <FieldDate key={key} data={fieldData} name={fieldName}
                                    id={fieldId} value={rowValue} onChange={onChange} />;
-
-            } else if (fieldData.type == 'datetime') {
-                field = <FieldDatetime key={key} data={fieldData} name={fieldName}
-                                       id={fieldId} value={rowValue} onChange={onChange} />;
             }
 
             if (!field) {
