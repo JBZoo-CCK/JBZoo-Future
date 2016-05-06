@@ -49,4 +49,5 @@ zip -rq ../../../build/packages/jbzoocck.zip *
 cd "$SRC_DIR"
 
 
+ls -l ./build/packages
 echo "OK"

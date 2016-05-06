@@ -13,9 +13,9 @@
  */
 
 /**
- * Class pkg_jbzooInstallerScript
+ * Class pkg_jbzoocckInstallerScript
  */
-class pkg_jbzooInstallerScript
+class pkg_jbzoocckInstallerScript
 {
     /**
      * Install action
