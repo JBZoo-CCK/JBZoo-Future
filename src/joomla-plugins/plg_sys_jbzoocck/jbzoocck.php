@@ -37,15 +37,20 @@ class PlgSystemJBZooCCK extends JPlugin
      */
     public function onAfterInitialise()
     {
-        define('JBZOO', true);
-        define('JBZOO_PATH', 'administrator/components/com_jbzoo/jbzoo'); // TODO: remove hardcode to fix dev symlinks
-        define('JBZOO_AJAX_URL', JUri::root() . 'administrator/index.php?option=com_jbzoo');
+        define('JBZOO_PATH', 'administrator/components/com_jbzoo/cck'); // TODO: hardcode to fix dev symlinks
 
-        require_once JPATH_ROOT . '/' . JBZOO_PATH . '/init.php';
+        if ($initPath = realpath(JPATH_ROOT . '/' . JBZOO_PATH . '/init.php')) {
+            define('JBZOO', true);
+            define('JBZOO_AJAX_URL', JUri::root() . 'administrator/index.php?option=com_jbzoo');
 
-        $this->_app = App::getInstance();
+            require_once $initPath;
 
-        $this->_app->trigger(AbstractEvents::EVENT_INIT);
+            $this->_app = App::getInstance();
+            $this->_app->trigger(AbstractEvents::EVENT_INIT);
+
+        } else {
+            define('JBZOO', false);
+        }
     }
 
     /**
@@ -53,7 +58,9 @@ class PlgSystemJBZooCCK extends JPlugin
      */
     public function onBeforeCompileHead()
     {
-        $this->_app->trigger(AbstractEvents::EVENT_HEADER);
+        if ($this->_app) {
+            $this->_app->trigger(AbstractEvents::EVENT_HEADER);
+        }
     }
 
     /**
@@ -61,13 +68,15 @@ class PlgSystemJBZooCCK extends JPlugin
      */
     public function onAfterRespond()
     {
-        $body = JFactory::getApplication()->getBody();
-        $this->_app->trigger(AbstractEvents::EVENT_SHUTDOWN, [&$body]);
-        JFactory::getApplication()->setBody($body);
+        if ($this->_app) {
+            $body = JFactory::getApplication()->getBody();
+            $this->_app->trigger(AbstractEvents::EVENT_SHUTDOWN, [&$body]);
+            JFactory::getApplication()->setBody($body);
+        }
     }
 }
 
-if (!function_exists('dump')) {
+if (!function_exists('dump') && function_exists('jbd')) {
     /**
      * Overload Symfony dump() function
      * @return mixed

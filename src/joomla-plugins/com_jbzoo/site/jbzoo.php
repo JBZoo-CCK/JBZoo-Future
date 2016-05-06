@@ -12,17 +12,6 @@
  * @link       http://jbzoo.com
  */
 
-use JBZoo\CCK\App;
+defined('JBZOO') or die;
 
-echo debug_print_backtrace();
-
-/**
- * Class com_jbzooInstallerScript
- */
-class Com_jbzooInstallerScript
-{
-    public function __call($name, $arguments)
-    {
-        echo PHP_EOL . '!' . $name . '!' . PHP_EOL;
-    }
-}
+require_once JPATH_ADMINISTRATOR . '/components/com_jbzoo/jbzoo.php';

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    JBZoo CCK
+
+    This file is part of the JBZoo CCK package.
+    For the full copyright and license information, please view the LICENSE
+    file that was distributed with this source code.
+
+    @package    CCK
+    @license    Proprietary http://jbzoo.com/license
+    @copyright  Copyright (C) JBZoo.com,  All rights reserved.
+    @link       http://jbzoo.com
+-->
+<extension type="package" version="3.2" method="upgrade">
+    <name>JBZoo CCK Package</name>
+    <author>JBZoo.com</author>
+    <creationDate>2016</creationDate>
+    <packagename>jbzoocck</packagename>
+    <version>3.x-dev</version>
+    <updateUrl>http://server.jbzoo.com/updates</updateUrl>
+    <copyright>Copyright (C) JBZoo.com</copyright>
+    <license>Proprietary http://jbzoo.com/license</license>
+    <assetsLicense>JBZoo Proprietary Use License (http://jbzoo.com/license)</assetsLicense>
+    <authorEmail>admin@jbzoo.com</authorEmail>
+    <authorUrl>http://jbzoo.com</authorUrl>
+    <description>JBZoo CCK for Joomla developed by JBZoo.com</description>
+
+    <files folder="packages">
+        <file type="component" id="com_jbzoo">com_jbzoo</file>
+        <file type="plugin" id="plg_sys_jbzoocck" group="system">plg_sys_jbzoocck</file>
+    </files>
+
+    <scriptfile>file.script.php</scriptfile>
+
+    <updateservers>
+        <server type="extension" priority="1" name="JBZOO">http://server.jbzoo.com/updates</server>
+    </updateservers>
+</extension>

@@ -13,7 +13,6 @@
 -->
 <access component="com_widgetkit">
     <section name="component">
-        <action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC" />
-        <action name="core.manage.content" title="Manage Widgets" description="Manage Widgets" />
+        <action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC"/>
     </section>
 </access>

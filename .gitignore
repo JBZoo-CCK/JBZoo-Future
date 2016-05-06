@@ -5,7 +5,6 @@
 # Root system or dev dirs
 /none
 /build
-/bin
 /logs
 /tmp
 /vendor
@@ -15,9 +14,11 @@
 /bower_components
 
 # Framework
-/src/jbzoo/vendor
-/src/wordpress-plugin/jbzoocck/jbzoo
 /src/jbzoo/bin
+/src/jbzoo/vendor
+/src/wordpress-plugin/jbzoocck/cck
+/src/joomla-plugins/com_jbzoo/admin/cck
+/src/joomla-plugins/pkg_jbzoocck/packages
 
 # Atoms assets
 /src/**/*.min.*

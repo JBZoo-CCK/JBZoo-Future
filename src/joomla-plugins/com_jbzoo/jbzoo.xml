@@ -11,31 +11,49 @@
     @copyright  Copyright (C) JBZoo.com,  All rights reserved.
     @link       http://jbzoo.com
 -->
-<extension type="component" version="3.4" method="upgrade">
+<extension type="component" version="3.2" method="upgrade">
     <name>com_jbzoo</name>
     <author>JBZoo.com</author>
     <creationDate>2016</creationDate>
     <copyright>(C) 2009 - 2016 Copyright (C) JBZoo.com, All rights reserved.</copyright>
     <license>JBZoo Proprietary License http://jbzoo.com/license</license>
     <authorEmail>admin@jbzoo.com</authorEmail>
-    <authorUrl>www.jbzoo.com</authorUrl>
+    <authorUrl>jbzoo.com</authorUrl>
     <version>3.x Dev</version>
     <description>The Best CCK</description>
     <updateUrl>http://server.jbzoo.com/updates</updateUrl>
 
+
+    <!-- JBZoo Site component -->
+    <languages folder="site/language">
+        <language tag="en-GB">en-GB.com_jbzoo.ini</language>
+    </languages>
+
+    <files folder="site">
+        <filename>router.php</filename>
+        <filename>jbzoo.php</filename>
+    </files>
+
+
+    <!-- JBZoo Admin component -->
     <administration>
         <menu img="class:jbzoo">COM_JBZOO</menu>
+
+        <languages folder="admin/language">
+            <language tag="en-GB">en-GB.com_jbzoo.ini</language>
+            <language tag="en-GB">en-GB.com_jbzoo.sys.ini</language>
+        </languages>
+
         <files folder="admin">
-            <folder>jbzoo</folder>
+            <folder>cck</folder>
             <filename>access.xml</filename>
             <filename>jbzoo.php</filename>
             <filename>jbzoo.xml</filename>
-            <filename>scriptfile.php</filename>
         </files>
-        <languages folder="admin">
-            <language tag="en-GB">language/en-GB/en-GB.com_jbzoo.sys.ini</language>
-        </languages>
     </administration>
 
-    <scriptfile>scriptfile.php</scriptfile>
+
+    <!-- Custom script for installer -->
+    <scriptfile>file.script.php</scriptfile>
+
 </extension>
