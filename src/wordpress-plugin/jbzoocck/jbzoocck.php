@@ -42,7 +42,7 @@ if (!function_exists('dump')) {
  */
 function JBZoo_initAutoload()
 {
-    $initPath     = __DIR__ . '/jbzoo/init.php';
+    $initPath     = __DIR__ . '/cck/init.php';
     $initRealPath = realpath($initPath);
 
     if ($initRealPath) {
@@ -84,14 +84,14 @@ function JBZoo_initAutoload()
         && $_SERVER['REQUEST_METHOD'] == 'POST'
     ) {
         add_action('admin_init', function () {
-            require_once __DIR__ . '/jbzoo/index.php';
+            require_once __DIR__ . '/cck/index.php';
         });
     }
 
     // Add admin dashboard and page
     add_action('admin_menu', function () {
         add_menu_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {
-            require_once __DIR__ . '/jbzoo/index.php';
+            require_once __DIR__ . '/cck/index.php';
         }, 'dashicons-admin-jbzoo', 9);
     }, 8);
 
@@ -105,7 +105,7 @@ function JBZoo_initAutoload()
 }
 
 define('JBZOO', true);
-define('JBZOO_PATH', 'wp-content/plugins/jbzoocck/jbzoo'); // TODO: remove hardcode to fix dev symlinks
+define('JBZOO_PATH', 'wp-content/plugins/jbzoocck/cck'); // TODO: remove hardcode to fix dev symlinks
 define('JBZOO_AJAX_URL', site_url() . '/wp-admin/admin.php?page=jbzoo');
 
 // Start!

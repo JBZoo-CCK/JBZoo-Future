@@ -26,6 +26,8 @@ if (!defined('JBZOO_INIT')) {
         throw new \Exception('Composer autoload not found!');
     }
 
+    require_once __DIR__ . '/framework/defines.php';
+
     $app = App::getInstance();
     $app->init();
 

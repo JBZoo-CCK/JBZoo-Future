@@ -3,7 +3,7 @@
 echo ">>> >>> Composer"
 echo "TODO: Remove vendor"
 composer self-update
-composer update --optimize-autoloader
+composer update --working-dir=src/jbzoo --optimize-autoloader
 
 echo ""
 echo ">>> >>> npm"

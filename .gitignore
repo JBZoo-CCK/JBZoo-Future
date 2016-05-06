@@ -8,7 +8,7 @@
 /logs
 /tmp
 /resources
-/composer.lock
+/src/jbzoo/composer.lock
 /node_modules
 /bower_components
 

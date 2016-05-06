@@ -53,16 +53,16 @@
 
     "autoload"          : {
         "files" : [
-            "src/jbzoo/framework/defines.php"
+            "framework/defines.php"
         ],
         "psr-4" : {
-            "JBZoo\\CCK\\" : "src/jbzoo/framework"
+            "JBZoo\\CCK\\" : "framework"
         }
     },
     "autoload-dev"      : {
         "classmap" : [
-            "tests/classes",
-            "tests/unit"
+            "../../tests/classes",
+            "../../tests/unit"
         ]
     },
 
@@ -70,11 +70,9 @@
         "forum" : "http://forum.jbzoo.com"
     },
 
-    "target-dir"          : "src/jbzoo/cck",
-
     "config"            : {
-        "vendor-dir"          : "src/jbzoo/vendor",
-        "bin-dir"             : "src/jbzoo/bin",
+        "vendor-dir"          : "vendor",
+        "bin-dir"             : "bin",
         "bin-compat"          : "full",
         "autoloader-suffix"   : "_JBZoo",
         "optimize-autoloader" : true
@@ -91,13 +89,6 @@
             "@phpcs",
             "@phpcpd",
             "@phploc"
-        ],
-        "update-all"        : [
-            "composer self-update --no-interaction",
-            "composer update --no-interaction --optimize-autoloader",
-            "npm update",
-            "bower update",
-            "gulp update"
         ],
         "git-reset"         : "git reset --hard",
         "manifest"          : "composer validate      --no-interaction",
