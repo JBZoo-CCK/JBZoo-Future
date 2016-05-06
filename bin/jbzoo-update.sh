@@ -40,4 +40,4 @@ gulp update
 
 echo ""
 echo ">>> >>> Webpack"
-webpack --progress -v
+webpack -v

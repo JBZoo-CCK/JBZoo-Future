@@ -37,4 +37,4 @@ NODE_ENV=development gulp update
 
 echo ""
 echo ">>> >>> Webpack"
-NODE_ENV=development webpack --progress -v
+NODE_ENV=development webpack -v
