@@ -70,8 +70,10 @@
         "forum" : "http://forum.jbzoo.com"
     },
 
+    "target-dir"          : "src/jbzoo/cck",
+
     "config"            : {
-        "vendor-dir"          : "vendor",
+        "vendor-dir"          : "src/jbzoo/vendor",
         "bin-dir"             : "src/jbzoo/bin",
         "bin-compat"          : "full",
         "autoloader-suffix"   : "_JBZoo",

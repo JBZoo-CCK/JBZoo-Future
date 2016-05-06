@@ -7,7 +7,6 @@
 /build
 /logs
 /tmp
-/vendor
 /resources
 /composer.lock
 /node_modules
