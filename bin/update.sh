@@ -2,7 +2,6 @@
 
 echo ">>> >>> Composer"
 echo "TODO: Remove vendor"
-composer self-update
 composer update --working-dir=src/jbzoo --optimize-autoloader
 
 echo ""

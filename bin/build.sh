@@ -14,6 +14,7 @@ else
     # ln -s `pwd`/vendor/                                 src/jbzoo/vendor
 
     # Joomla
+    mkdir -p    src/joomla-plugins/pkg_jbzoocck/packages
     ln -s `pwd`/src/jbzoo/                              src/joomla-plugins/com_jbzoo/admin/cck
     ln -s `pwd`/src/joomla-plugins/com_jbzoo/           src/joomla-plugins/pkg_jbzoocck/packages/com_jbzoo
     ln -s `pwd`/src/joomla-plugins/plg_sys_jbzoocck/    src/joomla-plugins/pkg_jbzoocck/packages/plg_sys_jbzoocck
