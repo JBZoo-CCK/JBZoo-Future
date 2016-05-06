@@ -14,52 +14,15 @@
 
 use JBZoo\CCK\App;
 
+echo 'Com_jbzooInstallerScript' . PHP_EOL;
+
 /**
  * Class com_jbzooInstallerScript
  */
-class com_jbzooInstallerScript
+class Com_jbzooInstallerScript
 {
-    /**
-     * Init JBZoo framework
-     */
-    protected function _loadJBZoo()
+    public function __call($name, $arguments)
     {
-        if ($initFile = realpath(__DIR__ . '/jbzoo/init.php')) {
-            require_once $initFile;
-        }
-    }
-
-    /**
-     * Run install script
-     */
-    public function install()
-    {
-        $this->_loadJBZoo();
-
-        $app = App::getInstance();
-        die('11111111');
-        $app['atoms']['core']['installer']->install();
-    }
-
-    /**
-     * Run uninstall script
-     */
-    public function uninstall()
-    {
-        $this->_loadJBZoo();
-
-        $app = App::getInstance();
-        $app['atoms']['core']['installer']->uninstall();
-    }
-
-    /**
-     * Run update script
-     */
-    public function update()
-    {
-        $this->_loadJBZoo();
-
-        $app = App::getInstance();
-        $app['atoms']['core']['installer']->update();
+        echo PHP_EOL . '!' . $name . '!' . PHP_EOL;
     }
 }
