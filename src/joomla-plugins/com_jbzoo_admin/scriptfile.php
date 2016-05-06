@@ -14,7 +14,7 @@
 
 use JBZoo\CCK\App;
 
-echo 'Com_jbzooInstallerScript' . PHP_EOL;
+echo debug_print_backtrace();
 
 /**
  * Class com_jbzooInstallerScript
