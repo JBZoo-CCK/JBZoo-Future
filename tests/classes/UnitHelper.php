@@ -36,9 +36,7 @@ class UnitHelper
      */
     public function runIsolated(\Closure $callback, $request = array())
     {
-        $composerConfig = new JSON(PROJECT_ROOT . '/composer.json');
-        $vendorDir      = $composerConfig->find('config.vendor-dir', 'vendor');
-        $binPath        = './' . $vendorDir . '/jbzoo/console/bin/jbzoo';
+        $binPath = './src/jbzoo/vendor/jbzoo/console/bin/jbzoo';
 
         $testname = $this->_getTestName();
         $request  = new Data($request);
