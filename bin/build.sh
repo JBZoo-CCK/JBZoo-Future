@@ -19,7 +19,7 @@ fi
 echo "Comporess Joomla Pkg"
 SRC_DIR="`pwd`"
 cd src/joomla-plugins/pkg_jbzoocck
-zip -rSq ../../../build/packages/pkg_jbzoocck.zip *
+zip -rq ../../../build/packages/pkg_jbzoocck.zip *
 cd "$SRC_DIR"
 
 echo "OK"
