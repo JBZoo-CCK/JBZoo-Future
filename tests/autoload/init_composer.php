@@ -13,15 +13,8 @@
  */
 
 // main autoload
-if ($composerPath = realpath('./composer.json')) {
-    $autoloadConfig = json_decode(file_get_contents($composerPath), true);
-
-    $vendor = 'vendor';
-    if (isset($autoloadConfig['config']['vendor-dir'])) {
-        $vendor = $autoloadConfig['config']['vendor-dir'];
-    }
-
-    require_once './' . $vendor . '/autoload.php';
+if ($autoloadPath = realpath('./src/jbzoo/vendor/autoload.php')) {
+    require_once $autoloadPath;
 
 } else {
     echo 'Please execute "composer update" !' . PHP_EOL;
