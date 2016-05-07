@@ -28,7 +28,7 @@
 
     <php>
         <const name="__CMS__" value="joomla"/>
-        <const name="JBZOO_PATH" value="administrator/components/com_jbzoo"/>
+        <const name="JBZOO_PATH" value="administrator/components/com_jbzoo/cck"/>
     </php>
 
     <testsuites>
