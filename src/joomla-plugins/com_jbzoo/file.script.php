@@ -24,6 +24,8 @@ class com_jbzooInstallerScript
      */
     public function install()
     {
+        $this->_init();
+
         $app = App::getInstance();
         $app['atoms']['core']['installer']->install();
     }
@@ -33,6 +35,8 @@ class com_jbzooInstallerScript
      */
     public function uninstall()
     {
+        $this->_init();
+
         $app = App::getInstance();
         $app['atoms']['core']['installer']->uninstall();
     }
@@ -42,6 +46,8 @@ class com_jbzooInstallerScript
      */
     public function update()
     {
+        $this->_init();
+
         $app = App::getInstance();
         $app['atoms']['core']['installer']->update();
     }
@@ -51,6 +57,8 @@ class com_jbzooInstallerScript
      */
     public function preflight()
     {
+        $this->_init();
+
         $app = App::getInstance();
         $app['atoms']['core']['installer']->preflight();
     }
@@ -60,6 +68,8 @@ class com_jbzooInstallerScript
      */
     public function postflight()
     {
+        $this->_init();
+
         $app = App::getInstance();
         $app['atoms']['core']['installer']->postflight();
     }
