@@ -24,6 +24,6 @@ echo ">>> >>> PHP Statistics"
     --standard=./src/jbzoo/vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml    \
     --report=full
 
-./bin/phpcpd ./src/jbzoo --verbose
+./bin/phpcpd ./src/jbzoo
 
 ./bin/phploc ./src/jbzoo --verbose
