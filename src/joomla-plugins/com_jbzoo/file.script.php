@@ -80,6 +80,11 @@ class com_jbzooInstallerScript
      */
     protected function _init()
     {
-        return require_once JPATH_ADMINISTRATOR . '/components/com_jbzoo/cck/init.php';
+        if ($file = realpath(__DIR__ . '/admin/cck/init.php')) {
+            return require_once $file;
+
+        } elseif ($file = realpath(JPATH_ADMINISTRATOR . '/components/com_jbzoo/cck/init.php')) {
+            return require_once $file;
+        }
     }
 }
