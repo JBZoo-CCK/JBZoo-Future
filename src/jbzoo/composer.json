@@ -12,10 +12,8 @@
             "role"  : "lead"
         }
     ],
-
     "require"           : {
         "php"               : ">=5.4",
-
         "jbzoo/assets"      : "^1.1.2",
         "jbzoo/console"     : "^1.1.0",
         "jbzoo/crosscms"    : "^1.1.7",
@@ -31,22 +29,17 @@
         "jbzoo/simpletypes" : "^1.4.2",
         "jbzoo/sqlbuilder"  : "^1.1.3",
         "jbzoo/utils"       : "^1.6.8",
-
         "pimple/pimple"     : "^3.0.0",
         "oyejorge/less.php" : "^1.7.0.10"
     },
-
     "require-dev"       : {
         "jbzoo/phpunit"           : "1.x-dev",
         "jbzoo/misc"              : "1.x-dev",
         "jbzoo/pimpledumper"      : "1.x.dev",
-
         "symfony/finder"          : "^2.8",
         "symfony/var-dumper"      : "^2.8",
-
         "phpunit/phpcov"          : "^2.0.2",
         "jeremeamia/superclosure" : "^2.2",
-
         "joomlatools/console"     : "^1.4.5",
         "wp-cli/wp-cli"           : "^0.21.1"
     },
@@ -66,39 +59,11 @@
         ]
     },
 
-    "support"           : {
-        "forum" : "http://forum.jbzoo.com"
-    },
-
     "config"            : {
         "bin-dir"             : "../../bin",
         "vendor-dir"          : "vendor",
         "bin-compat"          : "full",
         "autoloader-suffix"   : "_JBZoo",
         "optimize-autoloader" : true
-    },
-
-    "scripts"           : {
-        "test"              : [
-            "@manifest",
-            "@autoload",
-            "@phpunit-joomla",
-            "@phpunit-wordpress",
-            "@phpunit-utility",
-            "@phpmd",
-            "@phpcs",
-            "@phpcpd",
-            "@phploc"
-        ],
-        "git-reset"         : "git reset --hard",
-        "manifest"          : "composer validate      --no-interaction",
-        "autoload"          : "composer dump-autoload --no-interaction --optimize",
-        "phpunit-joomla"    : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist",
-        "phpunit-wordpress" : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist",
-        "phpunit-utility"   : "php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist ./tests/unit/utility/CodeStyleTest.php",
-        "phpmd"             : "php ./vendor/phpmd/phpmd/src/bin/phpmd               ./src text ./vendor/jbzoo/misc/phpmd/jbzoo.xml --verbose",
-        "phpcs"             : "php ./vendor/squizlabs/php_codesniffer/scripts/phpcs ./src --extensions=php --standard=./vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml --report=full",
-        "phpcpd"            : "php ./vendor/sebastian/phpcpd/phpcpd                 ./src --verbose",
-        "phploc"            : "php ./vendor/phploc/phploc/phploc                    ./src --verbose"
     }
 }

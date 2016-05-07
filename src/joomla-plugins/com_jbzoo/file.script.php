@@ -12,6 +12,8 @@
  * @link       http://jbzoo.com
  */
 
+use JBZoo\CCK\App;
+
 /**
  * Class com_jbzooInstallerScript
  */
@@ -22,7 +24,8 @@ class com_jbzooInstallerScript
      */
     public function install()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
+        $app = App::getInstance();
+        $app['atoms']['core']['installer']->install();
     }
 
     /**
@@ -30,7 +33,8 @@ class com_jbzooInstallerScript
      */
     public function uninstall()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
+        $app = App::getInstance();
+        $app['atoms']['core']['installer']->uninstall();
     }
 
     /**
@@ -38,7 +42,8 @@ class com_jbzooInstallerScript
      */
     public function update()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
+        $app = App::getInstance();
+        $app['atoms']['core']['installer']->update();
     }
 
     /**
@@ -46,7 +51,8 @@ class com_jbzooInstallerScript
      */
     public function preflight()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
+        $app = App::getInstance();
+        $app['atoms']['core']['installer']->preflight();
     }
 
     /**
@@ -54,6 +60,16 @@ class com_jbzooInstallerScript
      */
     public function postflight()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
+        $app = App::getInstance();
+        $app['atoms']['core']['installer']->postflight();
+    }
+
+    /**
+     * Init JBZoo framework
+     * @return mixed
+     */
+    protected function _init()
+    {
+        return require_once JPATH_ADMINISTRATOR . '/components/com_jbzoo/cck/init.php';
     }
 }

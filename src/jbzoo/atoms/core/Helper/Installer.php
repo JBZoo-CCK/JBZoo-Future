@@ -53,4 +53,28 @@ class Installer extends Helper
             throw new \RuntimeException('Unable to remove JBZoo tables.');
         }
     }
+
+    /**
+     * Script to update component
+     */
+    public function update()
+    {
+
+    }
+
+    /**
+     * Script before install component
+     */
+    public function preflight()
+    {
+
+    }
+
+    /**
+     * Script after install component
+     */
+    public function postflight()
+    {
+
+    }
 }
