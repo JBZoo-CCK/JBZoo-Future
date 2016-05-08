@@ -15,10 +15,8 @@
 
 namespace JBZoo\CCK;
 
-defined('JBZOO') or die;
-
-if (!defined('JBZOO_INIT')) {
-    define('JBZOO_INIT', true);
+if (!defined('JBZOO')) {
+    define('JBZOO', true);
 
     if ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) {
         require_once $composerPath;

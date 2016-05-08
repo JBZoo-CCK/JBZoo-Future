@@ -104,7 +104,6 @@ function JBZoo_initAutoload()
     });
 }
 
-define('JBZOO', true);
 define('JBZOO_PATH', 'wp-content/plugins/jbzoocck/cck'); // TODO: remove hardcode to fix dev symlinks
 define('JBZOO_AJAX_URL', site_url() . '/wp-admin/admin.php?page=jbzoo');
 

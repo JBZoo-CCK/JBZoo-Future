@@ -38,18 +38,15 @@ class PlgSystemJBZooCCK extends JPlugin
     public function onAfterInitialise()
     {
         define('JBZOO_PATH', 'administrator/components/com_jbzoo/cck'); // TODO: hardcode to fix dev symlinks
+        define('JBZOO_AJAX_URL', JUri::root() . 'administrator/index.php?option=com_jbzoo');
 
         if ($initPath = realpath(JPATH_ROOT . '/' . JBZOO_PATH . '/init.php')) {
-            define('JBZOO', true);
-            define('JBZOO_AJAX_URL', JUri::root() . 'administrator/index.php?option=com_jbzoo');
-
             require_once $initPath;
 
             $this->_app = App::getInstance();
             $this->_app->trigger(AbstractEvents::EVENT_INIT);
-
         } else {
-            define('JBZOO', false);
+            throw new Exception('JBZoo init file not found!');
         }
     }
 

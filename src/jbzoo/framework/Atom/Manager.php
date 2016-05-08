@@ -52,16 +52,15 @@ class Manager extends Container
      */
     public function loadInfo($names)
     {
-        $names = strtolower($names);
-        $path  = 'atoms:' . $names . '/atom.php';
+        $path = 'atoms:' . strtolower($names) . '/atom.php';
 
         $result = [];
         if ($manifests = $this->app['path']->glob($path)) {
             foreach ($manifests as $initFile) {
                 $aitomId = $this->_getIdFromPath($initFile);
 
-                if (isset($_atomsInfo[$aitomId])) {
-                    $result[$aitomId] = $_atomsInfo[$aitomId];
+                if (isset($this->_atomsInfo[$aitomId])) {
+                    $result[$aitomId] = $this->_atomsInfo[$aitomId];
 
                 } else {
                     $this->app->trigger("atom.loadinfo.{$names}.before");
