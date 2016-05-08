@@ -4,8 +4,7 @@ echo ">>> >>> Composer"
 rm -fr src/jbzoo/vendor
 
 composer config bin-dir bin     \
-    --working-dir=src/jbzoo     \
-    --no-interaction
+    --working-dir=src/jbzoo
 
 composer require jbzoo/composer-cleanup:1.x-dev     \
     --no-update                                     \

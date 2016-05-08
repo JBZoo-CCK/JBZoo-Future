@@ -11,6 +11,9 @@ mkdir -p build/misc
 echo ">>> >>> Composer"
 rm -fr src/jbzoo/vendor
 
+composer config bin-dir "../../bin"     \
+    --working-dir=src/jbzoo
+
 composer update                 \
     --optimize-autoloader       \
     --working-dir=src/jbzoo     \
