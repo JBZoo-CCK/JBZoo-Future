@@ -18,8 +18,13 @@ namespace JBZoo\CCK;
 if (!defined('JBZOO')) {
     define('JBZOO', true);
 
-    if ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) {
+    if ($composerPath = realpath(__DIR__ . '/../../vendor/autoload.php')) { // developer mode
         require_once $composerPath;
+
+
+    } elseif ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) { // production mode
+        require_once $composerPath;
+
     } else {
         throw new \Exception('Composer autoload not found!');
     }
