@@ -39,7 +39,6 @@
         "jbzoo/pimpledumper"      : "1.x.dev",
 
         "symfony/finder"          : "^2.8.5",
-        "phpmd/phpmd"             : "2.4.2",
         "symfony/var-dumper"      : "^2.8.5",
         "phpunit/phpcov"          : "^2.0.2",
         "jeremeamia/superclosure" : "^2.2",

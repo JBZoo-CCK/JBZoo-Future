@@ -16,7 +16,6 @@ namespace JBZoo\CCK\Atom\Core\Table;
 
 use JBZoo\CrossCMS\AbstractDatabase;
 
-
 /**
  * Class Core
  * @package JBZoo\CCK
