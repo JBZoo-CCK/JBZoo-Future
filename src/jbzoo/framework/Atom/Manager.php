@@ -66,7 +66,7 @@ class Manager extends Container
                     $this->app->trigger("atom.loadinfo.{$names}.before");
 
                     if ($info = $this->_registerAtom($initFile)) {
-                        $result[$aitomId] = $info;
+                        $this->_atomsInfo[$aitomId] = $result[$aitomId] = $info;
                     }
 
                     $this->app->trigger("atom.loadinfo.{$names}.after");
