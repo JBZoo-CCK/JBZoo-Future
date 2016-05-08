@@ -13,7 +13,10 @@
  */
 
 // main autoload
-if ($autoloadPath = realpath('./src/jbzoo/vendor/autoload.php')) {
+if ($autoloadPath = realpath('./vendor/autoload.php')) {                    // developer mode
+    require_once $autoloadPath;
+
+} elseif ($autoloadPath = realpath('./src/jbzoo/vendor/autoload.php')) {    // production mode
     require_once $autoloadPath;
 
 } else {
