@@ -26,5 +26,5 @@ try {
     $app->trigger('jbzoo.assets');
 
 } catch (Exception $e) {
-    $app->error($e->getMessage());
+    $app->error($e->getMessage(), false);
 }

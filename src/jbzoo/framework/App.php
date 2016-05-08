@@ -107,24 +107,28 @@ class App extends Cms
      * Show fatal error page
      *
      * @param string $message
+     * @param bool   $addPrefix
      *
      * @codeCoverageIgnore
      */
-    public function error($message = 'Internal Server Error')
+    public function error($message = 'Internal Server Error', $addPrefix = true)
     {
-        $this['response']->set500('JBZoo Error #500: ' . $message);
+        $message = $addPrefix ? 'JBZoo Error #500: ' . $message : $message;
+        $this['response']->set500($message);
     }
 
     /**
      * Show not found page
      *
      * @param string $message
+     * @param bool   $addPrefix
      *
      * @codeCoverageIgnore
      */
-    public function show404($message = 'Not found')
+    public function show404($message = 'Not found', $addPrefix = true)
     {
-        $this['response']->set404('JBZoo Error #404: ' . $message);
+        $message = $addPrefix ? 'JBZoo Error #404: ' . $message : $message;
+        $this['response']->set404($message);
     }
 
     /**

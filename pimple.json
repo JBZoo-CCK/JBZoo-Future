@@ -78,14 +78,14 @@
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Config"
                     },
                     {
-                        "name": "installer",
-                        "type": "class",
-                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Installer"
-                    },
-                    {
                         "name": "debug",
                         "type": "class",
                         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
+                    },
+                    {
+                        "name": "installer",
+                        "type": "class",
+                        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Installer"
                     },
                     {
                         "name": "js",
