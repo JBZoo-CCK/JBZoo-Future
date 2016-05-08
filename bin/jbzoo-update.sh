@@ -40,3 +40,11 @@ gulp update
 echo ""
 echo ">>> >>> Webpack"
 webpack -v
+
+
+echo ""
+echo ">>> >>> Clean up"
+find . -name "*.jsx" -type f -delete
+find . -name "*.map" -type f -delete
+find . -name "composer.json" -type f -delete
+find . -name "composer.lock" -type f
