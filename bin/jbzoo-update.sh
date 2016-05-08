@@ -44,7 +44,8 @@ webpack -v
 
 echo ""
 echo ">>> >>> Clean up"
-find . -name "*.jsx" -type f -delete
-find . -name "*.map" -type f -delete
-find . -name "composer.json" -type f -delete
-find . -name "composer.lock" -type f
+find ./src -name "*.jsx"         -type f -delete
+find ./src -name "*.map"         -type f -delete
+find ./src -name "composer.json" -type f -delete
+find ./src -name "composer.lock" -type f -delete
+find ./src                       -type d -empty -delete

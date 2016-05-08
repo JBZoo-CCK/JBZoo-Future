@@ -13,6 +13,7 @@
  */
 
 use JBZoo\CCK\App;
+use JBZoo\CCK\Atom\Core\Helper\Installer;
 
 /**
  * Class com_jbzooInstallerScript
@@ -20,14 +21,43 @@ use JBZoo\CCK\App;
 class com_jbzooInstallerScript
 {
     /**
+     * @var App
+     */
+    public $app;
+
+    /**
+     * @var Installer
+     */
+    public $installer;
+
+    /**
+     * JBZoo Installer Script constructor.
+     */
+    public function __construct()
+    {
+        // $this->_init();
+    }
+
+    /**
      * Install action
      */
     public function install()
     {
-        $this->_init();
+        //$this->installer->install();
 
-        $app = App::getInstance();
-        $app['atoms']['core']['installer']->install();
+        $db = JFactory::getDbo();
+        $db->setQuery(
+            "CREATE TABLE IF NOT EXISTS `#__jbzoo_config` (
+                    `option` VARCHAR(250) NOT NULL DEFAULT '',
+                    `value` LONGTEXT NOT NULL,
+                    `autoload` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1',
+                    UNIQUE INDEX `option_name` (`option`),
+                    INDEX `autoload` (`autoload`)
+                )
+                COLLATE='utf8_general_ci'
+                ENGINE=InnoDB;"
+        );
+        $db->execute();
     }
 
     /**
@@ -35,10 +65,11 @@ class com_jbzooInstallerScript
      */
     public function uninstall()
     {
-        $this->_init();
+        //$this->installer->uninstall();
 
-        $app = App::getInstance();
-        $app['atoms']['core']['installer']->uninstall();
+        $db = JFactory::getDbo();
+        $db->setQuery("DROP TABLE IF EXISTS `#__jbzoo_config`");
+        $db->execute();
     }
 
     /**
@@ -46,10 +77,7 @@ class com_jbzooInstallerScript
      */
     public function update()
     {
-        $this->_init();
-
-        $app = App::getInstance();
-        $app['atoms']['core']['installer']->update();
+        //$this->installer->update();
     }
 
     /**
@@ -57,10 +85,7 @@ class com_jbzooInstallerScript
      */
     public function preflight()
     {
-        $this->_init();
-
-        $app = App::getInstance();
-        $app['atoms']['core']['installer']->preflight();
+        //$this->installer->preflight();
     }
 
     /**
@@ -68,10 +93,7 @@ class com_jbzooInstallerScript
      */
     public function postflight()
     {
-        $this->_init();
-
-        $app = App::getInstance();
-        $app['atoms']['core']['installer']->postflight();
+        //$this->installer->postflight();
     }
 
     /**
@@ -86,5 +108,8 @@ class com_jbzooInstallerScript
         } elseif ($file = realpath(JPATH_ADMINISTRATOR . '/components/com_jbzoo/cck/init.php')) {
             require_once $file;
         }
+
+        $this->app       = App::getInstance();
+        $this->installer = $this->app['atoms']['core']['installer'];
     }
 }
