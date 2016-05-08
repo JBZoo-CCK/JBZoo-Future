@@ -1,10 +1,12 @@
 #!/usr/bin/env sh
 
 echo ">>> >>> Change vendor path"
-rm -r ./src/jbzoo/vendor
-rm    ./src/jbzoo/composer.lock
+rm -rf src/jbzoo/vendor
+rm     src/jbzoo/composer.lock
 
-composer config vendor-dir "../../vendor"
+composer config vendor-dir "../../vendor" \
+    --working-dir=src/jbzoo
+
 
 composer install                \
     --optimize-autoloader       \
