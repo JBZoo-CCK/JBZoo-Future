@@ -14,12 +14,12 @@ sh ./bin/phpunit   --configuration ./phpunit-utility.xml.dist      ./tests/unit/
 
 echo ""
 echo ">>> >>> PHP Statistics"
-sh ./bin/phpmd  ./src/jbzoo                            \
+sh ./bin/phpmd  ./src/jbzoo                         \
     text                                            \
     ./src/jbzoo/vendor/jbzoo/misc/phpmd/jbzoo.xml   \
     --verbose
 
-sh ./bin/phpcs  ./src/jbzoo                                                \
+sh ./bin/phpcs  ./src/jbzoo                                             \
     --extensions=php                                                    \
     --standard=./src/jbzoo/vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml    \
     --report=full
