@@ -42,6 +42,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">./src/jbzoo</directory>
+            <exclude>
+                <directory suffix=".php">./src/jbzoo/vendor</directory>
+            </exclude>
 
             <!-- extentions -->
             <file>src/wordpress-plugin/jbzoocck/jbzoocck.php</file>

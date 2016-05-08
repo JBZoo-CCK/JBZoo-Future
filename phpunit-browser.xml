@@ -33,6 +33,9 @@
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">./src/jbzoo</directory>
+            <exclude>
+                <directory suffix=".php">./src/jbzoo/vendor</directory>
+            </exclude>
 
             <!-- extentions -->
             <file>src/joomla-plugins/plg_sys_jbzoocck/jbzoocck.php</file>
