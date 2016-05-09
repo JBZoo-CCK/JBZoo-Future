@@ -36,7 +36,17 @@ class UnitHelper
      */
     public function runIsolated(\Closure $callback, $request = array())
     {
-        $binPath = './src/jbzoo/vendor/jbzoo/console/bin/jbzoo';
+        $binPaths = [
+            './src/jbzoo/vendor/jbzoo/console/bin/jbzoo',
+            './vendor/jbzoo/console/bin/jbzoo'
+        ];
+
+        $binPath = null;
+        foreach ($binPaths as $checkedPath) {
+            if (file_exists($checkedPath)) {
+                $binPath = $checkedPath;
+            }
+        }
 
         $testname = $this->_getTestName();
         $request  = new Data($request);

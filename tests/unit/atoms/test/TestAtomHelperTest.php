@@ -12,21 +12,18 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom\Test\Helper;
-
-use JBZoo\CCK\Atom\Helper;
+namespace JBZoo\PHPUnit;
 
 /**
- * Class Test
- * @package JBZoo\CCK
+ * Class TestAtomHelperTest
+ * @package JBZoo\PHPUnit
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
-class Test extends Helper
+class TestAtomHelperTest extends JBZooPHPUnit
 {
-    /**
-     * @return int
-     */
-    public function getRand()
+    public function testGetHelper()
     {
-        return mt_rand(1000, 9999);
+        isTrue($this->app['test.test']->getRand() >= 1000);
+        isTrue($this->app['atoms']['test']['test']->getRand() >= 1000);
     }
 }

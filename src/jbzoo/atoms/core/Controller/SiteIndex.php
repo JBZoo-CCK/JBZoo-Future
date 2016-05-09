@@ -12,21 +12,23 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom\Test\Helper;
+namespace JBZoo\CCK\Atom\Core\Controller;
 
-use JBZoo\CCK\Atom\Helper;
+use JBZoo\CCK\Atom\SiteController;
 
 /**
- * Class Test
+ * Class Index
  * @package JBZoo\CCK
  */
-class Test extends Helper
+class SiteIndex extends SiteController
 {
     /**
-     * @return int
+     * Index action
      */
-    public function getRand()
+    public function index()
     {
-        return mt_rand(1000, 9999);
+        ?>
+        JBZoo CCK
+        <?php
     }
 }

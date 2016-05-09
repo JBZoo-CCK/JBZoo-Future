@@ -22,7 +22,6 @@ class pkg_jbzoocckInstallerScript
      */
     public function install()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -30,7 +29,6 @@ class pkg_jbzoocckInstallerScript
      */
     public function uninstall()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -38,7 +36,6 @@ class pkg_jbzoocckInstallerScript
      */
     public function update()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -46,7 +43,6 @@ class pkg_jbzoocckInstallerScript
      */
     public function preflight()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
     }
 
     /**
@@ -54,8 +50,6 @@ class pkg_jbzoocckInstallerScript
      */
     public function postflight()
     {
-        echo __METHOD__ . PHP_EOL . PHP_EOL;
-
         self::_enablePlugin('jbzoocck');
     }
 

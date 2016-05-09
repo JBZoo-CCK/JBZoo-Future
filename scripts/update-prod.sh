@@ -49,3 +49,5 @@ find ./src -name "*.map"         -type f -delete
 find ./src -name "composer.json" -type f -delete
 find ./src -name "composer.lock" -type f -delete
 find ./src                       -type d -empty -delete
+rm   ./src/jbzoo/bin/lessc.bat
+rm   ./src/jbzoo/bin/lessc
