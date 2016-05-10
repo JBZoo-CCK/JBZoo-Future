@@ -39,7 +39,6 @@ echo ""
 echo ">>> >>> Wordpress: Download"
 sh ./bin/wp                             \
     core download                       \
-    --version=4.5.1                     \
     --path=$SITE_WWW                    \
     --debug
 
