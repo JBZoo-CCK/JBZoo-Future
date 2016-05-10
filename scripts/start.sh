@@ -7,11 +7,11 @@ composer update                             --working-dir=./src/jbzoo
 
 # Update JS libs
 NODE_ENV=development npm install
-NODE_ENV=development sh ./node_modules/.bin/bower update
-NODE_ENV=development sh ./node_modules/.bin/gulp update
+NODE_ENV=development ./node_modules/.bin/bower update
+NODE_ENV=development ./node_modules/.bin/gulp update
 
-NODE_ENV=development sh ./node_modules/.bin/webpack     \
-     --watch-aggregate-timeout=100                      \
-    --watch                                             \
-    --progress                                          \
+NODE_ENV=development ./node_modules/.bin/webpack    \
+     --watch-aggregate-timeout=100                  \
+    --watch                                         \
+    --progress                                      \
     --colors

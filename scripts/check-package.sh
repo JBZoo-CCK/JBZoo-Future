@@ -11,14 +11,14 @@ echo ""
 echo ">>> >>> Bower: Cleanup"
 rm -fr ./bower_components
 echo ">>> >>> Bower: Update"
-NODE_ENV=development sh ./node_modules/.bin/bower update
+NODE_ENV=development ./node_modules/.bin/bower update
 
 
 echo ""
 echo ">>> >>> Gulp: Update"
-NODE_ENV=development sh ./node_modules/.bin/gulp update
+NODE_ENV=development ./node_modules/.bin/gulp update
 
 
 echo ""
 echo ">>> >>> Webpack"
-NODE_ENV=development sh ./node_modules/.bin/webpack -v
+NODE_ENV=development ./node_modules/.bin/webpack -v
