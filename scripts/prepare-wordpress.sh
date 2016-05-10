@@ -9,11 +9,9 @@ ADMIN_PASS="admin"
 ADMIN_EMAIL="admin@example.ru"
 
 DB_HOST="127.0.0.1"
-DB_NAME=$1
-DB_USER=$2
-DB_PASS=$3
-if [ "$DB_NAME" = "" ]; then DB_NAME="ci_jbzoo_wp"; fi
-if [ "$DB_USER" = "" ]; then DB_USER="root"; fi
+if [ "$1" != "" ]; then DB_NAME=$1; else    DB_NAME="ci_jbzoo_wp";  fi
+if [ "$2" != "" ]; then DB_USER=$2; else    DB_USER="root";         fi
+if [ "$3" != "" ]; then DB_PASS=$3; else    DB_PASS="";             fi
 
 
 echo ""

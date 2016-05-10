@@ -4,11 +4,9 @@ SITE_NAME="cck-joomla"
 PATH_WWW="resources"
 
 DB_HOST="127.0.0.1"
-DB_NAME=$1
-DB_USER=$2
-DB_PASS=$3
-if [ "$DB_NAME" = "" ]; then DB_NAME="ci_jbzoo_wp"; fi
-if [ "$DB_USER" = "" ]; then DB_USER="root"; fi
+if [ "$1" != "" ]; then DB_NAME=$1; else    DB_NAME="ci_jbzoo_wp";  fi
+if [ "$2" != "" ]; then DB_USER=$2; else    DB_USER="root";         fi
+if [ "$3" != "" ]; then DB_PASS=$3; else    DB_PASS="";             fi
 
 
 echo ""
@@ -23,7 +21,7 @@ sh ./bin/joomla                                 \
     database:drop                               \
     $SITE_NAME                                  \
     --www=$PATH_WWW                             \
-    --mysql-login=$DB_NAME:$DB_PASS             \
+    --mysql-login=$DB_USER:$DB_PASS             \
     --mysql-host=$DB_HOST                       \
     --mysql-database=$DB_NAME                   \
     -vvv
@@ -35,7 +33,7 @@ sh ./bin/joomla                                 \
     site:create                                 \
     $SITE_NAME                                  \
     --www=$PATH_WWW                             \
-    --mysql-login=$DB_NAME:$DB_PASS             \
+    --mysql-login=$DB_USER:$DB_PASS             \
     --mysql-host=$DB_HOST                       \
     --mysql-database=$DB_NAME                   \
     -vvv
