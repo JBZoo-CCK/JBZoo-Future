@@ -5,9 +5,11 @@ rm -fr ./src/jbzoo/vendor
 rm -fr ./vendor
 rm -fr ./bin
 
+
 echo ">>> >>> Composer: Change config"
 composer config bin-dir     "bin"     --working-dir=./src/jbzoo
 composer config vendor-dir  "vendor"  --working-dir=./src/jbzoo
+
 
 echo ">>> >>> Composer: Install cleanup plugin"
 composer require jbzoo/composer-cleanup:1.x-dev     \
@@ -52,11 +54,10 @@ echo ">>> >>> Webpack"
 
 echo ""
 echo ">>> >>> Clean up all!"
+rm   ./src/jbzoo/bin/lessc.bat
+rm   ./src/jbzoo/bin/lessc
 find ./src  -name "*.jsx"           -type f -delete
 find ./src  -name "*.map"           -type f -delete
 find ./src  -name "composer.json"   -type f -delete
 find ./src  -name "composer.lock"   -type f -delete
-rm   ./src/jbzoo/bin/lessc.bat
-rm   ./src/jbzoo/bin/lessc
-
-find ./src                       -type d -empty -delete
+find ./src                          -type d -empty -delete
