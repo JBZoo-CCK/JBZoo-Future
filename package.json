@@ -11,9 +11,8 @@
   ],
   "homepage": "https://gitlab.com/JBZoo/cck#README",
   "author": "SmetDenis <denis@jbzoo.com>",
-  "main": "gulpfile.js",
   "directories": {
-    "test": "tests"
+    "test": "sh ./scripts/test.sh"
   },
   "dependencies": {
     "babel-core": "^6.8.0",

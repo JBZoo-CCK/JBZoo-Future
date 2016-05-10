@@ -14,11 +14,11 @@
     "SmetDenis <denis@jbzoo.com>"
   ],
   "dependencies": {
-    "bootstrap": "~3.3.6",
+    "bootstrap": "^3.3.6",
     "react": "^15.0.2",
+    "jbzoo-jquery-factory": "^1.0.0",
     "jbzoo-utils": "^1.1.0",
-    "uikit": "2.26.1",
-    "jbzoo-jquery-factory": "*"
+    "uikit": "^2.26.2"
   },
   "ignore": [
     "**/.*",
