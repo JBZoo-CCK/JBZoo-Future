@@ -1,40 +1,52 @@
 #!/usr/bin/env sh
 
+echo "-= Update Project for Developing =- "
 echo ">>> >>> Prepare paths"
-mkdir -p build/clover_xml
-mkdir -p build/clover_html
-mkdir -p build/browser_html
-mkdir -p build/logs
-mkdir -p build/misc
+mkdir -p ./build/clover_xml
+mkdir -p ./build/clover_html
+mkdir -p ./build/browser_html
+mkdir -p ./build/logs
+mkdir -p ./build/misc
 
+echo ""
+echo ">>> >>> Composer: Cleanup"
+rm -fr ./src/jbzoo/vendor
+rm -fr ./vendor
+rm -fr ./bin
 
-echo ">>> >>> Composer"
-rm -fr src/jbzoo/vendor
+echo ""
+echo ">>> >>> Composer: Change configs"
+composer config bin-dir     "../../bin"     --working-dir=./src/jbzoo
+composer config vendor-dir  "../../vendor"  --working-dir=./src/jbzoo
 
-composer config bin-dir "../../bin"     \
-    --working-dir=src/jbzoo
-
+echo ""
+echo ">>> >>> Composer: Update"
 composer update                 \
     --optimize-autoloader       \
-    --working-dir=src/jbzoo     \
+    --working-dir=./src/jbzoo   \
     --no-interaction            \
     --no-progress
 
 
 echo ""
-echo ">>> >>> npm"
+echo ">>> >>> NPM: Cleanup"
 rm -fr node_modules
+echo ">>> >>> NPM: Install"
 NODE_ENV=development npm install
 
 
 echo ""
-echo ">>> >>> Bower"
+echo ">>> >>> Bower: Cleanup"
 rm -fr bower_components
+echo ">>> >>> Bower: Update"
 NODE_ENV=development bower update
 
 
 echo ""
-echo ">>> >>> Gulp"
+echo ">>> >>> Gulp: Cleanup"
+find ./src -name "*.min.js"   -type f -delete
+find ./src -name "*.min.css"  -type f -delete
+echo ">>> >>> Gulp: Update"
 NODE_ENV=development gulp update
 
 
