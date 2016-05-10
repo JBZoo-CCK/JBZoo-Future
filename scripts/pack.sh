@@ -13,7 +13,6 @@
 # @link      http://jbzoo.com
 #
 
-echo ">>> >>> Start build extention arch for Joomla!CMS"
 SRC_DIR="`pwd`"
 
 echo ""
@@ -37,36 +36,41 @@ else
 fi
 
 
+#### JBZoo CCK #########################################################################################################
+
+
 echo ""
-echo "Comporess: Joomla Package"
+echo "Compress: Joomla Package"
 cd src/joomla-plugins/pkg_jbzoocck
-rm  -f      ../../../build/packages/pkg_jbzoocck.zip
-zip -rq -9  ../../../build/packages/pkg_jbzoocck.zip *
+rm  -f  ../../../build/packages/pkg_jbzoocck.zip
+zip -rq ../../../build/packages/pkg_jbzoocck.zip *
 cd "$SRC_DIR"
 
 
 echo ""
-echo "Comporess: Joomla PHPUnit plugin"
-cd tests/extentions/joomla-plugin
-rm  -f      ../../../build/packages/plg_jbzoophpunit.zip
-zip -rq -9  ../../../build/packages/plg_jbzoophpunit.zip *
-cd "$SRC_DIR"
-
-
-echo ""
-echo "Comporess: Wordpress PHPUnit plugin"
-cd tests/extentions/wp-plugin
-rm  -f      ../../../build/packages/jbzoophpunit.zip
-zip -rq -9  ../../../build/packages/jbzoophpunit.zip *
-cd "$SRC_DIR"
-
-
-echo ""
-echo "Comporess: Wordpress Plugin"
+echo "Compress: Wordpress Plugin"
 cd src/wordpress-plugin/jbzoocck
-rm  -f      ../../../build/packages/jbzoocck.zip
-zip -rq -9  ../../../build/packages/jbzoocck.zip *
+rm  -f  ../../../build/packages/jbzoocck.zip
+zip -rq ../../../build/packages/jbzoocck.zip *
 cd "$SRC_DIR"
 
+
+#### Testing ###########################################################################################################
+
+
+echo ""
+echo "Compress: Joomla PHPUnit plugin"
+cd tests/extentions/joomla-plugin
+rm  -f  ../../../build/packages/plg_jbzoophpunit.zip
+zip -rq ../../../build/packages/plg_jbzoophpunit.zip *
+cd "$SRC_DIR"
+
+
+echo ""
+echo "Compress: Wordpress PHPUnit plugin"
+cd tests/extentions/wp-plugin
+rm  -f  ../../../build/packages/jbzoophpunit.zip
+zip -rq ../../../build/packages/jbzoophpunit.zip *
+cd "$SRC_DIR"
 
 ls -lAhv ./build/packages
