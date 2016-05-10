@@ -4,11 +4,15 @@ SITE_NAME="cck-joomla"
 PATH_WWW="resources"
 
 DB_HOST="127.0.0.1"
-DB_NAME="ci_test_j"
-DB_USER=$1
-DB_PASS=$2
+DB_NAME=$1
+DB_USER=$2
+DB_PASS=$3
+if [ "$DB_NAME" = "" ]; then DB_NAME="ci_jbzoo_wp"; fi
+if [ "$DB_USER" = "" ]; then DB_USER="root"; fi
 
 
+echo ""
+echo ">>> >>> Joomla: Prepare paths"
 mkdir -p $PATH_WWW
 sh ./bin/joomla -V
 

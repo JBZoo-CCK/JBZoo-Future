@@ -9,13 +9,15 @@ ADMIN_PASS="admin"
 ADMIN_EMAIL="admin@example.ru"
 
 DB_HOST="127.0.0.1"
-DB_NAME="ci_test_wp"
-DB_USER=$1
-DB_PASS=$2
+DB_NAME=$1
+DB_USER=$2
+DB_PASS=$3
+if [ "$DB_NAME" = "" ]; then DB_NAME="ci_jbzoo_wp"; fi
+if [ "$DB_USER" = "" ]; then DB_USER="root"; fi
 
 
 echo ""
-echo ">>> >>> Wordpress: Make dirs"
+echo ">>> >>> Wordpress: Prepare paths"
 mkdir -p $SITE_WWW
 mkdir -p $SITE_WWW/cache
 mkdir -p $SITE_WWW/tmp
