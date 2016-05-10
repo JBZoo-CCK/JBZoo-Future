@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-SITE_WWW="./resources/cck-wordpress"
+SITE_WWW="resources/cck-wordpress"
 SITE_HOST="cck-wordpress.jbzoo"
 SITE_NAME="JBZoo 3.x-dev"
 
@@ -9,9 +9,9 @@ ADMIN_PASS="admin"
 ADMIN_EMAIL="admin@example.ru"
 
 DB_HOST="127.0.0.1"
-if [ "$1" != "" ]; then DB_NAME=$1; else    DB_NAME="ci_jbzoo_wp";  fi
-if [ "$2" != "" ]; then DB_USER=$2; else    DB_USER="root";         fi
-if [ "$3" != "" ]; then DB_PASS=$3; else    DB_PASS="";             fi
+if [ "$1" != "" ];  then DB_NAME=$1; else    DB_NAME="ci_jbzoo_wp";  fi
+if [ "$2" != "" ];  then DB_USER=$2; else    DB_USER="root";         fi
+if [ "$3" != "" ];  then DB_PASS=$3; else    DB_PASS="";             fi
 
 
 echo ""

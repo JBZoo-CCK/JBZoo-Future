@@ -1,7 +1,7 @@
 #!/usr/bin/env sh
 
 SITE_NAME="cck-joomla"
-PATH_WWW="resources"
+SITE_WWW="resources"
 
 DB_HOST="127.0.0.1"
 if [ "$1" != "" ]; then DB_NAME=$1; else    DB_NAME="ci_jbzoo_wp";  fi
@@ -11,7 +11,7 @@ if [ "$3" != "" ]; then DB_PASS=$3; else    DB_PASS="";             fi
 
 echo ""
 echo ">>> >>> Joomla: Prepare paths"
-mkdir -p $PATH_WWW
+mkdir -p $SITE_WWW
 sh ./bin/joomla -V
 
 
@@ -20,7 +20,7 @@ echo ">>> >>> Joomla: Database drop"
 sh ./bin/joomla                                 \
     database:drop                               \
     $SITE_NAME                                  \
-    --www=$PATH_WWW                             \
+    --www=$SITE_WWW                             \
     --mysql-login=$DB_USER:$DB_PASS             \
     --mysql-host=$DB_HOST                       \
     --mysql-database=$DB_NAME                   \
@@ -32,7 +32,7 @@ echo ">>> >>> Joomla: Site create"
 sh ./bin/joomla                                 \
     site:create                                 \
     $SITE_NAME                                  \
-    --www=$PATH_WWW                             \
+    --www=$SITE_WWW                             \
     --mysql-login=$DB_USER:$DB_PASS             \
     --mysql-host=$DB_HOST                       \
     --mysql-database=$DB_NAME                   \
@@ -45,7 +45,7 @@ sh ./bin/joomla                                 \
     extension:disable                           \
     $SITE_NAME                                  \
     debug                                       \
-    --www=$PATH_WWW                             \
+    --www=$SITE_WWW                             \
     -vvv
 
 
@@ -55,7 +55,7 @@ sh ./bin/joomla                                 \
     extension:disable                           \
     $SITE_NAME                                  \
     stats                                       \
-    --www=$PATH_WWW                             \
+    --www=$SITE_WWW                             \
     -vvv
 
 
@@ -65,7 +65,7 @@ sh ./bin/joomla                                 \
     extension:installfile                       \
     $SITE_NAME                                  \
     ./build/packages/pkg_jbzoocck.zip           \
-    --www=$PATH_WWW                             \
+    --www=$SITE_WWW                             \
     -vvv
 
 
@@ -78,7 +78,7 @@ sh ./bin/joomla                                 \
     extension:installfile                       \
     $SITE_NAME                                  \
     ./build/packages/plg_jbzoophpunit.zip       \
-    --www=$PATH_WWW                             \
+    --www=$SITE_WWW                             \
     -vvv
 
 
@@ -88,5 +88,5 @@ sh ./bin/joomla                                 \
     extension:enable                            \
     $SITE_NAME                                  \
     jbzoophpunit                                \
-    --www=$PATH_WWW                             \
+    --www=$SITE_WWW                             \
     -vvv
