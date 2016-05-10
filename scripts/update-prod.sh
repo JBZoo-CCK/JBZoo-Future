@@ -37,17 +37,17 @@ echo ""
 echo ">>> >>> Bower: Cleanup"
 rm -fr ./bower_components
 echo ">>> >>> Bower: Update"
-bower update
+sh ./node_modules/.bin/bower update
 
 
 echo ""
 echo ">>> >>> Gulp: Update"
-gulp update
+sh ./node_modules/.bin/gulp update
 
 
 echo ""
 echo ">>> >>> Webpack"
-webpack -v
+sh ./node_modules/.bin/webpack -v
 
 
 echo ""

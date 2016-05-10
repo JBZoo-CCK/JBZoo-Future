@@ -15,7 +15,7 @@
   ],
   "dependencies": {
     "bootstrap": "~3.3.6",
-    "react": "^15.0.1",
+    "react": "^15.0.2",
     "jbzoo-utils": "^1.1.0",
     "uikit": "2.26.1",
     "jbzoo-jquery-factory": "*"

@@ -15,6 +15,7 @@ rm -fr ./src/jbzoo/vendor
 rm -fr ./vendor
 rm -fr ./bin
 
+
 echo ""
 echo ">>> >>> Composer: Change configs"
 composer config bin-dir     "../../bin"     --working-dir=./src/jbzoo
@@ -41,14 +42,14 @@ echo ""
 echo ">>> >>> Bower: Cleanup"
 rm -fr ./bower_components
 echo ">>> >>> Bower: Update"
-NODE_ENV=development bower update
+NODE_ENV=development sh ./node_modules/.bin/bower update
 
 
 echo ""
 echo ">>> >>> Gulp: Update"
-NODE_ENV=development gulp update
+NODE_ENV=development sh ./node_modules/.bin/gulp update
 
 
 echo ""
 echo ">>> >>> Webpack"
-NODE_ENV=development webpack -v
+NODE_ENV=development sh ./node_modules/.bin/webpack -v
