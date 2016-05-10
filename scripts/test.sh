@@ -13,6 +13,13 @@
 # @link      http://jbzoo.com
 #
 
+MISC_PATH="./build/misc"
+SRC_PATH="./src/jbzoo"
+
+
+#### PHPUnit ###########################################################################################################
+
+
 echo ""
 echo ">>> >>> PHPUnit: Joomla"
 sh ./bin/phpunit                                    \
@@ -32,27 +39,52 @@ sh ./bin/phpunit                                    \
     ./tests/unit/utility/CodeStyleTest.php
 
 
+#### Clone JBZoo/Misc ##################################################################################################
+
 echo ""
-echo ">>> >>> PHP: Statistics"
-sh ./bin/phpmd  ./src/jbzoo                         \
-    text                                            \
-    ./src/jbzoo/vendor/jbzoo/misc/phpmd/jbzoo.xml   \
-    --verbose
+echo ">>> >>> Prepare JBZoo/Misc"
+
+rm    -rf   $MISC_PATH
+mkdir -p    $MISC_PATH
+composer                                    \
+    create-project jbzoo/misc:1.x-dev       \
+    $MISC_PATH                              \
+    --keep-vcs
+
+
+#### Statistics ########################################################################################################
 
 
 echo ""
 echo ">>> >>> PHP: Code Style"
-sh ./bin/phpcs  ./src/jbzoo                                             \
-    --extensions=php                                                    \
-    --standard=./src/jbzoo/vendor/jbzoo/misc/phpcs/JBZoo/ruleset.xml    \
+sh ./bin/phpcs                                          \
+    $SRC_PATH                                           \
+    --standard="$MISC_PATH/phpcs/JBZoo/ruleset.xml"     \
+    --extensions=php                                    \
+    --report=full                                       \
+    --report-width=180                                  \
+    --tab-width=4                                       \
     --report=full
 
 
-echo ""
-echo ">>> >>> PHP: Copy&Paste"
-sh ./bin/phpcpd ./src/jbzoo
-
-
-echo ""
-echo ">>> >>> PHP: loc"
-sh ./bin/phploc ./src/jbzoo --verbose
+# echo ""
+# echo ">>> >>> PHP: Mess Detector"
+# sh ./bin/phpmd                                                                  \
+#     $SRC_PATH                                                                   \
+#     text                                                                        \
+#     "$MISC_PATH/phpmd/jbzoo.xml"                                                \
+#     --exclude **/symfony/*,**/oyejorge/*,**/composer/,**/pimple/,**/jbdump/*    \
+#     --verbose
+#
+#
+# echo ""
+# echo ">>> >>> PHP: Copy&Paste"
+# sh ./bin/phpcpd                                     \
+#     $SRC_PATH
+#
+#
+# echo ""
+# echo ">>> >>> PHP: loc"
+# sh ./bin/phploc                                     \
+#     $SRC_PATH                                       \
+#     --verbose
