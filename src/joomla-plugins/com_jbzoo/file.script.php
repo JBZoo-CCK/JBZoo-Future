@@ -78,6 +78,8 @@ class com_jbzooInstallerScript
     public function update()
     {
         //$this->installer->update();
+
+        $this->install();
     }
 
     /**
