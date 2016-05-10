@@ -1,9 +1,9 @@
 #!/usr/bin/env sh
 
 echo ">>> >>> Composer: Cleanup"
-rm -fr ./src/jbzoo/vendor
-rm -fr ./vendor
 rm -fr ./bin
+rm -fr ./vendor
+rm -fr ./src/jbzoo/vendor
 
 
 echo ">>> >>> Composer: Change config"

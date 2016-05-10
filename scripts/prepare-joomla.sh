@@ -22,7 +22,7 @@ sh ./bin/joomla                                 \
     --mysql-login=$DB_NAME:$DB_PASS             \
     --mysql-host=$DB_HOST                       \
     --mysql-database=$DB_NAME                   \
-    --vvv
+    -vvv
 
 
 echo ""
@@ -34,7 +34,7 @@ sh ./bin/joomla                                 \
     --mysql-login=$DB_NAME:$DB_PASS             \
     --mysql-host=$DB_HOST                       \
     --mysql-database=$DB_NAME                   \
-    --vvv
+    -vvv
 
 
 echo ""
@@ -44,7 +44,7 @@ sh ./bin/joomla                                 \
     $SITE_NAME                                  \
     debug                                       \
     --www=$PATH_WWW                             \
-    --vvv
+    -vvv
 
 
 echo ""
@@ -54,7 +54,7 @@ sh ./bin/joomla                                 \
     $SITE_NAME                                  \
     stats                                       \
     --www=$PATH_WWW                             \
-    --vvv
+    -vvv
 
 
 echo ""
