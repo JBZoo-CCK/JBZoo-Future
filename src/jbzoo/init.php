@@ -18,15 +18,20 @@ namespace JBZoo\CCK;
 if (!defined('JBZOO')) {
     define('JBZOO', true);
 
-    if ($composerPath = realpath(__DIR__ . '/../../vendor/autoload.php')) { // developer mode
-        require_once $composerPath;
+    if (!function_exists('composerRequire_JBZoo')) {
+        if ($composerPath = realpath(__DIR__ . '/../../vendor/autoload.php')) { // developer mode
+            define('JBZOO_DEV', true);
+            require_once $composerPath;
 
+        } elseif ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) { // production mode
+            define('JBZOO_DEV', false);
+            require_once $composerPath;
 
-    } elseif ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) { // production mode
-        require_once $composerPath;
-
+        } else {
+            throw new \Exception('Composer autoload not found!');
+        }
     } else {
-        throw new \Exception('Composer autoload not found!');
+        define('JBZOO_DEV', true);
     }
 
     $app = App::getInstance();
