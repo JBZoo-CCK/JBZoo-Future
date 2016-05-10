@@ -34,7 +34,7 @@
         "oyejorge/less.php" : "^1.7.0.10"
     },
     "require-dev"       : {
-        "jbzoo/phpunit"           : "1.x-dev",
+        "jbzoo/phpunit"           : "^1.5.12",
         "jbzoo/misc"              : "1.x-dev",
         "jbzoo/pimpledumper"      : "1.x.dev",
 
