@@ -21,20 +21,20 @@ WORDPRESS="`pwd`/resources/cck-wordpress"
 echo ">>> >>> Composer: Cleanup"
 rm -rf ./bin
 rm -rf ./vendor
-rm -rf ./src/jbzoo/vendor
-rm     ./src/jbzoo/composer.lock
+rm -rf ./src/cck/vendor
+rm     ./src/cck/composer.lock
 
 
 echo ""
 echo ">>> >>> Composer: Change configs"
-composer config bin-dir     "../../bin"     --working-dir=./src/jbzoo
-composer config vendor-dir  "../../vendor"  --working-dir=./src/jbzoo
+composer config bin-dir     "../../bin"     --working-dir=./src/cck
+composer config vendor-dir  "../../vendor"  --working-dir=./src/cck
 
 
 echo ""
 echo ">>> >>> Composer: Update"
 composer update                 \
-    --working-dir=./src/jbzoo   \
+    --working-dir=./src/cck     \
     --optimize-autoloader       \
     --no-interaction            \
     --no-progress

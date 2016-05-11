@@ -26,19 +26,19 @@ echo ""
 echo ">>> >>> Composer: Cleanup"
 rm -fr ./bin
 rm -fr ./vendor
-rm -fr ./src/jbzoo/vendor
+rm -fr ./src/cck/vendor
 
 
 echo ""
 echo ">>> >>> Composer: Change configs"
-composer config bin-dir     "../../bin"     --working-dir=./src/jbzoo
-composer config vendor-dir  "vendor"        --working-dir=./src/jbzoo
+composer config bin-dir     "../../bin"     --working-dir=./src/cck
+composer config vendor-dir  "vendor"        --working-dir=./src/cck
 
 
 echo ""
 echo ">>> >>> Composer: Update"
 composer update                 \
-    --working-dir=./src/jbzoo   \
+    --working-dir=./src/cck     \
     --optimize-autoloader       \
     --no-interaction            \
     --no-progress

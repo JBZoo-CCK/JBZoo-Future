@@ -9,13 +9,13 @@
 /tmp
 /bin/*
 /resources
-/src/jbzoo/composer.lock
+/src/cck/composer.lock
 /node_modules
 /bower_components
 
 # Framework
-/src/jbzoo/bin
-/src/jbzoo/vendor
+/src/cck/bin
+/src/cck/vendor
 /src/wordpress/jbzoo/cck
 /src/joomla/com_jbzoo/admin/cck
 /src/joomla/pkg_jbzoocck/packages

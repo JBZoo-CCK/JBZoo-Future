@@ -43,7 +43,7 @@
         <whitelist processUncoveredFilesFromWhitelist="false">
             <directory suffix=".php">./src</directory>
             <exclude>
-                <directory suffix=".php">./src/jbzoo/vendor</directory>
+                <directory suffix=".php">./src/cck/vendor</directory>
             </exclude>
         </whitelist>
     </filter>

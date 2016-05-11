@@ -27,12 +27,12 @@ if command -v 'cygpath' >/dev/null 2>&1; then
 else
     # Joomla
     mkdir -p    src/joomla/pkg_jbzoocck/packages
-    ln -s `pwd`/src/jbzoo/                          src/joomla/com_jbzoo/admin/cck
+    ln -s `pwd`/src/cck/                            src/joomla/com_jbzoo/admin/cck
     ln -s `pwd`/src/joomla/com_jbzoo/               src/joomla/pkg_jbzoocck/packages/com_jbzoo
     ln -s `pwd`/src/joomla/plg_sys_jbzoocck/        src/joomla/pkg_jbzoocck/packages/plg_sys_jbzoocck
 
     # Wordpress
-    ln -s `pwd`/src/jbzoo/                          src/wordpress/jbzoo/cck
+    ln -s `pwd`/src/cck/                            src/wordpress/jbzoo/cck
 fi
 
 

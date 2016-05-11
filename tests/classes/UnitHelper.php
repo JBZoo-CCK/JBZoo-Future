@@ -37,7 +37,7 @@ class UnitHelper
     public function runIsolated(\Closure $callback, $request = array())
     {
         $binPaths = [
-            './src/jbzoo/vendor/jbzoo/console/bin/jbzoo',
+            './src/cck/vendor/jbzoo/console/bin/jbzoo',
             './vendor/jbzoo/console/bin/jbzoo'
         ];
 

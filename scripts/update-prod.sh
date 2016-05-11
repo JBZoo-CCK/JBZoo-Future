@@ -16,17 +16,17 @@
 echo ">>> >>> Composer: Cleanup"
 rm -fr ./bin
 rm -fr ./vendor
-rm -fr ./src/jbzoo/vendor
+rm -fr ./src/cck/vendor
 
 
 echo ">>> >>> Composer: Change config"
-composer config bin-dir     "bin"     --working-dir=./src/jbzoo
-composer config vendor-dir  "vendor"  --working-dir=./src/jbzoo
+composer config bin-dir     "bin"     --working-dir=./src/cck
+composer config vendor-dir  "vendor"  --working-dir=./src/cck
 
 
 echo ">>> >>> Composer: Install cleanup plugin"
 composer require jbzoo/composer-cleanup:1.x-dev     \
-    --working-dir=./src/jbzoo                       \
+    --working-dir=./src/cck                         \
     --no-update                                     \
     --update-no-dev                                 \
     --no-interaction
@@ -34,7 +34,7 @@ composer require jbzoo/composer-cleanup:1.x-dev     \
 
 echo ">>> >>> Composer: Update"
 composer update                 \
-    --working-dir=./src/jbzoo   \
+    --working-dir=./src/cck     \
     --no-dev                    \
     --optimize-autoloader       \
     --no-interaction            \
@@ -67,8 +67,8 @@ echo ">>> >>> Webpack"
 
 echo ""
 echo ">>> >>> Clean up all!"
-rm   ./src/jbzoo/bin/lessc.bat
-rm   ./src/jbzoo/bin/lessc
+rm   ./src/cck/bin/lessc.bat
+rm   ./src/cck/bin/lessc
 find ./src  -name "*.jsx"           -type f -delete
 find ./src  -name "*.map"           -type f -delete
 find ./src  -name "composer.json"   -type f -delete

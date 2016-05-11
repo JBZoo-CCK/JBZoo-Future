@@ -40,7 +40,7 @@ abstract class JBZooPHPUnit extends PHPUnit
     {
         parent::setUp();
 
-        require_once PROJECT_ROOT . '/src/jbzoo/init.php';
+        require_once PROJECT_ROOT . '/src/cck/init.php';
 
         $this->app    = App::getInstance();
         $this->helper = new UnitHelper();

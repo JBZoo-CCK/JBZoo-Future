@@ -12,15 +12,13 @@
  * @link       http://jbzoo.com
  *
  * @SuppressWarnings(PHPMD.Superglobals)
+ *
+ * Plugin Name: JBZoo CCK - PHPUnit
+ * Description: JBZoo PHPUnit Plugin for unit-testing
+ * Author: JBZoo Team <admin@jbzoo.com>
+ * Version: 1.0
+ * Author URI: http://jbzoo.com
  */
-
-/*
-Plugin Name: JBZoo PHPUnit
-Description: JBZoo PHPUnit Plugin for unit-testing
-Author: Denis Smetannikov <denis@jbzoo.com>
-Version: 1.0
-Author URI: http://jbzoo.com
-*/
 
 if (isset($_REQUEST['jbzoo-phpunit'])) {
 
