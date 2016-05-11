@@ -60,7 +60,7 @@ cd "$SRC_DIR"
 
 echo ""
 echo "Compress: Joomla PHPUnit plugin"
-cd tests/extentions/joomla-plugin
+cd tests/extentions/j_jbzoophpunit
 rm  -f  ../../../build/packages/j_jbzoophpunit.zip
 zip -rq ../../../build/packages/j_jbzoophpunit.zip *
 cd "$SRC_DIR"
@@ -68,9 +68,9 @@ cd "$SRC_DIR"
 
 echo ""
 echo "Compress: Wordpress PHPUnit plugin"
-cd tests/extentions/wp-plugin
-rm  -f  ../../../build/packages/jbzoophpunit.zip
-zip -rq ../../../build/packages/jbzoophpunit.zip *
+cd tests/extentions
+rm  -f  ../../build/packages/wp_jbzoophpunit.zip
+zip -rq ../../build/packages/wp_jbzoophpunit.zip wp_jbzoophpunit
 cd "$SRC_DIR"
 
 ls -lAhv ./build/packages

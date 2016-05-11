@@ -104,11 +104,11 @@ sh ./bin/wp                             \
 
 echo ""
 echo ">>> >>> Wordpress: Install PHPUnit plugin"
-sh ./bin/wp                             \
-    plugin install                      \
-    ./build/packages/jbzoophpunit.zip   \
-    --force                             \
-    --path=$SITE_WWW                    \
+sh ./bin/wp                                 \
+    plugin install                          \
+    ./build/packages/wp_jbzoophpunit.zip    \
+    --force                                 \
+    --path=$SITE_WWW                        \
     --debug
 
 

@@ -1,4 +1,4 @@
-=== JBZoo PHPUnit Plugin ===
+=== JBZoo CCK - PHPUnit ===
 Contributors: Denis Smetannikov <denis@jbzoo.com>
 Requires at least: 3.0
 Stable tag: 1.0
