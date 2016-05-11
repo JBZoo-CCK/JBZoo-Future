@@ -49,9 +49,9 @@ cd "$SRC_DIR"
 
 echo ""
 echo "Compress: Wordpress Plugin"
-cd src/wordpress/jbzoo
-rm  -f  ../../../build/packages/wp_jbzoo.zip
-zip -rq ../../../build/packages/wp_jbzoo.zip *
+cd src/wordpress
+rm  -f  ../../build/packages/wp_jbzoo.zip
+zip -rq ../../build/packages/wp_jbzoo.zip jbzoo
 cd "$SRC_DIR"
 
 
@@ -69,8 +69,8 @@ cd "$SRC_DIR"
 echo ""
 echo "Compress: Wordpress PHPUnit plugin"
 cd tests/extentions/wp-plugin
-rm  -f  ../../../build/packages/wp_jbzoophpunit.zip
-zip -rq ../../../build/packages/wp_jbzoophpunit.zip *
+rm  -f  ../../../build/packages/jbzoophpunit.zip
+zip -rq ../../../build/packages/jbzoophpunit.zip *
 cd "$SRC_DIR"
 
 ls -lAhv ./build/packages

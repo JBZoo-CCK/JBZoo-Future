@@ -10,17 +10,21 @@
  * @license    Proprietary http://jbzoo.com/license
  * @copyright  Copyright (C) JBZoo.com,  All rights reserved.
  * @link       http://jbzoo.com
+ *
  * @codingStandardsIgnoreFile
+ *
+ *
+ * Plugin Name: JBZoo CCK
+ * Description: JBZoo Content Construction Kit (CCK)
+ * Author: JBZoo Team <admin@jbzoo.com>
+ * Version: 3.x-dev
+ * Author URI: http://jbzoo.com
+ * License: Proprietary http://jbzoo.com/license
+ *
+ * Text Domain: jbzoo
+ * Domain Path: /languages/
  */
 
-/*
-Plugin Name: JBZoo CCK
-Description: JBZoo Content Construction Kit (CCK)
-Author: JBZoo Team <admin@jbzoo.com>
-Version: 3.x-dev
-Author URI: http://jbzoo.com
-License: Proprietary http://jbzoo.com/license
-*/
 
 use JBZoo\CCK\App;
 use JBZoo\CrossCMS\AbstractEvents;
