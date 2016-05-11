@@ -63,11 +63,12 @@ class Config extends Helper
     /**
      * @param string $key
      * @param mixed  $newValue
+     * @param bool   $isMerge
      */
-    public function set($key, $newValue)
+    public function set($key, $newValue, $isMerge = true)
     {
         $key = $this->_prepareKey($key);
-        $this->_model->set($key, $newValue);
+        $this->_model->set($key, $newValue, $isMerge);
     }
 
     /**

@@ -89,22 +89,28 @@ class Config extends Core
     /**
      * @param string $key
      * @param mixed  $newValue
+     * @param bool   $isMerge
      */
-    public function set($key, $newValue)
+    public function set($key, $newValue, $isMerge = true)
     {
         $oldValues = $this->_store->get($key);
-
-        if ($oldValues && (is_array($oldValues) || $oldValues instanceof Data)) {
-            $newValue = array_replace_recursive((array)$oldValues, $newValue);
+        if (($isMerge) &&
+            ($oldValues) &&
+            (is_array($newValue) || $newValue instanceof Data) &&
+            (is_array($oldValues) || $oldValues instanceof Data)
+        ) {
+            $newValue = array_replace_recursive((array)$oldValues, (array)$newValue);
+            $this->_store->set($key, $this->_decode($newValue));
+        } else {
+            $this->_store->set($key, $newValue);
         }
 
-        $this->_store->set($key, $this->_decode($newValue));
 
-        $replace = (new Replace('#__jbzoo_config'))
-            ->row([
-                'option' => $key,
-                'value'  => $this->_encode($newValue)
-            ]);
+        $replace = (new Replace('#__jbzoo_config'))->row([
+            'option' => $key,
+            'value'  => $this->_encode($newValue)
+        ]);
+
 
         $this->_db->query($replace);
     }

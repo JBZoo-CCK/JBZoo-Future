@@ -41,14 +41,14 @@ class Cms extends Command
             ->addOption('test-func', null, InputOption::VALUE_REQUIRED, 'Serialized test of Closure type')
             ->addOption('test-name', null, InputOption::VALUE_REQUIRED, 'Name of test')
             // phpunit
-            ->addOption('phpunit-test', null, InputOption ::VALUE_REQUIRED, 'PHPUnit test file')
-            ->addOption('phpunit-cov', null, InputOption ::VALUE_REQUIRED, 'PHPUnit clover cov (php) path')
-            ->addOption('phpunit-html', null, InputOption ::VALUE_REQUIRED, 'PHPUnit clover html path')
-            ->addOption('phpunit-config', null, InputOption ::VALUE_REQUIRED, 'PHPUnit configuration path')
+            ->addOption('phpunit-test', null, InputOption::VALUE_REQUIRED, 'PHPUnit test file')
+            ->addOption('phpunit-cov', null, InputOption::VALUE_REQUIRED, 'PHPUnit clover cov (php) path')
+            ->addOption('phpunit-html', null, InputOption::VALUE_REQUIRED, 'PHPUnit clover html path')
+            ->addOption('phpunit-config', null, InputOption::VALUE_REQUIRED, 'PHPUnit configuration path')
             // env
-            ->addOption('env-cms', null, InputOption ::VALUE_REQUIRED, 'CMS type')
+            ->addOption('env-cms', null, InputOption::VALUE_REQUIRED, 'CMS type')
             ->addOption('env-method', null, InputOption::VALUE_REQUIRED, 'GET or POST')
-            ->addOption('env-path', null, InputOption ::VALUE_REQUIRED, 'Request uri')
+            ->addOption('env-path', null, InputOption::VALUE_REQUIRED, 'Request uri')
             ->addOption('env-get', null, InputOption::VALUE_REQUIRED, '$_GET array')
             ->addOption('env-post', null, InputOption::VALUE_REQUIRED, '$_POST array')
             ->addOption('env-cookie', null, InputOption::VALUE_REQUIRED, '$_COOKIE array');

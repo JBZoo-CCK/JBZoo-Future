@@ -15,7 +15,6 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\Data\Data;
-use JBZoo\Data\JSON;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Env;
 use JBZoo\Utils\FS;
