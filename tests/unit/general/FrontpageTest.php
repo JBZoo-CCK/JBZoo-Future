@@ -24,8 +24,12 @@ class FrontpageTest extends JBZooPHPUnit
     public function testLoadIndex()
     {
         $uniqid = uniqid('uniqid-');
+        $type = $this->app['type'];
 
-        $content = $this->helper->runIsolated(function () {
+        $content = $this->helper->runIsolated(function () use($type, $uniqid) {
+            if ($type != 'Joomla') {
+                echo $uniqid;
+            }
         }, [
             'method' => 'post',
             'get'    => [
