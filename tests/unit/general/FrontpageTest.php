@@ -26,9 +26,9 @@ class FrontpageTest extends JBZooPHPUnit
         $uniqid = uniqid('uniqid-');
 
         $content = $this->helper->runIsolated(function () {
-            echo $_GET['uniqid'];
+
         }, [
-            'path'   => '/index.php?option=com_jbzoo&tmpl=component',
+            'path'   => '/index.php?option=com_jbzoo',
             'method' => 'post',
             'get'    => [
                 'uniqid' => $uniqid,
@@ -37,5 +37,22 @@ class FrontpageTest extends JBZooPHPUnit
         ]);
 
         isContain($uniqid, $content);
+        isNotContain("window.JBZooVars = {};", $content);
+    }
+
+    public function testAddDocumentVariable()
+    {
+        $content = $this->helper->runIsolated(function () {
+
+        }, [
+            'path'   => '/index.php?option=com_jbzoo',
+            'method' => 'post',
+            'get'    => [
+                'act' => 'test.index.AddDocumentVariable'
+            ]
+        ]);
+
+        isContain("window.JBZooVars = {};", $content);
+        isContain("window.JBZooVars['SomeVar'] = 42;", $content);
     }
 }

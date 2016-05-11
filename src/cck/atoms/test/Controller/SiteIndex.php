@@ -30,8 +30,19 @@ class SiteIndex extends SiteController
         return 123456;
     }
 
+    /**
+     * Show uniq var from request
+     */
     public function index()
     {
         echo $this->app['request']->get('uniqid');
+    }
+
+    /**
+     * Add JS variable to document
+     */
+    public function addDocumentVariable()
+    {
+        $this->app['core.js']->addVar('SomeVar', 42);
     }
 }
