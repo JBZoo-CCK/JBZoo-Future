@@ -40,24 +40,28 @@ composer update                 \
     --no-progress
 
 
-echo ""
-echo ">>> >>> Joomla: Create symlinks"
-rm -r "$JOOMLA/plugins/system/jbzoocck"
-ln -s "$ROOT/src/joomla/plg_sys_jbzoocck"                           \
-      "$JOOMLA/plugins/system/jbzoocck"
+if command -v 'cygpath' >/dev/null 2>&1; then
+    echo "WARNING!!! Create symlinks manually (by far)"
+else
+    echo ""
+    echo ">>> >>> Joomla: Create symlinks"
+    rm -r "$JOOMLA/plugins/system/jbzoocck"
+    ln -s "$ROOT/src/joomla/plg_sys_jbzoocck"                           \
+          "$JOOMLA/plugins/system/jbzoocck"
+              "$JOOMLA/plugins/system/jbzoocck"
+
+    rm -r "$JOOMLA/administrator/components/com_jbzoo"
+    ln -s "$ROOT/src/joomla/pkg_jbzoocck/packages/com_jbzoo/admin"      \
+          "$JOOMLA/administrator/components/com_jbzoo"
+
+    rm -r "$JOOMLA/components/com_jbzoo"
+    ln -s "$ROOT/src/joomla/pkg_jbzoocck/packages/com_jbzoo/site"       \
+          "$JOOMLA/components/com_jbzoo"
 
 
-rm -r "$JOOMLA/administrator/components/com_jbzoo"
-ln -s "$ROOT/src/joomla/pkg_jbzoocck/packages/com_jbzoo/admin"      \
-      "$JOOMLA/administrator/components/com_jbzoo"
-
-rm -r "$JOOMLA/components/com_jbzoo"
-ln -s "$ROOT/src/joomla/pkg_jbzoocck/packages/com_jbzoo/site"       \
-      "$JOOMLA/components/com_jbzoo"
-
-
-echo ""
-echo ">>> >>> Wordpress: Create symlinks"
-rm -r "$WORDPRESS/wp-content/plugins/jbzoo"
-ln -s "$ROOT/src/wordpress/jbzoo"                                   \
-      "$WORDPRESS/wp-content/plugins/jbzoo"
+    echo ""
+    echo ">>> >>> Wordpress: Create symlinks"
+    rm -r "$WORDPRESS/wp-content/plugins/jbzoo"
+    ln -s "$ROOT/src/wordpress/jbzoo"                                   \
+          "$WORDPRESS/wp-content/plugins/jbzoo"
+fi

@@ -140,7 +140,7 @@ class Manager extends Container
             $app->trigger("atom.init.{$atomId}.before");
 
             if (class_exists($atomClass)) {
-                /** @var Atom $atom */
+                /** @var Atom $result */
                 $result = new $atomClass($atomId, $atomInfo);
                 $result->init($app);
             } else {
