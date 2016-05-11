@@ -13,7 +13,7 @@
 
 'use strict';
 
-var atomPath = './src/jbzoo/atoms/assets-';
+var atomPath = './src/cck/atoms/assets-';
 
 module.exports = {
     path: {

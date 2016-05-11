@@ -36,7 +36,7 @@ var webpack       = require('webpack'),
         }
 
         return entries;
-    }('src/jbzoo/atoms/**/atom.jsx', 'src/jbzoo/atoms'),
+    }('src/cck/atoms/**/atom.jsx', 'src/cck/atoms'),
 
     pluginList    = [
         new webpack.optimize.CommonsChunkPlugin({
@@ -68,10 +68,10 @@ if (!__DEV__) {
 }
 
 module.exports = {
-    context  : path.resolve(__dirname, 'src/jbzoo/atoms'),
+    context  : path.resolve(__dirname, 'src/cck/atoms'),
     entry    : entries,
     output   : {
-        path    : path.resolve(__dirname, 'src/jbzoo/atoms'),
+        path    : path.resolve(__dirname, 'src/cck/atoms'),
         filename: "[name]/assets/js/[name].min.js"
     },
     externals: {
@@ -80,7 +80,7 @@ module.exports = {
     resolve  : {
         extensions        : ["", ".js", ".jsx"],
         modulesDirectories: [
-            path.resolve(__dirname, 'src/jbzoo/assets/jsx'),
+            path.resolve(__dirname, 'src/cck/assets/jsx'),
             path.resolve(__dirname, 'node_modules')
         ]
     },
