@@ -48,7 +48,6 @@ else
     rm -r "$JOOMLA/plugins/system/jbzoocck"
     ln -s "$ROOT/src/joomla/plg_sys_jbzoocck"                           \
           "$JOOMLA/plugins/system/jbzoocck"
-              "$JOOMLA/plugins/system/jbzoocck"
 
     rm -r "$JOOMLA/administrator/components/com_jbzoo"
     ln -s "$ROOT/src/joomla/pkg_jbzoocck/packages/com_jbzoo/admin"      \
@@ -64,4 +63,15 @@ else
     rm -r "$WORDPRESS/wp-content/plugins/jbzoo"
     ln -s "$ROOT/src/wordpress/jbzoo"                                   \
           "$WORDPRESS/wp-content/plugins/jbzoo"
+
+
+    echo ""
+    echo ">>> >>> Extentions for testing"
+    rm -r "$JOOMLA/plugins/system/jbzoophpunit"
+    ln -s "$ROOT/tests/extentions/j_jbzoophpunit"                       \
+          "$JOOMLA/plugins/system/jbzoophpunit"
+
+    rm -r "$WORDPRESS/wp-content/plugins/wp_jbzoophpunit"
+    ln -s "$ROOT/tests/extentions/wp_jbzoophpunit"                      \
+          "$WORDPRESS/wp-content/plugins/wp_jbzoophpunit"
 fi
