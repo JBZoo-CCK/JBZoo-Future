@@ -37,44 +37,44 @@ mkdir -p $SITE_WWW/logs
 
 echo ""
 echo ">>> >>> Wordpress: Download"
-sh ./bin/wp                             \
-    core download                       \
-    --path=$SITE_WWW                    \
+sh ./bin/wp                                 \
+    core download                           \
+    --path=$SITE_WWW                        \
     --debug
 
 
 echo ""
 echo ">>> >>> Wordpress: Core Config"
-sh ./bin/wp                             \
-    core config                         \
-    --dbname=$DB_NAME                   \
-    --dbuser=$DB_USER                   \
-    --dbpass=$DB_PASS                   \
-    --dbhost=$DB_HOST                   \
-    --url="$SITE_HOST"                  \
-    --path=$SITE_WWW                    \
+sh ./bin/wp                                 \
+    core config                             \
+    --dbname=$DB_NAME                       \
+    --dbuser=$DB_USER                       \
+    --dbpass=$DB_PASS                       \
+    --dbhost=$DB_HOST                       \
+    --url="$SITE_HOST"                      \
+    --path=$SITE_WWW                        \
     --debug
 
 
 echo ""
 echo ">>> >>> Wordpress: DB Reset"
-sh ./bin/wp                             \
-    db reset                            \
-    --yes                               \
-    --path=$SITE_WWW                    \
+sh ./bin/wp                                 \
+    db reset                                \
+    --yes                                   \
+    --path=$SITE_WWW                        \
     --debug
 
 
 echo ""
 echo ">>> >>> Wordpress: Core Install"
-sh ./bin/wp                             \
-    core install                        \
-    --url="$SITE_HOST"                  \
-    --title="$SITE_NAME"                \
-    --admin_user=$ADMIN_LOGIN           \
-    --admin_password=$ADMIN_PASS        \
-    --admin_email=$ADMIN_EMAIL          \
-    --path=$SITE_WWW                    \
+sh ./bin/wp                                 \
+    core install                            \
+    --url="$SITE_HOST"                      \
+    --title="$SITE_NAME"                    \
+    --admin_user=$ADMIN_LOGIN               \
+    --admin_password=$ADMIN_PASS            \
+    --admin_email=$ADMIN_EMAIL              \
+    --path=$SITE_WWW                        \
     --debug
 
 
@@ -83,19 +83,19 @@ sh ./bin/wp                             \
 
 echo ""
 echo ">>> >>> Wordpress: Install JBZoo"
-sh ./bin/wp                             \
-    plugin install                      \
-    ./build/packages/wp_jbzoo.zip       \
-    --force                             \
-    --path=$SITE_WWW                    \
+sh ./bin/wp                                 \
+    plugin install                          \
+    ./build/packages/wp_jbzoo.zip           \
+    --force                                 \
+    --path=$SITE_WWW                        \
     --debug
 
 
 echo ""
 echo ">>> >>> Wordpress: Activate JBZoo"
-sh ./bin/wp                             \
-    plugin activate jbzoo               \
-    --path=$SITE_WWW                    \
+sh ./bin/wp                                 \
+    plugin activate jbzoo                   \
+    --path=$SITE_WWW                        \
     --debug
 
 
@@ -114,7 +114,7 @@ sh ./bin/wp                                 \
 
 echo ""
 echo ">>> >>> Wordpress: Activate PHPUnit plugin"
-sh ./bin/wp                             \
-    plugin activate jbzoophpunit        \
-    --path=$SITE_WWW                    \
+sh ./bin/wp                                 \
+    plugin activate wp_jbzoophpunit         \
+    --path=$SITE_WWW                        \
     --debug
