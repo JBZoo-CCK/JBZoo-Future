@@ -63,7 +63,7 @@ class UnitHelper
             // env
             'env-cms'        => $request->get('cms', __CMS__),
             'env-method'     => $request->get('method', 'GET'),
-            'env-path'       => $request->get('path', '/'),
+            'env-path'       => $request->get('path', '/index.php'),
             'env-get'        => $this->_prepareQuery($request->get('get', [])),
             'env-post'       => $this->_prepareQuery($request->get('post', [])),
             'env-cookie'     => $this->_prepareQuery($request->get('cookie', [])),

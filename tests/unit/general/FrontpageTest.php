@@ -26,11 +26,11 @@ class FrontpageTest extends JBZooPHPUnit
         $uniqid = uniqid('uniqid-');
 
         $content = $this->helper->runIsolated(function () {
-
         }, [
-            'path'   => '/index.php?option=com_jbzoo',
             'method' => 'post',
             'get'    => [
+                'option' => 'com_jbzoo',
+                'page'   => 'jbzoo',
                 'uniqid' => $uniqid,
                 'act'    => 'test.index.index'
             ]
@@ -42,17 +42,23 @@ class FrontpageTest extends JBZooPHPUnit
 
     public function testAddDocumentVariable()
     {
-        $content = $this->helper->runIsolated(function () {
+        if ($this->app['type'] == 'Joomla') {
 
-        }, [
-            'path'   => '/index.php?option=com_jbzoo',
-            'method' => 'post',
-            'get'    => [
-                'act' => 'test.index.AddDocumentVariable'
-            ]
-        ]);
+            $content = $this->helper->runIsolated(function () {
+            }, [
+                'method' => 'post',
+                'get'    => [
+                    'option' => 'com_jbzoo',
+                    'page'   => 'jbzoo',
+                    'act'    => 'test.index.AddDocumentVariable'
+                ]
+            ]);
 
-        isContain("window.JBZooVars = {};", $content);
-        isContain("window.JBZooVars['SomeVar'] = 42;", $content);
+            isContain("window.JBZooVars = {};", $content);
+            isContain("window.JBZooVars['SomeVar'] = 42;", $content);
+
+        } else {
+            skip();
+        }
     }
 }
