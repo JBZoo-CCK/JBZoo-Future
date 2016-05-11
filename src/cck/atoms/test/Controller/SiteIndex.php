@@ -23,10 +23,15 @@ use JBZoo\CCK\Atom\SiteController;
 class SiteIndex extends SiteController
 {
     /**
-     * Index action
+     * Check that action return some value (not echo!)
      */
     public function checkReturn()
     {
         return 123456;
+    }
+
+    public function index()
+    {
+        echo $this->app['request']->get('uniqid');
     }
 }
