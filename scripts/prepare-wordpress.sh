@@ -85,7 +85,7 @@ echo ""
 echo ">>> >>> Wordpress: Install JBZoo"
 sh ./bin/wp                             \
     plugin install                      \
-    ./build/packages/jbzoocck.zip       \
+    ./build/packages/wp_jbzoo.zip       \
     --force                             \
     --path=$SITE_WWW                    \
     --debug
@@ -94,7 +94,7 @@ sh ./bin/wp                             \
 echo ""
 echo ">>> >>> Wordpress: Activate JBZoo"
 sh ./bin/wp                             \
-    plugin activate jbzoocck            \
+    plugin activate jbzoo               \
     --path=$SITE_WWW                    \
     --debug
 

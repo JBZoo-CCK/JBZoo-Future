@@ -8,7 +8,6 @@
 /logs
 /tmp
 /bin/*
-!/bin/jbzoo-*
 /resources
 /src/jbzoo/composer.lock
 /node_modules
@@ -17,9 +16,9 @@
 # Framework
 /src/jbzoo/bin
 /src/jbzoo/vendor
-/src/wordpress-plugin/jbzoocck/cck
-/src/joomla-plugins/com_jbzoo/admin/cck
-/src/joomla-plugins/pkg_jbzoocck/packages
+/src/wordpress/jbzoo/cck
+/src/joomla/com_jbzoo/admin/cck
+/src/joomla/pkg_jbzoocck/packages
 
 # Atoms assets
 /src/**/*.min.*

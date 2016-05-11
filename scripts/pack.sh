@@ -26,13 +26,13 @@ if command -v 'cygpath' >/dev/null 2>&1; then
     echo "WARNING!!! Create symlinks manually (by far)"
 else
     # Joomla
-    mkdir -p    src/joomla-plugins/pkg_jbzoocck/packages
-    ln -s `pwd`/src/jbzoo/                              src/joomla-plugins/com_jbzoo/admin/cck
-    ln -s `pwd`/src/joomla-plugins/com_jbzoo/           src/joomla-plugins/pkg_jbzoocck/packages/com_jbzoo
-    ln -s `pwd`/src/joomla-plugins/plg_sys_jbzoocck/    src/joomla-plugins/pkg_jbzoocck/packages/plg_sys_jbzoocck
+    mkdir -p    src/joomla/pkg_jbzoocck/packages
+    ln -s `pwd`/src/jbzoo/                          src/joomla/com_jbzoo/admin/cck
+    ln -s `pwd`/src/joomla/com_jbzoo/               src/joomla/pkg_jbzoocck/packages/com_jbzoo
+    ln -s `pwd`/src/joomla/plg_sys_jbzoocck/        src/joomla/pkg_jbzoocck/packages/plg_sys_jbzoocck
 
     # Wordpress
-    ln -s `pwd`/src/jbzoo/                              src/wordpress-plugin/jbzoocck/cck
+    ln -s `pwd`/src/jbzoo/                          src/wordpress/jbzoo/cck
 fi
 
 
@@ -41,17 +41,17 @@ fi
 
 echo ""
 echo "Compress: Joomla Package"
-cd src/joomla-plugins/pkg_jbzoocck
-rm  -f  ../../../build/packages/pkg_jbzoocck.zip
-zip -rq ../../../build/packages/pkg_jbzoocck.zip *
+cd src/joomla/pkg_jbzoocck
+rm  -f  ../../../build/packages/j_jbzoo.zip
+zip -rq ../../../build/packages/j_jbzoo.zip *
 cd "$SRC_DIR"
 
 
 echo ""
 echo "Compress: Wordpress Plugin"
-cd src/wordpress-plugin/jbzoocck
-rm  -f  ../../../build/packages/jbzoocck.zip
-zip -rq ../../../build/packages/jbzoocck.zip *
+cd src/wordpress/jbzoo
+rm  -f  ../../../build/packages/wp_jbzoo.zip
+zip -rq ../../../build/packages/wp_jbzoo.zip *
 cd "$SRC_DIR"
 
 
@@ -61,16 +61,16 @@ cd "$SRC_DIR"
 echo ""
 echo "Compress: Joomla PHPUnit plugin"
 cd tests/extentions/joomla-plugin
-rm  -f  ../../../build/packages/plg_jbzoophpunit.zip
-zip -rq ../../../build/packages/plg_jbzoophpunit.zip *
+rm  -f  ../../../build/packages/j_jbzoophpunit.zip
+zip -rq ../../../build/packages/j_jbzoophpunit.zip *
 cd "$SRC_DIR"
 
 
 echo ""
 echo "Compress: Wordpress PHPUnit plugin"
 cd tests/extentions/wp-plugin
-rm  -f  ../../../build/packages/jbzoophpunit.zip
-zip -rq ../../../build/packages/jbzoophpunit.zip *
+rm  -f  ../../../build/packages/wp_jbzoophpunit.zip
+zip -rq ../../../build/packages/wp_jbzoophpunit.zip *
 cd "$SRC_DIR"
 
 ls -lAhv ./build/packages

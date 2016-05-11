@@ -80,7 +80,7 @@ echo ">>> >>> Joomla: Install package"
 sh ./bin/joomla                                 \
     extension:installfile                       \
     $SITE_NAME                                  \
-    ./build/packages/pkg_jbzoocck.zip           \
+    ./build/packages/j_jbzoo.zip                \
     --www=$SITE_WWW                             \
     -vvv
 
@@ -93,7 +93,7 @@ echo ">>> >>> Joomla: Install PHPUnit plugin"
 sh ./bin/joomla                                 \
     extension:installfile                       \
     $SITE_NAME                                  \
-    ./build/packages/plg_jbzoophpunit.zip       \
+    ./build/packages/j_jbzoophpunit.zip         \
     --www=$SITE_WWW                             \
     -vvv
 
