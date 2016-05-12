@@ -28,7 +28,7 @@
         "jbzoo/profiler"    : "^1.0.5",
         "jbzoo/simpletypes" : "^1.4.2",
         "jbzoo/sqlbuilder"  : "^1.1.3",
-        "jbzoo/utils"       : "^1.6.9",
+        "jbzoo/utils"       : "1.x-dev",
 
         "pimple/pimple"     : "^3.0.2",
         "oyejorge/less.php" : "^1.7.0.10"

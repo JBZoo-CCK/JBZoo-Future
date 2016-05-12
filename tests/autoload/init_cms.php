@@ -12,17 +12,27 @@
  * @link       http://jbzoo.com
  */
 
-// You can overwrite it by phpunit.xml
-!defined('CMS_TYPE')      && define('CMS_TYPE',      'undefined');
-!defined('CMS_JOOMLA')    && define('CMS_JOOMLA',    realpath(__DIR__ . '/../../resources/cck-joomla'));
-!defined('CMS_WORDPRESS') && define('CMS_WORDPRESS', realpath(__DIR__ . '/../../resources/cck-wordpress'));
+use JBZoo\Utils\Env;
 
-!defined('WP_POST_ID') && define('WP_POST_ID', 0);
+// You can overwrite it by phpunit.xml
+!defined('CMS_TYPE')      && define('CMS_TYPE', 'undefined');
+!defined('CMS_JOOMLA')    && define('CMS_JOOMLA', realpath(__DIR__ . '/../../resources/cck-joomla'));
+!defined('CMS_WORDPRESS') && define('CMS_WORDPRESS', realpath(__DIR__ . '/../../resources/cck-wordpress'));
+!defined('WP_POST_ID')    && define('WP_POST_ID', 0);
+
+define('PHPUNIT_JOOMLA_HOST', Env::get('PHPUNIT_JOOMLA_HOST', 'cck-joomla.jbzoo', Env::VAR_STRING));
+define('PHPUNIT_WP_HOST', Env::get('PHPUNIT_WP_HOST', 'cck-wordpress.jbzoo', Env::VAR_STRING));
+define('PHPUNIT_HTTP_USER', Env::get('PHPUNIT_HTTP_USER', '', Env::VAR_STRING));
+define('PHPUNIT_HTTP_PASS', Env::get('PHPUNIT_HTTP_PASS', '', Env::VAR_STRING));
 
 if (__CMS__ === 'joomla') {
     define('CMS_PATH', CMS_JOOMLA);
+    define('PHPUNIT_HTTP_HOST', PHPUNIT_JOOMLA_HOST);
+
 } elseif (__CMS__ === 'wordpress') {
     define('CMS_PATH', CMS_WORDPRESS);
+    define('PHPUNIT_HTTP_HOST', PHPUNIT_WP_HOST);
+
 } else {
     throw new \Exception('const CMS_TYPE is not defined!');
 }

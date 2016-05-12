@@ -45,4 +45,15 @@ class SiteIndex extends SiteController
     {
         $this->app['core.js']->addVar('SomeVar', 42);
     }
+
+    public function error404()
+    {
+        $this->app->show404('Some 404 error message');
+    }
+
+    public function error500()
+    {
+        $this->app->error('Some 500 error message');
+    }
+
 }

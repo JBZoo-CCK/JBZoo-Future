@@ -14,6 +14,8 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\Utils\Url;
+
 /**
  * Class FrontpageTest
  * @package JBZoo\PHPUnit
@@ -58,5 +60,49 @@ class FrontpageTest extends JBZooPHPUnit
 
         isContain("window.JBZooVars = {};", $content);
         isContain("window.JBZooVars['SomeVar'] = 42;", $content);
+    }
+
+    public function testError404()
+    {
+        $url = Url::create([
+            'host'  => PHPUNIT_HTTP_HOST,
+            'user'  => PHPUNIT_HTTP_USER,
+            'pass'  => PHPUNIT_HTTP_PASS,
+            'query' => [
+                'option' => 'com_jbzoo',
+                'p'      => WP_POST_ID,
+                'act'    => 'test.index.error404'
+            ]
+        ]);
+
+
+        $result = $this->app['http']->request($url, [], [
+            'response' => 'full'
+        ]);
+
+        //isSame(404, $result->get('code'));
+        isContain("Some 404 error message", $result->get('body'));
+    }
+
+    public function testError500()
+    {
+        $url = Url::create([
+            'host'  => PHPUNIT_HTTP_HOST,
+            'user'  => PHPUNIT_HTTP_USER,
+            'pass'  => PHPUNIT_HTTP_PASS,
+            'query' => [
+                'option' => 'com_jbzoo',
+                'p'      => WP_POST_ID,
+                'act'    => 'test.index.error500'
+            ]
+        ]);
+
+
+        $result = $this->app['http']->request($url, [], [
+            'response' => 'full'
+        ]);
+
+        //isSame(500, $result->get('code'));
+        isContain("Some 500 error message", $result->get('body'));
     }
 }
