@@ -34,7 +34,7 @@ class FrontpageTest extends JBZooPHPUnit
             'method' => 'post',
             'get'    => [
                 'option' => 'com_jbzoo',
-                'p'      => 2,
+                'p'      => WP_POST_ID,
                 'uniqid' => $uniqid,
                 'act'    => 'test.index.index'
             ]
@@ -51,7 +51,7 @@ class FrontpageTest extends JBZooPHPUnit
             'method' => 'post',
             'get'    => [
                 'option' => 'com_jbzoo',
-                'p'      => 2,
+                'p'      => WP_POST_ID,
                 'act'    => 'test.index.AddDocumentVariable'
             ]
         ]);

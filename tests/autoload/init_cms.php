@@ -17,6 +17,8 @@
 !defined('CMS_JOOMLA')    && define('CMS_JOOMLA',    realpath(__DIR__ . '/../../resources/cck-joomla'));
 !defined('CMS_WORDPRESS') && define('CMS_WORDPRESS', realpath(__DIR__ . '/../../resources/cck-wordpress'));
 
+!defined('WP_POST_ID') && define('WP_POST_ID', 0);
+
 if (__CMS__ === 'joomla') {
     define('CMS_PATH', CMS_JOOMLA);
 } elseif (__CMS__ === 'wordpress') {
