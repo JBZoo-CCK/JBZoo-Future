@@ -15,7 +15,10 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\App;
+use JBZoo\CrossCMS\AbstractHttp;
+use JBZoo\Data\Data;
 use JBZoo\PimpleDumper\PimpleDumper;
+use JBZoo\Utils\Url;
 
 /**
  * Class CrossCMS
@@ -53,4 +56,36 @@ abstract class JBZooPHPUnit extends PHPUnit
             $this->app->register($dumper);
         }
     }
+
+    /**
+     * Custom HTTP Request
+     *
+     * @param string $action
+     * @param array  $query
+     * @return Data
+     */
+    protected function _request($action, $path = '/', $query = [])
+    {
+        $query = array_merge([
+            'option'  => 'com_jbzoo',
+            'p'       => WP_POST_ID,
+            'act'     => $action,
+            'nocache' => rand(0, 100000)
+        ], $query);
+
+        $url = Url::create([
+            'host'  => PHPUNIT_HTTP_HOST,
+            'user'  => PHPUNIT_HTTP_USER,
+            'pass'  => PHPUNIT_HTTP_PASS,
+            'path'  => $path,
+            'query' => $query
+        ]);
+
+        $result = $this->app['http']->request($url, [], [
+            'response' => AbstractHttp::RESULT_FULL
+        ]);
+
+        return $result;
+    }
+
 }

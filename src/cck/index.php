@@ -16,18 +16,14 @@ use JBZoo\CCK\App;
 
 ob_start();
 
+
 require_once __DIR__ . '/init.php';
 
 $app = App::getInstance();
+$app->checkRequest();
+echo $app->execute();
+$app->trigger('jbzoo.assets');
 
-try {
-    $app->checkRequest();
-    echo $app->execute();
-    $app->trigger('jbzoo.assets');
-
-} catch (Exception $e) {
-    $app->error($e->getMessage(), false);
-}
 
 $result = ob_get_contents();
 ob_end_clean();
