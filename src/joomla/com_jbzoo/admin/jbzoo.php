@@ -14,4 +14,4 @@
 
 defined('JBZOO') or die;
 
-require_once __DIR__ . '/cck/index.php';
+echo require_once __DIR__ . '/cck/index.php';

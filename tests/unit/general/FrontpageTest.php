@@ -24,9 +24,9 @@ class FrontpageTest extends JBZooPHPUnit
     public function testLoadIndex()
     {
         $uniqid = uniqid('uniqid-');
-        $type = $this->app['type'];
+        $type   = $this->app['type'];
 
-        $content = $this->helper->runIsolated(function () use($type, $uniqid) {
+        $content = $this->helper->runIsolated(function () use ($type, $uniqid) {
             if ($type != 'Joomla') {
                 echo $uniqid;
             }
@@ -34,7 +34,7 @@ class FrontpageTest extends JBZooPHPUnit
             'method' => 'post',
             'get'    => [
                 'option' => 'com_jbzoo',
-                'page'   => 'jbzoo',
+                'p'      => 2,
                 'uniqid' => $uniqid,
                 'act'    => 'test.index.index'
             ]
@@ -46,23 +46,17 @@ class FrontpageTest extends JBZooPHPUnit
 
     public function testAddDocumentVariable()
     {
-        if ($this->app['type'] == 'Joomla') {
+        $content = $this->helper->runIsolated(function () {
+        }, [
+            'method' => 'post',
+            'get'    => [
+                'option' => 'com_jbzoo',
+                'p'      => 2,
+                'act'    => 'test.index.AddDocumentVariable'
+            ]
+        ]);
 
-            $content = $this->helper->runIsolated(function () {
-            }, [
-                'method' => 'post',
-                'get'    => [
-                    'option' => 'com_jbzoo',
-                    'page'   => 'jbzoo',
-                    'act'    => 'test.index.AddDocumentVariable'
-                ]
-            ]);
-
-            isContain("window.JBZooVars = {};", $content);
-            isContain("window.JBZooVars['SomeVar'] = 42;", $content);
-
-        } else {
-            skip();
-        }
+        isContain("window.JBZooVars = {};", $content);
+        isContain("window.JBZooVars['SomeVar'] = 42;", $content);
     }
 }

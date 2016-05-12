@@ -11,7 +11,7 @@
     @copyright  Copyright (C) JBZoo.com,  All rights reserved.
     @link       http://jbzoo.com
 -->
-<access component="com_widgetkit">
+<access component="com_jbzoo">
     <section name="component">
         <action name="core.manage" title="JACTION_MANAGE" description="JACTION_MANAGE_COMPONENT_DESC"/>
     </section>

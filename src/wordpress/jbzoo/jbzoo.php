@@ -25,7 +25,6 @@
  * Domain Path: /languages/
  */
 
-
 use JBZoo\CCK\App;
 use JBZoo\CrossCMS\AbstractEvents;
 
@@ -46,15 +45,13 @@ if (!function_exists('dump')) {
  */
 function JBZoo_initAutoload()
 {
-    $initPath     = __DIR__ . '/cck/init.php';
-    $initRealPath = realpath($initPath);
+    define('JBZOO_PATH', 'wp-content/plugins/jbzoo/cck'); // TODO: remove hardcode to fix dev symlinks
+    define('JBZOO_AJAX_URL', site_url() . '/wp-admin/admin.php?page=jbzoo');
 
-    if ($initRealPath) {
-        require_once $initRealPath;
-    } else {
-        throw new \Exception('Init file not found: ' . $initPath);
-    }
+    $indexPath = realpath(__DIR__ . '/cck/index.php');
+    require_once __DIR__ . '/cck/init.php';
 
+    // Init JBZoo Application
     $app = App::getInstance();
     $app['assets']->add(null, 'assets:less/admin.less');
 
@@ -62,6 +59,24 @@ function JBZoo_initAutoload()
     $app->on(AbstractEvents::EVENT_HEADER, function (App $app) {
         $app->trigger('jbzoo.assets');
     });
+
+    // Render front end
+    $app->on(AbstractEvents::EVENT_CONTENT, function ($app, &$content) use ($indexPath) {
+        $macross = '[jbzoo]';
+        if (stripos($content, $macross) !== false) {
+            $jbzooContent = require_once $indexPath;
+            $content      = preg_replace('#' . preg_quote($macross) . '#ius', $jbzooContent, $content);
+        }
+    });
+
+    // Render ajax for back end (hack)
+    if (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+        add_action('admin_init', function () use ($indexPath) {
+            require_once $indexPath;
+        });
+    }
+
+    #### Subscribe to Wordpress hooks ##################################################################################
 
     add_action('wp_loaded', function () use ($app) {
         $app->trigger(AbstractEvents::EVENT_INIT);
@@ -83,33 +98,23 @@ function JBZoo_initAutoload()
         $app->trigger(AbstractEvents::EVENT_SHUTDOWN);
     });
 
-    if (isset($_REQUEST['page'])
-        && $_REQUEST['page'] == 'jbzoo'
-        && $_SERVER['REQUEST_METHOD'] == 'POST'
-    ) {
-        add_action('admin_init', function () {
-            require_once __DIR__ . '/cck/index.php';
-        });
-    }
-
-    // Add admin dashboard and page
-    add_action('admin_menu', function () {
-        add_menu_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () {
-            require_once __DIR__ . '/cck/index.php';
+    // Add admin dashboard and admin page
+    add_action('admin_menu', function () use ($indexPath) {
+        add_menu_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () use ($indexPath) {
+            echo require_once $indexPath;
         }, 'dashicons-admin-jbzoo', 9);
     }, 8);
 
+    // Install
     register_activation_hook(__FILE__, function () use ($app) {
         $app['atoms']['core']['installer']->install();
     });
 
+    // Uninstall
     register_deactivation_hook(__FILE__, function () use ($app) {
         $app['atoms']['core']['installer']->uninstall();
     });
 }
-
-define('JBZOO_PATH', 'wp-content/plugins/jbzoo/cck'); // TODO: remove hardcode to fix dev symlinks
-define('JBZOO_AJAX_URL', site_url() . '/wp-admin/admin.php?page=jbzoo');
 
 // Start!
 JBZoo_initAutoload();

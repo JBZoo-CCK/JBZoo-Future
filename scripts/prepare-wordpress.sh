@@ -118,3 +118,17 @@ sh ./bin/wp                                 \
     plugin activate wp_jbzoophpunit         \
     --path=$SITE_WWW                        \
     --debug
+
+
+echo ""
+echo ">>> >>> Wordpress: Create Post to test"
+POST_CONTENT="<p>Before</p>[JBZoo]<p>After</p>"
+sh ./bin/wp                                 \
+    post create                             \
+    --post_title="JBZoo"                    \
+    --post_status="publish"                 \
+    --post_type="post"                      \
+    --post_name="JBZoo"                     \
+    --post_content=$POST_CONTENT            \
+    --path=$SITE_WWW                        \
+    --debug
