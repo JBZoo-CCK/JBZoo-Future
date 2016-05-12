@@ -177,6 +177,11 @@
         "value": "JBZoo\\CrossCMS\\AbstractHeader"
     },
     {
+        "name": "http",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractHttp"
+    },
+    {
         "name": "lang",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractLang"

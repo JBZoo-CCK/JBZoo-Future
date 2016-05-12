@@ -80,7 +80,9 @@ class FrontpageTest extends JBZooPHPUnit
             'response' => 'full'
         ]);
 
-        //isSame(404, $result->get('code'));
+        var_dump($result);
+
+        isSame(404, $result->get('code'));
         isContain("Some 404 error message", $result->get('body'));
     }
 
@@ -102,7 +104,9 @@ class FrontpageTest extends JBZooPHPUnit
             'response' => 'full'
         ]);
 
-        //isSame(500, $result->get('code'));
+        var_dump($result);
+
+        isSame(500, $result->get('code'));
         isContain("Some 500 error message", $result->get('body'));
     }
 }
