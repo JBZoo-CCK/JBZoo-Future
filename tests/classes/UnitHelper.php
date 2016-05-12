@@ -69,14 +69,13 @@ class UnitHelper
             'env-cookie'     => $this->_prepareQuery($request->get('cookie', [])),
         );
 
-        $phpPath = Env::get('PHPUNIT_CMD_BIN', Env::VAR_STRING);
-        $phpPath = $phpPath ?: 'php';
+        $phpPath = Env::get('PHPUNIT_CMD_BIN', 'php', Env::VAR_STRING);
 
         $result = Cli::exec(
             $phpPath . ' ' . $binPath . ' cms',
             $this->_prepareOptions($options),
             PROJECT_ROOT,
-            Env::get('PHPUNIT_CMD_VERB', Env::VAR_BOOL)
+            Env::get('PHPUNIT_CMD_VERB', 0, Env::VAR_BOOL)
         );
 
         $savePath = PROJECT_ROOT . '/build/browser_html';
