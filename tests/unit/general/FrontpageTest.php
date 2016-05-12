@@ -68,8 +68,6 @@ class FrontpageTest extends JBZooPHPUnit
 
         file_put_contents('./build/' . $this->app['type'] . '_404', print_r($result, true));
 
-        var_dump($result);
-
         isContain("Some 404 error message", $result->get('body'));
 
         if ($this->app['type'] == 'Joomla') {
