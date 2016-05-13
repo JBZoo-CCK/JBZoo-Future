@@ -1,0 +1,12 @@
+default:
+    path:
+        directory: src/cck
+        extensions: php
+        exclude: symfony|oyejorge|composer|pimple|jbdump
+    logging:
+        report:
+            xml:    ./build/phpmetrics/report.xml
+            html:   ./build/phpmetrics/report.html
+            csv:    ./build/phpmetrics/report.csv
+        violations:
+            xml:    ./build/phpmetrics/violations.xml
