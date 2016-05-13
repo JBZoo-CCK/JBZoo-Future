@@ -62,15 +62,13 @@ class FrontpageTest extends JBZooPHPUnit
 
     public function testError404()
     {
-        $result = $this->_request('test.index.error404');
-
         if ($this->app['type'] == 'Joomla') {
-
+            $result = $this->_request('test.index.error404');
             isSame(404, $result->get('code'));
             isContain("Some 404 error message", $result->get('body'));
 
         } else {
-            //skip('TODO: Wordpress, fix http 404 code');
+            skip('TODO: Wordpress, fix http 404 code');
         }
 
     }

@@ -29,5 +29,4 @@ class AdminController extends Controller
 
         // TODO: Check cuurent user. Should be admin
     }
-
 }
