@@ -51,4 +51,13 @@ abstract class Controller extends AppAware
     {
         throw new Exception('Index action is undefined!');
     }
+
+    /**
+     * @param array $data
+     * @param bool  $result
+     */
+    protected function _json($data = [], $result = true)
+    {
+        $this->app['response']->json($data, $result);
+    }
 }

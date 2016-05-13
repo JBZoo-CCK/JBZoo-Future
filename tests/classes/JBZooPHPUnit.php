@@ -61,6 +61,7 @@ abstract class JBZooPHPUnit extends PHPUnit
      * Custom HTTP Request
      *
      * @param string $action
+     * @param string $path
      * @param array  $query
      * @return Data
      */
@@ -80,6 +81,8 @@ abstract class JBZooPHPUnit extends PHPUnit
             'path'  => $path,
             'query' => $query
         ]);
+
+        echo $url;
 
         $result = $this->app['http']->request($url, [], [
             'response' => AbstractHttp::RESULT_FULL

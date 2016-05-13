@@ -56,4 +56,9 @@ class SiteIndex extends SiteController
         $this->app->error('Some 500 error message');
     }
 
+    public function renderJson()
+    {
+        $request = $this->app['request']->get('test-data', [], 'arr');
+        $this->_json($request);
+    }
 }

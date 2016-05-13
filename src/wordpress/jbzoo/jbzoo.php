@@ -93,6 +93,12 @@ function JBZoo_initAutoload()
         return $content;
     });
 
+    // Content handlers (for macroses)
+    add_filter('request', function ($data) use ($app) {
+        jbdump::args();
+        return $data;
+    });
+
     // Shutdown callback
     add_action('shutdown', function () use ($app) {
         $app->trigger(AbstractEvents::EVENT_SHUTDOWN);

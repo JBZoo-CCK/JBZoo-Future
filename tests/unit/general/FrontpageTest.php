@@ -14,8 +14,6 @@
 
 namespace JBZoo\PHPUnit;
 
-use JBZoo\Utils\Url;
-
 /**
  * Class FrontpageTest
  * @package JBZoo\PHPUnit
@@ -64,13 +62,15 @@ class FrontpageTest extends JBZooPHPUnit
 
     public function testError404()
     {
+        $result = $this->_request('test.index.error404');
+
         if ($this->app['type'] == 'Joomla') {
-            $result = $this->_request('test.index.error404');
+
             isSame(404, $result->get('code'));
             isContain("Some 404 error message", $result->get('body'));
 
         } else {
-            skip('TODO: Wordpress, fix http 404 code');
+            //skip('TODO: Wordpress, fix http 404 code');
         }
 
     }
@@ -86,5 +86,23 @@ class FrontpageTest extends JBZooPHPUnit
             skip('TODO: Wordpress, fix http 500 code');
         }
 
+    }
+
+    public function testRenderJson()
+    {
+        if ($this->app['type'] == 'Joomla') {
+            $actual = ['foo' => 'bar'];
+
+            $result = $this->_request('test.index.renderJson', '/', [
+                'test-data' => $actual
+            ]);
+
+            $expected = json_decode($result->get('body'), true);
+
+            isSame($expected, $actual);
+            isSame(200, $result->get('code'));
+        } else {
+            skip('TODO: Wordpress, fix json render');
+        }
     }
 }
