@@ -24,7 +24,7 @@ if (!defined('JBZOO')) {
             define('JBZOO_DEV', true);
             require_once $composerPath;
 
-        } elseif ($composerPath = realpath(__DIR__ . '/vendor/autoload.php')) { // production mode
+        } elseif ($composerPath = realpath(__DIR__ . '/libraries/autoload.php')) { // production mode
             define('JBZOO_DEV', false);
             require_once $composerPath;
 

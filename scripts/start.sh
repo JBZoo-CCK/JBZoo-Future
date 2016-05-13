@@ -16,7 +16,7 @@
 # echo ""
 # echo ">>> >>> Update PHP libs"
 # composer config bin-dir     "../../bin"     --working-dir=./src/cck
-# composer config vendor-dir  "vendor"        --working-dir=./src/cck
+# composer config vendor-dir  "libraries"     --working-dir=./src/cck
 # composer update                             --working-dir=./src/cck
 
 

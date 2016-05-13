@@ -15,7 +15,7 @@
 
 # Framework
 /src/cck/bin
-/src/cck/vendor
+/src/cck/libraries
 /src/wordpress/jbzoo/cck
 /src/joomla/com_jbzoo/admin/cck
 /src/joomla/pkg_jbzoocck/packages

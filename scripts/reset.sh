@@ -23,5 +23,5 @@ echo ">>> >>> Remove dirs"
 rm -fr ./bin
 rm -fr ./vendor
 rm -fr ./node_modules
-rm -fr ./src/cck/vendor
+rm -fr ./src/cck/libraries
 rm -fr ./bower_components

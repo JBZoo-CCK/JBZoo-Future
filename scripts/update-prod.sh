@@ -16,12 +16,12 @@
 echo ">>> >>> Composer: Cleanup"
 rm -fr ./bin
 rm -fr ./vendor
-rm -fr ./src/cck/vendor
+rm -fr ./src/cck/libraries
 
 
 echo ">>> >>> Composer: Change config"
-composer config bin-dir     "bin"     --working-dir=./src/cck
-composer config vendor-dir  "vendor"  --working-dir=./src/cck
+composer config bin-dir     "bin"       --working-dir=./src/cck
+composer config vendor-dir  "libraries" --working-dir=./src/cck
 
 
 echo ">>> >>> Composer: Install cleanup plugin"

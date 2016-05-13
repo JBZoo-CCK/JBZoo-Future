@@ -21,7 +21,7 @@ WORDPRESS="`pwd`/resources/cck-wordpress"
 echo ">>> >>> Composer: Cleanup"
 rm -rf ./bin
 rm -rf ./vendor
-rm -rf ./src/cck/vendor
+rm -rf ./src/cck/libraries
 rm     ./src/cck/composer.lock
 
 
