@@ -13,11 +13,13 @@
 # @link      http://jbzoo.com
 #
 
+WORKING_DIR="./src/cck"
+
 # echo ""
 # echo ">>> >>> Update PHP libs"
-# composer config bin-dir     "../../bin"     --working-dir=./src/cck
-# composer config vendor-dir  "libraries"     --working-dir=./src/cck
-# composer update                             --working-dir=./src/cck
+# composer config bin-dir     "../../bin"     --working-dir=$WORKING_DIR
+# composer config vendor-dir  "libraries"     --working-dir=$WORKING_DIR
+# composer update                             --working-dir=$WORKING_DIR
 
 
 # echo ""

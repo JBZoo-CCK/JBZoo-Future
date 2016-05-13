@@ -12,6 +12,7 @@
 /src/cck/composer.lock
 /node_modules
 /bower_components
+/vendor
 
 # Framework
 /src/cck/bin

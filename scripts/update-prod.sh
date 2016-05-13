@@ -13,6 +13,8 @@
 # @link      http://jbzoo.com
 #
 
+WORKING_DIR="./src/cck"
+
 echo ">>> >>> Composer: Cleanup"
 rm -fr ./bin
 rm -fr ./vendor
@@ -20,13 +22,13 @@ rm -fr ./src/cck/libraries
 
 
 echo ">>> >>> Composer: Change config"
-composer config bin-dir     "bin"       --working-dir=./src/cck
-composer config vendor-dir  "libraries" --working-dir=./src/cck
+composer config bin-dir     "bin"       --working-dir=$WORKING_DIR
+composer config vendor-dir  "libraries" --working-dir=$WORKING_DIR
 
 
 echo ">>> >>> Composer: Install cleanup plugin"
 composer require jbzoo/composer-cleanup:1.x-dev     \
-    --working-dir=./src/cck                         \
+    --working-dir=$WORKING_DIR                      \
     --no-update                                     \
     --update-no-dev                                 \
     --no-interaction
@@ -34,7 +36,7 @@ composer require jbzoo/composer-cleanup:1.x-dev     \
 
 echo ">>> >>> Composer: Update"
 composer update                 \
-    --working-dir=./src/cck     \
+    --working-dir=$WORKING_DIR  \
     --no-dev                    \
     --optimize-autoloader       \
     --no-interaction            \

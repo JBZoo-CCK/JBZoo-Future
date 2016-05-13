@@ -13,6 +13,8 @@
 # @link      http://jbzoo.com
 #
 
+WORKING_DIR="./src/cck"
+
 echo "-= Update Project for Developing =- "
 echo ">>> >>> Prepare paths"
 mkdir -p ./build/clover_xml
@@ -31,14 +33,14 @@ rm -fr ./src/cck/libraries
 
 echo ""
 echo ">>> >>> Composer: Change configs"
-composer config bin-dir     "../../bin"     --working-dir=./src/cck
-composer config vendor-dir  "libraries"     --working-dir=./src/cck
+composer config bin-dir     "../../bin"     --working-dir=$WORKING_DIR
+composer config vendor-dir  "../../vendor"  --working-dir=$WORKING_DIR
 
 
 echo ""
 echo ">>> >>> Composer: Update"
 composer update                 \
-    --working-dir=./src/cck     \
+    --working-dir=$WORKING_DIR  \
     --optimize-autoloader       \
     --no-interaction            \
     --no-progress
