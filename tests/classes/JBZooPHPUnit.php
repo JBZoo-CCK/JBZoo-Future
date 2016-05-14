@@ -67,25 +67,25 @@ abstract class JBZooPHPUnit extends PHPUnit
      */
     protected function _request($action, $path = '/', $query = [])
     {
-        $query = array_merge([
-            'option'  => 'com_jbzoo',
-            'p'       => WP_POST_ID,
-            'act'     => $action,
-            'nocache' => rand(0, 100000)
-        ], $query);
-
         $url = Url::create([
             'host'  => PHPUNIT_HTTP_HOST,
             'user'  => PHPUNIT_HTTP_USER,
             'pass'  => PHPUNIT_HTTP_PASS,
             'path'  => $path,
-            'query' => $query
+            'query' => array_merge([
+                'option'  => 'com_jbzoo',
+                'page'    => 'jbzoo',
+                'p'       => WP_POST_ID,
+                'act'     => $action,
+                'nocache' => rand(0, 100000)
+            ], $query)
         ]);
 
-        echo $url;
-
         $result = $this->app['http']->request($url, [], [
-            'response' => AbstractHttp::RESULT_FULL
+            'response'  => AbstractHttp::RESULT_FULL,
+            'cache'     => 0,
+            'cache_ttl' => 0,
+            'debug'     => 1
         ]);
 
         return $result;

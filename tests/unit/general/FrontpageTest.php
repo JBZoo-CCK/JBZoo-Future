@@ -20,6 +20,34 @@ namespace JBZoo\PHPUnit;
  */
 class FrontpageTest extends JBZooPHPUnit
 {
+    public function testRenderJson()
+    {
+        $actual = ['foo' => 'bar'];
+
+        $result = $this->_request('test.index.renderJson', '/', [
+            'test-data' => $actual
+        ]);
+
+        $expected = json_decode($result->get('body'), true);
+
+        isSame(200, $result->get('code'));
+        isSame('application/json; charset=utf-8', $result->find('headers.content-type'));
+        isSame($expected, $actual);
+    }
+
+    public function testError404()
+    {
+        $result = $this->_request('test.index.error404');
+        isSame(404, $result->get('code'));
+        isContain("Some 404 error message", $result->get('body'));
+    }
+
+    public function testError500()
+    {
+        $result = $this->_request('test.index.error500');
+        isSame(500, $result->get('code'));
+        isContain("Some 500 error message", $result->get('body'));
+    }
 
     public function testLoadIndex()
     {
@@ -58,49 +86,5 @@ class FrontpageTest extends JBZooPHPUnit
 
         isContain("window.JBZooVars = {};", $content);
         isContain("window.JBZooVars['SomeVar'] = 42;", $content);
-    }
-
-    public function testError404()
-    {
-        if ($this->app['type'] == 'Joomla') {
-            $result = $this->_request('test.index.error404');
-            isSame(404, $result->get('code'));
-            isContain("Some 404 error message", $result->get('body'));
-
-        } else {
-            skip('TODO: Wordpress, fix http 404 code');
-        }
-
-    }
-
-    public function testError500()
-    {
-        if ($this->app['type'] == 'Joomla') {
-            $result = $this->_request('test.index.error500');
-            isSame(500, $result->get('code'));
-            isContain("Some 500 error message", $result->get('body'));
-
-        } else {
-            skip('TODO: Wordpress, fix http 500 code');
-        }
-
-    }
-
-    public function testRenderJson()
-    {
-        if ($this->app['type'] == 'Joomla') {
-            $actual = ['foo' => 'bar'];
-
-            $result = $this->_request('test.index.renderJson', '/', [
-                'test-data' => $actual
-            ]);
-
-            $expected = json_decode($result->get('body'), true);
-
-            isSame($expected, $actual);
-            isSame(200, $result->get('code'));
-        } else {
-            skip('TODO: Wordpress, fix json render');
-        }
     }
 }
