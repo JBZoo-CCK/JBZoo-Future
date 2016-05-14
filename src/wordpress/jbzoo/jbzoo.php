@@ -55,13 +55,15 @@ function JBZoo_initAutoload()
     $app = App::getInstance();
     $app['assets']->add(null, 'assets:less/admin.less');
 
+    $isAdmin = $app['env']->isAdmin();
+
     // Hack for admin menu
     $app->on(AbstractEvents::EVENT_HEADER, function (App $app) {
         $app->trigger('jbzoo.assets');
     });
 
     // Render front end
-    $app->on(AbstractEvents::EVENT_CONTENT, function ($app, &$content) use ($indexPath) {
+    $app->on(AbstractEvents::EVENT_CONTENT, function (App $app, &$content) use ($indexPath) {
         $macross = '[jbzoo]';
         if (stripos($content, $macross) !== false) {
             $jbzooContent = require_once $indexPath;
@@ -70,8 +72,8 @@ function JBZoo_initAutoload()
     });
 
     // Render ajax for back end (hack)
-    if (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo' && $_SERVER['REQUEST_METHOD'] == 'POST') {
-        add_action('admin_init', function () use ($indexPath) {
+    if (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo') {
+        add_action($isAdmin ? 'admin_init' : 'init', function () use ($indexPath) {
             require_once $indexPath;
         });
     }
@@ -83,7 +85,7 @@ function JBZoo_initAutoload()
     });
 
     // Header render
-    add_action($app['env']->isAdmin() ? 'admin_footer' : 'wp_footer', function () use ($app) {
+    add_action($isAdmin ? 'admin_footer' : 'wp_footer', function () use ($app) {
         $app->trigger(AbstractEvents::EVENT_HEADER);
     });
 
@@ -91,12 +93,6 @@ function JBZoo_initAutoload()
     add_filter('the_content', function ($content) use ($app) {
         $app['events']->filterContent($content);
         return $content;
-    });
-
-    // Content handlers (for macroses)
-    add_filter('request', function ($data) use ($app) {
-        jbdump::args();
-        return $data;
     });
 
     // Shutdown callback
