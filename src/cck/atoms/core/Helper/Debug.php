@@ -205,14 +205,14 @@ class Debug extends Helper
      *
      * @param string $message
      * @param string $label
-     * @param array  $params
+     * @param array  $trace
      *
      * @codeCoverageIgnore
      */
-    public function log($message, $label = '...', $params = null)
+    public function log($message, $label = '...', $trace = null)
     {
         if ($this->isShow() && $this->_config->get('log') && $this->_jbdump) {
-            $trace = $params ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+            $trace = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             $this->_jbdump->log($message, $label, ['trace' => $trace]);
         }
     }

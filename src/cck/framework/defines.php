@@ -79,6 +79,20 @@ function jbt($message)
     return call_user_func_array(array($app['lang'], 'translate'), func_get_args());
 }
 
+/**
+ * Log message
+ *
+ * @param mixed  $message
+ * @param string $label
+ */
+function jbLog($message, $label = '...')
+{
+    $app    = App::getInstance();
+    $params = debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+
+    return $app['atoms']['core']['debug']->log($message, $label, $params);
+}
+
 // for custom method
 if (!function_exists('jbd')) {
 
