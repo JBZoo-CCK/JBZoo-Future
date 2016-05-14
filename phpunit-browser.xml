@@ -12,6 +12,8 @@
     @link       http://jbzoo.com
 -->
 <phpunit colors="false"
+         backupGlobals="false"
+         backupStaticAttributes="false"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
          convertWarningsToExceptions="true"

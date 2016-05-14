@@ -12,6 +12,8 @@
     @link       http://jbzoo.com
 -->
 <phpunit bootstrap="tests/autoload/init_composer.php"
+         backupGlobals="false"
+         backupStaticAttributes="false"
          colors="true"
          convertErrorsToExceptions="true"
          convertNoticesToExceptions="true"
