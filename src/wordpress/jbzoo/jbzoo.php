@@ -73,9 +73,15 @@ function JBZoo_initAutoload()
 
     // Render ajax for back end (hack)
     if (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo') {
-        add_action($isAdmin ? 'admin_init' : 'init', function () use ($indexPath) {
-            require_once $indexPath;
-        });
+        if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            add_action('admin_init', function () use ($indexPath) {
+                require_once $indexPath;
+            });
+        } else {
+            add_action('init', function () use ($indexPath) {
+                require_once $indexPath;
+            });
+        }
     }
 
     #### Subscribe to Wordpress hooks ##################################################################################
@@ -103,7 +109,7 @@ function JBZoo_initAutoload()
     // Add admin dashboard and admin page
     add_action('admin_menu', function () use ($indexPath) {
         add_menu_page('JBZoo CCK', 'JBZoo CCK', 'manage_options', 'jbzoo', function () use ($indexPath) {
-            echo require_once $indexPath;
+            echo include $indexPath;
         }, 'dashicons-admin-jbzoo', 9);
     }, 8);
 
