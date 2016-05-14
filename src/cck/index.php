@@ -10,14 +10,16 @@
  * @license    Proprietary http://jbzoo.com/license
  * @copyright  Copyright (C) JBZoo.com,  All rights reserved.
  * @link       http://jbzoo.com
+ *
+ * @codeCoverageIgnore
  */
 
 use JBZoo\Utils\Env;
 
 /**
- * Class JBZooPHPUnit_Coverage_Wrapper
+ * Class JBZooPHPUnitCoverageWrapper
  */
-class JBZooPHPUnit_Coverage_Wrapper
+class JBZooPHPUnitCoverageWrapper
 {
     /**
      * @var PHP_CodeCoverage
@@ -46,6 +48,7 @@ class JBZooPHPUnit_Coverage_Wrapper
 
     /**
      * JBZooPHPUnit_Coverage constructor.
+     * @SuppressWarnings(PHPMD.Superglobals)
      */
     public function __construct()
     {
@@ -59,7 +62,6 @@ class JBZooPHPUnit_Coverage_Wrapper
             $this->_covRoot = realpath(__DIR__ . '/../..');
             $this->_covDir  = realpath($this->_covRoot . '/src');
             $this->_covHash = implode('_', [
-                'request',
                 str_replace('.', '_', $request['_cov']),
                 md5(serialize($request))
             ]);
@@ -98,7 +100,7 @@ class JBZooPHPUnit_Coverage_Wrapper
     }
 }
 
-$coverageWrapper = new JBZooPHPUnit_Coverage_Wrapper();
+$coverageWrapper = new JBZooPHPUnitCoverageWrapper();
 return $coverageWrapper->init(function () {
     return require_once __DIR__ . '/_index.php';
 });

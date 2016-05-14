@@ -73,7 +73,7 @@ abstract class JBZooPHPUnit extends PHPUnit
             'pass'  => PHPUNIT_HTTP_PASS,
             'path'  => $path,
             'query' => array_merge([
-                '_cov'    => "{$this->app['type']}.{$action}",
+                '_cov'    => strtolower($this->app['type']) . '_' . $action,
                 'option'  => 'com_jbzoo',
                 'page'    => 'jbzoo',
                 'p'       => WP_POST_ID,
