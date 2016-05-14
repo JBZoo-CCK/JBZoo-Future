@@ -12,20 +12,93 @@
  * @link       http://jbzoo.com
  */
 
-use JBZoo\CCK\App;
+use JBZoo\Utils\Env;
 
-ob_start();
+/**
+ * Class JBZooPHPUnit_Coverage_Wrapper
+ */
+class JBZooPHPUnit_Coverage_Wrapper
+{
+    /**
+     * @var PHP_CodeCoverage
+     */
+    protected $_coverage;
 
+    /**
+     * @var string
+     */
+    protected $_covRoot;
 
-require_once __DIR__ . '/init.php';
+    /**
+     * @var string
+     */
+    protected $_covDir;
 
-$app = App::getInstance();
-$app->checkRequest();
-echo $app->execute();
-$app->trigger('jbzoo.assets');
+    /**
+     * @var string
+     */
+    protected $_covHash;
 
+    /**
+     * @var string
+     */
+    protected $_covResult;
 
-$result = ob_get_contents();
-ob_end_clean();
+    /**
+     * JBZooPHPUnit_Coverage constructor.
+     */
+    public function __construct()
+    {
+        if (isset($_REQUEST['_cov']) && Env::hasXdebug()) {
 
-return $result;
+            $request = $_REQUEST;
+            if (isset($request['nocache'])) {
+                unset($request['nocache']);
+            }
+
+            $this->_covRoot = realpath(__DIR__ . '/../..');
+            $this->_covDir  = realpath($this->_covRoot . '/src');
+            $this->_covHash = implode('_', [
+                'request',
+                str_replace('.', '_', $request['_cov']),
+                md5(serialize($request))
+            ]);
+
+            $this->_covResult = realpath($this->_covRoot . '/build/coverage_cov/') . '/' . $this->_covHash . '.cov';
+
+            $covFilter = new PHP_CodeCoverage_Filter();
+            $covFilter->addDirectoryToWhitelist($this->_covDir);
+            $this->_coverage = new PHP_CodeCoverage(null, $covFilter);
+        }
+    }
+
+    /**
+     * Save report
+     */
+    public function __destruct()
+    {
+        if ($this->_coverage) {
+            $this->_coverage->stop();
+            (new PHP_CodeCoverage_Report_PHP())->process($this->_coverage, $this->_covResult);
+        }
+    }
+
+    /**
+     * @param Closure $callback
+     * @return mixed
+     */
+    public function init(\Closure $callback)
+    {
+        if ($this->_coverage) {
+            $this->_coverage->start($this->_covHash, true);
+            return $callback();
+        } else {
+            return $callback();
+        }
+    }
+}
+
+$coverageWrapper = new JBZooPHPUnit_Coverage_Wrapper();
+return $coverageWrapper->init(function () {
+    return require_once __DIR__ . '/_index.php';
+});
