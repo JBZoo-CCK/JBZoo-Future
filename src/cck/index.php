@@ -66,7 +66,7 @@ class JBZooPHPUnitCoverageWrapper
                 md5(serialize($request))
             ]);
 
-            $this->_covResult = realpath($this->_covRoot . '/build/coverage_cov_2/') . '/' . $this->_covHash . '.cov';
+            $this->_covResult = realpath($this->_covRoot . '/build/coverage_cov/') . '/' . $this->_covHash . '.cov';
 
             $covFilter = new PHP_CodeCoverage_Filter();
             $covFilter->addDirectoryToWhitelist($this->_covDir);
