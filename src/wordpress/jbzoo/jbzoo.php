@@ -77,21 +77,15 @@ function JBZoo_initAutoload()
         }
     });
 
-    // Render ajax for back end (hack)
-    if (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo') {
-        if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
-            add_action('admin_init', function () use ($indexPath) {
-                echo include $indexPath;
-            });
-        } else {
-            add_action('init', function () use ($indexPath) {
-                echo include $indexPath;
-            });
+    $app->on(AbstractEvents::EVENT_INIT, function () use ($indexPath) {
+        if (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+            echo include $indexPath;
         }
-    }
+    });
 
     #### Subscribe to Wordpress hooks ##################################################################################
 
+    // Render ajax for back end (hack)
     add_action('wp_loaded', function () use ($app) {
         $app->trigger(AbstractEvents::EVENT_INIT);
     });
