@@ -97,7 +97,7 @@ class App extends Cms
     {
         if (strpos($event, '*') === false) {
             //$this->mark($event); // Super profiler!
-            parent::trigger($event, $arguments);
+            return parent::trigger($event, $arguments);
         }
 
         return 0;
@@ -108,8 +108,6 @@ class App extends Cms
      *
      * @param string $message
      * @param bool   $addPrefix
-     *
-     * @codeCoverageIgnore
      */
     public function error($message = 'Internal Server Error', $addPrefix = true)
     {
@@ -122,8 +120,6 @@ class App extends Cms
      *
      * @param string $message
      * @param bool   $addPrefix
-     *
-     * @codeCoverageIgnore
      */
     public function show404($message = 'Not found', $addPrefix = true)
     {
@@ -135,8 +131,6 @@ class App extends Cms
      * Set profiler mark
      *
      * @param string $label
-     *
-     * @codeCoverageIgnore
      */
     public function mark($label)
     {
@@ -175,8 +169,6 @@ class App extends Cms
      * @param string $act
      * @param string $action
      * @return mixed
-     *
-     * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function execute($act = null, $action = null)
     {
