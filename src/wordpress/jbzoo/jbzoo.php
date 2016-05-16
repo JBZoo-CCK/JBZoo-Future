@@ -64,10 +64,16 @@ function JBZoo_initAutoload()
 
     // Render front end
     $app->on(AbstractEvents::EVENT_CONTENT, function (App $app, &$content) use ($indexPath) {
+
+        static $jbzooContent;
+
         $macross = '[jbzoo]';
         if (stripos($content, $macross) !== false) {
-            $jbzooContent = require_once $indexPath;
-            $content      = preg_replace('#' . preg_quote($macross) . '#ius', $jbzooContent, $content);
+            if (null !== $jbzooContent) {
+                $jbzooContent = include $indexPath;
+            }
+
+            $content = preg_replace('#' . preg_quote($macross) . '#ius', $jbzooContent, $content);
         }
     });
 
@@ -75,11 +81,11 @@ function JBZoo_initAutoload()
     if (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo') {
         if ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST') {
             add_action('admin_init', function () use ($indexPath) {
-                require_once $indexPath;
+                echo include $indexPath;
             });
         } else {
             add_action('init', function () use ($indexPath) {
-                require_once $indexPath;
+                echo include $indexPath;
             });
         }
     }
