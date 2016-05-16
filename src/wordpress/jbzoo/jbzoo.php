@@ -69,7 +69,7 @@ function JBZoo_initAutoload()
 
         $macross = '[jbzoo]';
         if (stripos($content, $macross) !== false) {
-            if (null !== $jbzooContent) {
+            if (null === $jbzooContent) {
                 $jbzooContent = include $indexPath;
             }
 
