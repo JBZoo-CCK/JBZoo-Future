@@ -86,7 +86,7 @@ function JBZoo_initAutoload()
     #### Subscribe to Wordpress hooks ##################################################################################
 
     // Render ajax for back end (hack)
-    add_action('wp_loaded', function () use ($app) {
+    add_action($isAdmin ? 'admin_init' : 'init', function () use ($app) {
         $app->trigger(AbstractEvents::EVENT_INIT);
     });
 
