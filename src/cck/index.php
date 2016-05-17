@@ -54,7 +54,7 @@ if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
          */
         public function __construct()
         {
-            if (isset($_REQUEST['_cov']) && Env::hasXdebug()) {
+            if (Env::hasXdebug()) {
 
                 $request = $_REQUEST;
                 if (isset($request['nocache'])) {

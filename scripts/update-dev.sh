@@ -22,6 +22,7 @@ mkdir -p ./build/clover_html
 mkdir -p ./build/browser_html
 mkdir -p ./build/logs
 mkdir -p ./build/misc
+mkdir -p ./build/screenshot
 
 
 echo ""
