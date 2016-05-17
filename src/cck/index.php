@@ -61,7 +61,7 @@ if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
                     unset($request['nocache']);
                 }
 
-                if (isset($request['_cov'])) {
+                if (!isset($request['_cov'])) {
                     $request['_cov'] = isset($request['act']) ? $request['act'] : 'request';
                 }
 
