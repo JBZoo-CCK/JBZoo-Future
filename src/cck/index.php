@@ -61,6 +61,10 @@ if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
                     unset($request['nocache']);
                 }
 
+                if (isset($request['_cov'])) {
+                    $request['_cov'] = isset($request['act']) ? $request['act'] : 'request';
+                }
+
                 $this->_covRoot = realpath(__DIR__ . '/../..');
                 $this->_covDir  = realpath($this->_covRoot . '/src');
                 $this->_covHash = implode('_', [
