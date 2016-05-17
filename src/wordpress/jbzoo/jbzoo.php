@@ -77,8 +77,11 @@ function JBZoo_initAutoload()
         }
     });
 
-    $app->on(AbstractEvents::EVENT_INIT, function () use ($indexPath) {
-        if (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo' && $_SERVER['REQUEST_METHOD'] === 'POST') {
+    $app->on(AbstractEvents::EVENT_INIT, function () use ($indexPath, $isAdmin) {
+        if (
+            (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo') &&
+            (!$isAdmin || ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST'))
+        ) {
             echo include $indexPath;
         }
     });
