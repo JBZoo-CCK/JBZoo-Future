@@ -20,6 +20,8 @@ rm -fr ./bin
 rm -fr ./vendor
 rm -fr ./src/cck/libraries
 
+# Remove test atom
+rm -fr ./src/cck/atoms/test
 
 echo ">>> >>> Composer: Change config"
 composer config bin-dir     "bin"       --working-dir=$WORKING_DIR
