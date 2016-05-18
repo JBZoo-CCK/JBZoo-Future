@@ -82,7 +82,7 @@ function JBZoo_initAutoload()
             (isset($_REQUEST['page']) && $_REQUEST['page'] === 'jbzoo') &&
             (!$isAdmin || ($isAdmin && $_SERVER['REQUEST_METHOD'] === 'POST'))
         ) {
-            echo include $indexPath;
+            include $indexPath;
         }
     });
 

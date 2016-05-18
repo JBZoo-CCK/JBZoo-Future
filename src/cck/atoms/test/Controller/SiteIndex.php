@@ -61,4 +61,44 @@ class SiteIndex extends SiteController
         $request = $this->app['request']->get('test-data', [], 'arr');
         $this->_json($request);
     }
+
+    public function assetsJQuery()
+    {
+        $this->app['assets']->add('jquery');
+    }
+
+    public function assetsJQueryUI()
+    {
+        $this->app['assets']->add('jquery-ui');
+    }
+
+    public function assetsBabel()
+    {
+        $this->app['assets']->add('babel-cdn');
+    }
+
+    public function assetsBootstrap()
+    {
+        $this->app['assets']->add('bootstrap');
+    }
+
+    public function assetsJBZooUtils()
+    {
+        $this->app['assets']->add('jbzoo-utils');
+    }
+
+    public function assetsMaterialize()
+    {
+        $this->app['assets']->add('materialize');
+    }
+
+    public function assetsReact()
+    {
+        $this->app['assets']->add('react');
+    }
+
+    public function assetsUIkit()
+    {
+        $this->app['assets']->add('uikit');
+    }
 }
