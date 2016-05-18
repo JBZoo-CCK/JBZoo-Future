@@ -61,7 +61,7 @@ class Cms extends Command
     {
         $this->_executePrepare($input, $output);
 
-        define('__CMS__', $this->_getOpt('env-cms'));
+        define('__CMS__', strtolower($this->_getOpt('env-cms')));
 
         $this->_prepareServer();
         $this->_prepareTest();
