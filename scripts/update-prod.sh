@@ -20,9 +20,6 @@ rm -fr ./bin
 rm -fr ./vendor
 rm -fr ./src/cck/libraries
 
-# Remove test atom
-rm -fr ./src/cck/atoms/test
-
 echo ">>> >>> Composer: Change config"
 composer config bin-dir     "bin"       --working-dir=$WORKING_DIR
 composer config vendor-dir  "libraries" --working-dir=$WORKING_DIR
@@ -67,6 +64,12 @@ echo ">>> >>> Gulp: Update"
 echo ""
 echo ">>> >>> Webpack"
 ./node_modules/.bin/webpack -v
+
+echo ""
+echo ">>> >>> Remove test scripts"
+rm -fr ./src/cck/atoms/test
+rm -fr ./src/cck/index.php
+mv ./src/cck/_index.php         ./src/cck/index.php
 
 
 echo ""
