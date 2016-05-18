@@ -20,10 +20,10 @@ use JBZoo\Utils\Env;
 !defined('CMS_WORDPRESS') && define('CMS_WORDPRESS', realpath(__DIR__ . '/../../resources/cck-wordpress'));
 !defined('WP_POST_ID')    && define('WP_POST_ID', 0);
 
-define('PHPUNIT_JOOMLA_HOST', Env::get('PHPUNIT_JOOMLA_HOST', 'cck-joomla.jbzoo', Env::VAR_STRING));
-define('PHPUNIT_WP_HOST', Env::get('PHPUNIT_WP_HOST', 'cck-wordpress.jbzoo', Env::VAR_STRING));
-define('PHPUNIT_HTTP_USER', Env::get('PHPUNIT_HTTP_USER', '', Env::VAR_STRING));
-define('PHPUNIT_HTTP_PASS', Env::get('PHPUNIT_HTTP_PASS', '', Env::VAR_STRING));
+define('PHPUNIT_JOOMLA_HOST',   Env::get('JOOMLA_HOST', 'cck-joomla.jbzoo',     Env::VAR_STRING));
+define('PHPUNIT_WP_HOST',       Env::get('WP_HOST',     'cck-wordpress.jbzoo',  Env::VAR_STRING));
+define('PHPUNIT_HTTP_USER',     Env::get('HTTP_USER',   '',                     Env::VAR_STRING));
+define('PHPUNIT_HTTP_PASS',     Env::get('HTTP_PASS',   '',                     Env::VAR_STRING));
 
 if (__CMS__ === 'joomla') {
     define('CMS_PATH', CMS_JOOMLA);
