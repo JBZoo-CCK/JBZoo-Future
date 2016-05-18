@@ -24,12 +24,14 @@ mkdir -p ./build/logs
 mkdir -p ./build/misc
 mkdir -p ./build/screenshot
 
-
 echo ""
 echo ">>> >>> Composer: Cleanup"
 rm -fr ./bin
 rm -fr ./vendor
 rm -fr ./src/cck/libraries
+
+# Remove test atom
+rm -fr ./src/cck/atoms/test
 
 
 echo ""
