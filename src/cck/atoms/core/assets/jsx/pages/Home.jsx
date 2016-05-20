@@ -17,7 +17,7 @@ import React, {PropTypes, Component } from 'react'
 
 class Home extends Component {
     render() {
-        return <p>Hi!</p>;
+        return <p>Hi, JBZoo!</p>;
     }
 }
 
