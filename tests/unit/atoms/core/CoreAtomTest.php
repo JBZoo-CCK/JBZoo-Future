@@ -34,6 +34,30 @@ class AtomCoreTest extends JBZooPHPUnit
         isSame(123456, $this->app->execute('test.index.checkReturn'));
     }
 
+    public function testCallControllerByArgs()
+    {
+        $contentOnMain = 'JBZoo CCK';
+
+        $uniqid = uniqid();
+        $this->app['request']->set('uniqid', $uniqid);
+
+        is($uniqid, $this->app->execute('test.index.index'));
+        is($uniqid, $this->app->execute('test.index'));
+        is($uniqid, $this->app->execute('test'));
+
+        is($uniqid, $this->app->execute('Test.Index.Index'));
+        is($uniqid, $this->app->execute(' Test.Index.Index '));
+        is($uniqid, $this->app->execute(' Test . Index . Index '));
+        is($uniqid, $this->app->execute(' T e s t . I n d e x . I n d e x '));
+        is($uniqid, $this->app->execute(' T e s t . I n d e x . I n d e x . no check'));
+
+        isContain($contentOnMain, $this->app->execute('.'));
+        isContain($contentOnMain, $this->app->execute('....'));
+        isContain($contentOnMain, $this->app->execute(''));
+        isContain($contentOnMain, $this->app->execute(null));
+        isContain($contentOnMain, $this->app->execute());
+    }
+
     public function testLoadAllAtoms()
     {
         isTrue(is_array($this->app['route']->loadAllAtoms()));

@@ -167,25 +167,29 @@ class App extends Cms
      * Find current Atom, Controller, and Action. And execute them!
      *
      * @param string $act
-     * @param string $action
      * @return mixed
      */
-    public function execute($act = null, $action = null)
+    public function execute($act = null)
     {
         $this->trigger('app.exec.before', func_get_args());
 
         // Get current atom and controller
         $act = $act ?: $this['request']->get('act', 'core.index.index');
         list($atomName, $controller, $action) = Filter::_($act, function ($orginal) {
-            $value = Filter::cmd($orginal);
-
+            $value  = Filter::cmd($orginal);
             $values = explode('.', $value);
-            if (count($values) === 1) {
-                $values[] = 'index';
-            }
 
-            if (count($values) !== 3) {
-                App::getInstance()->error('No valid controller: ' . $orginal);
+            if (count($values) === 0) {
+                $values[] = 'core';
+                $values[] = 'index';
+                $values[] = 'index';
+
+            } elseif (count($values) === 1) {
+                $values[] = 'index';
+                $values[] = 'index';
+
+            } elseif (count($values) === 2) {
+                $values[] = 'index';
             }
 
             $atom   = $values[0] ?: 'core';
