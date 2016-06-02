@@ -15,7 +15,7 @@
 
 module.exports = function configureRoutes(reducerRegistry) {
 
-    var atomList    = ['atoms'],
+    var atomList    = ['atoms', 'items'],
         childRoutes = [];
 
     atomList.map((item) => {
