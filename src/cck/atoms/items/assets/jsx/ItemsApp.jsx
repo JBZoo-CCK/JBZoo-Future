@@ -27,7 +27,7 @@ class ItemsApp extends Component {
 
     render() {
 
-        var link = this.context.router.createHref('/items/new');
+        var link = this.context.router.createHref('/items-new');
 
         return (
             <div>
@@ -36,8 +36,6 @@ class ItemsApp extends Component {
                         <Toolbar>
                             <ToolbarGroup>
                                 <RaisedButton label="New" href={link} primary={true} linkButton={true} />
-                                <RaisedButton label="Move" secondary={true} />
-                                <RaisedButton label="Remove" />
                             </ToolbarGroup>
                         </Toolbar>
                     </Col>
