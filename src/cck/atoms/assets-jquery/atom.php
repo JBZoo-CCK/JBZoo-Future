@@ -17,7 +17,7 @@ use JBZoo\CCK\App;
 return [
     'init' => function (App $app) {
         $app['assets']->register('jquery', function () use ($app) {
-            //$app['libs']->jQuery();
+            $app['libs']->jQuery();
         });
     },
 ];
