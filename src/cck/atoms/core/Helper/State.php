@@ -40,9 +40,11 @@ class State extends Helper
     public function getSidebar()
     {
         return [
-            ['path' => 'atoms', 'name' => 'Atoms'],
-            ['path' => 'modules', 'name' => 'Modules'],
-            ['path' => 'config', 'name' => 'Configuration']
+            ['path' => '/items', 'name' => 'Items'],
+            ['path' => '/items-new', 'name' => 'Items new'],
+            ['path' => '/atoms', 'name' => 'Atoms'],
+            ['path' => '/modules', 'name' => 'Modules'],
+            ['path' => '/config', 'name' => 'Configuration']
         ];
     }
 

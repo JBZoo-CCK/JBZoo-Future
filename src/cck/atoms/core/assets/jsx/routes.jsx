@@ -13,17 +13,28 @@
 
 'use strict';
 
+import _ from 'lodash';
+
 module.exports = function configureRoutes(reducerRegistry) {
 
-    var atomList    = ['atoms'],
+    var atomList    = ['atoms', 'items'],
         childRoutes = [];
 
     atomList.map((item) => {
-        let cb = require(`../../../${item}/assets/jsx/routes`).default;
-        childRoutes.push(cb(reducerRegistry, item));
+        let cb        = require(`../../../${item}/assets/jsx/routes`).default,
+            childItem = cb(reducerRegistry, item);
+
+        if (_.isArray(childItem)) {
+            _(childItem).forEach(function (value) {
+                childRoutes.push(value);
+            });
+
+        } else {
+            childRoutes.push(childItem);
+        }
     });
 
-    return {
+    var allRoutes = {
         component  : 'div',
         childRoutes: [
             {
@@ -36,5 +47,9 @@ module.exports = function configureRoutes(reducerRegistry) {
                 )
             }
         ]
-    }
+    };
+
+    dump(allRoutes);
+
+    return allRoutes;
 };
