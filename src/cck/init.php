@@ -22,10 +22,12 @@ if (!defined('JBZOO')) {
     if (!function_exists('composerRequire_JBZoo')) {
         if ($composerPath = realpath(__DIR__ . '/../../vendor/autoload.php')) { // developer mode
             define('JBZOO_DEV', true);
+            /** @noinspection PhpIncludeInspection */
             require_once $composerPath;
 
         } elseif ($composerPath = realpath(__DIR__ . '/libraries/autoload.php')) { // production mode
             define('JBZOO_DEV', false);
+            /** @noinspection PhpIncludeInspection */
             require_once $composerPath;
 
         } else {

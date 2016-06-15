@@ -44,6 +44,11 @@
                 "value": []
             },
             {
+                "name": "assets-jquery-cookie",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "assets-jquery-ui",
                 "type": "container",
                 "value": []
