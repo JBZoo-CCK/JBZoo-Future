@@ -63,6 +63,8 @@
     "url": "git+https://gitlab.com/JBZoo/cck.git"
   },
   "devDependencies": {
+    "gulp-clean-css": "^2.0.10",
+    "gulp-replace": "^0.5.4",
     "karma-chai": "^0.1.0"
   }
 }

@@ -1,3 +1,4 @@
+<?php
 /**
  * JBZoo CCK
  *
@@ -11,20 +12,17 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+use JBZoo\CCK\App;
 
-var gulp = require('gulp');
-
-// Task: Update all
-gulp.task('update', [
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:jquery-browser',
-    'update:jquery-cookie',
-    'update:jquery-easing',
-    'update:bootstrap',
-    'update:fancybox-scripts',
-    'update:fancybox-images',
-    'update:fancybox-styles',
-]);
+return [
+    'init' => function (App $app) {
+        $app['assets']->register(
+            'jquery-fancybox',
+            [
+                'atom-assets-jquery-fancybox:assets/js/jquery.fancybox.min.js',
+                'atom-assets-jquery-fancybox:assets/css/fancybox.min.css',
+            ],
+            'jquery'
+        );
+    },
+];

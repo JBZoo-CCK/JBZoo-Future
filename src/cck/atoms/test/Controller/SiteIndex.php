@@ -87,6 +87,11 @@ class SiteIndex extends SiteController
         $this->app['assets']->add('jquery-easing');
     }
 
+    public function assetsJQueryFancybox()
+    {
+        $this->app['assets']->add('jquery-fancybox');
+    }
+
     public function assetsBabel()
     {
         $this->app['assets']->add('babel-cdn');

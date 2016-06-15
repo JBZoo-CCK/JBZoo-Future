@@ -59,6 +59,14 @@ class AssetsAtomTest extends JBZooPHPUnit
         isContain("/jquery.easing.min.js", $result->get('body'));
     }
 
+    public function testJQueryFancybox()
+    {
+        $result = $this->_request('test.index.assetsJQueryFancybox');
+        isContain("/jquery.js", $result->get('body'));
+        isContain("/jquery.fancybox.min.js", $result->get('body'));
+        isContain("/fancybox.min.css", $result->get('body'));
+    }
+
     public function testBabel()
     {
         $result = $this->_request('test.index.assetsBabel');
