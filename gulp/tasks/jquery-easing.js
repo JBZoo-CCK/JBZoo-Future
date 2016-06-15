@@ -13,15 +13,13 @@
 
 'use strict';
 
-var gulp = require('gulp');
+var gulp    = require('gulp'),
+    config  = require('../config'),
+    source  = config.path.bower + '/jquery.easing/js',
+    atoms   = config.path.atoms;
 
-// Task: Update all
-gulp.task('update', [
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:jquery-browser',
-    'update:jquery-cookie',
-    'update:jquery-easing',
-    'update:bootstrap',
-]);
+gulp.task('update:jquery-easing', function () {
+    return gulp
+        .src(source + '/jquery.easing.min.js')
+        .pipe(gulp.dest(atoms + 'jquery-easing/assets/js'));
+});

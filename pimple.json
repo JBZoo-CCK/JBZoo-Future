@@ -49,6 +49,11 @@
                 "value": []
             },
             {
+                "name": "assets-jquery-easing",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "assets-jquery-ui",
                 "type": "container",
                 "value": []
