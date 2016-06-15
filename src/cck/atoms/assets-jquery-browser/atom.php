@@ -1,3 +1,4 @@
+<?php
 /**
  * JBZoo CCK
  *
@@ -11,15 +12,14 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+use JBZoo\CCK\App;
 
-var gulp = require('gulp');
-
-// Task: Update all
-gulp.task('update', [
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:jquery-browser',
-    'update:bootstrap',
-]);
+return [
+    'init' => function (App $app) {
+        $app['assets']->register(
+            'jquery-browser',
+            'atom-assets-jquery-browser:assets/js/jquery.browser.min.js',
+            ['jquery']
+        );
+    },
+];

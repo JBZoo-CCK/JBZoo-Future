@@ -14,6 +14,7 @@
     "SmetDenis <denis@jbzoo.com>"
   ],
   "dependencies": {
+    "jquery.browser": "^0.1",
     "bootstrap": "^3.3.6",
     "react": "^15.0.2",
     "jbzoo-jquery-factory": "*",

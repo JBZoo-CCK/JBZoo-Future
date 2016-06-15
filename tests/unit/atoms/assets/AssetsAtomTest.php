@@ -38,6 +38,13 @@ class AssetsAtomTest extends JBZooPHPUnit
         }
     }
 
+    public function testJQueryBrowser()
+    {
+        $result = $this->_request('test.index.assetsJQueryBrowser');
+        isContain("/jquery.js", $result->get('body'));
+        isContain("/jquery.browser.min.js", $result->get('body'));
+    }
+
     public function testBabel()
     {
         $result = $this->_request('test.index.assetsBabel');

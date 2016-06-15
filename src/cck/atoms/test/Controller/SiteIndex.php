@@ -72,6 +72,11 @@ class SiteIndex extends SiteController
         $this->app['assets']->add('jquery-ui');
     }
 
+    public function assetsJQueryBrowser()
+    {
+        $this->app['assets']->add('jquery-browser');
+    }
+
     public function assetsBabel()
     {
         $this->app['assets']->add('babel-cdn');

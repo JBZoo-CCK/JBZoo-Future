@@ -39,6 +39,11 @@
                 "value": []
             },
             {
+                "name": "assets-jquery-browser",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "assets-jquery-ui",
                 "type": "container",
                 "value": []

@@ -13,13 +13,13 @@
 
 'use strict';
 
-var gulp = require('gulp');
+var gulp    = require('gulp'),
+    config  = require('../config'),
+    source  = config.path.bower + '/jquery.browser/dist',
+    atoms   = config.path.atoms;
 
-// Task: Update all
-gulp.task('update', [
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:jquery-browser',
-    'update:bootstrap',
-]);
+gulp.task('update:jquery-browser', function () {
+    return gulp
+        .src(source + '/jquery.browser.min.js')
+        .pipe(gulp.dest(atoms + 'jquery-browser/assets/js'));
+});
