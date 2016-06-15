@@ -33,10 +33,6 @@ var gulp        = require('gulp'),
             source + 'source/jquery.fancybox.css',
             source + 'source/helpers/jquery.fancybox-buttons.css',
             source + 'source/helpers/jquery.fancybox-thumbs.css'
-        ],
-        images: [
-            source + 'source/helpers/**/*.{jpg,png,svg,gif,webp,ico}',
-            source + 'source/*.{jpg,png,svg,gif,webp,ico}'
         ]
     },
 
@@ -55,15 +51,14 @@ gulp.task('update:fancybox-scripts', function () {
         .pipe(gulp.dest(dist.js));
 });
 
-gulp.task('update:fancybox-images', function () {
-    return gulp.src(config.images)
-        .pipe(gulp.dest(dist.images));
-});
-
 gulp.task('update:fancybox-styles', function () {
     return gulp.src(config.css)
         .pipe(concate('fancybox.min.css'))
-        .pipe(replace(/url\('?(.*)'?\)/g, "url('../images/$1')"))
+        .pipe(replace(/url\('?(.*)'?\)/g, "url('/bower_components/fancybox/source/$1')"))
+        .pipe(replace(
+            /\/bower_components\/fancybox\/source\/fancybox_buttons.png/g,
+            "/bower_components/fancybox/source/helpers/fancybox_buttons.png"
+        ))
         .pipe(replace("''", "'"))
         .pipe(cleanCSS({compatibility: 'ie8'}))
         .pipe(gulp.dest(dist.css))

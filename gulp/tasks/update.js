@@ -25,6 +25,5 @@ gulp.task('update', [
     'update:jquery-easing',
     'update:bootstrap',
     'update:fancybox-scripts',
-    'update:fancybox-images',
     'update:fancybox-styles',
 ]);
