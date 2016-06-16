@@ -1,3 +1,4 @@
+<?php
 /**
  * JBZoo CCK
  *
@@ -11,20 +12,14 @@
  * @link       http://jbzoo.com
  */
 
-'use strict';
+use JBZoo\CCK\App;
 
-var gulp = require('gulp');
-
-// Task: Update all
-gulp.task('update', [
-    'update:react',
-    'update:jbzoo-utils',
-    'update:uikit',
-    'update:jquery-mousewheel',
-    'update:jquery-browser',
-    'update:jquery-cookie',
-    'update:jquery-easing',
-    'update:bootstrap',
-    'update:fancybox-scripts',
-    'update:fancybox-styles',
-]);
+return [
+    'init' => function (App $app) {
+        $app['assets']->register(
+            'jquery-mousewheel',
+            'atom-assets-jquery-mousewheel:assets/js/jquery.mousewheel.min.js',
+            ['jquery']
+        );
+    },
+];

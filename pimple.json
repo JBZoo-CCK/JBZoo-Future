@@ -59,6 +59,11 @@
                 "value": []
             },
             {
+                "name": "assets-jquery-mousewheel",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "assets-jquery-ui",
                 "type": "container",
                 "value": []

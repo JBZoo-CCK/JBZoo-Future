@@ -92,6 +92,11 @@ class SiteIndex extends SiteController
         $this->app['assets']->add('jquery-fancybox');
     }
 
+    public function assetsJQueryMouseWheel()
+    {
+        $this->app['assets']->add('jquery-mousewheel');
+    }
+
     public function assetsBabel()
     {
         $this->app['assets']->add('babel-cdn');
