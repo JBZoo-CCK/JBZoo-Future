@@ -19,7 +19,7 @@ return [
         $app['assets']->register(
             'jquery-fancybox',
             [
-                'atom-assets-jquery-fancybox:assets/js/jquery.fancybox.min.js',
+                'atom-assets-jquery-fancybox:assets/js/fancybox.min.js',
                 'atom-assets-jquery-fancybox:assets/css/fancybox.min.css',
             ],
             'jquery'

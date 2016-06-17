@@ -25,6 +25,7 @@
 /src/**/*.min.*
 /src/**/*.min.*.map
 /src/**/fonts
+/src/cck/atoms/**/images
 !/src/**/*.jsx
 
 # Misc
