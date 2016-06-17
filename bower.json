@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "fancybox": "*",
+    "sweetalert": "*",
     "jquery-mousewheel": "*",
     "jquery.browser": "^0.1",
     "jquery.easing": "^1.3",

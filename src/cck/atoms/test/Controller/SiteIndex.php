@@ -97,6 +97,11 @@ class SiteIndex extends SiteController
         $this->app['assets']->add('jquery-mousewheel');
     }
 
+    public function assetsJQuerySweetAlert()
+    {
+        $this->app['assets']->add('jquery-sweet-alert');
+    }
+
     public function assetsBabel()
     {
         $this->app['assets']->add('babel-cdn');

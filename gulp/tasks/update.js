@@ -21,6 +21,7 @@ gulp.task('update', [
     'update:jbzoo-utils',
     'update:uikit',
     'update:jquery-mousewheel',
+    'update:jquery-sweet-alert',
     'update:jquery-browser',
     'update:jquery-cookie',
     'update:jquery-easing',

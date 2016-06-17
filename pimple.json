@@ -64,6 +64,11 @@
                 "value": []
             },
             {
+                "name": "assets-jquery-sweet-alert",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "assets-jquery-ui",
                 "type": "container",
                 "value": []
