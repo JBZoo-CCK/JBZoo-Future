@@ -102,6 +102,11 @@ class SiteIndex extends SiteController
         $this->app['assets']->add('jquery-sweet-alert');
     }
 
+    public function assetsJQueryTableSorter()
+    {
+        $this->app['assets']->add('jquery-tablesorter');
+    }
+
     public function assetsBabel()
     {
         $this->app['assets']->add('babel-cdn');

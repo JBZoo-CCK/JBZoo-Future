@@ -82,6 +82,14 @@ class AssetsAtomTest extends JBZooPHPUnit
         isContain("/sweetalert.min.css", $result->get('body'));
     }
 
+    public function testJQueryTableSorter()
+    {
+        $result = $this->_request('test.index.assetsJQueryTableSorter');
+        isContain("/jquery.js", $result->get('body'));
+        isContain("/tablesorter.min.js", $result->get('body'));
+        isContain("/tablesorter.min.css", $result->get('body'));
+    }
+
     public function testBabel()
     {
         $result = $this->_request('test.index.assetsBabel');
@@ -120,6 +128,7 @@ class AssetsAtomTest extends JBZooPHPUnit
     public function testUIkit()
     {
         $result = $this->_request('test.index.assetsUIkit');
+        isContain("/jquery.js", $result->get('body'));
         isContain("uikit.min.js", $result->get('body'));
         isContain("uikit.min.css", $result->get('body'));
     }

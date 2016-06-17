@@ -69,6 +69,11 @@
                 "value": []
             },
             {
+                "name": "assets-jquery-tablesorter",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "assets-jquery-ui",
                 "type": "container",
                 "value": []

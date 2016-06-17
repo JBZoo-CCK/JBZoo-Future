@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "fancybox": "*",
+    "tablesorter": "*",
     "sweetalert": "*",
     "jquery-mousewheel": "*",
     "jquery.browser": "^0.1",
