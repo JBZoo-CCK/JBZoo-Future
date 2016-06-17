@@ -17,7 +17,6 @@ var gulp     = require('gulp'),
     params   = require('../config'),
     uglify   = require('gulp-uglify'),
     concate  = require('gulp-concat'),
-    rename   = require('gulp-rename'),
     replace  = require('gulp-replace'),
     cleanCSS = require('gulp-clean-css'),
     source   = params.path.bower + '/fancybox/',
@@ -50,13 +49,9 @@ var gulp     = require('gulp'),
 gulp.task('update:fancybox', function () {
     //  Scripts
     gulp.src(config.js)
-        .pipe(concate('jquery.fancybox.min.js'))
+        .pipe(concate('fancybox.min.js'))
         .pipe(uglify({
             preserveComments: 'license'
-        }))
-        .pipe(rename({
-            basename: 'fancybox',
-            suffix  : '.min'
         }))
         .pipe(gulp.dest(dist.js));
 

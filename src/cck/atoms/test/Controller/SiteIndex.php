@@ -122,6 +122,11 @@ class SiteIndex extends SiteController
         $this->app['assets']->add('jbzoo-utils');
     }
 
+    public function assetsJBZooJQueryFactory()
+    {
+        $this->app['assets']->add('jbzoo-jquery-factory');
+    }
+
     public function assetsMaterialize()
     {
         $this->app['assets']->add('materialize');

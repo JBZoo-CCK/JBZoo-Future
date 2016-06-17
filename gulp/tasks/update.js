@@ -20,6 +20,7 @@ gulp.task('update', [
     'update:react',
     'update:jbzoo-utils',
     'update:uikit',
+    'update:jbzoo-jquery-factory',
     'update:jquery-mousewheel',
     'update:jquery-table-sorter',
     'update:jquery-sweet-alert',

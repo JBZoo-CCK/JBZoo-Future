@@ -29,6 +29,11 @@
                 "value": []
             },
             {
+                "name": "assets-jbzoo-jquery-factory",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "assets-jbzoo-utils",
                 "type": "container",
                 "value": []

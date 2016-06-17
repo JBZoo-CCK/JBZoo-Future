@@ -110,6 +110,14 @@ class AssetsAtomTest extends JBZooPHPUnit
         isContain("jbzoo-utils.min.js", $result->get('body'));
     }
 
+    public function testJBZooJQueryFactory()
+    {
+        $result = $this->_request('test.index.assetsJBZooJQueryFactory');
+        isContain("/jquery.js", $result->get('body'));
+        isContain("/jbzoo-utils.min.js", $result->get('body'));
+        isContain("/jbzoo-jquery-factory.min.js", $result->get('body'));
+    }
+
     public function testMaterialize()
     {
         $result = $this->_request('test.index.assetsMaterialize');
@@ -132,5 +140,4 @@ class AssetsAtomTest extends JBZooPHPUnit
         isContain("uikit.min.js", $result->get('body'));
         isContain("uikit.min.css", $result->get('body'));
     }
-
 }
