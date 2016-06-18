@@ -16,7 +16,7 @@
 import React, { Component } from 'react'
 
 import TextField    from 'material-ui/TextField';
-import JBZoo        from '../../../../../../assets/jsx/Globals';
+import JBZoo        from '../../../../../../assets/jsx/JBZoo';
 
 export default class FieldText extends Component {
 

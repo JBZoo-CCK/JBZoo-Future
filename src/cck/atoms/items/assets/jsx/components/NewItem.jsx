@@ -23,27 +23,34 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import RaisedButton from 'material-ui/RaisedButton';
 
+import * as itemActions        from '../actions/item';
+
 class NewItem extends Component {
+
+    componentDidMount() {
+        this.props.itemActions.fetchItemIfNeeded(this.props.params.id);
+    }
 
     render() {
 
-        var link = this.context.router.createHref('/items-new');
+        var item = this.props.items[this.props.params.id];
+
+        if (!item) {
+            return (
+                <div>Wait please {this.props.params.id}</div>
+            );
+        }
 
         return (
             <div>
                 <Row>
                     <Col md={12}>
-                        <Toolbar>
-                            <ToolbarGroup>
-                                <RaisedButton label="New" href={link} primary={true} linkButton={true} />
-                            </ToolbarGroup>
-                        </Toolbar>
+                        sasd
                     </Col>
                 </Row>
-
                 <Row>
                     <Col md={9}>
-                        Edit
+                        {item.name}
                     </Col>
                     <Col md={3}>
                         <h2> Help text</h2>
@@ -55,8 +62,12 @@ class NewItem extends Component {
     }
 }
 
-NewItem.contextTypes = {
-    router: React.PropTypes.object
-};
-
-module.exports = NewItem;
+module.exports = connect(
+    (state) => ({
+        config: state.config,
+        items : state.items
+    }),
+    (dispatch) => ({
+        itemActions: bindActionCreators(itemActions, dispatch)
+    })
+)(NewItem);

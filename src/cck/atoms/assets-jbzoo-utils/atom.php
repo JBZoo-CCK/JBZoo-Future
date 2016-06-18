@@ -16,6 +16,10 @@ use JBZoo\CCK\App;
 
 return [
     'init' => function (App $app) {
-        $app['assets']->register('jbzoo-utils', 'atom-assets-jbzoo-utils:assets/js/jbzoo-utils.min.js', ['jquery']);
+        $app['assets']->register(
+            'jbzoo-utils',
+            'atom-assets-jbzoo-utils:assets/js/jbzoo-utils.min.js',
+            ['jquery']
+        );
     },
 ];

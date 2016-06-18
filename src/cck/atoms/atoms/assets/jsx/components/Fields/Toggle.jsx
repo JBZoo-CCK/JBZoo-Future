@@ -16,7 +16,7 @@
 import React, { Component } from 'react'
 
 import Toggle   from 'material-ui/Toggle';
-import JBZoo    from '../../../../../../assets/jsx/Globals';
+import JBZoo    from '../../../../../../assets/jsx/JBZoo';
 
 export default class FieldToggle extends Component {
 

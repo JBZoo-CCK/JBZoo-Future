@@ -34,7 +34,7 @@ module.exports = function configureRoutes(reducerRegistry) {
         }
     });
 
-    var allRoutes = {
+    return {
         component  : 'div',
         childRoutes: [
             {
@@ -48,8 +48,4 @@ module.exports = function configureRoutes(reducerRegistry) {
             }
         ]
     };
-
-    dump(allRoutes);
-
-    return allRoutes;
 };

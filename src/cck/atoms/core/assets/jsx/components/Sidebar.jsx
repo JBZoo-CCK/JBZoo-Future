@@ -19,7 +19,7 @@ import Divider      from 'material-ui/Divider/Divider';
 import List         from 'material-ui/List/List';
 import ListItem     from 'material-ui/List/ListItem';
 import * as colors  from 'material-ui/styles/colors';
-import JBZoo        from '../../../../../assets/jsx/Globals';
+import JBZoo        from '../../../../../assets/jsx/JBZoo';
 
 const ACTIVE = {fontWeight: "bold", color: colors.lightBlue700};
 

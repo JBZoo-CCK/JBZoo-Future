@@ -15,35 +15,20 @@
 
 import * as defines from '../defines'
 
-export default function atoms(state = false, action) {
+export default function items(state = [], action) {
 
     switch (action.type) {
-        case defines.ATOMS_LIST_REQUEST:
-        case defines.ATOMS_LIST_SUCCESS:
+        case defines.ITEMS_LIST_SUCCESS:
             return action.payload;
+
+        case defines.ITEMS_ITEM_SUCCESS:
+
+            var newState = {...state};
+            newState[action.payload.id] = action.payload.data;
+
+            return newState;
 
         default:
             return state;
     }
-}
-
-export function changeOption(state = false, action) {
-
-    if (action.type == defines.ATOMS_SAVE_STORE) {
-
-        let newState   = Object.assign({}, state),
-            paths      = action.payload.name.split('.'),
-            atomName   = 'atom.' + paths[0],
-            configName = paths[1];
-
-        if (paths.length == 2) {
-            newState[atomName][configName] = action.payload.value;
-        } else {
-            newState[atomName][configName][paths[2]] = action.payload.value;
-        }
-
-        return newState;
-    }
-
-    return state;
 }

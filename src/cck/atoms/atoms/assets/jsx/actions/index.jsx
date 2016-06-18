@@ -13,15 +13,8 @@
 
 'use strict';
 
-import JBZoo        from '../../../../../assets/jsx/Globals';
+import JBZoo        from '../../../../../assets/jsx/JBZoo';
 import * as defines from '../defines';
-
-function requestAtoms() {
-    return {
-        type   : defines.ATOMS_LIST_REQUEST,
-        payload: false
-    }
-}
 
 function receiveAtoms(atoms) {
     return {

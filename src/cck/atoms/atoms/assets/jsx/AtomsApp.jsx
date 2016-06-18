@@ -15,13 +15,13 @@
 
 import React, { Component }     from 'react';
 import Paper                    from 'material-ui/Paper';
-import AtomConfig               from './components/Form/AtomConfig';
-import AtomsToolbar             from './components/AtomsToolbar';
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
+import _                        from 'lodash';
+import AtomConfig               from './components/Form/AtomConfig';
+import AtomsToolbar             from './components/AtomsToolbar';
 import * as atomsActions        from './actions/index';
 import { fetchAtomsIfNeeded }   from './actions'
-import _                        from 'lodash';
 
 const {Grid, Row, Col} = require('react-flexbox-grid');
 
@@ -76,18 +76,13 @@ class AtomsApp extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
+module.exports = connect(
+    (state) => ({
         atomsForms: state.atomsForms,
         config    : state.config,
         isLoading : state.isLoading
-    };
-}
-
-function mapDispatchToProps(dispatch) {
-    return {
+    }),
+    (dispatch) => ({
         atomsActions: bindActionCreators(atomsActions, dispatch)
-    }
-}
-
-module.exports = connect(mapStateToProps, mapDispatchToProps)(AtomsApp);
+    })
+)(AtomsApp);

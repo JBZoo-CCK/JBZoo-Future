@@ -150,6 +150,11 @@
                 "value": []
             },
             {
+                "name": "items",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "test",
                 "type": "container",
                 "value": []

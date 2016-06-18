@@ -18,16 +18,19 @@ import { injectAsyncReducer } from '../../../core/assets/jsx/store/configureStor
 var AtomsApp;
 
 module.exports.default = function (reducerRegistry, atomKey) {
+
+    var reducers = require('./reducers');
+
+    reducerRegistry.register({
+        atomsForms: reducers.default,
+        config    : reducers.changeOption
+    });
+
     return {
         path: 'atoms',
         getComponent(nextState, callback) {
 
             if (!AtomsApp) {
-                reducerRegistry.register({
-                    atomsForms: require('./reducers').default,
-                    config    : require('./reducers').changeOption
-                });
-
                 AtomsApp = require('./AtomsApp');
             }
 

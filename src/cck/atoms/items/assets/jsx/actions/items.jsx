@@ -13,20 +13,13 @@
 
 'use strict';
 
-import JBZoo        from '../../../../../assets/jsx/Globals';
+import JBZoo        from '../../../../../assets/jsx/JBZoo';
 import * as defines from '../defines';
 
-function requestItems() {
-    return {
-        type   : defines.ITEMS_LIST_REQUEST,
-        payload: false
-    }
-}
-
-function receiveItems(atoms) {
+function receiveItems(items) {
     return {
         type   : defines.ITEMS_LIST_SUCCESS,
-        payload: atoms.list
+        payload: items.list
     }
 }
 
@@ -34,15 +27,14 @@ function fetchItems() {
     return dispatch => JBZoo.ajax('items.index.getList', {}, dispatch, receiveItems);
 }
 
-function shouldFetchAtoms(state) {
-    return !state.atomsForms;
+function shouldFetchItems(state) {
+    return state.items.length == 0;
 }
 
-export function fetchAtomsIfNeeded() {
+export function fetchItemsIfNeeded() {
     return (dispatch, getState) => {
-        if (shouldFetchAtoms(getState())) {
+        //if (shouldFetchItems(getState())) {
             return dispatch(fetchItems())
-        }
+        //}
     }
 }
-

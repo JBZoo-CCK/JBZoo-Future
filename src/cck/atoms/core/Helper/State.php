@@ -41,7 +41,6 @@ class State extends Helper
     {
         return [
             ['path' => '/items', 'name' => 'Items'],
-            ['path' => '/items-new', 'name' => 'Items new'],
             ['path' => '/atoms', 'name' => 'Atoms'],
             ['path' => '/modules', 'name' => 'Modules'],
             ['path' => '/config', 'name' => 'Configuration']

@@ -16,18 +16,41 @@
 import React, { Component }     from 'react';
 import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
-import { Link }  from 'react-router'
+import { Link }                 from 'react-router'
 
 const {Grid, Row, Col} = require('react-flexbox-grid');
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
-import RaisedButton from 'material-ui/RaisedButton';
+import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
+import RaisedButton             from 'material-ui/RaisedButton';
+
+import * as itemsActions        from './actions/items';
 
 class ItemsApp extends Component {
 
+    componentDidMount() {
+        this.props.itemsActions.fetchItemsIfNeeded();
+    }
+
     render() {
 
-        var link = this.context.router.createHref('/items-new');
+        var router = this.context.router,
+            link   = router.createHref('/items/new');
+
+        if (!this.props.items) {
+            return <div>Loading item list...</div>
+        }
+
+        var rows = [];
+        _.forEach(this.props.items, function (itemRow, key) {
+
+            let itemLink = router.createHref('/items/edit/' + itemRow.id);
+
+            rows.push(<TableRow key={key}>
+                <TableRowColumn style={{width: '50px'}}>{itemRow.id}</TableRowColumn>
+                <TableRowColumn><a href={itemLink}>{itemRow.name}</a></TableRowColumn>
+                <TableRowColumn>{itemRow.status}</TableRowColumn>
+            </TableRow>);
+        });
 
         return (
             <div>
@@ -43,42 +66,21 @@ class ItemsApp extends Component {
 
                 <Row>
                     <Col md={9}>
+
                         <Table>
                             <TableHeader>
                                 <TableRow>
                                     <TableHeaderColumn style={{width: '50px'}}>ID</TableHeaderColumn>
                                     <TableHeaderColumn>Name</TableHeaderColumn>
                                     <TableHeaderColumn>Status</TableHeaderColumn>
-                                    <TableHeaderColumn>Created</TableHeaderColumn>
                                 </TableRow>
                             </TableHeader>
+
                             <TableBody>
-                                <TableRow>
-                                    <TableRowColumn style={{width: '50px'}}>1</TableRowColumn>
-                                    <TableRowColumn><a href="asd">John Smith</a></TableRowColumn>
-                                    <TableRowColumn>Employed</TableRowColumn>
-                                    <TableRowColumn>27.05.2017</TableRowColumn>
-                                </TableRow>
-                                <TableRow>
-                                    <TableRowColumn style={{width: '50px'}}>1</TableRowColumn>
-                                    <TableRowColumn>Randal White</TableRowColumn>
-                                    <TableRowColumn>Unemployed</TableRowColumn>
-                                    <TableRowColumn>27.05.2017</TableRowColumn>
-                                </TableRow>
-                                <TableRow>
-                                    <TableRowColumn style={{width: '50px'}}>1</TableRowColumn>
-                                    <TableRowColumn>Stephanie Sanders</TableRowColumn>
-                                    <TableRowColumn>Employed</TableRowColumn>
-                                    <TableRowColumn>27.05.2017</TableRowColumn>
-                                </TableRow>
-                                <TableRow>
-                                    <TableRowColumn style={{width: '50px'}}>1</TableRowColumn>
-                                    <TableRowColumn>Steve Brown</TableRowColumn>
-                                    <TableRowColumn>Employed</TableRowColumn>
-                                    <TableRowColumn>27.05.2017</TableRowColumn>
-                                </TableRow>
+                                {rows}
                             </TableBody>
                         </Table>
+
                     </Col>
                     <Col md={3}>
                         <h2> Help text</h2>
@@ -94,4 +96,12 @@ ItemsApp.contextTypes = {
     router: React.PropTypes.object
 };
 
-module.exports = ItemsApp;
+module.exports = connect(
+    (state) => ({
+        config: state.config,
+        items : state.items
+    }),
+    (dispatch) => ({
+        itemsActions: bindActionCreators(itemsActions, dispatch)
+    })
+)(ItemsApp);

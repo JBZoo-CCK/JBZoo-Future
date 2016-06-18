@@ -19,6 +19,11 @@ var ItemsApp;
 var NewItem;
 
 module.exports.default = function (reducerRegistry, atomKey) {
+
+    reducerRegistry.register({
+        items: require('./reducers').default
+    });
+
     return [
         {
             path        : '/items',
@@ -32,7 +37,18 @@ module.exports.default = function (reducerRegistry, atomKey) {
             }
         },
         {
-            path        : '/items-new',
+            path        : '/items/new',
+            getComponent: (nextState, callback) => {
+
+                if (!NewItem) {
+                    NewItem = require('./components/NewItem');
+                }
+
+                callback(null, NewItem);
+            }
+        },
+        {
+            path        : '/items/edit/:id',
             getComponent: (nextState, callback) => {
 
                 if (!NewItem) {

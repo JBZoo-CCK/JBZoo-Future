@@ -18,7 +18,7 @@ import ReactDOM                 from 'react-dom'
 import injectTapEventPlugin     from 'react-tap-event-plugin'
 import { Provider }             from 'react-redux'
 import { Router, hashHistory }  from 'react-router'
-import JBZoo                    from '../../../../assets/jsx/Globals';
+import JBZoo                    from '../../../../assets/jsx/JBZoo';
 import configureStore           from './store/configureStore'
 
 // Prepare store

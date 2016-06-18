@@ -16,7 +16,6 @@
 import * as redux       from 'redux'
 import reduxThunk       from 'redux-thunk'
 import createLogger     from 'redux-logger'
-import createReducer    from '../reducers/createReducer'
 
 var configureReducers = require('./configureReducers');
 

@@ -23,19 +23,19 @@ JBZoo = Object.assign({}, {
 }, JBZoo);
 
 
-JBZoo.ajax = function (task, data, atoreDispatch, storeAction) {
+JBZoo.ajax = function (task, data, storeDispatch, storeAction) {
 
-    if (atoreDispatch) {
-        atoreDispatch({type: 'LOADER_START'});
+    if (storeDispatch) {
+        storeDispatch({type: 'LOADER_START'});
     }
 
     var noCacheParam = Math.floor(Math.random() * 100000) + 1,
         ajaxUrl      = `${JBZoo.defines.AJAX_URL}&nocache=${noCacheParam}&act=${task}`,
         errorHandler = function (error) {
 
-            if (atoreDispatch) {
-                atoreDispatch({type: 'LOADER_STOP'});
-                atoreDispatch({type: 'LOADER_STOP_ERROR'});
+            if (storeDispatch) {
+                storeDispatch({type: 'LOADER_STOP'});
+                storeDispatch({type: 'LOADER_STOP_ERROR'});
             }
 
             if (JBZoo.defines.__DEV__) {
@@ -76,9 +76,9 @@ JBZoo.ajax = function (task, data, atoreDispatch, storeAction) {
                 return response.json()
                     .then(function (json) {
 
-                        if (atoreDispatch) {
-                            atoreDispatch({type: 'LOADER_STOP'});
-                            return atoreDispatch(storeAction(json));
+                        if (storeDispatch) {
+                            storeDispatch({type: 'LOADER_STOP'});
+                            return storeDispatch(storeAction(json));
                         }
 
                         return json;
