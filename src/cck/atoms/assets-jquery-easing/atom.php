@@ -15,11 +15,13 @@
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
         $app['assets']->register(
             'jquery-easing',
             'atom-assets-jquery-easing:assets/js/jquery.easing.min.js',
             ['jquery']
         );
     },
+
 ];

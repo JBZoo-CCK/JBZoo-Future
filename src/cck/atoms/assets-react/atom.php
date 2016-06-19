@@ -16,7 +16,9 @@ use JBZoo\Assets\Asset\Asset;
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
         $app['assets']->register('react', 'atom-assets-react:assets\js\react.min.js');
     },
+
 ];

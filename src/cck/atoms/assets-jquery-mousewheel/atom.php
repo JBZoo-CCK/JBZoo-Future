@@ -15,11 +15,13 @@
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
         $app['assets']->register(
             'jquery-mousewheel',
             'atom-assets-jquery-mousewheel:assets/js/jquery.mousewheel.min.js',
             ['jquery']
         );
     },
+
 ];

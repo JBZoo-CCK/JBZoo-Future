@@ -62,4 +62,19 @@ class AtomCoreTest extends JBZooPHPUnit
     {
         isTrue(is_array($this->app['route']->loadAllAtoms()));
     }
+
+    public function testTableManager()
+    {
+        isClass('\JBZoo\CCK\Table\Manager', $this->app['models']);
+        isClass('\JBZoo\CCK\Atom\Core\Table\Config', $this->app['models']['config']);
+        isClass('\JBZoo\CCK\Atom\Items\Table\Items', $this->app['models']['items']);
+    }
+
+    /**
+     * @expectedException \JBZoo\CCK\Exception\Exception
+     */
+    public function testUndefinedModelTable()
+    {
+        $this->app['models']['undefined'];
+    }
 }

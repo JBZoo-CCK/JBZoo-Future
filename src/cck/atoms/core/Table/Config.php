@@ -14,16 +14,15 @@
 
 namespace JBZoo\CCK\Atom\Core\Table;
 
+use JBZoo\CCK\Table\Table;
 use JBZoo\Data\Data;
 use JBZoo\Data\JSON;
-use JBZoo\SqlBuilder\Query\Replace;
-use JBZoo\SqlBuilder\Query\Select;
 
 /**
  * Class Config
  * @package JBZoo\CCK
  */
-class Config extends Core
+class Config extends Table
 {
     /**
      * @var Data
@@ -49,7 +48,7 @@ class Config extends Core
             return $this->_store;
         }
 
-        $select = (new Select(['#__jbzoo_config', 'tConfig']))
+        $select = $this->_select(['#__jbzoo_config', 'tConfig'])
             ->select(['tConfig.option', 'tConfig.value'])
             ->where(['tConfig.autoload', ' = ?i'], 1)
             ->limit(10000);
@@ -105,12 +104,10 @@ class Config extends Core
             $this->_store->set($key, $newValue);
         }
 
-
-        $replace = (new Replace('#__jbzoo_config'))->row([
+        $replace = $this->_replace('#__jbzoo_config')->row([
             'option' => $key,
             'value'  => $this->_encode($newValue)
         ]);
-
 
         $this->_db->query($replace);
     }

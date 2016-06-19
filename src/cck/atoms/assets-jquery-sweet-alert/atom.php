@@ -15,7 +15,8 @@
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
         $app['assets']->register(
             'jquery-sweet-alert',
             [
@@ -25,4 +26,5 @@ return [
             'jquery'
         );
     },
+
 ];

@@ -15,11 +15,13 @@
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
         $app['assets']->register(
             'jquery-cookie',
             'atom-assets-jquery-cookie:assets/js/jquery.cookie.min.js',
             ['jquery']
         );
     },
+
 ];

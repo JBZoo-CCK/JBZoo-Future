@@ -19,6 +19,7 @@ use JBZoo\Data\Data;
 use JBZoo\Data\PHPArray;
 use JBZoo\Utils\Filter;
 use JBZoo\Utils\FS;
+use JBZoo\Utils\Sys;
 
 /**
  * Class Manager
@@ -50,26 +51,30 @@ class Manager extends Container
      * @param $names
      * @return bool
      */
-    public function loadInfo($names)
+    public function load($names)
     {
         $path = 'atoms:' . strtolower($names) . '/atom.php';
 
         $result = [];
         if ($manifests = $this->app['path']->glob($path)) {
             foreach ($manifests as $initFile) {
-                $aitomId = $this->_getIdFromPath($initFile);
+                $atomId = $this->_getIdFromPath($initFile);
 
-                if (isset($this->_atomsInfo[$aitomId])) {
-                    $result[$aitomId] = $this->_atomsInfo[$aitomId];
+                if (isset($this->_atomsInfo[$atomId])) {
+                    $result[$atomId] = $this->_atomsInfo[$atomId];
 
                 } else {
-                    $this->app->trigger("atom.loadinfo.{$names}.before");
+                    $this->app->trigger("atom.load.{$names}.before");
 
                     if ($info = $this->_registerAtom($initFile)) {
-                        $this->_atomsInfo[$aitomId] = $result[$aitomId] = $info;
+                        $result[$atomId] = $this->_atomsInfo[$atomId] = $info;
+
+                        if (Sys::isFunc($info['load'])) {
+                            $info['load']($this->app);
+                        }
                     }
 
-                    $this->app->trigger("atom.loadinfo.{$names}.after");
+                    $this->app->trigger("atom.load.{$names}.after");
                 }
             }
 
@@ -122,7 +127,7 @@ class Manager extends Container
     {
         $app = $this->app;
 
-        if (!isset($this->_atomsInfo[$atomId]) && !$this->loadInfo($atomId)) {
+        if (!isset($this->_atomsInfo[$atomId]) && !$this->load($atomId)) {
             $app->error('Atom "' . $atomId . '" not found and can\'t be loaded.');
 
         } elseif (!isset($this->_atomsInfo[$atomId])) {
@@ -176,9 +181,11 @@ class Manager extends Container
         if (isset($this->_atomsInfo[$atomId])) { // Only if we need it
 
             $dir = FS::dirname($initFile);
-            $this->_atomsInfo[$atomId]->set('dir', $dir);
             $this->app['path']->set('atom-' . $atomId, $dir);
-            $this->app->addLoadPath(['Atom', $atomId], $dir);
+            $namespace = $this->app->addLoadPath(['Atom', $atomId], $dir);
+
+            $this->_atomsInfo[$atomId]->set('dir', $dir);
+            $this->_atomsInfo[$atomId]->set('namespace', $namespace);
 
             return $this->_atomsInfo[$atomId];
         }

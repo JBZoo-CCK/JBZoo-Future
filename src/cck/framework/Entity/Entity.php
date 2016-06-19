@@ -12,18 +12,12 @@
  * @link       http://jbzoo.com
  */
 
-use JBZoo\CCK\App;
+namespace JBZoo\CCK\Entity;
 
-return [
-    'load' => function (App $app) {
-
-        $app['assets']->register('jbzoo-jquery-factory',
-            'atom-assets-jbzoo-jquery-factory:assets/js/jbzoo-jquery-factory.min.js',
-            [
-                'jquery',
-                'jbzoo-utils'
-            ]
-        );
-
-    },
-];
+/**
+ * Class Entity
+ * @package JBZoo\CCK
+ */
+abstract class Entity
+{
+}

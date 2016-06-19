@@ -15,9 +15,11 @@
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
         $app['assets']->register('jquery-ui', function () use ($app) {
             $app['libs']->jQueryUI();
         });
     },
+
 ];

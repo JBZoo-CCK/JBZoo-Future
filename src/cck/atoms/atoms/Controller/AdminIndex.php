@@ -28,7 +28,7 @@ class AdminIndex extends AdminController
      */
     public function getConfigForms()
     {
-        $atomList = $this->app['atoms']->loadInfo('*');
+        $atomList = $this->app['atoms']->load('*');
 
         $configs = [];
 

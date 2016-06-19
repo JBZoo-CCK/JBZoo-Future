@@ -12,12 +12,18 @@
  * @link       http://jbzoo.com
  */
 
+use JBZoo\CCK\App;
+
 return [
 
     'meta' => [
         'name'        => 'Core',
         'description' => 'General configurations',
     ],
+
+    'load' => function (App $app) {
+        $app['models']->addModel('Core', 'Config');
+    },
 
     'config' => [
         'debug' => [
@@ -26,7 +32,7 @@ return [
             'description' => 'Show profiler, SQL-queries and var dumps and etc',
             'default'     => false,
             'childs'      => [
-                'dumper' => [
+                'dumper'   => [
                     'type'    => 'select',
                     'hint'    => 'Dumper type',
                     'options' => [
@@ -37,7 +43,7 @@ return [
                     ],
                     'default' => 'symfony',
                 ],
-                'ip'     => [
+                'ip'       => [
                     'type'        => 'textarea',
                     'label'       => 'Debug IP',
                     'placeholder' => 'Only this IP list can see debug info',

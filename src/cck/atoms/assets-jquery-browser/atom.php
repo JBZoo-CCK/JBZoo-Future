@@ -15,11 +15,13 @@
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
         $app['assets']->register(
             'jquery-browser',
             'atom-assets-jquery-browser:assets/js/jquery.browser.min.js',
             ['jquery']
         );
     },
+
 ];

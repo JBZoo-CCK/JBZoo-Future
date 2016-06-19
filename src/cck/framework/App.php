@@ -17,6 +17,7 @@ namespace JBZoo\CCK;
 use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Atom\Manager as AtomManager;
+use JBZoo\CCK\Table\Manager as TableManager;
 use JBZoo\Assets\Manager as AssetsManager;
 use JBZoo\CrossCMS\AbstractEvents;
 use JBZoo\CrossCMS\Cms;
@@ -68,6 +69,11 @@ class App extends Cms
             $atomManager->addPath('jbzoo:atoms');
 
             return $atomManager;
+        };
+
+        // Init Model Manager
+        $this['models'] = function () {
+            return new TableManager();
         };
 
         $this->on(AbstractEvents::EVENT_SHUTDOWN, function (App $app) {
@@ -144,6 +150,8 @@ class App extends Cms
      *
      * @param string $prefix
      * @param string $paths
+     *
+     * @return array|string
      */
     public function addLoadPath($prefix, $paths)
     {
@@ -161,6 +169,8 @@ class App extends Cms
         if ($paths) {
             $this['loader']->addPsr4($prefix, $paths);
         }
+
+        return $prefix;
     }
 
     /**
@@ -300,14 +310,12 @@ class App extends Cms
         $aManager = $this['atoms'];
 
         // Define important classes
-        $aManager->loadInfo('core');
-        $aManager->init('core');
-        $aManager->loadInfo('core-*');
-        $aManager->init('core-*');
+        $aManager->load('*');
 
-        // Register assets' dependencies
+        // Init core
+        $aManager->init('core');
+        $aManager->init('core-*');
         $aManager->init('assets');
-        $aManager->init('assets-*');
 
         $this->trigger('init.atoms');
     }

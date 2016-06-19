@@ -15,7 +15,7 @@
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+    'load' => function (App $app) {
 
         $list = [
             'atom-assets-common:assets/css/assets-common.min.css',

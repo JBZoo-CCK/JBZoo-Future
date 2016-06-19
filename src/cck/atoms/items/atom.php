@@ -12,5 +12,12 @@
  * @link       http://jbzoo.com
  */
 
+use JBZoo\CCK\App;
+
 return [
+
+    'load' => function (App $app) {
+        $app['models']->addModel('Items', 'Items');
+    }
+
 ];

@@ -15,7 +15,8 @@
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
         $app['assets']->register(
             'material-ui',
             'atom-assets-material-ui:assets/js/assets-material-ui.min.js',
@@ -24,4 +25,5 @@ return [
             ]
         );
     },
+
 ];

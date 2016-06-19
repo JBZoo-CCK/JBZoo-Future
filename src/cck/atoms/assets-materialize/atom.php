@@ -16,7 +16,8 @@ use JBZoo\Assets\Asset\Asset;
 use JBZoo\CCK\App;
 
 return [
-    'init' => function (App $app) {
+
+    'load' => function (App $app) {
 
         $app['assets']
             ->register(
@@ -24,17 +25,19 @@ return [
                 'https://fonts.googleapis.com/icon?family=Material+Icons',
                 [],
                 ['type' => Asset::TYPE_CSS_FILE]
-            )
-            ->register(
-                'materialize',
-                [
-                    'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css',
-                    'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js',
-                ],
-                [
-                    'jquery',
-                    'materialize-fonts',
-                ]
             );
+
+        $app['assets']->register(
+            'materialize',
+            [
+                'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css',
+                'https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js',
+            ],
+            [
+                'jquery',
+                'materialize-fonts',
+            ]
+        );
     },
+
 ];

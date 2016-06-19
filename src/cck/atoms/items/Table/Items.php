@@ -12,26 +12,15 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom\Core\Table;
+namespace JBZoo\CCK\Atom\Items\Table;
 
-use JBZoo\CrossCMS\AbstractDatabase;
+use JBZoo\CCK\Table\Table;
 
 /**
- * Class Core
+ * Class Items
  * @package JBZoo\CCK
  */
-abstract class Core
+class Items extends Table
 {
-    /**
-     * @var AbstractDatabase
-     */
-    protected $_db;
 
-    /**
-     * Core constructor
-     */
-    public function __construct()
-    {
-        $this->_db = jbzoo('db');
-    }
 }

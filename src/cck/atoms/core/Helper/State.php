@@ -55,7 +55,7 @@ class State extends Helper
         $result = [];
 
         // get configs
-        $atomList   = $this->app['atoms']->loadInfo('*');
+        $atomList   = $this->app['atoms']->load('*');
         $atomConfig = [];
 
         $this->app->trigger('state.init.before');
