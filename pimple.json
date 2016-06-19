@@ -242,6 +242,22 @@
         "value": "Composer\\Autoload\\ClassLoader"
     },
     {
+        "name": "models",
+        "type": "container",
+        "value": [
+            {
+                "name": "config",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\Core\\Table\\Config"
+            },
+            {
+                "name": "items",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\Items\\Table\\Items"
+            }
+        ]
+    },
+    {
         "name": "ns",
         "type": "string",
         "value": "JBZoo\\CrossCMS\\Abstract"
