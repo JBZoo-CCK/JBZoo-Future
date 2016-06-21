@@ -57,6 +57,15 @@ class com_jbzooInstallerScript
                 COLLATE='utf8_general_ci'
                 ENGINE=InnoDB;"
         );
+
+        $db->setQuery(
+            "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
+                  `id` int(11) NOT NULL,
+                  `title` varchar(80) DEFAULT NULL,
+                  `params` text
+                ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;"
+        );
+
         $db->execute();
     }
 
@@ -69,6 +78,7 @@ class com_jbzooInstallerScript
 
         $db = JFactory::getDbo();
         $db->setQuery("DROP TABLE IF EXISTS `#__jbzoo_config`");
+        $db->setQuery("DROP TABLE IF EXISTS `#__jbzoo_modules`");
         $db->execute();
     }
 

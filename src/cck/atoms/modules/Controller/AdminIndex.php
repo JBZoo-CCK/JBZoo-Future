@@ -12,19 +12,15 @@
  * @link       http://jbzoo.com
  */
 
-use JBZoo\CCK\App;
+namespace JBZoo\CCK\Atom\Modules\Controller;
 
-return [
-    'load' => function (App $app) {
+use JBZoo\CCK\Atom\Controller;
 
-        $app['assets']->register(
-            'jbzoo-jquery-factory',
-            'atom-assets-jbzoo-jquery-factory:assets/js/jbzoo-jquery-factory.min.js',
-            [
-                'jquery',
-                'jbzoo-utils'
-            ]
-        );
-
-    },
-];
+/**
+ * Class AdminIndex
+ *
+ * @package JBZoo\CCK\Atom\Modules\Controller
+ */
+class AdminIndex extends Controller
+{
+}

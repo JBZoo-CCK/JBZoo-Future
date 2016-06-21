@@ -37,6 +37,12 @@ class Installer extends Helper
         COLLATE='utf8_general_ci'
         ENGINE=InnoDB;";
 
+        $sql .= "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
+              `id` int(11) NOT NULL,
+              `title` varchar(80) DEFAULT NULL,
+              `params` text
+        ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;";
+
         if ($this->app['db']->query($sql) === false) {
             throw new \RuntimeException('Unable to create JBZoo tables.');
         }
@@ -47,7 +53,8 @@ class Installer extends Helper
      */
     public function uninstall()
     {
-        $sql = "DROP TABLE IF EXISTS `#__jbzoo_config`";
+        $sql = "DROP TABLE IF EXISTS `#__jbzoo_config`;";
+        $sql .= "DROP TABLE IF EXISTS `#__jbzoo_modules`;";
 
         if ($this->app['db']->query($sql) === false) {
             throw new \RuntimeException('Unable to remove JBZoo tables.');

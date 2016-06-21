@@ -12,19 +12,16 @@
  * @link       http://jbzoo.com
  */
 
-use JBZoo\CCK\App;
+namespace JBZoo\CCK\Atom\Modules\Table;
 
-return [
-    'load' => function (App $app) {
+use JBZoo\CCK\Table\Table;
 
-        $app['assets']->register(
-            'jbzoo-jquery-factory',
-            'atom-assets-jbzoo-jquery-factory:assets/js/jbzoo-jquery-factory.min.js',
-            [
-                'jquery',
-                'jbzoo-utils'
-            ]
-        );
+/**
+ * Class Modules
+ *
+ * @package JBZoo\CCK\Atom\Modules\Table
+ */
+class Modules extends Table
+{
 
-    },
-];
+}

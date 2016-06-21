@@ -15,16 +15,9 @@
 use JBZoo\CCK\App;
 
 return [
+
     'load' => function (App $app) {
+        $app['models']->addModel('Modules', 'Modules');
+    }
 
-        $app['assets']->register(
-            'jbzoo-jquery-factory',
-            'atom-assets-jbzoo-jquery-factory:assets/js/jbzoo-jquery-factory.min.js',
-            [
-                'jquery',
-                'jbzoo-utils'
-            ]
-        );
-
-    },
 ];
