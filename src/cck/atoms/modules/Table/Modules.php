@@ -24,4 +24,85 @@ use JBZoo\CCK\Table\Table;
 class Modules extends Table
 {
 
+    /**
+     * Table name.
+     *
+     * @var string
+     */
+    protected $_table = '#__jbzoo_modules';
+
+    /**
+     * Table alias.
+     *
+     * @var string
+     */
+    protected $_alias = 'tModules';
+
+    /**
+     * Get module list.
+     *
+     * @return array
+     */
+    public function getList()
+    {
+        $select = $this->_select([$this->_table, $this->_alias])
+            ->select([
+                'tModules.id',
+                'tModules.title',
+                'tModules.params',
+            ])
+            ->limit(100);
+
+        $return = [];
+        $rows   = $this->_db->fetchAll($select);
+        foreach ($rows as $row) {
+            $return[$row['id']] = [
+                'title'  => $row,
+                'params' => jbdata((array) $row['params']),
+            ];
+        }
+
+        return $return;
+    }
+
+    /**
+     * Get module by id.
+     *
+     * @param int $id
+     * @return mixed
+     */
+    public function get($id)
+    {
+        $sql = $this->_select([$this->_table, $this->_alias])->where(['id', '= ' . $id]);
+        return $this->_db->fetchRow($sql);
+    }
+
+    /**
+     * Add new module.
+     *
+     * @param string $title
+     * @param string $params
+     * @return bool|int
+     */
+    public function add($title, $params)
+    {
+        $sql = $this->_insert($this->_table)->row([
+            'title'  => $title,
+            'params' => $params,
+        ]);
+
+        return $this->_db->query($sql);
+    }
+
+    /**
+     * Delete module by id.
+     *
+     * @param int $id
+     * @return bool|int
+     */
+    public function delete($id)
+    {
+        $sql = $this->_delete([$this->_table])->where("id = '{$id}'");
+        return $this->_db->query($sql);
+    }
 }
