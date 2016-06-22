@@ -17,7 +17,8 @@ use JBZoo\CCK\App;
 return [
     'load' => function (App $app) {
 
-        $app['assets']->register('bootstrap',
+        $app['assets']->register(
+            'bootstrap',
             [
                 'atom-assets-bootstrap:assets/js/bootstrap.min.js',
                 'atom-assets-bootstrap:assets/css/bootstrap.min.css',
@@ -25,7 +26,8 @@ return [
             'jquery'
         );
 
-        $app['assets']->register('bootstrap-cdn',
+        $app['assets']->register(
+            'bootstrap-cdn',
             [
                 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css',
                 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js',

@@ -155,6 +155,11 @@
                 "value": []
             },
             {
+                "name": "modules",
+                "type": "container",
+                "value": []
+            },
+            {
                 "name": "test",
                 "type": "container",
                 "value": []
@@ -254,6 +259,11 @@
                 "name": "items",
                 "type": "class",
                 "value": "JBZoo\\CCK\\Atom\\Items\\Table\\Items"
+            },
+            {
+                "name": "modules",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\Modules\\Table\\Modules"
             }
         ]
     },

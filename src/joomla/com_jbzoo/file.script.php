@@ -56,8 +56,17 @@ class com_jbzooInstallerScript
                 )
                 COLLATE='utf8_general_ci'
                 ENGINE=InnoDB;"
-        );
-        $db->execute();
+        )->execute();
+
+        $db->setQuery(
+            "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
+                  `id` int(11) NOT NULL,
+                  `title` varchar(80) DEFAULT NULL,
+                  `params` text
+            )
+            COLLATE='utf8_general_ci'
+            ENGINE=InnoDB;;"
+        )->execute();
     }
 
     /**
@@ -68,8 +77,8 @@ class com_jbzooInstallerScript
         //$this->installer->uninstall();
 
         $db = JFactory::getDbo();
-        $db->setQuery("DROP TABLE IF EXISTS `#__jbzoo_config`");
-        $db->execute();
+        $db->setQuery("DROP TABLE IF EXISTS `#__jbzoo_config`;")->execute();
+        $db->setQuery("DROP TABLE IF EXISTS `#__jbzoo_modules`;")->execute();
     }
 
     /**
