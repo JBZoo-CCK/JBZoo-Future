@@ -27,7 +27,8 @@ class Installer extends Helper
      */
     public function install()
     {
-        $sql = "CREATE TABLE IF NOT EXISTS `#__jbzoo_config` (
+        $sql   = [];
+        $sql[] = "CREATE TABLE IF NOT EXISTS `#__jbzoo_config` (
             `option` VARCHAR(250) NOT NULL DEFAULT '',
             `value` LONGTEXT NOT NULL,
             `autoload` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1',
@@ -37,7 +38,7 @@ class Installer extends Helper
         COLLATE='utf8_general_ci'
         ENGINE=InnoDB;";
 
-        $sql .= "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
+        $sql[] = "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
               `id` int(11) NOT NULL,
               `title` varchar(80) DEFAULT NULL,
               `params` text
@@ -45,11 +46,13 @@ class Installer extends Helper
         COLLATE='utf8_general_ci'
         ENGINE=InnoDB;";
 
-        $sql .= "ALTER TABLE `#__jbzoo_modules` ADD PRIMARY KEY (`id`);";
-        $sql .= "ALTER TABLE `#__jbzoo_modules` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
+        $sql[] = "ALTER TABLE `#__jbzoo_modules` ADD PRIMARY KEY (`id`);";
+        $sql[] = "ALTER TABLE `#__jbzoo_modules` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 
-        if ($this->app['db']->query($sql) === false) {
-            throw new \RuntimeException('Unable to create JBZoo tables.');
+        foreach ($sql as $query) {
+            if ($this->app['db']->query($query) === false) {
+                throw new \RuntimeException('Unable to create JBZoo tables.');
+            }
         }
     }
 
@@ -58,11 +61,14 @@ class Installer extends Helper
      */
     public function uninstall()
     {
-        $sql = "DROP TABLE IF EXISTS `#__jbzoo_config`;";
-        $sql .= "DROP TABLE IF EXISTS `#__jbzoo_modules`;";
+        $sql   = [];
+        $sql[] = "DROP TABLE IF EXISTS `#__jbzoo_config`;";
+        $sql[] = "DROP TABLE IF EXISTS `#__jbzoo_modules`;";
 
-        if ($this->app['db']->query($sql) === false) {
-            throw new \RuntimeException('Unable to remove JBZoo tables.');
+        foreach ($sql as $query) {
+            if ($this->app['db']->query($query) === false) {
+                throw new \RuntimeException('Unable to remove JBZoo tables.');
+            }
         }
     }
 
