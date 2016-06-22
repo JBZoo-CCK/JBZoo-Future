@@ -73,7 +73,7 @@ class Modules extends Table
      */
     public function get($id)
     {
-        $sql = $this->_select([$this->_table, $this->_alias])->where(['id', '= ' . $id]);
+        $sql = $this->_select([$this->_table, $this->_alias])->where('id = ?i', $id);
         return $this->_db->fetchRow($sql);
     }
 
@@ -102,7 +102,7 @@ class Modules extends Table
      */
     public function delete($id)
     {
-        $sql = $this->_delete([$this->_table])->where("id = '{$id}'");
+        $sql = $this->_delete([$this->_table])->where('id = ?i', $id);
         return $this->_db->query($sql);
     }
 }

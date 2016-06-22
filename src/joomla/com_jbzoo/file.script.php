@@ -65,7 +65,7 @@ class com_jbzooInstallerScript
                   `params` text
             )
             COLLATE='utf8_general_ci'
-            ENGINE=InnoDB;;"
+            ENGINE=InnoDB;"
         )->execute();
     }
 
