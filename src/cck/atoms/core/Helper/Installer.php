@@ -39,15 +39,13 @@ class Installer extends Helper
         ENGINE=InnoDB;";
 
         $sql[] = "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
-              `id` int(11) NOT NULL,
+              `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
               `title` varchar(80) DEFAULT NULL,
-              `params` text
+              `params` text,
+              PRIMARY KEY (`id`)
         )
         COLLATE='utf8_general_ci'
         ENGINE=InnoDB;";
-
-        $sql[] = "ALTER TABLE `#__jbzoo_modules` ADD PRIMARY KEY (`id`);";
-        $sql[] = "ALTER TABLE `#__jbzoo_modules` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 
         foreach ($sql as $query) {
             if ($this->app['db']->query($query) === false) {
