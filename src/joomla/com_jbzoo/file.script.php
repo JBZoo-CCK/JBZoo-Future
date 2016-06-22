@@ -161,9 +161,7 @@ class com_jbzooInstallerScript
             	INDEX `NAME_INDEX` (`name`),
             	INDEX `TYPE_INDEX` (`type`),
             	INDEX `MULTI_INDEX` (`state`, `publish_up`, `publish_down`),
-            	INDEX `MULTI_INDEX2` (`id`, `state`, `publish_up`, `publish_down`),
-            	INDEX `ID_APPLICATION_INDEX` (`id`),
-            	FULLTEXT INDEX `SEARCH_FULLTEXT` (`name`)
+            	INDEX `MULTI_INDEX2` (`id`, `state`, `publish_up`, `publish_down`)
             )
             COLLATE='utf8_general_ci'
             ENGINE=InnoDB;"
