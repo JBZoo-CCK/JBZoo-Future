@@ -183,34 +183,26 @@ class App extends Cms
      * Find current Atom, Controller, and Action. And execute them!
      *
      * @param string $act
-     * @return mixed
+     * @return mixed|null
+     * @throws Exception
      */
-    public function execute($act = null)
+    public function execute($act)
     {
         $this->trigger('app.exec.before', func_get_args());
 
+        if (!$act) {
+            throw new Exception('Act is not defined!');
+        }
+
         // Get current atom and controller
-        $act = $act ?: $this['request']->get('act', 'core.index.index');
+        //$act = $act ?: $this['request']->get('act', 'core.index.index');
         list($atomName, $controller, $action) = Filter::_($act, function ($orginal) {
             $value  = Filter::cmd($orginal);
             $values = explode('.', $value);
 
-            if (count($values) === 0) {
-                $values[] = 'core';
-                $values[] = 'index';
-                $values[] = 'index';
-
-            } elseif (count($values) === 1) {
-                $values[] = 'index';
-                $values[] = 'index';
-
-            } elseif (count($values) === 2) {
-                $values[] = 'index';
-            }
-
-            $atom   = $values[0] ?: 'core';
-            $ctrl   = $values[1] ?: 'index';
-            $action = $values[2] ?: 'index';
+            $atom   = isset($values[0]) ? $values[0] : 'core';
+            $ctrl   = isset($values[1]) ? $values[1] : 'index';
+            $action = isset($values[2]) ? $values[2] : 'index';
 
             return [$atom, $ctrl, $action];
         });

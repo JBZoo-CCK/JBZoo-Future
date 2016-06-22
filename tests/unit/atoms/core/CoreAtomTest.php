@@ -36,8 +36,6 @@ class AtomCoreTest extends JBZooPHPUnit
 
     public function testCallControllerByArgs()
     {
-        $contentOnMain = 'JBZoo CCK';
-
         $uniqid = uniqid();
         $this->app['request']->set('uniqid', $uniqid);
 
@@ -50,12 +48,14 @@ class AtomCoreTest extends JBZooPHPUnit
         is($uniqid, $this->app->execute(' Test . Index . Index '));
         is($uniqid, $this->app->execute(' T e s t . I n d e x . I n d e x '));
         is($uniqid, $this->app->execute(' T e s t . I n d e x . I n d e x . no check'));
+    }
 
-        isContain($contentOnMain, $this->app->execute('.'));
-        isContain($contentOnMain, $this->app->execute('....'));
-        isContain($contentOnMain, $this->app->execute(''));
-        isContain($contentOnMain, $this->app->execute(null));
-        isContain($contentOnMain, $this->app->execute());
+    /**
+     * @expectedException \JBZoo\CCK\Exception\Exception
+     */
+    public function test()
+    {
+        $this->app->execute(null);
     }
 
     public function testLoadAllAtoms()
