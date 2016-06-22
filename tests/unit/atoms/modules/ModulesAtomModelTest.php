@@ -27,9 +27,6 @@ use JBZoo\SqlBuilder\Query\Select;
 class ModulesAtomModelTest extends JBZooPHPUnit
 {
 
-    protected $_table = '#__jbzoo_modules';
-    protected $_alias = 'tModules';
-
     /**
      * @var Select
      */
@@ -50,6 +47,9 @@ class ModulesAtomModelTest extends JBZooPHPUnit
      */
     protected $_db;
 
+
+    protected $_table = '#__jbzoo_modules';
+    protected $_alias = 'tModules';
     private $__title  = 'test';
 
     public function setUp()
@@ -64,12 +64,12 @@ class ModulesAtomModelTest extends JBZooPHPUnit
     public function tearDown()
     {
         parent::tearDown();
-        $this->__cleanTable();
+        $this->_cleanTable();
     }
 
     public function testGetList()
     {
-        $this->__cleanTable();
+        $this->_cleanTable();
         $table = $this->app['models']['modules'];
         isClass('JBZoo\CCK\Atom\Modules\Table\Modules', $table);
 
@@ -96,8 +96,8 @@ class ModulesAtomModelTest extends JBZooPHPUnit
 
     public function testGetModule()
     {
-        $this->__truncate();
-        $this->__writeTestRecord();
+        $this->_truncate();
+        $this->_writeTestRecord();
 
         $id    = 1;
         $table = $this->app['models']['modules'];
@@ -114,8 +114,8 @@ class ModulesAtomModelTest extends JBZooPHPUnit
 
     public function testDeleteModule()
     {
-        $this->__truncate();
-        $this->__writeTestRecord();
+        $this->_truncate();
+        $this->_writeTestRecord();
 
         $sql = $this->_select->where(['id', '= 1']);
         $actual = $this->_db->fetchRow($sql);
@@ -140,29 +140,29 @@ class ModulesAtomModelTest extends JBZooPHPUnit
         $table = $this->app['models']['modules'];
         $title = 'test';
         isTrue($table->add($title, 'my params'));
-        
-        $actual = $this->__getModule();
+
+        $actual = $this->_getModule();
         isSame($title, $actual['title']);
     }
 
-    private function __getModule()
+    private function _getModule()
     {
         $sql = $this->_select->where("title = '{$this->__title}'");
         return $this->_db->fetchRow($sql);
     }
 
-    private function __cleanTable()
+    private function _cleanTable()
     {
         $sql = $this->_delete->where("title = '{$this->__title}'");
         return $this->_db->query($sql);
     }
 
-    private function __truncate()
+    private function _truncate()
     {
         $this->_db->query('TRUNCATE TABLE ' . $this->_table);
     }
 
-    private function __writeTestRecord()
+    private function _writeTestRecord()
     {
         $sql = $this->_insert
             ->row([

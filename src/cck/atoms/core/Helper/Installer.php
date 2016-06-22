@@ -41,7 +41,12 @@ class Installer extends Helper
               `id` int(11) NOT NULL,
               `title` varchar(80) DEFAULT NULL,
               `params` text
-        ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;";
+        )
+        COLLATE='utf8_general_ci'
+        ENGINE=InnoDB;";
+
+        $sql .= "ALTER TABLE `#__jbzoo_modules` ADD PRIMARY KEY (`id`);";
+        $sql .= "ALTER TABLE `#__jbzoo_modules` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;";
 
         if ($this->app['db']->query($sql) === false) {
             throw new \RuntimeException('Unable to create JBZoo tables.');
