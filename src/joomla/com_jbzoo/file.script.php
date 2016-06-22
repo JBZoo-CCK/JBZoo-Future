@@ -115,16 +115,14 @@ class com_jbzooInstallerScript
         //  Query for modules table
         $db->setQuery(
             "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
-                      `id` int(11) NOT NULL,
+                      `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
                       `title` varchar(80) DEFAULT NULL,
-                      `params` text
+                      `params` text,
+                      PRIMARY KEY (`id`)
                 )
                 COLLATE='utf8_general_ci'
                 ENGINE=InnoDB;"
         )->execute();
-
-        $db->setQuery("ALTER TABLE `#__jbzoo_modules` ADD PRIMARY KEY (`id`);")->execute();
-        $db->setQuery("ALTER TABLE `#__jbzoo_modules` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;")->execute();
 
         //  Query for config table
         $db->setQuery(
