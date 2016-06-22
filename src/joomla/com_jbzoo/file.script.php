@@ -44,36 +44,7 @@ class com_jbzooInstallerScript
     public function install()
     {
         //$this->installer->install();
-
-        $db = JFactory::getDbo();
-        $db->setQuery(
-            "CREATE TABLE IF NOT EXISTS `#__jbzoo_config` (
-                    `option` VARCHAR(250) NOT NULL DEFAULT '',
-                    `value` LONGTEXT NOT NULL,
-                    `autoload` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1',
-                    UNIQUE INDEX `option_name` (`option`),
-                    INDEX `autoload` (`autoload`)
-                )
-                COLLATE='utf8_general_ci'
-                ENGINE=InnoDB;"
-        )->execute();
-
-        $db->setQuery(
-                "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
-                      `id` int(11) NOT NULL,
-                      `title` varchar(80) DEFAULT NULL,
-                      `params` text
-                )
-                COLLATE='utf8_general_ci'
-                ENGINE=InnoDB;"
-            )
-            ->setQuery(
-                "ALTER TABLE `#__jbzoo_modules` ADD PRIMARY KEY (`id`);"
-            )
-            ->setQuery(
-                "ALTER TABLE `#__jbzoo_modules` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;"
-            )
-            ->execute();
+        $this->_buildTables();
     }
 
     /**
@@ -121,13 +92,51 @@ class com_jbzooInstallerScript
     protected function _init()
     {
         if ($file = realpath(__DIR__ . '/admin/cck/init.php')) {
+            /** @noinspection PhpIncludeInspection */
             require_once $file;
 
         } elseif ($file = realpath(JPATH_ADMINISTRATOR . '/components/com_jbzoo/cck/init.php')) {
+            /** @noinspection PhpIncludeInspection */
             require_once $file;
         }
 
         $this->app       = App::getInstance();
         $this->installer = $this->app['atoms']['core']['installer'];
+    }
+
+    /**
+     * Build jbzoo tables.
+     * @return void
+     */
+    protected function _buildTables()
+    {
+        $db = JFactory::getDbo();
+
+        //  Query for modules table
+        $db->setQuery(
+            "CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
+                      `id` int(11) NOT NULL,
+                      `title` varchar(80) DEFAULT NULL,
+                      `params` text
+                )
+                COLLATE='utf8_general_ci'
+                ENGINE=InnoDB;"
+        )->execute();
+
+        $db->setQuery("ALTER TABLE `#__jbzoo_modules` ADD PRIMARY KEY (`id`);")->execute();
+        $db->setQuery("ALTER TABLE `#__jbzoo_modules` MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;")->execute();
+
+        //  Query for config table
+        $db->setQuery(
+            "CREATE TABLE IF NOT EXISTS `#__jbzoo_config` (
+                    `option` VARCHAR(250) NOT NULL DEFAULT '',
+                    `value` LONGTEXT NOT NULL,
+                    `autoload` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1',
+                    UNIQUE INDEX `option_name` (`option`),
+                    INDEX `autoload` (`autoload`)
+                )
+                COLLATE='utf8_general_ci'
+                ENGINE=InnoDB;"
+        )->execute();
     }
 }
