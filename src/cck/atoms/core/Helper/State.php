@@ -39,12 +39,18 @@ class State extends Helper
      */
     public function getSidebar()
     {
-        return [
-            ['path' => '/items', 'name' => 'Items'],
-            ['path' => '/atoms', 'name' => 'Atoms'],
-            ['path' => '/modules', 'name' => 'Modules'],
-            ['path' => '/config', 'name' => 'Configuration']
-        ];
+
+        $atomList = $this->app['atoms']->load('*');
+
+        $result = [];
+        /** @var PHPArray $atomInfo */
+        foreach ($atomList as $atomInfo) {
+            if ($sideBar = $atomInfo->get('admin-sidebar')) {
+                $result = array_merge($result, $sideBar);
+            }
+        }
+
+        return $result;
     }
 
     /**

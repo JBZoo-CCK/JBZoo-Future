@@ -13,4 +13,12 @@
  */
 
 return [
+
+    'admin-sidebar' => [
+        [
+            'path' => '/atoms',
+            'name' => 'Atoms',
+        ]
+    ],
+
 ];

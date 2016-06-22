@@ -37,8 +37,6 @@ function shouldFetchItem(state, itemId) {
 
 export function fetchItemIfNeeded(itemId) {
     return (dispatch, getState) => {
-        if (shouldFetchItem(getState(), itemId)) {
-            return dispatch(fetchItem(itemId))
-        }
+        return dispatch(fetchItem(itemId))
     }
 }

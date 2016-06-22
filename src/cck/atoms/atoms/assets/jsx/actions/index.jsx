@@ -56,9 +56,7 @@ function shouldFetchAtoms(state) {
 
 export function fetchAtomsIfNeeded() {
     return (dispatch, getState) => {
-        if (shouldFetchAtoms(getState())) {
-            return dispatch(fetchAtoms())
-        }
+        return dispatch(fetchAtoms())
     }
 }
 

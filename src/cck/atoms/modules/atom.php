@@ -14,10 +14,19 @@
 
 use JBZoo\CCK\App;
 
+define('JBZOO_TABLE_MODULES', '#__jbzoo_modules');
+
 return [
 
     'load' => function (App $app) {
         $app['models']->addModel('Modules', 'Modules');
-    }
+    },
+
+    'admin-sidebar' => [
+        [
+            'path' => '/modules',
+            'name' => 'Modules',
+        ]
+    ],
 
 ];

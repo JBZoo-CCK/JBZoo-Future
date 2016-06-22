@@ -19,6 +19,13 @@ return [
         'description' => 'The best of atom by JBZoo Team!',
     ],
 
+    'admin-sidebar' => [
+        [
+            'path' => '/test',
+            'name' => 'Test',
+        ]
+    ],
+
     'config' => [
 
         'checkbox' => [

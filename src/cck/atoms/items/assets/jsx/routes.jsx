@@ -17,11 +17,13 @@ import { injectAsyncReducer } from '../../../core/assets/jsx/store/configureStor
 
 var ItemsApp;
 var NewItem;
+var EditPositions;
 
 module.exports.default = function (reducerRegistry, atomKey) {
 
     reducerRegistry.register({
-        items: require('./reducers').default
+        items   : require('./reducers').items,
+        elements: require('./reducers').elements
     });
 
     return [
@@ -30,10 +32,21 @@ module.exports.default = function (reducerRegistry, atomKey) {
             getComponent: (nextState, callback) => {
 
                 if (!ItemsApp) {
-                    ItemsApp = require('./ItemsApp');
+                    ItemsApp = require('./components/ItemsApp');
                 }
 
                 callback(null, ItemsApp);
+            }
+        },
+        {
+            path        : '/items/edit-positions',
+            getComponent: (nextState, callback) => {
+
+                if (!EditPositions) {
+                    EditPositions = require('./components/EditPositions');
+                }
+
+                callback(null, EditPositions);
             }
         },
         {

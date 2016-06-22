@@ -21,21 +21,56 @@ import ListItem     from 'material-ui/List/ListItem';
 import * as colors  from 'material-ui/styles/colors';
 import JBZoo        from '../../../../../assets/jsx/JBZoo';
 
-const ACTIVE = {fontWeight: "bold", color: colors.lightBlue700};
+const ACTIVE = {
+    fontWeight: "bold",
+    color     : colors.lightBlue700
+};
 
 class Sidebar extends Component {
     render() {
 
         return <List>
             <ListItem containerElement={<IndexLink activeStyle={ACTIVE} to="/" />} primaryText="Dashboard" />
+
             <Divider />
             {
                 JBZoo.sidebar.map(function (item, key) {
-                    let link = <Link to={item.path} />;
-                    return <ListItem key={key} activeStyle={ACTIVE} containerElement={link} primaryText={item.name} />;
+                    let link      = <Link to={item.path} onlyActiveOnIndex={true} />,
+                        childRows = [];
+
+                    if (item.childs) {
+
+                        item.childs.map(function (itemChild, key) {
+                            childRows.push(<ListItem
+                                key={key}
+                                activeStyle={ACTIVE}
+                                containerElement={<Link to={itemChild.path} />}
+                                primaryText={itemChild.name}
+                            />);
+                        });
+
+                        return <ListItem
+                            key={key}
+                            activeStyle={ACTIVE}
+                            initiallyOpen={true}
+                            primaryTogglesNestedList={false}
+                            containerElement={link}
+                            primaryText={item.name}
+                            nestedItems={childRows}
+                        />;
+                    }
+
+                    return <ListItem
+                        key={key}
+                        activeStyle={ACTIVE}
+                        primaryTogglesNestedList={true}
+                        containerElement={link}
+                        primaryText={item.name}
+                    />;
                 })
             }
             <Divider />
+
             <ListItem containerElement={<Link activeStyle={ACTIVE} to="/about" />} primaryText="...about JBZoo" />
 
         </List>;

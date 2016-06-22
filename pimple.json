@@ -212,6 +212,17 @@
         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
     },
     {
+        "name": "entities",
+        "type": "container",
+        "value": [
+            {
+                "name": "item",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\Items\\Entity\\Item"
+            }
+        ]
+    },
+    {
         "name": "env",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractEnv"

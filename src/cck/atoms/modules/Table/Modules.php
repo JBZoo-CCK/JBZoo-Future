@@ -23,13 +23,13 @@ use JBZoo\CCK\Table\Table;
  */
 class Modules extends Table
 {
-
     /**
-     * Table name.
-     *
-     * @var string
+     * @inheritdoc
      */
-    protected $_table = '#__jbzoo_modules';
+    public function __construct($name = '', $key = 'id')
+    {
+        parent::__construct(JBZOO_TABLE_MODULES);
+    }
 
     /**
      * Table alias.

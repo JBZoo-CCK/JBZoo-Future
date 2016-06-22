@@ -15,7 +15,7 @@
 
 import * as defines from '../defines'
 
-export default function items(state = [], action) {
+export function items(state = [], action) {
 
     switch (action.type) {
         case defines.ITEMS_LIST_SUCCESS:
@@ -28,6 +28,13 @@ export default function items(state = [], action) {
 
             return newState;
 
+        default:
+            return state;
+    }
+}
+
+export function elements(state = [], action) {
+    switch (action.type) {
         default:
             return state;
     }

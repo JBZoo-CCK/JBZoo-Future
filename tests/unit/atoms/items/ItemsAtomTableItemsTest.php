@@ -12,34 +12,22 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Entity;
-
-use JBZoo\CCK\App;
+namespace JBZoo\PHPUnit;
 
 /**
- * Class Entity
- * @package JBZoo\CCK
+ * Class ItemsAtomTableItemsTest
  */
-abstract class Entity
+class ItemsAtomTableItemsTest extends JBZooPHPUnit
 {
-    /**
-     * @var App
-     */
-    public $app;
-
-    /**
-     * Entity constructor.
-     */
-    public function __construct()
+    public function testClassName()
     {
-        $this->app = App::getInstance();
+        $itemTable = $this->app['models']['items'];
+        isClass('\JBZoo\CCK\Atom\Items\Table\Items', $itemTable);
     }
 
-    /**
-     * @param $row
-     */
-    public function bindData($row)
+    public function testGetList()
     {
-
+        $itemTable = $this->app['models']['items'];
+        isSame([], $itemTable->getList());
     }
 }

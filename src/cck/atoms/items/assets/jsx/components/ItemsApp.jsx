@@ -23,7 +23,7 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
 import RaisedButton             from 'material-ui/RaisedButton';
 
-import * as itemsActions        from './actions/items';
+import * as itemsActions        from '../actions/items';
 
 class ItemsApp extends Component {
 

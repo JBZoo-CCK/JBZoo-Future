@@ -14,6 +14,8 @@
 
 use JBZoo\CCK\App;
 
+define('JBZOO_TABLE_CONFIG', '#__jbzoo_config');
+
 return [
 
     'meta' => [

@@ -14,10 +14,26 @@
 
 use JBZoo\CCK\App;
 
+define('JBZOO_TABLE_ITEMS', '#__jbzoo_items');
+
 return [
 
     'load' => function (App $app) {
         $app['models']->addModel('Items', 'Items');
-    }
+        $app['entities']->addEntity('Items', 'Item');
+    },
+
+    'admin-sidebar' => [
+        [
+            'path'   => '/items',
+            'name'   => 'Items',
+            'childs' => [
+                [
+                    'path' => '/items/edit-positions',
+                    'name' => 'Edit positions',
+                ]
+            ]
+        ]
+    ],
 
 ];

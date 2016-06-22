@@ -15,11 +15,13 @@
 namespace JBZoo\CCK\Table;
 
 use JBZoo\CrossCMS\AbstractDatabase;
+use JBZoo\CCK\App;
 use JBZoo\SqlBuilder\Query\Delete;
 use JBZoo\SqlBuilder\Query\Insert;
 use JBZoo\SqlBuilder\Query\Replace;
 use JBZoo\SqlBuilder\Query\Select;
 use JBZoo\SqlBuilder\Query\Union;
+use JBZoo\Utils\Dates;
 
 /**
  * Class Table
@@ -28,16 +30,57 @@ use JBZoo\SqlBuilder\Query\Union;
 abstract class Table
 {
     /**
+     * @var App
+     */
+    public $app;
+
+    /**
      * @var AbstractDatabase
      */
     protected $_db;
 
     /**
-     * Core constructor
+     * @var string
      */
-    public function __construct()
+    protected $_table = '';
+
+    /**
+     * @var string
+     */
+    protected $_key = 'id';
+
+    /**
+     * @var string
+     */
+    protected $_dbNow = '';
+
+    /**
+     * @var string
+     */
+    protected $_dbNull = '0000-00-00 00:00:00';
+
+    /**
+     * Table constructor.
+     *
+     * @param string $name
+     * @param string $key
+     */
+    public function __construct($name = '', $key = 'id')
     {
-        $this->_db = jbzoo('db');
+        $this->app = App::getInstance();
+        $this->_db = $this->app['db'];
+
+        $this->_key   = $key;
+        $this->_table = $name;
+        $this->_dbNow = $this->_db->quote(Dates::sql(time()), false);
+    }
+
+    /**
+     * @return string
+     */
+    public function getTableName()
+    {
+        return $this->_table;
     }
 
     /**

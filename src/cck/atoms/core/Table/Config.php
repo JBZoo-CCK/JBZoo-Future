@@ -30,11 +30,11 @@ class Config extends Table
     protected $_store;
 
     /**
-     * Config constructor.
+     * @inheritdoc
      */
-    public function __construct()
+    public function __construct($name = '', $key = 'id')
     {
-        parent::__construct();
+        parent::__construct(JBZOO_TABLE_CONFIG, '');
 
         $this->_store = $this->_init();
     }
@@ -48,7 +48,7 @@ class Config extends Table
             return $this->_store;
         }
 
-        $select = $this->_select(['#__jbzoo_config', 'tConfig'])
+        $select = $this->_select([$this->_table, 'tConfig'])
             ->select(['tConfig.option', 'tConfig.value'])
             ->where(['tConfig.autoload', ' = ?i'], 1)
             ->limit(10000);
