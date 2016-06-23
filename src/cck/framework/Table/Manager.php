@@ -52,7 +52,9 @@ class Manager extends Container
                 $this[$tableClass] = function () use ($classTable, $classEntity) {
                     $tableObject = new $classTable();
 
-                    $tableObject->entity = $classEntity;
+                    if (class_exists($classEntity)) {
+                        $tableObject->entity = $classEntity;
+                    }
 
                     return $tableObject;
                 };
