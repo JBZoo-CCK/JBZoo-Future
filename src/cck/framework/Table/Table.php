@@ -10,8 +10,6 @@
  * @license    Proprietary http://jbzoo.com/license
  * @copyright  Copyright (C) JBZoo.com,  All rights reserved.
  * @link       http://jbzoo.com
- *
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 
 namespace JBZoo\CCK\Table;
@@ -30,6 +28,7 @@ use JBZoo\Utils\Dates;
 /**
  * Class Table
  * @package JBZoo\CCK
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 abstract class Table
 {
@@ -123,9 +122,13 @@ abstract class Table
         }
 
         // Create new object
-        /** @var Entity $object */
-        $object = new $class($rowData);
-        $object->init();
+        if ($class == 'stdClass') {
+            $object = (object)$rowData;
+        } else {
+            /** @var Entity $object */
+            $object = new $class($rowData);
+            $object->init();
+        }
 
         // Save to memory store (cache it)
         if ($object->$keyName && !key_exists($object->$keyName, $this->_objects)) {
