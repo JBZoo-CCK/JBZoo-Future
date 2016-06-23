@@ -107,7 +107,7 @@ class Debug extends Helper
      */
     protected function _initConfig()
     {
-        $store  = $this->app['cfg']->get('atom.core');
+        $store  = $this->app['cfg']->find('atom.core');
         $stored = $store ? $store->get('debug', [], 'arr') : [];
 
         $config = jbdata(array_merge((array)$this->_config, $stored));

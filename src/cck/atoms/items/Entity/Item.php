@@ -107,12 +107,10 @@ class Item extends Entity
     public $elements;
 
     /**
-     * Item constructor.
+     * Init item after create
      */
-    public function __construct()
+    public function init()
     {
-        parent::__construct();
-
         $this->elements = jbdata($this->elements);
         $this->params   = jbdata($this->params);
     }

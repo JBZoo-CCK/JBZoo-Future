@@ -28,7 +28,7 @@ class CoreAtomDebugHelperTest extends JBZooPHPUnit
         isClass('\JBZoo\CCK\Atom\Core\Helper\Debug', jbd());
 
         isSame($this->app['atoms']['core']['debug'], jbd());
-        isSame($this->app['atoms']['core']['debug'], $this->app['core.debug']);
+        isSame($this->app['atoms']['core']['debug'], $this->app['core.debug']); // Experimental
         isSame(jbd(), $this->app['core.debug']);
     }
 

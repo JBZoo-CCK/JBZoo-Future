@@ -41,11 +41,13 @@ class Config extends Helper
      * @param mixed  $default
      * @param null   $filter
      * @return mixed
+     *
+     * @deprecated
      */
     public function get($key, $default = null, $filter = null)
     {
         $key = $this->_prepareKey($key);
-        return $this->_model->get($key, $default, $filter);
+        return $this->_model->find($key, $default, $filter);
     }
 
     /**

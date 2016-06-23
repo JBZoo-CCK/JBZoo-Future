@@ -14,6 +14,7 @@
 
 namespace JBZoo\CCK\Table;
 
+use JBZoo\CCK\Entity\Entity;
 use JBZoo\CrossCMS\AbstractDatabase;
 use JBZoo\CCK\App;
 use JBZoo\SqlBuilder\Query\Delete;
@@ -71,6 +72,12 @@ abstract class Table
     protected $_objects = [];
 
     /**
+     * A list of the objects created from the records fetched from the database
+     * @var array
+     */
+    protected $_fields = [];
+
+    /**
      * Table constructor.
      *
      * @param string $name
@@ -100,6 +107,10 @@ abstract class Table
      */
     protected function _fetchObject($rowData)
     {
+        if (!$rowData) {
+            return null;
+        }
+
         $keyName = $this->_key;
         $class   = $this->entity;
 
@@ -109,11 +120,14 @@ abstract class Table
         }
 
         // Create new object (todo: check performance)
+        /** @var Entity $object */
         $object = new $class($this->app);
         foreach ($rowData as $propName => $propValue) {
             if (property_exists($object, $propName)) {
                 $object->$propName = $propValue;
             }
+
+            $object->init();
         }
 
         // Save to memory store (cache it)
@@ -158,9 +172,9 @@ abstract class Table
      * Remove record from database table
      *
      * @param $id
-     * @return bool|int
+     * @return Entity
      */
-    public function getById($id)
+    public function get($id)
     {
         if ($this->hasObject($id)) {
             return $this->_objects[$id];
@@ -202,6 +216,20 @@ abstract class Table
     public function cleanObjects()
     {
         $this->_objects = [];
+    }
+
+    /**
+     * Get the list of columns for the table
+     * Retrieves field information about a given table.
+     * @return array
+     */
+    public function getTableColumns()
+    {
+        if (empty($this->_fields)) {
+            $this->_fields = $this->_db->getTableColumns($this->_table);
+        }
+
+        return $this->_fields;
     }
 
     /**

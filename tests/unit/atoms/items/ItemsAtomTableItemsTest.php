@@ -14,6 +14,8 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\Atom\Items\Entity\Item;
+
 /**
  * Class ItemsAtomTableItemsTest
  */
@@ -43,16 +45,29 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 
     public function testGet()
     {
-        $item1 = $this->_table()->getById(1);
-        $item2 = $this->_table()->getById(1);
+        $item1 = $this->_table()->get(1);
+        $item2 = $this->_table()->get(1);
         isSame($item1, $item2);
+    }
+
+    public function testInit()
+    {
+        /** @var Item $item */
+        $item = $this->_table()->get(3);
+
+        isClass('JBZoo\Data\Data', $item->elements);
+        isClass('JBZoo\Data\Data', $item->params);
+        isSame('Item 3', $item->name);
+        isSame('item-3', $item->alias);
+        isSame('0', $item->state);
+        isSame('3', $item->id);
     }
 
     public function testUnset()
     {
-        $item1 = $this->_table()->getById(1);
+        $item1 = $this->_table()->get(1);
         $this->_table()->unsetObject(1);
-        $item2 = $this->_table()->getById(1);
+        $item2 = $this->_table()->get(1);
 
         isNotSame($item1, $item2);
     }
@@ -62,7 +77,7 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
         $this->_table()->cleanObjects();
         isFalse($this->_table()->hasObject(1));
 
-        $this->_table()->getById(1);
+        $this->_table()->get(1);
         isTrue($this->_table()->hasObject(1));
 
         $this->_table()->unsetObject(1);
@@ -72,5 +87,44 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
     public function testGetList()
     {
         is(2, count($this->_table()->getList()));
+    }
+
+    public function testToArray()
+    {
+        /** @var Item $item */
+        $item = $this->_table()->get(1);
+
+        isSame([
+            "id"           => "1",
+            "name"         => "Item 1",
+            "type"         => "",
+            "alias"        => "item-1",
+            "created"      => "0000-00-00 00:00:00",
+            "modified"     => "0000-00-00 00:00:00",
+            "publish_up"   => "0000-00-00 00:00:00",
+            "publish_down" => "0000-00-00 00:00:00",
+            "priority"     => 0,
+            "state"        => "1",
+            "access"       => 0,
+            "created_by"   => "0",
+            "params"       => [],
+            "elements"     => [],
+        ], $item->toArray());
+    }
+
+    public function testSaveNewItem()
+    {
+        skip();
+        /** @var Item $item */
+        $item       = new Item();
+        $item->name = 'Item new';
+
+        $item->save();
+
+        /** @var Item $itemNew */
+        $itemNew = $this->_table()->get(4);
+
+        isSame(4, $itemNew->id);
+        isSame('Item new', $itemNew->name);
     }
 }

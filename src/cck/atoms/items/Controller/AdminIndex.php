@@ -23,27 +23,18 @@ use JBZoo\CCK\Atom\AdminController;
 class AdminIndex extends AdminController
 {
     /**
-     * @var array
-     */
-    protected $_items = [
-        1 => [
-            'id'     => 1,
-            'name'   => 'Item name 1',
-            'status' => 1,
-        ],
-        2 => [
-            'id'     => 2,
-            'name'   => 'Item name 2',
-            'status' => 0,
-        ]
-    ];
-
-    /**
      * Get list action
      */
     public function getList()
     {
-        $this->_json(['list' => $this->_items]);
+        $items = $this->app['models']['item']->getList();
+
+        $list = [];
+        foreach ($items as $item) {
+            $list[$item->id] = $item->toArray();
+        }
+
+        $this->_json(['list' => $list]);
     }
 
     /**
@@ -53,8 +44,8 @@ class AdminIndex extends AdminController
     {
         $id = $this->app['request']->getJSON('id');
 
-        $item = isset($this->_items[$id]) ? $this->_items[$id] : false;
+        $item = $this->app['models']['item']->get($id);
 
-        $this->_json(['item' => $item]);
+        $this->_json(['item' => $item->toArray()]);
     }
 }

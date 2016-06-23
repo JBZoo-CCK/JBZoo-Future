@@ -34,4 +34,35 @@ abstract class Entity
     {
         $this->app = App::getInstance();
     }
+
+    /**
+     * Init entity state
+     */
+    public function init()
+    {
+        // noop
+    }
+
+    /**
+     * @return array
+     */
+    public function toArray()
+    {
+        $result = [];
+        foreach (get_object_vars($this) as $key => $value) {
+
+            if ($key == 'app') {
+                continue;
+            }
+
+            $result[$key] = is_object($value) ? (array)$value : $value;
+        }
+
+        return $result;
+    }
+
+    public function save()
+    {
+
+    }
 }

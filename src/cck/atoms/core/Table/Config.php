@@ -69,17 +69,6 @@ class Config extends Table
      * @param mixed  $filter
      * @return mixed
      */
-    public function get($key, $default, $filter = null)
-    {
-        return $this->_store->get($key, $default, $filter);
-    }
-
-    /**
-     * @param string $key
-     * @param mixed  $default
-     * @param mixed  $filter
-     * @return mixed
-     */
     public function find($key, $default, $filter = null)
     {
         return $this->_store->find($key, $default, $filter);

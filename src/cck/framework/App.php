@@ -17,7 +17,6 @@ namespace JBZoo\CCK;
 use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Atom\Manager as AtomManager;
-use JBZoo\CCK\Entity\Manager as EntityManager;
 use JBZoo\CCK\Table\Manager as TableManager;
 use JBZoo\Assets\Manager as AssetsManager;
 use JBZoo\CrossCMS\AbstractEvents;
@@ -75,11 +74,6 @@ class App extends Cms
         // Init Model Manager
         $this['models'] = function () {
             return new TableManager();
-        };
-
-        // Init Entity Manager
-        $this['entities'] = function () {
-            return new EntityManager();
         };
 
         $this->on(AbstractEvents::EVENT_SHUTDOWN, function (App $app) {
