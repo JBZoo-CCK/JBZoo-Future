@@ -10,6 +10,8 @@
  * @license    Proprietary http://jbzoo.com/license
  * @copyright  Copyright (C) JBZoo.com,  All rights reserved.
  * @link       http://jbzoo.com
+ *
+ * @codingStandardsIgnoreFile
  */
 
 return [
