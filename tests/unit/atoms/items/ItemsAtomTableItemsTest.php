@@ -114,17 +114,44 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 
     public function testSaveNewItem()
     {
-        skip();
         /** @var Item $item */
-        $item       = new Item();
-        $item->name = 'Item new';
-
+        $item        = new Item();
+        $item->name  = 'Item new';
+        $item->alias = 'item-new';
         $item->save();
+
+        is(4, $item->id);
+        isSame('Item new', $item->name);
+        isSame('item-new', $item->alias);
 
         /** @var Item $itemNew */
         $itemNew = $this->_table()->get(4);
-
-        isSame(4, $itemNew->id);
+        is(4, $itemNew->id);
         isSame('Item new', $itemNew->name);
+        isSame('item-new', $itemNew->alias);
+    }
+
+    public function testUpdateItem()
+    {
+        /** @var Item $item */
+        $item        = new Item();
+        $item->name  = 'Item new';
+        $item->alias = 'item-new';
+        $item->save();
+
+        is(4, $item->id);
+        isSame('Item new', $item->name);
+        isSame('item-new', $item->alias);
+
+        $item->name = 'Another name';
+        $item->save();
+
+
+        $this->_table()->cleanObjects();
+        /** @var Item $itemNew */
+        $itemNew = $this->_table()->get(4);
+        is(4, $itemNew->id);
+        isSame('Another name', $itemNew->name);
+        isSame('item-new', $itemNew->alias);
     }
 }

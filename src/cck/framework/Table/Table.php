@@ -22,6 +22,7 @@ use JBZoo\SqlBuilder\Query\Insert;
 use JBZoo\SqlBuilder\Query\Replace;
 use JBZoo\SqlBuilder\Query\Select;
 use JBZoo\SqlBuilder\Query\Union;
+use JBZoo\SqlBuilder\Query\Update;
 use JBZoo\Utils\Dates;
 
 /**
@@ -119,16 +120,10 @@ abstract class Table
             return $this->_objects[$rowData[$keyName]];
         }
 
-        // Create new object (todo: check performance)
+        // Create new object
         /** @var Entity $object */
-        $object = new $class($this->app);
-        foreach ($rowData as $propName => $propValue) {
-            if (property_exists($object, $propName)) {
-                $object->$propName = $propValue;
-            }
-
-            $object->init();
-        }
+        $object = new $class($rowData);
+        $object->init();
 
         // Save to memory store (cache it)
         if ($object->$keyName && !key_exists($object->$keyName, $this->_objects)) {
@@ -233,6 +228,51 @@ abstract class Table
     }
 
     /**
+     * @param Entity $entity
+     * @return int
+     */
+    public function save($entity)
+    {
+        // init vars
+        $vars   = get_object_vars($entity);
+        $fields = $this->getTableColumns();
+
+        foreach (array_keys($fields) as $key) {
+            $fields[$key] = array_key_exists($key, $vars) ? (string)$vars[$key] : null;
+        }
+
+        $tableKey = $this->_key;
+
+        // insert or update database
+        if ($fields[$tableKey]) {
+
+            $sql = $this->_update($this->_table)
+                ->set($fields)
+                ->where($tableKey . ' = ?s', $fields[$tableKey]);
+
+            $this->_db->query($sql);
+
+            return $fields[$tableKey];
+
+        } else {
+            $sql = $this->_insert($this->_table)
+                ->row($fields);
+
+            $this->_db->query($sql);
+
+            return $this->_db->insertId();
+        }
+    }
+
+    /**
+     * @return string
+     */
+    public function getKey()
+    {
+        return $this->_key;
+    }
+
+    /**
      * @param string $tableName
      * @param null   $alias
      * @return Select
@@ -270,6 +310,19 @@ abstract class Table
         }
 
         return new Insert($tableName);
+    }
+
+    /**
+     * @param string $tableName
+     * @return Update
+     */
+    protected function _update($tableName = null)
+    {
+        if (null === $tableName) {
+            $tableName = $this->_table;
+        }
+
+        return new Update($tableName);
     }
 
     /**

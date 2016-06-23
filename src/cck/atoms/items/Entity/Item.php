@@ -107,6 +107,11 @@ class Item extends Entity
     public $elements;
 
     /**
+     * @var string
+     */
+    protected $_tableName = 'item';
+
+    /**
      * Init item after create
      */
     public function init()

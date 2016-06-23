@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Entity;
 
 use JBZoo\CCK\App;
+use JBZoo\CCK\Table\Table;
 
 /**
  * Class Entity
@@ -28,11 +29,26 @@ abstract class Entity
     public $app;
 
     /**
-     * Entity constructor.
+     * @var string
      */
-    public function __construct()
+    protected $_tableName;
+
+    /**
+     * Entity constructor.
+     * @param array $rowData
+     */
+    public function __construct($rowData = [])
     {
         $this->app = App::getInstance();
+
+        if ($rowData) {
+            // TODO: check performance
+            foreach ($rowData as $propName => $propValue) {
+                if ($propName != 'app' && property_exists($this, $propName)) {
+                    $this->$propName = $propValue;
+                }
+            }
+        }
     }
 
     /**
@@ -51,7 +67,7 @@ abstract class Entity
         $result = [];
         foreach (get_object_vars($this) as $key => $value) {
 
-            if ($key == 'app') {
+            if ($key == 'app' || strpos($key, '_') === 0) { // No global app and private props
                 continue;
             }
 
@@ -61,8 +77,22 @@ abstract class Entity
         return $result;
     }
 
+    /**
+     * Save entity to databse via table model
+     */
     public function save()
     {
+        if ($this->_tableName) {
 
+            /** @var Table $table */
+            $table = $this->app['models'][$this->_tableName];
+            $id = $table->save($this);
+
+            $this->{$table->getKey()} = $id;
+
+            return $id;
+        }
+
+        return false;
     }
 }
