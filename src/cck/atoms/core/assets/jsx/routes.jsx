@@ -17,7 +17,7 @@ import _ from 'lodash';
 
 module.exports = function configureRoutes(reducerRegistry) {
 
-    var atomList    = ['atoms', 'items'],
+    var atomList    = ['atoms', 'items', 'modules'],
         childRoutes = [];
 
     atomList.map((item) => {
