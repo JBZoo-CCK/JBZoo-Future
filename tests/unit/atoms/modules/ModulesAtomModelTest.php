@@ -24,6 +24,9 @@ class ModulesAtomModelTest extends JBZooPHPUnitDatabase
 
     protected $_fixtureFile = 'ModulesAtomModelTest.php';
 
+    /**
+     * @return \JBZoo\CCK\Atom\Modules\Table\Module
+     */
     protected function _table()
     {
         return $this->app['models']['module'];
