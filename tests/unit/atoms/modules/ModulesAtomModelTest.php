@@ -23,7 +23,7 @@ class ModulesAtomModelTest extends JBZooPHPUnitDatabase
 {
 
     protected $_fixtureFile = 'ModulesAtomModelTest.php';
-    
+
     protected function _table()
     {
         return $this->app['models']['module'];
@@ -48,8 +48,8 @@ class ModulesAtomModelTest extends JBZooPHPUnitDatabase
 
     public function testGet()
     {
-        $module1 = $this->_table()->getById(1);
-        $module2 = $this->_table()->getById(1);
+        $module1 = $this->_table()->get(1);
+        $module2 = $this->_table()->get(1);
         isSame($module1, $module2);
     }
 
@@ -65,13 +65,13 @@ class ModulesAtomModelTest extends JBZooPHPUnitDatabase
         isSame(5, count($this->_table()->getList()));
 
         /** @var \JBZoo\CCK\Atom\Modules\Entity\Module $module */
-        $module = $this->_table()->getById(5);
+        $module = $this->_table()->get(5);
         isSame($data['title'], $module->title);
         isSame($data['params'], $module->params);
     }
 
     public function testEntityClassName()
     {
-        isClass('JBZoo\CCK\Atom\Modules\Entity\Module', $this->_table()->getById(1));
+        isClass('JBZoo\CCK\Atom\Modules\Entity\Module', $this->_table()->get(1));
     }
 }
