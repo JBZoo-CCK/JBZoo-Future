@@ -25,7 +25,7 @@ import RaisedButton             from 'material-ui/RaisedButton';
 
 import * as itemsActions        from '../actions/items';
 
-class ItemsApp extends Component {
+class ItemList extends Component {
 
     componentDidMount() {
         this.props.itemsActions.fetchItemsIfNeeded();
@@ -92,7 +92,7 @@ class ItemsApp extends Component {
     }
 }
 
-ItemsApp.contextTypes = {
+ItemList.contextTypes = {
     router: React.PropTypes.object
 };
 
@@ -104,4 +104,4 @@ module.exports = connect(
     (dispatch) => ({
         itemsActions: bindActionCreators(itemsActions, dispatch)
     })
-)(ItemsApp);
+)(ItemList);

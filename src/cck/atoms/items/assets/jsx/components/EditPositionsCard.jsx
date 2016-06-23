@@ -28,7 +28,7 @@ const propTypes = {
     text      : PropTypes.string.isRequired
 };
 
-export function Item(props) {
+export function EditPositionsCard(props) {
     const { text, isDragging } = props;
     const opacity = isDragging ? 0 : 1;
 
@@ -39,9 +39,9 @@ export function Item(props) {
     );
 }
 
-Item.propTypes = propTypes;
+EditPositionsCard.propTypes = propTypes;
 
 export function createItem(getItem, isDragging, index) {
     const item = getItem(index);
-    return <Item text={item.text} isDragging={isDragging} />;
+    return <EditPositionsCard text={item.text} isDragging={isDragging} />;
 }

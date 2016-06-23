@@ -15,8 +15,8 @@
 
 import { injectAsyncReducer } from '../../../core/assets/jsx/store/configureStore';
 
-var ItemsApp;
-var NewItem;
+var ItemList;
+var EditItem;
 var EditPositions;
 
 module.exports.default = function (reducerRegistry, atomKey) {
@@ -31,11 +31,11 @@ module.exports.default = function (reducerRegistry, atomKey) {
             path        : '/items',
             getComponent: (nextState, callback) => {
 
-                if (!ItemsApp) {
-                    ItemsApp = require('./components/ItemsApp');
+                if (!ItemList) {
+                    ItemList = require('./components/ItemList');
                 }
 
-                callback(null, ItemsApp);
+                callback(null, ItemList);
             }
         },
         {
@@ -53,22 +53,22 @@ module.exports.default = function (reducerRegistry, atomKey) {
             path        : '/items/new',
             getComponent: (nextState, callback) => {
 
-                if (!NewItem) {
-                    NewItem = require('./components/NewItem');
+                if (!EditItem) {
+                    EditItem = require('./components/EditItem');
                 }
 
-                callback(null, NewItem);
+                callback(null, EditItem);
             }
         },
         {
             path        : '/items/edit/:id',
             getComponent: (nextState, callback) => {
 
-                if (!NewItem) {
-                    NewItem = require('./components/NewItem');
+                if (!EditItem) {
+                    EditItem = require('./components/EditItem');
                 }
 
-                callback(null, NewItem);
+                callback(null, EditItem);
             }
         }
     ]

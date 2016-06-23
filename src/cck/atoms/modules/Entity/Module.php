@@ -18,8 +18,6 @@ use JBZoo\CCK\Entity\Entity;
 
 /**
  * Class Module
- *
- * @package JBZoo\CCK\Atom\Modules\Entity
  */
 class Module extends Entity
 {

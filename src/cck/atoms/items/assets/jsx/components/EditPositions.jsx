@@ -18,7 +18,7 @@ import update                   from 'react/lib/update';
 import { DragDropContext }      from 'react-dnd';
 import HTML5Backend             from 'react-dnd-html5-backend';
 import DndCard                  from 'react-dnd-card';
-import { Item, createItem }     from './Item';
+import { EditPositionsCard, createItem }     from './EditPositionsCard';
 
 // set to `true` to use requestAnimationFrame to handle 1000 items.
 const ID_MODE = false;
