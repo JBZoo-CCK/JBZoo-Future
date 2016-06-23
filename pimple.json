@@ -272,6 +272,11 @@
                 "value": "JBZoo\\CCK\\Atom\\Items\\Table\\Item"
             },
             {
+                "name": "module",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Atom\\Modules\\Table\\Module"
+            },
+            {
                 "name": "modules",
                 "type": "class",
                 "value": "JBZoo\\CCK\\Atom\\Modules\\Table\\Modules"
