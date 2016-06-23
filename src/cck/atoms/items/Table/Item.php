@@ -17,10 +17,10 @@ namespace JBZoo\CCK\Atom\Items\Table;
 use JBZoo\CCK\Table\Table;
 
 /**
- * Class Items
+ * Class Item
  * @package JBZoo\CCK
  */
-class Items extends Table
+class Item extends Table
 {
     const STATUS_UNACTIVE = 0;
     const STATUS_ACTIVE   = 1;

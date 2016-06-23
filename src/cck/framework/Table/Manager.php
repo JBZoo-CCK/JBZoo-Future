@@ -14,7 +14,6 @@
 
 namespace JBZoo\CCK\Table;
 
-use JBZoo\CCK\App;
 use JBZoo\CCK\Container;
 use JBZoo\CCK\Exception\Exception;
 
@@ -41,25 +40,25 @@ class Manager extends Container
 
         if (!isset($this->_tables[$tableClass])) {
 
-            $className = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Table\\' . ucfirst($tableClass);
-            if (class_exists($className)) {
+            $classEntity = $entity ?: $tableClass;
 
-                $this->_tables[$tableClass] = $className;
+            $classTable  = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Table\\' . ucfirst($tableClass);
+            $classEntity = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Entity\\' . ucfirst($classEntity);
 
+            if (class_exists($classTable)) {
 
-                $this[$tableClass] = function () use ($className, $entity) {
-                    $app = App::getInstance();
+                $this->_tables[$tableClass] = $classTable;
 
-                    $tableObject = new $className();
-                    if ($entity) {
-                        $tableObject->entity = $app['entities'][$entity];
-                    }
+                $this[$tableClass] = function () use ($classTable, $classEntity) {
+                    $tableObject = new $classTable();
+
+                    $tableObject->entity = $classEntity;
 
                     return $tableObject;
                 };
 
             } else {
-                throw new Exception("Table class \"{$className}\" in not exists!");
+                throw new Exception("Table class \"{$classTable}\" in not exists!");
             }
 
         } else {

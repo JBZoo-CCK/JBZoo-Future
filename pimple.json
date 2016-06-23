@@ -267,9 +267,9 @@
                 "value": "JBZoo\\CCK\\Atom\\Core\\Table\\Config"
             },
             {
-                "name": "items",
+                "name": "item",
                 "type": "class",
-                "value": "JBZoo\\CCK\\Atom\\Items\\Table\\Items"
+                "value": "JBZoo\\CCK\\Atom\\Items\\Table\\Item"
             },
             {
                 "name": "modules",
