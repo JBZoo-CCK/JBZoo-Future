@@ -23,6 +23,12 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 {
     protected $_fixtureFile = 'ItemsAtomTableItems.php';
 
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->_table()->cleanObjects();
+    }
+
     /**
      * @return \JBZoo\CCK\Atom\Items\Table\Item
      */
@@ -146,12 +152,19 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
         $item->name = 'Another name';
         $item->save();
 
-
         $this->_table()->cleanObjects();
         /** @var Item $itemNew */
         $itemNew = $this->_table()->get(4);
         is(4, $itemNew->id);
         isSame('Another name', $itemNew->name);
         isSame('item-new', $itemNew->alias);
+    }
+
+    public function testGetUndefined()
+    {
+        $itemNew = $this->_table()->get(100500);
+        isNull($itemNew);
+
+        isFalse($this->_table()->hasObject(100500));
     }
 }
