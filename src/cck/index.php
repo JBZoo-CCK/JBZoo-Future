@@ -12,6 +12,7 @@
  * @link       http://jbzoo.com
  *
  * @codeCoverageIgnore
+ * @SuppressWarnings(PHPMD)
  */
 
 use JBZoo\Utils\Env;
