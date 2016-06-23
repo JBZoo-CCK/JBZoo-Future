@@ -14,162 +14,64 @@
 
 namespace JBZoo\PHPUnit;
 
-use JBZoo\CrossCMS\AbstractDatabase;
-use JBZoo\SqlBuilder\Query\Delete;
-use JBZoo\SqlBuilder\Query\Insert;
-use JBZoo\SqlBuilder\Query\Select;
-
 /**
  * Class ModulesAtomModelTest
  *
  * @package JBZoo\PHPUnit
  */
-class ModulesAtomModelTest extends JBZooPHPUnit
+class ModulesAtomModelTest extends JBZooPHPUnitDatabase
 {
 
-    /**
-     * @var Select
-     */
-    protected $_select;
-
-    /**
-     * @var Insert
-     */
-    protected $_insert;
-
-    /**
-     * @var Delete
-     */
-    protected $_delete;
-
-    /**
-     * @var AbstractDatabase
-     */
-    protected $_db;
-
-
-    protected $_table = '#__jbzoo_modules';
-    protected $_alias = 'tModules';
-    private $__title  = 'test';
-
-    public function setUp()
+    protected $_fixtureFile = 'ModulesAtomModelTest.php';
+    
+    protected function _table()
     {
-        parent::setUp();
-        $this->_db = jbzoo('db');
-        $this->_select = new Select($this->_table, $this->_alias);
-        $this->_insert = new Insert($this->_table, $this->_alias);
-        $this->_delete = new Delete($this->_table);
+        return $this->app['models']['module'];
     }
 
-    public function tearDown()
+    public function testClassName()
     {
-        parent::tearDown();
-        $this->_cleanTable();
+        isClass('\JBZoo\CCK\Atom\Modules\Table\Module', $this->_table());
     }
 
     public function testGetList()
     {
-        $this->_cleanTable();
-        $table = $this->app['models']['modules'];
-        isClass('JBZoo\CCK\Atom\Modules\Table\Modules', $table);
-
-        $modules = $table->getList();
-        isTrue(is_array($modules));
-        isSame([], $modules);
-
-        $sql = $this->_insert
-            ->multi([
-                [
-                    'title'  => $this->__title,
-                    'params' => 'my custom params',
-                ],
-                [
-                    'title'  => $this->__title,
-                    'params' => 'new params',
-                ]
-            ]);
-
-        $this->_db->query($sql);
-        $modules = $table->getList();
-        isSame(2, count($modules));
+        $actual = $this->_table()->getList();
+        isSame(4, count($actual));
     }
 
-    public function testGetModule()
+    public function testRemove()
     {
-        $this->_truncate();
-        $this->_writeTestRecord();
+        $this->_table()->remove(1);
+        isSame(3, count($this->_table()->getList()));
+    }
 
-        $id    = 1;
-        $table = $this->app['models']['modules'];
+    public function testGet()
+    {
+        $module1 = $this->_table()->getById(1);
+        $module2 = $this->_table()->getById(1);
+        isSame($module1, $module2);
+    }
 
-        $actual = $table->get($id);
-        $expected = [
-            'id' => '1',
-            'title' => 'test',
-            'params' => 'my custom params',
+    public function testAdd()
+    {
+        $data = [
+            'title'  => 'New test module',
+            'params' => 'My custom params',
         ];
 
-        isSame($expected, $actual);
+        $this->_table()->add($data);
+
+        isSame(5, count($this->_table()->getList()));
+
+        /** @var \JBZoo\CCK\Atom\Modules\Entity\Module $module */
+        $module = $this->_table()->getById(5);
+        isSame($data['title'], $module->title);
+        isSame($data['params'], $module->params);
     }
 
-    public function testDeleteModule()
+    public function testEntityClassName()
     {
-        $this->_truncate();
-        $this->_writeTestRecord();
-
-        $sql = $this->_select->where(['id', '= 1']);
-        $actual = $this->_db->fetchRow($sql);
-        $expected = [
-            'id' => '1',
-            'title' => 'test',
-            'params' => 'my custom params',
-        ];
-
-        isSame($expected, $actual);
-
-        $table = $this->app['models']['modules'];
-        isTrue($table->delete(1));
-
-        $sql = $this->_select->where(['id', '= 1']);
-        $actual = $this->_db->fetchRow($sql);
-        isNull($actual);
-    }
-
-    public function testAddNewModule()
-    {
-        $table = $this->app['models']['modules'];
-        $title = 'test';
-        isTrue($table->add($title, 'my params'));
-
-        $actual = $this->_getModule();
-        isSame($title, $actual['title']);
-    }
-
-    private function _getModule()
-    {
-        $sql = $this->_select->where("title = '{$this->__title}'");
-        return $this->_db->fetchRow($sql);
-    }
-
-    private function _cleanTable()
-    {
-        $sql = $this->_delete->where("title = '{$this->__title}'");
-        return $this->_db->query($sql);
-    }
-
-    private function _truncate()
-    {
-        $this->_db->query('TRUNCATE TABLE ' . $this->_table);
-    }
-
-    private function _writeTestRecord()
-    {
-        $sql = $this->_insert
-            ->row([
-                'title'  => $this->__title,
-                'params' => 'my custom params',
-            ]);
-
-        $this->_db->query($sql);
+        isClass('JBZoo\CCK\Atom\Modules\Entity\Module', $this->_table()->getById(1));
     }
 }

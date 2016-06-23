@@ -19,7 +19,7 @@ define('JBZOO_TABLE_MODULES', '#__jbzoo_modules');
 return [
 
     'load' => function (App $app) {
-        $app['models']->addModel('Modules', 'Modules');
+        $app['models']->addModel('Modules', 'Module');
     },
 
     'admin-sidebar' => [
