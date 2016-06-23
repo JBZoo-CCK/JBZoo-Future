@@ -10,6 +10,8 @@
  * @license    Proprietary http://jbzoo.com/license
  * @copyright  Copyright (C) JBZoo.com,  All rights reserved.
  * @link       http://jbzoo.com
+ *
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 
 namespace JBZoo\CCK\Table;
@@ -244,15 +246,17 @@ abstract class Table
         $tableKey = $this->_key;
 
         // insert or update database
-        if ($fields[$tableKey]) {
+        if (isset($fields[$tableKey]) && $fields[$tableKey]) {
+
+            $keyId = $fields[$tableKey];
 
             $sql = $this->_update($this->_table)
                 ->set($fields)
-                ->where($tableKey . ' = ?s', $fields[$tableKey]);
+                ->where($tableKey . ' = ?s', $keyId);
 
             $this->_db->query($sql);
 
-            return $fields[$tableKey];
+            return $keyId;
 
         } else {
             $sql = $this->_insert($this->_table)
