@@ -14,6 +14,7 @@
 
 namespace JBZoo\CCK\Table;
 
+use JBZoo\CCK\App;
 use JBZoo\CCK\Container;
 use JBZoo\CCK\Exception\Exception;
 
@@ -31,9 +32,10 @@ class Manager extends Container
     /**
      * @param string $atomId
      * @param string $tableClass
+     * @param string $entity
      * @throws Exception
      */
-    public function addModel($atomId, $tableClass)
+    public function addModel($atomId, $tableClass, $entity = null)
     {
         $tableClass = strtolower($tableClass);
 
@@ -44,8 +46,16 @@ class Manager extends Container
 
                 $this->_tables[$tableClass] = $className;
 
-                $this[$tableClass] = function () use ($className) {
-                    return new $className();
+
+                $this[$tableClass] = function () use ($className, $entity) {
+                    $app = App::getInstance();
+
+                    $tableObject = new $className();
+                    if ($entity) {
+                        $tableObject->entity = $app['entities'][$entity];
+                    }
+
+                    return $tableObject;
                 };
 
             } else {

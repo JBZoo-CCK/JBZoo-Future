@@ -17,17 +17,17 @@ namespace JBZoo\PHPUnit;
 /**
  * Class ItemsAtomTableItemsTest
  */
-class ItemsAtomTableItemsTest extends JBZooPHPUnit
+class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 {
+    protected $_fixtureFile = 'items.php';
+
     public function testClassName()
     {
-        $itemTable = $this->app['models']['items'];
-        isClass('\JBZoo\CCK\Atom\Items\Table\Items', $itemTable);
+        isClass('\JBZoo\CCK\Atom\Items\Table\Items', $this->app['models']['items']);
     }
 
     public function testGetList()
     {
-        $itemTable = $this->app['models']['items'];
-        isSame([], $itemTable->getList());
+        is(2, count($this->app['models']['items']->getList()));
     }
 }

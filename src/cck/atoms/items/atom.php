@@ -19,8 +19,8 @@ define('JBZOO_TABLE_ITEMS', '#__jbzoo_items');
 return [
 
     'load' => function (App $app) {
-        $app['models']->addModel('Items', 'Items');
         $app['entities']->addEntity('Items', 'Item');
+        $app['models']->addModel('Items', 'Items', 'Item');
     },
 
     'admin-sidebar' => [

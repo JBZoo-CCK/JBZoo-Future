@@ -38,6 +38,8 @@
         "jbzoo/misc"              : "1.x-dev",
         "jbzoo/pimpledumper"      : "1.x.dev",
 
+        "phpunit/dbunit"          : "^2.0",
+
         "symfony/finder"          : "^2.8.5",
         "symfony/var-dumper"      : "^2.8.5",
         "phpunit/phpcov"          : "^2.0.2",

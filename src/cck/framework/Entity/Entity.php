@@ -34,12 +34,4 @@ abstract class Entity
     {
         $this->app = App::getInstance();
     }
-
-    /**
-     * @param $row
-     */
-    public function bindData($row)
-    {
-
-    }
 }

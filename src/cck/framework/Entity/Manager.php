@@ -44,9 +44,9 @@ class Manager extends Container
 
                 $this->_entities[$tableClass] = $className;
 
-                $this[$tableClass] = $this->factory(function () use ($className) {
-                    return new $className();
-                });
+                $this[$tableClass] = function () use ($className) {
+                    return $className;
+                };
 
             } else {
                 throw new Exception("Entity class \"{$className}\" in not exists!");

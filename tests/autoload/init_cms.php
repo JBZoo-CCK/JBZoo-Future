@@ -15,10 +15,11 @@
 use JBZoo\Utils\Env;
 
 // You can overwrite it by phpunit.xml
-!defined('CMS_TYPE')      && define('CMS_TYPE', 'undefined');
-!defined('CMS_JOOMLA')    && define('CMS_JOOMLA', realpath(__DIR__ . '/../../resources/cck-joomla'));
-!defined('CMS_WORDPRESS') && define('CMS_WORDPRESS', realpath(__DIR__ . '/../../resources/cck-wordpress'));
-!defined('WP_POST_ID')    && define('WP_POST_ID', 0);
+!defined('CMS_TYPE')         && define('CMS_TYPE', 'undefined');
+!defined('CMS_JOOMLA')       && define('CMS_JOOMLA', realpath(__DIR__ . '/../../resources/cck-joomla'));
+!defined('CMS_WORDPRESS')    && define('CMS_WORDPRESS', realpath(__DIR__ . '/../../resources/cck-wordpress'));
+!defined('PROJECT_FIXTURES') && define('PROJECT_FIXTURES', realpath(__DIR__ . '/../fixtures'));
+!defined('WP_POST_ID')       && define('WP_POST_ID', 0);
 
 define('PHPUNIT_JOOMLA_HOST',   Env::get('JOOMLA_HOST', 'cck-joomla.jbzoo',     Env::VAR_STRING));
 define('PHPUNIT_WP_HOST',       Env::get('WP_HOST',     'cck-wordpress.jbzoo',  Env::VAR_STRING));

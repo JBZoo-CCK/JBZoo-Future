@@ -32,79 +32,79 @@ class Item extends Entity
      * The name of the item
      * @var string
      */
-    protected $_name = '';
+    public $name = '';
 
     /**
      * The type identifier of the Item
      * @var string
      */
-    protected $_type = '';
+    public $type = '';
 
     /**
      * The alias of the item
      * @var string
      */
-    protected $_alias = '';
+    public $alias = '';
 
     /**
      * The creation date of the item in mysql DATETIME format
      * @var string
      */
-    protected $_created = '';
+    public $created = '';
 
     /**
      * The last modified date of the item in mysql DATETIME format
      * @var string
      */
-    protected $_modified = '';
+    public $modified = '';
 
     /**
      * The date from which the item should be published
      * @var string
      */
-    protected $_publish_up = '';
+    public $publish_up = '';
 
     /**
      * The date up until the item should be published
      * @var string
      */
-    protected $_publish_down = '';
+    public $publish_down = '';
 
     /**
      * The item priority. An higher priority means that an item should be shown before
      * @var int
      */
-    protected $_priority = 0;
+    public $priority = 0;
 
     /**
      * Item published state
      * @var int
      */
-    protected $_state = 0;
+    public $state = 0;
 
     /**
      * The access level required to see this item
      * @var int
      */
-    protected $_access = 0;
+    public $access = 0;
 
     /**
      * The id of the user that created the item
      * @var int
      */
-    protected $_created_by = '';
+    public $created_by = '';
 
     /**
      * The item parameters
      * @var JSON
      */
-    protected $_params;
+    public $params;
 
     /**
      * The elements of the item encoded in json format
      * @var JSON
      */
-    protected $_elements;
+    public $elements;
 
     /**
      * Item constructor.
@@ -113,7 +113,7 @@ class Item extends Entity
     {
         parent::__construct();
 
-        $this->_elements = jbdata();
-        $this->_params   = jbdata();
+        $this->elements = jbdata($this->elements);
+        $this->params   = jbdata($this->params);
     }
 }
