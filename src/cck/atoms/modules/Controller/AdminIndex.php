@@ -23,4 +23,29 @@ use JBZoo\CCK\Atom\Controller;
  */
 class AdminIndex extends Controller
 {
+
+    /**
+     * @var \JBZoo\CCK\Atom\Modules\Table\Module
+     */
+    protected $_table;
+
+    /**
+     * AdminIndex constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->_table = $this->app['models']['module'];
+    }
+
+    /**
+     * Index action.
+     *
+     * @return void
+     */
+    public function index()
+    {
+        $modules = $this->_table->getList();
+        $this->_json(['list' => $modules]);
+    }
 }
