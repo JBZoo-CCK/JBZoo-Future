@@ -86,11 +86,26 @@ abstract class Entity
 
             /** @var Table $table */
             $table = $this->app['models'][$this->_tableName];
-            $id = $table->save($this);
+            $id = $table->saveEntity($this);
 
             $this->{$table->getKey()} = $id;
 
             return $id;
+        }
+
+        return false;
+    }
+
+    /**
+     * Remove entity from database
+     */
+    public function remove()
+    {
+        if ($this->_tableName) {
+
+            /** @var Table $table */
+            $table = $this->app['models'][$this->_tableName];
+            return $table->removeEntity($this);
         }
 
         return false;

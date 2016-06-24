@@ -155,17 +155,37 @@ abstract class Table
     /**
      * Remove record from database table
      *
+     * @param $entity
+     * @return bool|int
+     */
+    public function removeEntity($entity)
+    {
+        if ($this->_key) {
+            return $this->remove($entity->{$this->_key});
+        }
+
+        return false;
+    }
+
+    /**
+     * Remove record from database table
+     *
      * @param $id
      * @return bool|int
      */
     public function remove($id)
     {
-        $sql = $this->_delete()
-            ->where($this->_key . ' = ?s', $id);
+        if ($id) {
+            $sql = $this->_delete()
+                ->where($this->_key . ' = ?s', $id);
 
-        $this->unsetObject($id);
+            $this->unsetObject($id);
+            $isRemoved = $this->_db->query($sql);
 
-        return $this->_db->query($sql);
+            return $isRemoved;
+        }
+
+        return false;
     }
 
     /**
@@ -236,7 +256,7 @@ abstract class Table
      * @param Entity $entity
      * @return int
      */
-    public function save($entity)
+    public function saveEntity($entity)
     {
         // init vars
         $vars   = get_object_vars($entity);
@@ -249,7 +269,7 @@ abstract class Table
         $tableKey = $this->_key;
 
         // insert or update database
-        if (isset($fields[$tableKey]) && $fields[$tableKey]) {
+        if (isset($fields[$tableKey]) && $fields[$tableKey] > 0) {
 
             $keyId = $fields[$tableKey];
 

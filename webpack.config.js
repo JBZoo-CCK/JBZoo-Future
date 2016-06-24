@@ -51,6 +51,7 @@ var webpack       = require('webpack'),
 
 console.log('Dev mode:', __DEV__);
 console.log('Source map:', sourceMap);
+console.log('Entries list:', JSON.stringify(entries, null, 4));
 
 if (!__DEV__) {
     pluginList.push(

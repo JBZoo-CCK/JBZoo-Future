@@ -162,9 +162,20 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 
     public function testGetUndefined()
     {
-        $itemNew = $this->_table()->get(100500);
-        isNull($itemNew);
+        $undefinedItem = $this->_table()->get(100500);
+        isNull($undefinedItem);
 
         isFalse($this->_table()->hasObject(100500));
+    }
+
+    public function testRemoveItem()
+    {
+        $item = $this->_table()->get(1);
+        isTrue($item);
+        isTrue($item->remove());
+
+        $item = $this->_table()->get(1);
+        isFalse($item);
+        isFalse($this->_table()->hasObject(1));
     }
 }
