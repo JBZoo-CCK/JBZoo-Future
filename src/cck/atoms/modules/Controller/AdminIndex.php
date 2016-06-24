@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Atom\Modules\Controller;
 
 use JBZoo\CCK\Atom\Controller;
+use JBZoo\CCK\Atom\Modules\Entity\Module;
 
 /**
  * Class AdminIndex
@@ -47,5 +48,22 @@ class AdminIndex extends Controller
     {
         $modules = $this->_table->getList();
         $this->_json(['list' => $modules]);
+    }
+
+    /**
+     * Add new module action.
+     *
+     * @return void
+     */
+    public function add()
+    {
+        $data = $this->app['request']->getJSON('data');
+        $rows = json_decode($data, true);
+
+        $entity = new Module();
+        $entity->bindData($rows);
+        $entity->save();
+
+        $this->_json($entity->toArray());
     }
 }

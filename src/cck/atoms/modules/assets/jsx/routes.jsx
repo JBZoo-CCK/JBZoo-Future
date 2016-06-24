@@ -13,23 +13,39 @@
 
 'use strict';
 
+var AddApp;
 var ModulesApp;
 
 module.exports.default = function (reducerRegistry, atomKey) {
 
     reducerRegistry.register({
-        modules : require('./reducers').modules
+        modules: require('./reducers').modules,
+        handleFormButton: require('./reducers').handleFormButton,
+        handleFormSend: require('./reducers').handleFormSend
     });
 
-    return {
-        path: '/modules',
-        getComponent(nextState, callback) {
+    return [
+        {
+            path: '/modules',
+            getComponent(nextState, callback) {
 
-            if (!ModulesApp) {
-                ModulesApp = require('./ModulesApp');
+                if (!ModulesApp) {
+                    ModulesApp = require('./components/ModulesApp');
+                }
+
+                callback(null, ModulesApp);
             }
+        },
+        {
+            path        : '/modules/add',
+            getComponent: (nextState, callback) => {
 
-            callback(null, ModulesApp);
+                if (!AddApp) {
+                    AddApp = require('./components/AddApp');
+                }
+
+                callback(null, AddApp);
+            }
         }
-    }
+    ]
 };

@@ -18,6 +18,7 @@ import * as defines from '../defines'
 export function modules(state = [], action) {
 
     switch (action.type) {
+
         case defines.MODULE_LIST:
             return action.payload;
 
@@ -25,4 +26,56 @@ export function modules(state = [], action) {
             return state;
     }
 
+}
+
+const handleFormButtonState = {
+    canSubmit: false
+};
+
+export function handleFormButton(state = handleFormButtonState, action)
+{
+    switch (action.type) {
+
+        case defines.DISABLE_FORM_BUTTON:
+            return {...state, ...{canSubmit: false}};
+        break;
+
+        case defines.ENABLE_FORM_BUTTON:
+            return {...state, ...{canSubmit: true}};
+        break;
+
+        default:
+            return state;
+    }
+}
+
+const handleForm = {
+    type     : defines.DEFAULT_FORM_STATE,
+    redirect : false,
+    showMsg  : false
+};
+
+export function handleFormSend(state = handleForm, action)
+{
+    switch (action.type) {
+
+        case defines.ON_SUBMIT_SUCCESS:
+            return {...state, ...{
+                type     : defines.ON_SUBMIT_SUCCESS,
+                redirect : true,
+                showMsg  : true
+            }};
+        break;
+
+        case defines.ON_SUBMIT_FAIL:
+            return {...state, ...{
+                type     : defines.ON_SUBMIT_FAIL,
+                redirect : false,
+                showMsg  : true
+            }};
+        break;
+
+        default:
+            return state;
+    }
 }

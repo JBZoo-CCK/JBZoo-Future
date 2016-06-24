@@ -41,4 +41,9 @@ class Module extends Entity
      * @var string
      */
     public $params = '';
+
+    /**
+     * @var string
+     */
+    protected $_tableName = 'module';
 }

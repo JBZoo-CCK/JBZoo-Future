@@ -17,11 +17,10 @@ import React, { Component }     from 'react';
 import { bindActionCreators }   from 'redux';
 import { connect }              from 'react-redux';
 import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
-import * as modulesActions      from '../jsx/actions/modules';
+import * as modulesActions      from '../../jsx/actions/modules';
 import RaisedButton             from 'material-ui/RaisedButton';
 
-const {Grid, Row, Col} = require('react-flexbox-grid');
-
+const {Row, Col} = require('react-flexbox-grid');
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
 class ModulesApp extends Component {
@@ -85,6 +84,7 @@ class ModulesApp extends Component {
         );
     }
 }
+
 
 ModulesApp.contextTypes = {
     router: React.PropTypes.object
