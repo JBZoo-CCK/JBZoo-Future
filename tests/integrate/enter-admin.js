@@ -14,33 +14,39 @@
 'use strict';
 
 var Nightmare = require('nightmare');
+var nightmare = Nightmare({show: false});
 
-var nightmare = Nightmare({
-    //openDevTools: true,
-    //show        : true
-});
+// Auth info
+const AUTH = process.env.HTTP_USER ? (process.env.HTTP_USER + ':' + process.env.HTTP_PASS + '@') : '';
+
+// Joomla
+const JOOMLA_HOST = process.env.JOOMLA_HOST ? JOOMLA_HOST : 'cck-joomla.jbzoo';
+const JOOMLA_SITE = 'http://' + AUTH + JOOMLA_HOST + '/';
+const JOOMLA_ADMIN = JOOMLA_SITE + 'administrator/index.php';
+const JOOMLA_PATH = JOOMLA_SITE + 'administrator/index.php?option=com_jbzoo';
+
+// Wordpress
+const WP_HOST = process.env.WP_HOST ? WP_HOST : 'cck-wordpress.jbzoo';
+const WP_SITE = 'http://' + AUTH + WP_HOST + '/';
+const WP_ADMIN = WP_SITE + 'wp-admin/';
+const WP_PATH = WP_SITE + 'wp-admin/admin.php?page=jbzoo';
 
 
+// Run tests
 nightmare
-    .goto('http://system:j461pv6kjf@joomla.ci.jbzoo.com/administrator/index.php')
+    .goto(JOOMLA_ADMIN)
     .viewport(1600, 900)
     .type('[name=username]', 'admin')
     .type('[name=passwd]', 'admin')
     .click('.btn-primary')
     .wait('.admin-logo')
-    .screenshot('./build/screenshot/file.png')
+    .screenshot('./build/screenshot/joomla-admin-index.png')
 
-    .goto('http:/system:j461pv6kjf@joomla.ci.jbzoo.com/administrator/index.php?option=com_jbzoo#/atoms')
+    .goto(JOOMLA_PATH + '#atoms')
     .wait(5000)
-    .screenshot('./build/screenshot/file-2.png')
+    .screenshot('./build/screenshot/joomla-admin-atoms.png')
 
     .end()
-    .on('console', function () {
-        console.log(arguments);
-    })
-    .then(function (result) {
-        console.log(result);
-    })
     .catch(function (error) {
-        console.error('Search failed:', error);
+        console.error('Error message: ', error);
     });
