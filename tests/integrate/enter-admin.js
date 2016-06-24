@@ -19,6 +19,8 @@ var nightmare = Nightmare({show: false});
 // Auth info
 const AUTH = process.env.HTTP_USER ? (process.env.HTTP_USER + ':' + process.env.HTTP_PASS + '@') : '';
 
+console.log(process.env);
+
 // Joomla
 const JOOMLA_HOST = process.env.JOOMLA_HOST ? JOOMLA_HOST : 'cck-joomla.jbzoo';
 const JOOMLA_SITE = 'http://' + AUTH + JOOMLA_HOST + '/';
