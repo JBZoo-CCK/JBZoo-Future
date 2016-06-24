@@ -15,6 +15,7 @@
 
 import JBZoo        from '../../../../../assets/jsx/JBZoo';
 import * as defines from '../defines';
+import { hashHistory } from 'react-router'
 
 export function enableButtons() {
     return (dispatch, getState) => {
@@ -49,6 +50,7 @@ export function submitForm(data) {
         data: JSON.stringify(data)
     };
     return (dispatch, getState) => {
-        return dispatch(fetchModule(module))
+        dispatch(fetchModule(module));
+        hashHistory.push('/modules');
     }
 }

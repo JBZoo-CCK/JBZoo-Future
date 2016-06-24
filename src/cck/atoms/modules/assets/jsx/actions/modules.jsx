@@ -29,7 +29,7 @@ function fetchModules() {
 
 export function fetchModulesIfNeeded() {
     return (dispatch, getState) => {
-        return dispatch(fetchModules())
+        return dispatch(fetchModules());
     }
 }
 

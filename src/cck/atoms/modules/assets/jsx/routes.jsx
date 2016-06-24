@@ -13,8 +13,7 @@
 
 'use strict';
 
-var AddApp;
-var ModulesApp;
+var ModuleAdd, ModuleList, EditModule;
 
 module.exports.default = function (reducerRegistry, atomKey) {
 
@@ -29,22 +28,22 @@ module.exports.default = function (reducerRegistry, atomKey) {
             path: '/modules',
             getComponent(nextState, callback) {
 
-                if (!ModulesApp) {
-                    ModulesApp = require('./components/ModulesApp');
+                if (!ModuleList) {
+                    ModuleList = require('./components/ModuleList');
                 }
 
-                callback(null, ModulesApp);
+                callback(null, ModuleList);
             }
         },
         {
             path        : '/modules/add',
             getComponent: (nextState, callback) => {
 
-                if (!AddApp) {
-                    AddApp = require('./components/AddApp');
+                if (!ModuleAdd) {
+                    ModuleAdd = require('./components/ModuleAdd');
                 }
 
-                callback(null, AddApp);
+                callback(null, ModuleAdd);
             }
         }
     ]
