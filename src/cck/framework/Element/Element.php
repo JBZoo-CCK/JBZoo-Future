@@ -263,10 +263,9 @@ abstract class Element
 
     /**
      * Set related type object
-     * @param array $params
      * @return bool
      */
-    public function hasValue($params = array())
+    public function hasValue()
     {
         $value = $this->get('value', $this->config->get('default'));
         return !empty($value);
