@@ -212,6 +212,11 @@
         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Debug"
     },
     {
+        "name": "elements",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Element\\Manager"
+    },
+    {
         "name": "env",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractEnv"
@@ -258,7 +263,7 @@
             {
                 "name": "item",
                 "type": "class",
-                "value": "JBZoo\\CCK\\Atom\\Items\\Table\\Item"
+                "value": "JBZoo\\CCK\\Table\\Item"
             },
             {
                 "name": "module",

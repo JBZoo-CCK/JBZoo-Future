@@ -66,8 +66,8 @@ class AtomCoreTest extends JBZooPHPUnit
     public function testTableManager()
     {
         isClass('\JBZoo\CCK\Table\Manager', $this->app['models']);
-        isClass('\JBZoo\CCK\Atom\Core\Table\Config', $this->app['models']['config']);
-        isClass('\JBZoo\CCK\Atom\Items\Table\Item', $this->app['models']['item']);
+        isClass('\JBZoo\CCK\Table\Item', $this->app['models']['item']); // default model
+        isClass('\JBZoo\CCK\Atom\Core\Table\Config', $this->app['models']['config']); // custom model
     }
 
     /**

@@ -14,23 +14,24 @@
 
 namespace JBZoo\PHPUnit;
 
-use JBZoo\CCK\Atom\Items\Entity\Item;
+use JBZoo\CCK\Table\Item as ItemTable;
+use JBZoo\CCK\Entity\Item as ItemEntity;
 
 /**
  * Class ItemsAtomTableItemsTest
  */
 class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 {
-    protected $_fixtureFile = 'ItemsAtomTableItems.php';
+    protected $_fixtureFile = 'ItemsAtomTableItemsTest.php';
 
     protected function setUp()
     {
         parent::setUp();
-        $this->_table()->cleanObjects();
+        //$this->_table()->cleanObjects();
     }
 
     /**
-     * @return \JBZoo\CCK\Atom\Items\Table\Item
+     * @return ItemTable
      */
     protected function _table()
     {
@@ -39,7 +40,8 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 
     public function testClassName()
     {
-        isClass('\JBZoo\CCK\Atom\Items\Table\Item', $this->_table());
+        isClass('\JBZoo\CCK\Table\Item', $this->_table());
+        isSame('#__jbzoo_items', JBZOO_TABLE_ITEMS);
     }
 
     public function testRemove()
@@ -58,7 +60,7 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 
     public function testInit()
     {
-        /** @var Item $item */
+        /** @var ItemEntity $item */
         $item = $this->_table()->get(3);
 
         isClass('JBZoo\Data\Data', $item->elements);
@@ -97,7 +99,7 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 
     public function testToArray()
     {
-        /** @var Item $item */
+        /** @var ItemEntity $item */
         $item = $this->_table()->get(1);
 
         isSame([
@@ -120,8 +122,8 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 
     public function testSaveNewItem()
     {
-        /** @var Item $item */
-        $item        = new Item();
+        /** @var ItemEntity $item */
+        $item        = new ItemEntity();
         $item->name  = 'Item new';
         $item->alias = 'item-new';
         $item->save();
@@ -130,7 +132,7 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
         isSame('Item new', $item->name);
         isSame('item-new', $item->alias);
 
-        /** @var Item $itemNew */
+        /** @var ItemEntity $itemNew */
         $itemNew = $this->_table()->get(4);
         is(4, $itemNew->id);
         isSame('Item new', $itemNew->name);
@@ -139,8 +141,8 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
 
     public function testUpdateItem()
     {
-        /** @var Item $item */
-        $item        = new Item();
+        /** @var ItemEntity $item */
+        $item        = new ItemEntity();
         $item->name  = 'Item new';
         $item->alias = 'item-new';
         $item->save();
@@ -153,7 +155,7 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
         $item->save();
 
         $this->_table()->cleanObjects();
-        /** @var Item $itemNew */
+        /** @var ItemEntity $itemNew */
         $itemNew = $this->_table()->get(4);
         is(4, $itemNew->id);
         isSame('Another name', $itemNew->name);

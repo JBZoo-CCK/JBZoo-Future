@@ -12,9 +12,9 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom\Items\Table;
+namespace JBZoo\CCK\Table;
 
-use JBZoo\CCK\Table\Table;
+define('JBZOO_TABLE_ITEMS', '#__jbzoo_items');
 
 /**
  * Class Item
@@ -24,7 +24,7 @@ class Item extends Table
 {
     const STATUS_UNACTIVE = 0;
     const STATUS_ACTIVE   = 1;
-    const STATUS_HIDDEN   = 2;
+    const STATUS_ARCHIVE  = 2;
 
     /**
      * @inheritdoc

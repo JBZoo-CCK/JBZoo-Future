@@ -53,7 +53,7 @@ class Manager extends Container
      */
     public function load($names)
     {
-        $path = 'atoms:' . strtolower($names) . '/atom.php';
+        $path = 'atoms:' . strtolower($names) . '/atom.manifest.php';
 
         $result = [];
         if ($manifests = $this->app['path']->glob($path)) {
@@ -91,7 +91,7 @@ class Manager extends Container
     public function init($names)
     {
         $names = strtolower($names);
-        $path  = 'atoms:' . $names . '/atom.php';
+        $path  = 'atoms:' . $names . '/atom.manifest.php';
 
         if ($manifests = $this->app['path']->glob($path)) {
             foreach ($manifests as $initFile) {

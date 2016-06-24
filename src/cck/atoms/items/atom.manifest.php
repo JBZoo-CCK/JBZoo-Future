@@ -14,15 +14,7 @@
  * @codingStandardsIgnoreFile
  */
 
-use JBZoo\CCK\App;
-
-define('JBZOO_TABLE_ITEMS', '#__jbzoo_items');
-
 return [
-
-    'load' => function (App $app) {
-        $app['models']->addModel('Items', 'Item');
-    },
 
     'admin-sidebar' => [
         [

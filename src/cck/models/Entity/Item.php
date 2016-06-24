@@ -12,15 +12,14 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom\Items\Entity;
+namespace JBZoo\CCK\Entity;
 
-use JBZoo\CCK\Entity\Entity;
 use JBZoo\Data\JSON;
 
 /**
  * Class Item
  */
-class Item extends Entity
+class Item extends EntityElements
 {
     /**
      * The id of the item
@@ -50,25 +49,25 @@ class Item extends Entity
      * The creation date of the item in mysql DATETIME format
      * @var string
      */
-    public $created = '';
+    public $created = '0000-00-00 00:00:00';
 
     /**
      * The last modified date of the item in mysql DATETIME format
      * @var string
      */
-    public $modified = '';
+    public $modified = '0000-00-00 00:00:00';
 
     /**
      * The date from which the item should be published
      * @var string
      */
-    public $publish_up = '';
+    public $publish_up = '0000-00-00 00:00:00';
 
     /**
      * The date up until the item should be published
      * @var string
      */
-    public $publish_down = '';
+    public $publish_down = '0000-00-00 00:00:00';
 
     /**
      * The item priority. An higher priority means that an item should be shown before
@@ -92,7 +91,7 @@ class Item extends Entity
      * The id of the user that created the item
      * @var int
      */
-    public $created_by = '';
+    public $created_by = 0;
 
     /**
      * The item parameters
