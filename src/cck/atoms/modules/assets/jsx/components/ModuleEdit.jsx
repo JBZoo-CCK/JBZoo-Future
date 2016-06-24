@@ -46,7 +46,7 @@ class ModuleEdit extends Component {
                                 <ToolbarGroup>
                                     <RaisedButton
                                         type="submit"
-                                        label="Add"
+                                        label="Update"
                                         primary={true}
                                         disabled={!this.props.handleFormButton.canSubmit}
                                     />
