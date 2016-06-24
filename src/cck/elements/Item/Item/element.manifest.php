@@ -13,8 +13,7 @@
  */
 
 return [
-
     'meta' => [
-        'name' => 'Item core',
+        'name' => 'Item Abstract Core Element',
     ],
 ];

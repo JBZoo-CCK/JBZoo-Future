@@ -13,7 +13,6 @@
  */
 
 return [
-
     'meta' => [
         'name' => 'Name',
         'core' => true,
