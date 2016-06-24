@@ -36,35 +36,42 @@ class Manager extends Container
      */
     public function addModel($atomId, $tableClass, $entity = null)
     {
-        $tableClass = strtolower($tableClass);
+        $id     = strtolower($tableClass);
+        $entity = $entity ? strtolower($entity) : $id;
 
-        if (!isset($this->_tables[$tableClass])) {
+        if (!isset($this->_tables[$id])) {
+            $classTable  = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Table\\' . ucfirst($id);
+            $classEntity = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Entity\\' . ucfirst($entity);
 
-            $classEntity = $entity ?: $tableClass;
-
-            $classTable  = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Table\\' . ucfirst($tableClass);
-            $classEntity = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Entity\\' . ucfirst($classEntity);
-
-            if (class_exists($classTable)) {
-
-                $this->_tables[$tableClass] = $classTable;
-
-                $this[$tableClass] = function () use ($classTable, $classEntity) {
-                    $tableObject = new $classTable();
-
-                    if (class_exists($classEntity)) {
-                        $tableObject->entity = $classEntity;
-                    }
-
-                    return $tableObject;
-                };
-
-            } else {
-                throw new Exception("Table class \"{$classTable}\" in not exists!");
-            }
+            $this->_register($id, $classTable, $classEntity);
 
         } else {
             throw new Exception("Table \"{$atomId}.{$tableClass}\" already defined!");
+        }
+    }
+
+    /**
+     * @param $id
+     * @param $classTable
+     * @param $classEntity
+     * @throws Exception
+     */
+    protected function _register($id, $classTable, $classEntity)
+    {
+        if (class_exists($classTable)) {
+            $this->_tables[$id] = $classTable;
+
+            $this[$id] = function () use ($classTable, $classEntity) {
+                $tableObject = new $classTable();
+
+                if (class_exists($classEntity)) {
+                    $tableObject->entity = $classEntity;
+                }
+
+                return $tableObject;
+            };
+        } else {
+            throw new Exception("Table class \"{$classTable}\" in not exists!");
         }
     }
 
@@ -78,7 +85,10 @@ class Manager extends Container
         $id = strtolower($id);
 
         if (!isset($this->_tables[$id])) {
-            throw new Exception("Table \"{$id}\" is not defined!");
+            $classTable  = '\JBZoo\CCK\Table\\' . ucfirst($id);
+            $classEntity = '\JBZoo\CCK\Entity\\' . ucfirst($id);
+
+            $this->_register($id, $classTable, $classEntity);
         }
 
         return parent::offsetGet($id);

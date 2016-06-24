@@ -17,6 +17,7 @@ namespace JBZoo\CCK;
 use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Atom\Manager as AtomManager;
+use JBZoo\CCK\Element\Manager as ElementManager;
 use JBZoo\CCK\Table\Manager as TableManager;
 use JBZoo\Assets\Manager as AssetsManager;
 use JBZoo\CrossCMS\AbstractEvents;
@@ -74,6 +75,11 @@ class App extends Cms
         // Init Model Manager
         $this['models'] = function () {
             return new TableManager();
+        };
+
+        // Init Element Manager
+        $this['elements'] = function () {
+            return new ElementManager();
         };
 
         $this->on(AbstractEvents::EVENT_SHUTDOWN, function (App $app) {
@@ -258,17 +264,19 @@ class App extends Cms
             return $path;
         });
 
-        // Assets
-        $this['path']->set('assets', 'jbzoo:assets');
-        $this['path']->set('js', 'assets:js');
-        $this['path']->set('css', 'assets:css');
-        $this['path']->set('less', 'assets:less');
-        $this['path']->set('img', 'assets:img');
+        $paths = [
+            'elements' => 'jbzoo:elements',
+            'models'   => 'jbzoo:models',
+            'assets'   => 'jbzoo:assets',
+            'js'       => 'assets:js',
+            'css'      => 'assets:css',
+            'less'     => 'assets:less',
+            'img'      => 'assets:img',
+        ];
 
-        // Helpers
-        $this['path']->set('framework', 'jbzoo:framework');
-        //$this['path']->set('helpers', 'framework:helpers');
-        //$this['path']->set('helpers', 'atoms:*/helpers');
+        foreach ($paths as $pathId => $pathValue) {
+            $this['path']->set($pathId, $pathValue);
+        }
 
         $this->trigger('init.paths');
     }
