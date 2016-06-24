@@ -23,7 +23,7 @@ JBZoo = Object.assign({}, {
 }, JBZoo);
 
 
-JBZoo.ajax = function (task, data, storeDispatch, storeAction) {
+JBZoo.ajax = function (task, data = {}, storeDispatch, storeAction) {
 
     if (storeDispatch) {
         storeDispatch({type: 'LOADER_START'});
@@ -78,7 +78,9 @@ JBZoo.ajax = function (task, data, storeDispatch, storeAction) {
 
                         if (storeDispatch) {
                             storeDispatch({type: 'LOADER_STOP'});
-                            return storeDispatch(storeAction(json));
+                            if (storeAction) {
+                                return storeDispatch(storeAction(json));
+                            }
                         }
 
                         return json;
