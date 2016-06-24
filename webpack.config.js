@@ -56,7 +56,10 @@ console.log('Entries list:', JSON.stringify(entries, null, 4));
 if (!__DEV__) {
     pluginList.push(
         new webpack.optimize.OccurenceOrderPlugin(),
-        new webpack.optimize.UglifyJsPlugin({compress: {warnings: false}}),
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {warnings: false},
+            output  : {comments: __DEV__}
+        }),
         new webpack.optimize.DedupePlugin(),
         new webpack.DefinePlugin({
             'process.env': {
