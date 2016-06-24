@@ -54,7 +54,10 @@
             "framework/defines.php"
         ],
         "psr-4" : {
-            "JBZoo\\CCK\\" : "framework"
+            "JBZoo\\CCK\\"          : "framework",
+            "JBZoo\\CCK\\Element\\" : "elements",
+            "JBZoo\\CCK\\Table\\"   : "models/Table",
+            "JBZoo\\CCK\\Entity\\"  : "models/Entity"
         }
     },
     "autoload-dev"      : {
