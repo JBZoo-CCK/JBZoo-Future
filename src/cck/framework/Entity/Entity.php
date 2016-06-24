@@ -41,14 +41,7 @@ abstract class Entity
     {
         $this->app = App::getInstance();
 
-        if ($rowData) {
-            // TODO: check performance
-            foreach ($rowData as $propName => $propValue) {
-                if ($propName != 'app' && property_exists($this, $propName)) {
-                    $this->$propName = $propValue;
-                }
-            }
-        }
+        $this->bindData($rowData);
     }
 
     /**
@@ -57,6 +50,21 @@ abstract class Entity
     public function init()
     {
         // noop
+    }
+
+    /**
+     * @param $rowData
+     * TODO: check performance
+     */
+    public function bindData($rowData)
+    {
+        if ($rowData) {
+            foreach ($rowData as $propName => $propValue) {
+                if ($propName != 'app' && property_exists($this, $propName)) {
+                    $this->$propName = $propValue;
+                }
+            }
+        }
     }
 
     /**
@@ -86,7 +94,7 @@ abstract class Entity
 
             /** @var Table $table */
             $table = $this->app['models'][$this->_tableName];
-            $id = $table->saveEntity($this);
+            $id    = $table->saveEntity($this);
 
             $this->{$table->getKey()} = $id;
 
