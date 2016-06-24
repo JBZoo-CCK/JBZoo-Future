@@ -13,7 +13,7 @@
 
 'use strict';
 
-var ModuleAdd, ModuleList, EditModule;
+var ModuleAdd, ModuleList, ModuleEdit;
 
 module.exports.default = function (reducerRegistry, atomKey) {
 
@@ -44,6 +44,17 @@ module.exports.default = function (reducerRegistry, atomKey) {
                 }
 
                 callback(null, ModuleAdd);
+            }
+        },
+        {
+            path        : '/modules/edit/:id',
+            getComponent: (nextState, callback) => {
+
+                if (!ModuleEdit) {
+                    ModuleEdit = require('./components/ModuleEdit');
+                }
+
+                callback(null, ModuleEdit);
             }
         }
     ]

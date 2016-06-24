@@ -66,4 +66,9 @@ class AdminIndex extends Controller
 
         $this->_json($entity->toArray());
     }
+    
+    public function edit()
+    {
+        
+    }
 }
