@@ -19,16 +19,14 @@ var nightmare = Nightmare({show: false});
 // Auth info
 const AUTH = process.env.HTTP_USER ? (process.env.HTTP_USER + ':' + process.env.HTTP_PASS + '@') : '';
 
-console.log(process.env);
-
 // Joomla
-const JOOMLA_HOST = process.env.JOOMLA_HOST ? JOOMLA_HOST : 'cck-joomla.jbzoo';
+const JOOMLA_HOST = process.env.JOOMLA_HOST ? process.env.JOOMLA_HOST : 'cck-joomla.jbzoo';
 const JOOMLA_SITE = 'http://' + AUTH + JOOMLA_HOST + '/';
 const JOOMLA_ADMIN = JOOMLA_SITE + 'administrator/index.php';
 const JOOMLA_PATH = JOOMLA_SITE + 'administrator/index.php?option=com_jbzoo';
 
 // Wordpress
-const WP_HOST = process.env.WP_HOST ? WP_HOST : 'cck-wordpress.jbzoo';
+const WP_HOST = process.env.WP_HOST ? process.env.WP_HOST : 'cck-wordpress.jbzoo';
 const WP_SITE = 'http://' + AUTH + WP_HOST + '/';
 const WP_ADMIN = WP_SITE + 'wp-admin/';
 const WP_PATH = WP_SITE + 'wp-admin/admin.php?page=jbzoo';
