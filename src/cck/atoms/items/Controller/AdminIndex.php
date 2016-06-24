@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Atom\Items\Controller;
 
 use JBZoo\CCK\Atom\AdminController;
+use JBZoo\CCK\Entity\Item;
 
 /**
  * Class AdminIndex
@@ -45,6 +46,47 @@ class AdminIndex extends AdminController
         $id = $this->app['request']->getJSON('id');
 
         $item = $this->app['models']['item']->get($id);
+
+        $this->_json(['item' => $item->toArray()]);
+    }
+
+    /**
+     * Save item action
+     */
+    public function saveItem()
+    {
+        $itemData = $this->app['request']->getJSON('item');
+
+        $item = new Item($itemData);
+
+        $item->alias = mt_rand(0, 1000000);
+        $item->save();
+
+        $this->_json(['item' => $item->toArray()]);
+    }
+
+    /**
+     * Save item action
+     */
+    public function removeItem()
+    {
+        $id = $this->app['request']->getJSON('id');
+
+        /** @var Item $item */
+        if ($item = $this->app['models']['item']->get($id)) {
+            $item->remove();
+        }
+
+        $this->_json();
+    }
+
+    /**
+     * Get new item action
+     */
+    public function getNewItem()
+    {
+        $item        = new Item();
+        $item->alias = mt_rand(0, 1000000);
 
         $this->_json(['item' => $item->toArray()]);
     }
