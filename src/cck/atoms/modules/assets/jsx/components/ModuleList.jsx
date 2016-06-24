@@ -23,7 +23,7 @@ import RaisedButton             from 'material-ui/RaisedButton';
 const {Row, Col} = require('react-flexbox-grid');
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 
-class ModulesApp extends Component {
+class ModuleList extends Component {
 
     componentDidMount() {
         this.props.modulesActions.fetchModulesIfNeeded();
@@ -86,7 +86,7 @@ class ModulesApp extends Component {
 }
 
 
-ModulesApp.contextTypes = {
+ModuleList.contextTypes = {
     router: React.PropTypes.object
 };
 
@@ -97,4 +97,4 @@ module.exports = connect(
     (dispatch) => ({
         modulesActions: bindActionCreators(modulesActions, dispatch)
     })
-)(ModulesApp);
+)(ModuleList);

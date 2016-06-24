@@ -24,9 +24,14 @@ import RaisedButton             from 'material-ui/RaisedButton';
 
 const { Row, Col} = require('react-flexbox-grid');
 
-class AddApp extends Component {
+class ModuleAdd extends Component {
 
     render() {
+
+        dump(this.context);
+
+        var router   = this.context.router,
+            listLink = router.createHref('/modules');
 
         let { enableButtons, disableButtons, submitForm } = this.props.formActions;
 
@@ -47,6 +52,7 @@ class AddApp extends Component {
                                         primary={true}
                                         disabled={!this.props.handleFormButton.canSubmit}
                                     />
+                                    <RaisedButton label="Close" href={listLink} linkButton={true} />
                                 </ToolbarGroup>
                             </Toolbar>
                         </Col>
@@ -76,7 +82,7 @@ class AddApp extends Component {
     }
 }
 
-AddApp.contextTypes = {
+ModuleAdd.contextTypes = {
     router: React.PropTypes.object
 };
 
@@ -88,4 +94,4 @@ module.exports = connect(
     (dispatch) => ({
         formActions: bindActionCreators(formActions, dispatch)
     })
-)(AddApp);
+)(ModuleAdd);

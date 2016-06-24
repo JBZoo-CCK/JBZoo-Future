@@ -50,9 +50,7 @@ export function handleFormButton(state = handleFormButtonState, action)
 }
 
 const handleForm = {
-    type     : defines.DEFAULT_FORM_STATE,
-    redirect : false,
-    showMsg  : false
+    type : defines.DEFAULT_FORM_STATE
 };
 
 export function handleFormSend(state = handleForm, action)
@@ -60,19 +58,11 @@ export function handleFormSend(state = handleForm, action)
     switch (action.type) {
 
         case defines.ON_SUBMIT_SUCCESS:
-            return {...state, ...{
-                type     : defines.ON_SUBMIT_SUCCESS,
-                redirect : true,
-                showMsg  : true
-            }};
+            return {...state, ...{type: defines.ON_SUBMIT_SUCCESS}};
         break;
 
         case defines.ON_SUBMIT_FAIL:
-            return {...state, ...{
-                type     : defines.ON_SUBMIT_FAIL,
-                redirect : false,
-                showMsg  : true
-            }};
+            return {...state, ...{type: defines.ON_SUBMIT_FAIL}};
         break;
 
         default:
