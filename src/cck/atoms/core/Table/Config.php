@@ -71,7 +71,22 @@ class Config extends Table
      */
     public function find($key, $default, $filter = null)
     {
-        return $this->_store->find($key, $default, $filter);
+        $value = $this->_store->find($key, $default, $filter);
+
+        if (null === $value) { // Lazy load options
+
+            $select = $this->_select([$this->_table, 'tConfig'])
+                ->select(['tConfig.value'])
+                ->where(['tConfig.option', ' = ?s'], $key)
+                ->limit(1);
+
+            if ($row = $this->_db->fetchRow($select)) {
+                $value = $row['value'];
+                $this->_store->set($key, $value);
+            }
+        }
+
+        return $value;
     }
 
     /**
@@ -94,7 +109,7 @@ class Config extends Table
             $this->_store->set($key, $newValue);
         }
 
-        $replace = $this->_replace('#__jbzoo_config')->row([
+        $replace = $this->_replace($this->_table)->row([
             'option' => $key,
             'value'  => $this->_encode($newValue)
         ]);

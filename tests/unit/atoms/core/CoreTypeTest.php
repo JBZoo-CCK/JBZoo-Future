@@ -114,7 +114,7 @@ class CoreTypeTest extends JBZooPHPUnitDatabase
         isSame('New type name', $type2->getName());
     }
 
-    public function testGeUndefinedType()
+    public function testGetUndefinedType()
     {
         /** @var Type $type */
         $type = $this->app['types']['undefined'];
@@ -122,7 +122,7 @@ class CoreTypeTest extends JBZooPHPUnitDatabase
         isClass('\JBZoo\Data\Data', $type->config);
         isSame('undefined', $type->getName());
 
-        $type->save();
+        isTrue($type->save());
 
         isSame('undefined', $type->config->get('name'));
     }

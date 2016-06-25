@@ -120,10 +120,11 @@ class Type
      */
     public function save()
     {
-        $this->config->set('name', $this->getName());
-
         $this->app->trigger("type.{$this->id}.save.before", [$this]);
+
+        $this->config->set('name', $this->getName());
         $result = $this->app['cfg']->set("type.{$this->id}", $this->config->getArrayCopy(), false);
+
         $this->app->trigger("type.{$this->id}.save.after", [$this]);
 
         return $result;
@@ -135,6 +136,7 @@ class Type
     public function remove()
     {
         $this->app->trigger("type.{$this->id}.remove.before", [$this]);
+
         $result = $this->app['cfg']->remove("type.{$this->id}");
         unset($this->app['types'][$this->id]);
 
