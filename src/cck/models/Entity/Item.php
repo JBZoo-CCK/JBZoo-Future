@@ -115,7 +115,99 @@ class Item extends EntityElements
      */
     public function init()
     {
+        parent::init();
+
         $this->elements = jbdata($this->elements);
         $this->params   = jbdata($this->params);
+    }
+
+    /**
+     * Get an element object out of this item
+     * @param  string $elementId
+     * @return Element
+     */
+    public function getElement($identifier)
+    {
+        if (isset($this->_elements[$identifier])) {
+            return $this->_elements[$identifier];
+        }
+
+        if ($element = $this->getType()->getElement($identifier)) {
+            $element->setItem($this);
+            $this->_elements[$identifier] = $element;
+            return $element;
+        }
+
+        return null;
+    }
+
+    /**
+     * Get a list of the Core Elements
+     *
+     * @return array The list of core elements
+     *
+     * @since 2.0
+     */
+    public function getCoreElements()
+    {
+
+        // get types core elements
+        if ($type = $this->getType()) {
+            $core_elements = $type->getCoreElements();
+            foreach ($core_elements as $element) {
+                $element->setItem($this);
+            }
+            return $core_elements;
+        }
+
+        return array();
+    }
+
+    /**
+     * Get the list of elements
+     *
+     * @return array The element list
+     *
+     * @since 2.0
+     */
+    public function getElements()
+    {
+
+        // get types elements
+        if ($type = $this->getType()) {
+            foreach ($type->getElements() as $element) {
+                if (!isset($this->_elements[$element->identifier])) {
+                    $element->setItem($this);
+                    $this->_elements[$element->identifier] = $element;
+                }
+            }
+            $this->_elements = $this->_elements ? $this->_elements : array();
+        }
+
+        return $this->_elements;
+    }
+
+    /**
+     * Get a list of elements filtered by type
+     *
+     * @return array The element list
+     *
+     * @since 3.0.6
+     */
+    public function getElementsByType($type)
+    {
+        return array_filter($this->getElements(), create_function('$element', 'return $element->getElementType() == "' . $type . '";'));
+    }
+
+    /**
+     * Get a list of elements that support submissions
+     *
+     * @return array The submittable elements
+     *
+     * @since 2.0
+     */
+    public function getSubmittableElements()
+    {
+        return array_filter($this->getElements(), create_function('$element', 'return $element instanceof iSubmittable;'));
     }
 }

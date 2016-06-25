@@ -62,11 +62,15 @@ class Manager extends Container
             $this->_tables[$id] = $classTable;
 
             $this[$id] = function () use ($classTable, $classEntity) {
+
+                /** @var Table $tableObject */
                 $tableObject = new $classTable();
 
                 if (class_exists($classEntity)) {
                     $tableObject->entity = $classEntity;
                 }
+
+                $tableObject->init();
 
                 return $tableObject;
             };
@@ -77,7 +81,7 @@ class Manager extends Container
 
     /**
      * @param string $id
-     * @return \JBZoo\CCK\Table\Table
+     * @return mixed
      * @throws Exception
      */
     public function offsetGet($id)

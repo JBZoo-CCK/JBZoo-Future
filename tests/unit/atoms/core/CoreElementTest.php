@@ -40,4 +40,17 @@ class CoreElementTest extends JBZooPHPUnit
 
         isSame([], $element->data());
     }
+
+    public function testElementNotCoreFeatures()
+    {
+        $element1 = $this->app['elements']->create('Text');
+        $element2 = $this->app['elements']->create('Text');
+
+        isSame(false, $element1->isCore());
+        is(10, strlen($element1->id));
+        is(10, strlen($element2->id));
+
+        isNotSame($element1, $element2);
+        isNotSame($element1->id, $element2->id);
+    }
 }

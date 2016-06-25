@@ -14,6 +14,7 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\App;
 use JBZoo\CCK\Table\Item as ItemTable;
 use JBZoo\CCK\Entity\Item as ItemEntity;
 
@@ -100,13 +101,13 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
     public function testToArray()
     {
         /** @var ItemEntity $item */
-        $item = $this->_table()->get(1);
+        $item = $this->_table()->get(2);
 
         isSame([
-            "id"           => "1",
-            "name"         => "Item 1",
+            "id"           => "2",
+            "name"         => "Item 2",
             "type"         => "",
-            "alias"        => "item-1",
+            "alias"        => "item-2",
             "created"      => "0000-00-00 00:00:00",
             "modified"     => "0000-00-00 00:00:00",
             "publish_up"   => "0000-00-00 00:00:00",
@@ -145,14 +146,14 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
         $item        = new ItemEntity();
         $item->name  = 'Item new';
         $item->alias = 'item-new';
-        $item->save();
+        is(4, $item->save());
 
         is(4, $item->id);
         isSame('Item new', $item->name);
         isSame('item-new', $item->alias);
 
         $item->name = 'Another name';
-        $item->save();
+        is(4, $item->save());
 
         $this->_table()->cleanObjects();
         /** @var ItemEntity $itemNew */
@@ -179,5 +180,46 @@ class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
         $item = $this->_table()->get(1);
         isFalse($item);
         isFalse($this->_table()->hasObject(1));
+    }
+
+    public function testElementData()
+    {
+        /** @var ItemEntity $item */
+        $item = $this->_table()->get(1);
+
+        isSame('Some name', $item->elements->find('_name.name'));
+    }
+
+    public function testEntityName()
+    {
+        /** @var ItemEntity $item */
+        $item = $this->_table()->get(1);
+
+        isSame('item', $item->getEntityName());
+    }
+
+    public function testSaveEvents()
+    {
+        $this->app->on('entity.item.save.before', function (App $app, ItemEntity $item) {
+            $item->name = '456';
+        });
+
+        $this->app->on('entity.item.save.after', function (App $app, ItemEntity $item) {
+            $item->name = '789';
+        });
+
+
+        /** @var ItemEntity $item */
+        $item       = $this->_table()->get(1);
+        $item->name = '123';
+
+        $item->save();
+        isSame('789', $item->name); // Changed in save.after
+
+        $this->_table()->unsetObject(1);
+        $itemAnotherInstance = $this->_table()->get(1);
+        isSame('456', $itemAnotherInstance->name); // Real value in DB
+
+        isNotSame($item, $itemAnotherInstance);
     }
 }

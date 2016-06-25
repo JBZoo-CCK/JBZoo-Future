@@ -93,6 +93,16 @@ abstract class Table
         $this->_key   = $key;
         $this->_table = $name;
         $this->_dbNow = $this->_db->quote(Dates::sql(time()), false);
+
+        $this->_id = strtolower(str_replace(__NAMESPACE__ . '\\', '', get_class($this)));
+    }
+
+    /**
+     * Init table object
+     */
+    public function init()
+    {
+        $this->app->trigger("table.{$this->_id}.init", [$this]);
     }
 
     /**

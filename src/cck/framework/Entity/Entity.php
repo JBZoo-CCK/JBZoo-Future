@@ -34,6 +34,11 @@ abstract class Entity
     protected $_tableName;
 
     /**
+     * @var string
+     */
+    protected $_entityName;
+
+    /**
      * Entity constructor.
      * @param array $rowData
      */
@@ -42,14 +47,16 @@ abstract class Entity
         $this->app = App::getInstance();
 
         $this->bindData($rowData);
+
+        $this->_entityName = strtolower(str_replace(__NAMESPACE__ . '\\', '', get_class($this)));
     }
 
     /**
-     * Init entity state
+     * Init entity object
      */
     public function init()
     {
-        // noop
+        $this->app->trigger("entity.{$this->getEntityName()}.init");
     }
 
     /**
@@ -59,12 +66,23 @@ abstract class Entity
     public function bindData($rowData)
     {
         if ($rowData) {
+
+            $this->app->trigger("entity.{$this->getEntityName()}.bind", [$this, $rowData]);
+
             foreach ($rowData as $propName => $propValue) {
                 if ($propName != 'app' && property_exists($this, $propName)) {
                     $this->$propName = $propValue;
                 }
             }
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function getEntityName()
+    {
+        return $this->_entityName;
     }
 
     /**
@@ -92,11 +110,15 @@ abstract class Entity
     {
         if ($this->_tableName) {
 
+            $this->app->trigger("entity.{$this->getEntityName()}.save.before", [$this]);
+
             /** @var Table $table */
             $table = $this->app['models'][$this->_tableName];
             $id    = $table->saveEntity($this);
 
             $this->{$table->getKey()} = $id;
+
+            $this->app->trigger("entity.{$this->getEntityName()}.save.after", [$this]);
 
             return $id;
         }
@@ -111,9 +133,15 @@ abstract class Entity
     {
         if ($this->_tableName) {
 
+            $this->app->trigger("entity.{$this->getEntityName()}.remove.before", [$this]);
+
             /** @var Table $table */
-            $table = $this->app['models'][$this->_tableName];
-            return $table->removeEntity($this);
+            $table  = $this->app['models'][$this->_tableName];
+            $result = $table->removeEntity($this);
+
+            $this->app->trigger("entity.{$this->getEntityName()}.remove.after", [$this, $result]);
+
+            return $result;
         }
 
         return false;

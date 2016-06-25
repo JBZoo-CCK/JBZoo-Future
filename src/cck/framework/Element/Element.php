@@ -16,6 +16,7 @@ namespace JBZoo\CCK\Element;
 
 use JBZoo\CCK\App;
 use JBZoo\CCK\Entity\EntityElements;
+use JBZoo\CCK\Type\Type;
 use JBZoo\Data\Data;
 use JBZoo\Data\PHPArray;
 
@@ -46,6 +47,11 @@ abstract class Element
     public $data;
 
     /**
+     * @var Type
+     */
+    public $type;
+
+    /**
      * @var Data
      */
     protected $_meta;
@@ -58,12 +64,12 @@ abstract class Element
     /**
      * @var string
      */
-    protected $_group;
+    protected $_elGroup;
 
     /**
      * @var string
      */
-    protected $_type;
+    protected $_elType;
 
     /**
      * Element constructor.
@@ -77,9 +83,18 @@ abstract class Element
         $this->config = jbdata();
         $this->data   = jbdata();
 
-        $this->_group = strtolower($group);
-        $this->_type  = strtolower($type);
+        $this->_elGroup = strtolower($group);
+        $this->_elType  = strtolower($type);
     }
+
+    /**
+     * Init entity state
+     */
+    public function init()
+    {
+        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.init", [$this]);
+    }
+
 
     /**
      * @param bool $ucfirst
@@ -87,7 +102,7 @@ abstract class Element
      */
     public function getElementType($ucfirst = false)
     {
-        return $ucfirst ? ucfirst($this->_type) : $this->_type;
+        return $ucfirst ? ucfirst($this->_elType) : $this->_elType;
     }
 
     /**
@@ -96,7 +111,7 @@ abstract class Element
      */
     public function getElementGroup($ucfirst = false)
     {
-        return $ucfirst ? ucfirst($this->_group) : $this->_group;
+        return $ucfirst ? ucfirst($this->_elGroup) : $this->_elGroup;
     }
 
     /**
@@ -124,8 +139,10 @@ abstract class Element
     /**
      * @param array $data
      */
-    public function bindData($data = array())
+    public function bindData($data = [])
     {
+        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.bindData", [$this]);
+
         if (isset($this->_entity)) {
             $this->_entity->elements->set($this->id, $data);
         }
@@ -144,6 +161,14 @@ abstract class Element
     }
 
     /**
+     * @param Type $type
+     */
+    public function setType(Type $type)
+    {
+        $this->type = $type;
+    }
+
+    /**
      * Get element layout path and use override if exists
      * @param null|string $layout
      * @return string
@@ -152,22 +177,22 @@ abstract class Element
     {
         // set default
         if (empty($layout)) {
-            $layout = $this->_type . '.php';
+            $layout = $this->_elType . '.php';
         } elseif (strpos($layout, '.php') === false) {
             $layout .= '.php';
         }
 
         // own layout
-        $layoutPath = $this->app['path']->get("elements:{$this->_group}/{$this->_type}/tmpl/{$layout}");
+        $layoutPath = $this->app['path']->get("elements:{$this->_elGroup}/{$this->_elType}/tmpl/{$layout}");
 
         // parent option
         if (empty($layoutPath)) {
-            $layoutPath = $this->app['path']->get("elements:{$this->_group}/option/tmpl/{$layout}");
+            $layoutPath = $this->app['path']->get("elements:{$this->_elGroup}/option/tmpl/{$layout}");
         }
 
         // parent group
         if (empty($layoutPath)) {
-            $layoutPath = $this->app['path']->get("elements:core/{$this->_group}/tmpl/{$layout}");
+            $layoutPath = $this->app['path']->get("elements:core/{$this->_elGroup}/tmpl/{$layout}");
         }
 
         // global
@@ -210,8 +235,8 @@ abstract class Element
      */
     public function getPath()
     {
-        $groupDir = ucfirst($this->_group);
-        $typeDir  = ucfirst($this->_type);
+        $groupDir = ucfirst($this->_elGroup);
+        $typeDir  = ucfirst($this->_elType);
 
         return $this->app['path']->get("elements:{$groupDir}/{$typeDir}");
     }
@@ -282,6 +307,8 @@ abstract class Element
 
         $helper = $this->app['assets'];
 
+        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.loadAssets", [$this]);
+
         $helper->add(
             "elemenet-{$group}-{$type}-js",
             "elements:{$group}/{$type}/assets/js/{$type}.js",
@@ -309,14 +336,20 @@ abstract class Element
      */
     public function render(Data $params)
     {
+        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.render.before", [$this, $params]);
+
         if ($layout = $this->getLayout($params->get('layout'))) {
             $group = $this->getElementGroup();
 
-            return $this->_renderLayout($layout, array(
+            $result = $this->_renderLayout($layout, [
                 'params' => $params,
                 'config' => $this->config,
                 $group   => $this->_entity,
-            ));
+            ]);
+
+            $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.render.after", [$this, $params, &$result]);
+
+            return $result;
         }
 
         return null;
@@ -327,7 +360,7 @@ abstract class Element
      * @param array  $__args
      * @return null|string
      */
-    protected function _renderLayout($__layoutPath, $__args = array())
+    protected function _renderLayout($__layoutPath, $__args = [])
     {
         if (is_array($__args)) {
             foreach ($__args as $__var => $__value) {

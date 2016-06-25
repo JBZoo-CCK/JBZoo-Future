@@ -16,6 +16,7 @@ namespace JBZoo\CCK\Element;
 
 use JBZoo\CCK\App;
 use JBZoo\CCK\Entity\EntityElements;
+use JBZoo\CCK\Exception\Exception;
 use JBZoo\Utils\Str;
 
 /**
@@ -29,18 +30,31 @@ class Manager
     public $app;
 
     /**
+     * Create new element instance
+     *
      * @param string         $type
      * @param string         $group
      * @param array          $config
      * @param EntityElements $entity
      * @return Element
+     * @throws Exception
      */
     public function create($type, $group = 'Item', $config = [], EntityElements $entity = null)
     {
+        $type = ucfirst(strtolower($type));
+        if (!$type) {
+            throw new Exception('Element type is empty');
+        }
+
         $group = ucfirst(strtolower($group));
-        $type  = ucfirst(strtolower($type));
+        if (!$group) {
+            throw new Exception('Element group is empty');
+        }
 
         $elementClass = "\\JBZoo\\CCK\\Element\\{$group}\\{$type}";
+        if (!class_exists($elementClass)) {
+            throw new Exception("Element class '{$elementClass}' not found!");
+        }
 
         /** @var Element $element */
         $element = new $elementClass($type, $group);
@@ -48,7 +62,7 @@ class Manager
         $isCore = $element->isCore();
 
         $config = array_merge([
-            'id'          => $isCore ? '_' . strtolower($type) : Str::uuid(),
+            'id'          => $isCore ? '_' . strtolower($type) : Str::random(10),
             'name'        => $element->getName(),
             'type'        => $type,
             'group'       => $group,
@@ -62,6 +76,8 @@ class Manager
         if ($entity) {
             $element->setEntity($entity);
         }
+
+        $element->init();
 
         return $element;
     }

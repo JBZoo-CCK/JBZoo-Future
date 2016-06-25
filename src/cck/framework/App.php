@@ -19,6 +19,7 @@ use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Atom\Manager as AtomManager;
 use JBZoo\CCK\Element\Manager as ElementManager;
 use JBZoo\CCK\Table\Manager as TableManager;
+use JBZoo\CCK\Type\Manager as TypeManager;
 use JBZoo\Assets\Manager as AssetsManager;
 use JBZoo\CrossCMS\AbstractEvents;
 use JBZoo\CrossCMS\Cms;
@@ -80,6 +81,11 @@ class App extends Cms
         // Init Element Manager
         $this['elements'] = function () {
             return new ElementManager();
+        };
+
+        // Init Type Manager
+        $this['types'] = function () {
+            return new TypeManager();
         };
 
         $this->on(AbstractEvents::EVENT_SHUTDOWN, function (App $app) {

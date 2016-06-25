@@ -78,6 +78,7 @@ class Config extends Table
      * @param string $key
      * @param mixed  $newValue
      * @param bool   $isMerge
+     * @return bool|int
      */
     public function set($key, $newValue, $isMerge = true)
     {
@@ -98,7 +99,7 @@ class Config extends Table
             'value'  => $this->_encode($newValue)
         ]);
 
-        $this->_db->query($replace);
+        return $this->_db->query($replace);
     }
 
     /**
