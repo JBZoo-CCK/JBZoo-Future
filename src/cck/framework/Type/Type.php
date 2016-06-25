@@ -122,6 +122,24 @@ class Type
     {
         $this->config->set('name', $this->getName());
 
-        return $this->app['cfg']->set("type.{$this->id}", $this->config->getArrayCopy(), false);
+        $this->app->trigger("type.{$this->id}.save.before", [$this]);
+        $result = $this->app['cfg']->set("type.{$this->id}", $this->config->getArrayCopy(), false);
+        $this->app->trigger("type.{$this->id}.save.after", [$this]);
+
+        return $result;
+    }
+
+    /**
+     * Remove type config
+     */
+    public function remove()
+    {
+        $this->app->trigger("type.{$this->id}.remove.before", [$this]);
+        $result = $this->app['cfg']->remove("type.{$this->id}");
+        unset($this->app['types'][$this->id]);
+
+        $this->app->trigger("type.{$this->id}.remove.after", [$this->id]);
+
+        return $result;
     }
 }

@@ -34,7 +34,7 @@ class Config extends Table
      */
     public function __construct($name = '', $key = 'id')
     {
-        parent::__construct(JBZOO_TABLE_CONFIG, '');
+        parent::__construct(JBZOO_TABLE_CONFIG, 'option');
 
         $this->_store = $this->_init();
     }
@@ -100,6 +100,15 @@ class Config extends Table
         ]);
 
         return $this->_db->query($replace);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function remove($id)
+    {
+        parent::remove($id);
+        $this->_store->remove($id);
     }
 
     /**

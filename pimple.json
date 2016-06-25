@@ -308,6 +308,11 @@
         "value": "Joomla"
     },
     {
+        "name": "types",
+        "type": "container",
+        "value": []
+    },
+    {
         "name": "user",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractUser"

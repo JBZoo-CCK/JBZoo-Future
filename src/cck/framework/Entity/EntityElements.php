@@ -14,7 +14,7 @@
 
 namespace JBZoo\CCK\Entity;
 
-use JBZoo\Data\JSON;
+use JBZoo\Data\Data;
 
 /**
  * Class Entity
@@ -23,7 +23,7 @@ use JBZoo\Data\JSON;
 abstract class EntityElements extends Entity
 {
     /**
-     * @var JSON
+     * @var Data
      */
     public $elements;
 }

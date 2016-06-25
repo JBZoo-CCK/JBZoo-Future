@@ -75,6 +75,16 @@ class Config extends Helper
     }
 
     /**
+     * @param string $key
+     * @return bool|int
+     */
+    public function remove($key)
+    {
+        $key = $this->_prepareKey($key);
+        return $this->_model->remove($key);
+    }
+
+    /**
      * @param string|array $key
      * @return string
      */

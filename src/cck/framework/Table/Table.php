@@ -187,7 +187,7 @@ abstract class Table
     {
         if ($id) {
             $sql = $this->_delete()
-                ->where($this->_key . ' = ?s', $id);
+                ->where([$this->_key, ' = ?s'], $id);
 
             $this->unsetObject($id);
             $isRemoved = $this->_db->query($sql);
