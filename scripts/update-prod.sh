@@ -74,8 +74,10 @@ mv ./src/cck/_index.php         ./src/cck/index.php
 
 echo ""
 echo ">>> >>> Clean up all!"
-rm   ./src/cck/bin/lessc.bat
-rm   ./src/cck/bin/lessc
+rm      ./src/cck/bin/lessc.bat
+rm      ./src/cck/bin/lessc
+rm -fr  ./src/cck/libraries/jbzoo/composer-cleanup
+
 find ./src  -name "*.jsx"           -type f -delete
 find ./src  -name "*.map"           -type f -delete
 find ./src  -name "composer.json"   -type f -delete
