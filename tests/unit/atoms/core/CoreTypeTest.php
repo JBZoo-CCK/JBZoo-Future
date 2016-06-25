@@ -132,10 +132,10 @@ class CoreTypeTest extends JBZooPHPUnitDatabase
         /** @var Type $type */
         $type = $this->app['types']['New-Type'];
 
-        $type->save();
+        isTrue($type->save());
         isSame(["name" => "new-type"], $this->app['cfg']->find("type.new-type"));
 
-        $type->remove();
+        isTrue($type->remove());
         isSame(null, $this->app['cfg']->find("type.new-type"));
     }
 }

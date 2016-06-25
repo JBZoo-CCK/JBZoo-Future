@@ -107,8 +107,8 @@ class Config extends Table
      */
     public function remove($id)
     {
-        parent::remove($id);
         $this->_store->remove($id);
+        return parent::remove($id);
     }
 
     /**
