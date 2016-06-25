@@ -196,7 +196,9 @@ class Item extends EntityElements
      */
     public function getElementsByType($type)
     {
-        return array_filter($this->getElements(), create_function('$element', 'return $element->getElementType() == "' . $type . '";'));
+        return array_filter($this->getElements(), function ($element) use ($type) {
+            return $element->getElementType() == "' . $type . '";
+        });
     }
 
     /**
@@ -208,6 +210,8 @@ class Item extends EntityElements
      */
     public function getSubmittableElements()
     {
-        return array_filter($this->getElements(), create_function('$element', 'return $element instanceof iSubmittable;'));
+        return array_filter($this->getElements(), function ($element) {
+            //return $element instanceof iSubmittable;
+        });
     }
 }
