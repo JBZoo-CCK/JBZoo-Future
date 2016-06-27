@@ -27,8 +27,9 @@ use JBZoo\Utils\Filter;
 use JBZoo\PimpleDumper\PimpleDumper;
 
 /**
- * Class Application
+ * Class App
  * @package JBZoo\CCK
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)*
  */
 class App extends Cms
 {
