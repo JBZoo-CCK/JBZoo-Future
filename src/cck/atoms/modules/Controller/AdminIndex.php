@@ -64,14 +64,11 @@ class AdminIndex extends Admin
      */
     public function add()
     {
-        $data = $this->app['request']->getJSON('data');
-        $rows = json_decode($data, true);
-
-        $entity = new Module();
-        $entity->bindData($rows);
+        $data = $this->app['request']->getJSON('module');
+        $entity = new Module($data);
         $entity->save();
 
-        $this->_json($entity->toArray());
+        $this->_json(['module' => $entity->toArray()]);
     }
 
     /**
@@ -81,12 +78,28 @@ class AdminIndex extends Admin
      */
     public function update()
     {
-        $data = $this->app['request']->getJSON('data');
-        $arrayData = json_decode($data, true);
-        $entity = new Module();
-        $entity->bindData($arrayData);
-        $id = $entity->save();
+        $data = $this->app['request']->getJSON('module');
+        $module = new Module($data);
+        $module->save();
 
-        $this->_json(['module' => ['id' => $id]]);
+        $this->_json(['module' => $module]);
+    }
+
+    /**
+     * Remove module action.
+     *
+     * @return void
+     */
+    public function remove()
+    {
+        $id = $this->app['request']->getJSON('id');
+
+        /** @var Module $module */
+        if ($module = $this->_table->get($id)) {
+            $module->remove();
+            $this->_json(['removed' => $id]);
+        }
+
+        $this->_json(['removed' => '0']);
     }
 }

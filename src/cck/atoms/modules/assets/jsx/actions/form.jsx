@@ -46,9 +46,7 @@ function onAddModule(data) {
 }
 
 export function addModule(data) {
-    let module = {
-        data: JSON.stringify(data)
-    };
+    let module = {module: data};
     return (dispatch, getState) => {
         dispatch(onAddModule(module));
         hashHistory.push('/modules');
@@ -66,11 +64,26 @@ function onUpdateModule(data) {
 }
 
 export function updateModule(data) {
-    let module = {
-        data: JSON.stringify(data)
-    };
+    let module = {module: data};
     return (dispatch, getState) => {
         dispatch(onUpdateModule(module));
+        hashHistory.push('/modules');
+    }
+}
+
+function handleRemoveModule() {
+    return {
+        type: defines.ON_DELETE_MODULE
+    }
+}
+
+function onDeleteModule(moduleId) {
+    return dispatch => JBZoo.ajax('modules.index.remove', {id: moduleId}, dispatch, handleRemoveModule);
+}
+
+export function removeModule(moduleId) {
+    return (dispatch, getState) => {
+        dispatch(onDeleteModule(moduleId));
         hashHistory.push('/modules');
     }
 }

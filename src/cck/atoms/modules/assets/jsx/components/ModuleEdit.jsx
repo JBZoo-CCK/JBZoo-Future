@@ -36,10 +36,11 @@ class ModuleEdit extends Component {
 
     render() {
 
-        var router   = this.context.router,
-            itemId   = this.props.params.id,
-            module   = this.props.modules[itemId],
-            listLink = router.createHref('/modules');
+        var router     = this.context.router,
+            moduleId   = this.props.params.id,
+            module     = this.props.modules[moduleId],
+            listLink   = router.createHref('/modules'),
+            removeLink = router.createHref('/modules/remove/' + moduleId);
 
         let { enableButtons, disableButtons, updateModule } = this.props.formActions;
 
@@ -62,6 +63,7 @@ class ModuleEdit extends Component {
                                             disabled={!this.props.handleFormButton.canSubmit}
                                         />
                                         <RaisedButton label="Close" href={listLink} linkButton={true} />
+                                        <RaisedButton label="Remove" href={removeLink} linkButton={true} />
                                     </ToolbarGroup>
                                 </Toolbar>
                             </Col>

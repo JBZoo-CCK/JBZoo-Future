@@ -13,7 +13,7 @@
 
 'use strict';
 
-var ModuleAdd, ModuleList, ModuleEdit;
+var ModuleAdd, ModuleList, ModuleEdit, ModuleRemove;
 
 module.exports.default = function (reducerRegistry, atomKey) {
 
@@ -55,6 +55,17 @@ module.exports.default = function (reducerRegistry, atomKey) {
                 }
 
                 callback(null, ModuleEdit);
+            }
+        },
+        {
+            path        : '/modules/remove/:id',
+            getComponent: (nextState, callback) => {
+
+                if (!ModuleRemove) {
+                    ModuleRemove = require('./components/ModuleRemove');
+                }
+
+                callback(null, ModuleRemove);
             }
         }
     ]

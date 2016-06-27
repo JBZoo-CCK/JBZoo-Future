@@ -66,7 +66,7 @@ class AdminIndex extends Admin
     }
 
     /**
-     * Save item action
+     * Remove item action
      */
     public function removeItem()
     {
