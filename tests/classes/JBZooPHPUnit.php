@@ -37,6 +37,33 @@ abstract class JBZooPHPUnit extends PHPUnit
     public $helper;
 
     /**
+     * @var array
+     */
+    protected $_cmsParams = [
+        'admin-login-joomla'  => '/administrator/index.php',
+        'admin-path-joomla'   => '/administrator/index.php',
+        'admin-params-joomla' => [
+            'option' => 'com_jbzoo',
+        ],
+
+        'admin-login-wordpress'  => '/wp-login.php',
+        'admin-path-wordpress'   => '/wp-admin/admin.php',
+        'admin-params-wordpress' => [
+            'page' => 'jbzoo',
+        ],
+
+        'site-path-joomla'      => '/index.php',
+        'site-path-wordpress'   => '/index.php',
+        'site-params-joomla'    => [
+            'option' => 'com_jbzoo',
+        ],
+        'site-params-wordpress' => [
+            'page' => 'jbzoo',
+            'p'    => WP_POST_ID,
+        ]
+    ];
+
+    /**
      * Setup before each test
      */
     protected function setUp()
@@ -61,35 +88,161 @@ abstract class JBZooPHPUnit extends PHPUnit
      * Custom HTTP Request
      *
      * @param string $action
-     * @param string $path
      * @param array  $query
+     * @param string $path
+     * @param bool   $isJson
      * @return Data
      */
-    protected function _request($action, $path = '/', $query = [])
+    protected function _request($action, $query = [], $path = '', $isJson = false)
     {
         $url = Url::create([
             'host'  => PHPUNIT_HTTP_HOST,
             'user'  => PHPUNIT_HTTP_USER,
             'pass'  => PHPUNIT_HTTP_PASS,
-            'path'  => $path,
-            'query' => array_merge([
+            'path'  => $path ? $path : $this->_cmsParams['site-path-' . __CMS__],
+            'query' => array_merge($this->_cmsParams['site-params-' . __CMS__], [
                 '_cov'    => strtolower($this->app['type']) . '_' . $action,
-                'option'  => 'com_jbzoo',
-                'page'    => 'jbzoo',
-                'p'       => WP_POST_ID,
                 'act'     => $action,
-                'nocache' => rand(0, 100000)
+                'nocache' => mt_rand(0, 100000)
             ], $query)
         ]);
 
         $result = $this->app['http']->request($url, [], [
-            'response'  => AbstractHttp::RESULT_FULL,
-            'cache'     => 0,
-            'cache_ttl' => 0,
-            'debug'     => 1
+            'response' => AbstractHttp::RESULT_FULL,
+            'debug'    => 1
         ]);
+
+        if ($isJson) {
+            return jbdata($result->get('body', '{}'));
+        }
 
         return $result;
     }
 
+    /**
+     * Custom HTTP Request for CMS Control panel
+     *
+     * @param string $action
+     * @param array  $query
+     * @param bool   $isJson
+     * @return Data
+     */
+    protected function _requestAdmin($action, $query = [], $isJson = true)
+    {
+        $url = Url::create([
+            'host'  => PHPUNIT_HTTP_HOST,
+            'user'  => PHPUNIT_HTTP_USER,
+            'pass'  => PHPUNIT_HTTP_PASS,
+            'path'  => $this->_cmsParams['admin-path-' . __CMS__],
+            'query' => array_merge($this->_cmsParams['admin-params-' . __CMS__], [
+                '_cov'      => strtolower($this->app['type']) . '_' . $action,
+                'act'       => $action,
+                'nocache'   => mt_rand(0, 100000)
+            ], $query)
+        ]);
+
+        $result = $this->app['http']->request($url, [], [
+            'response' => AbstractHttp::RESULT_FULL,
+            'debug'    => 1,
+            'headers'  => [
+                'Cookie' => $this->_getCookieForAdmin()
+            ]
+        ]);
+
+        if ($isJson && strpos($result->find('headers.content-type'), 'application/json') !== false) {
+            return jbdata($result->get('body', '{}'));
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getCookieForAdmin()
+    {
+        // Get Token and Cookie hashes
+        $urlLogin = Url::create([
+            'host' => PHPUNIT_HTTP_HOST,
+            'user' => PHPUNIT_HTTP_USER,
+            'pass' => PHPUNIT_HTTP_PASS,
+            'path' => $this->_cmsParams['admin-login-' . __CMS__]
+        ]);
+
+        $urlAdminCP = Url::create([
+            'host'  => PHPUNIT_HTTP_HOST,
+            'user'  => PHPUNIT_HTTP_USER,
+            'pass'  => PHPUNIT_HTTP_PASS,
+            'path'  => $this->_cmsParams['admin-path-' . __CMS__],
+            'query' => $this->_cmsParams['admin-params-' . __CMS__]
+        ]);
+
+        $result = $this->app['http']->request($urlLogin, [], [
+            'response' => AbstractHttp::RESULT_FULL,
+            'debug'    => 1
+        ]);
+
+        list($cookie) = explode(';', $result->find('headers.set-cookie'), 2);
+
+        if ('joomla' === __CMS__) {
+            // Parse response
+            preg_match('#<input type="hidden" name="(.{32})" value="1" />\t#ius', $result->body, $matches);
+            $token = $matches[1];
+
+            // Signin to Admin CP
+            $this->app['http']->request($urlAdminCP, [
+                'method'   => 'POST',
+                'username' => 'admin',
+                'passwd'   => 'admin',
+                'option'   => 'com_login',
+                'task'     => 'login',
+                'return'   => 'aW5kZXgucGhw',
+                $token     => 1
+            ], [
+                'response' => AbstractHttp::RESULT_FULL,
+                'debug'    => 1,
+                'headers'  => [
+                    'Cookie' => $cookie
+                ]
+            ]);
+
+        } elseif ('wordpress' === __CMS__) {
+
+            skip('Wordpress not support test requests for admin');
+
+            // Signin to Admin CP
+            $result = $this->app['http']->request($urlLogin, [
+                'log'         => 'admin',
+                'pwd'         => 'admin',
+                'wp-submit'   => 'Enter',
+                'redirect_to' => Url::create([
+                    'host' => PHPUNIT_HTTP_HOST,
+                    'user' => PHPUNIT_HTTP_USER,
+                    'pass' => PHPUNIT_HTTP_PASS,
+                    'path' => '/wp-admin/'
+                ]),
+                'testcookie'  => '1',
+            ], [
+                'method'   => 'POST',
+                'response' => AbstractHttp::RESULT_FULL,
+                'debug'    => 1,
+                'timeout'  => 2,
+                'headers'  => [
+                    'Cookie' => $cookie,
+                ]
+            ]);
+
+            $cookie = $result->find('headers.set-cookie', [], function ($list) {
+                $result = [];
+                foreach ($list as $item) {
+                    list($cookie) = explode(';', $item, 2);
+                    $result[] = $cookie;
+                }
+
+                return implode('; ', $result);
+            });
+        }
+
+        return $cookie;
+    }
 }

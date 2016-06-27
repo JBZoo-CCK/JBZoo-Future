@@ -17,17 +17,12 @@ namespace JBZoo\CCK\Atom\Test\Controller;
 use JBZoo\CCK\Controller\Site;
 
 /**
- * Class SiteOther
+ * Class AdminOther
  * @package JBZoo\CCK
  */
-class SiteOther extends Site
+class AdminOther extends Site
 {
-    public function checkEcho()
-    {
-        echo $this->app['request']->get('qwerty');
-    }
-
-    public function testRequest()
+    public function testRequestAdmin()
     {
         $variable = $this->app['request']->get('some-var');
         $this->_json(['variable' => $variable]);

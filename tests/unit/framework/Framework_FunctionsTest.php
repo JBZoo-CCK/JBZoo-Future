@@ -20,12 +20,12 @@ namespace JBZoo\PHPUnit;
  */
 class Framework_FunctionsTest extends JBZooPHPUnit
 {
-    public function testJzoo()
+    public function testJbzoo()
     {
         isClass('\JBZoo\CCK\App', jbzoo());
     }
 
-    public function testJzooHelper()
+    public function testJbzooHelper()
     {
         isClass('\JBZoo\Path\Path', jbzoo('path'));
     }
