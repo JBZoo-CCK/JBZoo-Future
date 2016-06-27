@@ -29,7 +29,7 @@ use JBZoo\PimpleDumper\PimpleDumper;
 /**
  * Class App
  * @package JBZoo\CCK
- * @SuppressWarnings(PHPMD.CouplingBetweenObjects)*
+ * @SuppressWarnings(PHPMD.CouplingBetweenObjects)
  */
 class App extends Cms
 {
