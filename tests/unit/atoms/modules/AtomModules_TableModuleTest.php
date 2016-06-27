@@ -14,6 +14,8 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\Atom\Modules\Entity\Module;
+
 /**
  * Class AtomModules_TableModuleTest
  */
@@ -33,6 +35,7 @@ class AtomModules_TableModuleTest extends JBZooPHPUnitDatabase
     public function testClassName()
     {
         isClass('\JBZoo\CCK\Atom\Modules\Table\Module', $this->_table());
+        isSame('#__jbzoo_modules', JBZOO_TABLE_MODULES);
     }
 
     public function testGetList()
@@ -74,5 +77,27 @@ class AtomModules_TableModuleTest extends JBZooPHPUnitDatabase
     public function testEntityClassName()
     {
         isClass('JBZoo\CCK\Atom\Modules\Entity\Module', $this->_table()->get(1));
+    }
+
+    public function testUpdate()
+    {
+        $module = new Module();
+        $module->title = 'New module';
+        $module->params = 'new-module';
+        is(5, $module->save());
+
+        is(5, $module->id);
+        isSame('New module', $module->title);
+        isSame('new-module', $module->params);
+
+        $module->title = 'Another name';
+        is(5, $module->save());
+
+        $this->_table()->cleanObjects();
+        /** @var Module $newModule */
+        $newModule = $this->_table()->get(5);
+        is(5, $newModule->id);
+        isSame('Another name', $newModule->title);
+        isSame('new-module', $newModule->params);
     }
 }
