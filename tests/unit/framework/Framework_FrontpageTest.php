@@ -24,7 +24,7 @@ class Framework_FrontpageTest extends JBZooPHPUnit
     {
         $actual = ['foo' => 'bar'];
 
-        $result = $this->_request('test.index.renderJson', '/', [
+        $result = $this->_request('test.index.renderJson', [
             'test-data' => $actual
         ]);
 
