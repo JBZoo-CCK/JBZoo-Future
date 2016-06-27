@@ -56,7 +56,7 @@ class UnitHelper
             'test-name'      => $testname,
 
             // phpunit
-            'phpunit-test'   => FS::clean(PROJECT_ROOT . '/tests/unit/browser/BrowserEmulatorTest.php'),
+            'phpunit-test'   => FS::clean(PROJECT_ROOT . '/tests/unit/browser/Browser_EmulatorTest.php'),
             'phpunit-config' => FS::clean(PROJECT_ROOT . '/phpunit-browser.xml'),
             'phpunit-cov'    => FS::clean(PROJECT_ROOT . '/build/coverage_cov/' . $testname . '.cov'),
 

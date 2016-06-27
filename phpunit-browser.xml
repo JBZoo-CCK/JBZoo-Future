@@ -28,7 +28,7 @@
 
     <testsuites>
         <testsuite name="Browser Emulator">
-            <directory suffix="BrowserEmulatorTest.php">tests/unit/browser</directory>
+            <directory suffix="Browser_EmulatorTest.php">tests/unit/browser</directory>
         </testsuite>
     </testsuites>
 
