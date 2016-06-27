@@ -27,18 +27,15 @@ const { Row, Col} = require('react-flexbox-grid');
 class ModuleAdd extends Component {
 
     render() {
-
-        dump(this.context);
-
         var router   = this.context.router,
             listLink = router.createHref('/modules');
 
-        let { enableButtons, disableButtons, submitForm } = this.props.formActions;
+        let { enableButtons, disableButtons, addModule } = this.props.formActions;
 
         return (
             <div>
                 <Formsy.Form
-                    onValidSubmit={submitForm}
+                    onValidSubmit={addModule}
                     onValid={enableButtons}
                     onInvalid={disableButtons}
                 >

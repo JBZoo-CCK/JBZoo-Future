@@ -19,6 +19,7 @@ import { connect }              from 'react-redux';
 import Formsy                   from 'formsy-react';
 import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
 import * as formActions         from '../../jsx/actions/form';
+import * as modulesActions      from '../../jsx/actions/modules';
 import { FormsyText }           from 'formsy-material-ui/lib';
 import RaisedButton             from 'material-ui/RaisedButton';
 
@@ -26,55 +27,78 @@ const { Row, Col} = require('react-flexbox-grid');
 
 class ModuleEdit extends Component {
 
+    componentDidMount() {
+        let modules = this.props.modules;
+        if (Object.keys(modules).length === 0) {
+            this.props.modulesActions.fetchModulesIfNeeded();
+        }
+    }
+
     render() {
 
         var router   = this.context.router,
+            itemId   = this.props.params.id,
+            module   = this.props.modules[itemId],
             listLink = router.createHref('/modules');
 
-        let { enableButtons, disableButtons, submitForm } = this.props.formActions;
+        let { enableButtons, disableButtons, updateModule } = this.props.formActions;
 
         return (
             <div>
-                <Formsy.Form
-                    onValidSubmit={submitForm}
-                    onValid={enableButtons}
-                    onInvalid={disableButtons}
-                >
-                    <Row>
-                        <Col md={12}>
-                            <Toolbar>
-                                <ToolbarGroup>
-                                    <RaisedButton
-                                        type="submit"
-                                        label="Update"
-                                        primary={true}
-                                        disabled={!this.props.handleFormButton.canSubmit}
-                                    />
-                                    <RaisedButton label="Close" href={listLink} linkButton={true} />
-                                </ToolbarGroup>
-                            </Toolbar>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <div>
+                {module ?
+                    <Formsy.Form
+                        onValidSubmit={updateModule}
+                        onValid={enableButtons}
+                        onInvalid={disableButtons}
+                    >
+                        <Row>
+                            <Col md={12}>
+                                <Toolbar>
+                                    <ToolbarGroup>
+                                        <RaisedButton
+                                            type="submit"
+                                            label="Update"
+                                            primary={true}
+                                            disabled={!this.props.handleFormButton.canSubmit}
+                                        />
+                                        <RaisedButton label="Close" href={listLink} linkButton={true} />
+                                    </ToolbarGroup>
+                                </Toolbar>
+                            </Col>
+                        </Row>
+                        <Row>
+                            <Col>
                                 <FormsyText
-                                    name="title"
+                                    value={module.id}
+                                    name="id"
                                     required
-                                    floatingLabelText="Module title"
+                                    type="hidden"
+                                    style={{position: "absolute", left: "-9999px"}}
+                                    floatingLabelText="Id"
                                 />
-                            </div>
-                            <div>
-                                <FormsyText
-                                    name="params"
-                                    floatingLabelText="Module params"
-                                    multiLine={true}
-                                    rows={2}
-                                />
-                            </div>
-                        </Col>
-                    </Row>
-                </Formsy.Form>
+                                <div>
+                                    <FormsyText
+                                        value={module.title}
+                                        name="title"
+                                        required
+                                        floatingLabelText="Module title"
+                                    />
+                                </div>
+                                <div>
+                                    <FormsyText
+                                        name="params"
+                                        value={module.params}
+                                        floatingLabelText="Module params"
+                                        multiLine={true}
+                                        rows={2}
+                                    />
+                                </div>
+                            </Col>
+                        </Row>
+                    </Formsy.Form>
+                    :
+                    <p>No module</p>
+                }
             </div>
         );
     }
@@ -86,10 +110,12 @@ ModuleEdit.contextTypes = {
 
 module.exports = connect(
     (state) => ({
+        modules: state.modules,
         handleFormButton: state.handleFormButton,
         handleFormSend: state.handleFormSend
     }),
     (dispatch) => ({
+        modulesActions: bindActionCreators(modulesActions, dispatch),
         formActions: bindActionCreators(formActions, dispatch)
     })
 )(ModuleEdit);

@@ -57,12 +57,8 @@ export function handleFormSend(state = handleForm, action)
 {
     switch (action.type) {
 
-        case defines.ON_SUBMIT_SUCCESS:
-            return {...state, ...{type: defines.ON_SUBMIT_SUCCESS}};
-        break;
-
-        case defines.ON_SUBMIT_FAIL:
-            return {...state, ...{type: defines.ON_SUBMIT_FAIL}};
+        case defines.ON_ADD_SUCCESS:
+            return {...state, ...{type: defines.ON_ADD_SUCCESS}};
         break;
 
         default:

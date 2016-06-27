@@ -47,7 +47,14 @@ class AdminIndex extends Admin
     public function index()
     {
         $modules = $this->_table->getList();
-        $this->_json(['list' => $modules]);
+
+        $tmp = [];
+        /** @var Module $module */
+        foreach ($modules as $module) {
+            $tmp[$module->id] = $module;
+        }
+
+        $this->_json(['list' => $tmp]);
     }
 
     /**
@@ -67,8 +74,19 @@ class AdminIndex extends Admin
         $this->_json($entity->toArray());
     }
 
-    public function edit()
+    /**
+     * Update module data action.
+     *
+     * @return void
+     */
+    public function update()
     {
+        $data = $this->app['request']->getJSON('data');
+        $arrayData = json_decode($data, true);
+        $entity = new Module();
+        $entity->bindData($arrayData);
+        $id = $entity->save();
 
+        $this->_json(['module' => ['id' => $id]]);
     }
 }

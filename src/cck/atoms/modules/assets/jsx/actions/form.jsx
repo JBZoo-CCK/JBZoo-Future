@@ -13,9 +13,9 @@
 
 'use strict';
 
-import JBZoo        from '../../../../../assets/jsx/JBZoo';
-import * as defines from '../defines';
-import { hashHistory } from 'react-router'
+import * as defines     from '../defines';
+import { hashHistory }  from 'react-router'
+import JBZoo            from '../../../../../assets/jsx/JBZoo';
 
 export function enableButtons() {
     return (dispatch, getState) => {
@@ -35,22 +35,42 @@ export function disableButtons() {
     }
 }
 
-function onSubmit(module) {
+function handleAddModule() {
     return {
-        type: (module.id) ? defines.ON_SUBMIT_SUCCESS : defines.ON_SUBMIT_FAIL
-    }
+        type: defines.ON_ADD_SUCCESS
+    };
 }
 
-function fetchModule(data) {
-    return dispatch => JBZoo.ajax('modules.index.add', data, dispatch, onSubmit);
+function onAddModule(data) {
+    return dispatch => JBZoo.ajax('modules.index.add', data, dispatch, handleAddModule);
 }
 
-export function submitForm(data) {
+export function addModule(data) {
     let module = {
         data: JSON.stringify(data)
     };
     return (dispatch, getState) => {
-        dispatch(fetchModule(module));
+        dispatch(onAddModule(module));
+        hashHistory.push('/modules');
+    }
+}
+
+function handleUpdateModule() {
+    return {
+        type: defines.ON_UPDATE_SUCCESS
+    };
+}
+
+function onUpdateModule(data) {
+    return dispatch => JBZoo.ajax('modules.index.update', data, dispatch, handleUpdateModule);
+}
+
+export function updateModule(data) {
+    let module = {
+        data: JSON.stringify(data)
+    };
+    return (dispatch, getState) => {
+        dispatch(onUpdateModule(module));
         hashHistory.push('/modules');
     }
 }
