@@ -21,7 +21,7 @@ use JBZoo\CCK\Entity\Item;
  */
 class AtomItems_Test extends JBZooPHPUnit
 {
-    public function testSaveItem()
+    public function testSaveItemAction()
     {
         $uniqName = uniqid('name-');
 
@@ -46,10 +46,41 @@ class AtomItems_Test extends JBZooPHPUnit
         is($response->find('item.id'), 2);
     }
 
+    public function testRemoveItemAction()
+    {
+        $response = $this->_requestAdmin('items.index.saveItem', ['item' => []], 'PAYLOAD');
+
+        /** @var Item $newItem */
+        $newId = $response->find('item.id');
+        isTrue($newId > 0);
+
+        // Check new item
+        $newItem = $this->app['models']['item']->get($newId);
+        isTrue($newItem);
+
+        // Check remove new item
+        $response = $this->_requestAdmin('items.index.removeItem', ['id' => $newId], 'PAYLOAD');
+        is($newId, $response->find('removed'));
+
+        $this->app['models']['item']->cleanObjects();
+        $newItem = $this->app['models']['item']->get($newId);
+        isFalse($newItem);
+
+        $response = $this->_requestAdmin('items.index.removeItem', ['id' => 100500], 'PAYLOAD');
+        is(0, $response->find('removed'));
+    }
+
     public function testGetListAction()
     {
         $response = $this->_requestAdmin('items.index.getList');
 
         isTrue(is_array($response->find('list')));
+    }
+
+    public function testGetNewItemAction()
+    {
+        $response = $this->_requestAdmin('items.index.getNewItem');
+
+        isTrue(is_array($response->find('item')));
     }
 }

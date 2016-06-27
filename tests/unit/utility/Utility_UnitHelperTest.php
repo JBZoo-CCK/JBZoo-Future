@@ -27,7 +27,7 @@ class Utility_UnitHelperTest extends JBZooPHPUnit
         $json   = $this->_requestAdmin('test.other.testRequestAdmin', ['some-var' => $uniqId]);
         isSame($uniqId, $json->get('variable'));
 
-        $htmlContent = $this->_requestAdmin('core.index.index', [], false);
+        $htmlContent = $this->_requestAdmin('core.index.index', [], 'GET', false);
 
         isContain('assets/js/assets-common.min.js', $htmlContent->body);
         isContain('assets/js/core.min.js', $htmlContent->body);

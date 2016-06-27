@@ -133,23 +133,24 @@ abstract class JBZooPHPUnit extends PHPUnit
         } else {
             $result = $this->app['http']->request(
                 Url::create([
-                    'host' => PHPUNIT_HTTP_HOST,
-                    'user' => PHPUNIT_HTTP_USER,
-                    'pass' => PHPUNIT_HTTP_PASS,
-                    'path' => $this->_cmsParams['admin-path-' . __CMS__] . '?' . Url::build([
-                            'option' => 'com_jbzoo',
-                            'act'    => $action,
-                        ]),
+                    'host'  => PHPUNIT_HTTP_HOST,
+                    'user'  => PHPUNIT_HTTP_USER,
+                    'pass'  => PHPUNIT_HTTP_PASS,
+                    'path'  => $this->_cmsParams['admin-path-' . __CMS__],
+                    'query' => Url::build([
+                        'option' => 'com_jbzoo',
+                        'act'    => $action,
+                    ])
                 ]),
                 json_encode($query),
                 [
+                    'method'   => 'POST',
                     'response' => AbstractHttp::RESULT_FULL,
                     'debug'    => 1,
                     'headers'  => [
                         'Cookie'       => $this->_getCookieForAdmin(),
                         'Content-Type' => 'application/json'
                     ],
-                    'method'   => 'POST',
                 ]
             );
         }
