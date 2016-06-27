@@ -75,9 +75,10 @@ class AdminIndex extends Admin
         /** @var Item $item */
         if ($item = $this->app['models']['item']->get($id)) {
             $item->remove();
+            $this->_json(['removed' => $id]);
         }
 
-        $this->_json();
+        $this->_json(['removed' => '0']);
     }
 
     /**
