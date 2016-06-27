@@ -202,7 +202,6 @@ class App extends Cms
         }
 
         // Get current atom and controller
-        //$act = $act ?: $this['request']->get('act', 'core.index.index');
         list($atomName, $controller, $action) = Filter::_($act, function ($orginal) {
             $value  = Filter::cmd($orginal);
             $values = explode('.', $value);

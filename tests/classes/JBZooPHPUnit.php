@@ -113,19 +113,46 @@ abstract class JBZooPHPUnit extends PHPUnit
      *
      * @param string $action
      * @param array  $query
+     * @param string $method
      * @param bool   $isJson
      * @return Data
      */
-    protected function _requestAdmin($action, $query = [], $isJson = true)
+    protected function _requestAdmin($action, $query = [], $method = 'POST', $isJson = true)
     {
-        $result = $this->_http(
-            $this->_cmsParams['admin-path-' . __CMS__],
-            $action,
-            $query,
-            [
-                'Cookie' => $this->_getCookieForAdmin()
-            ]
-        );
+        if ($method !== 'PAYLOAD') {
+            $result = $this->_http(
+                $this->_cmsParams['admin-path-' . __CMS__],
+                $action,
+                $query,
+                [
+                    'Cookie' => $this->_getCookieForAdmin()
+                ],
+                $method
+            );
+
+        } else {
+            $result = $this->app['http']->request(
+                Url::create([
+                    'host' => PHPUNIT_HTTP_HOST,
+                    'user' => PHPUNIT_HTTP_USER,
+                    'pass' => PHPUNIT_HTTP_PASS,
+                    'path' => $this->_cmsParams['admin-path-' . __CMS__] . '?' . Url::build([
+                            'option' => 'com_jbzoo',
+                            'act'    => $action,
+                        ]),
+                ]),
+                json_encode($query),
+                [
+                    'response' => AbstractHttp::RESULT_FULL,
+                    'debug'    => 1,
+                    'headers'  => [
+                        'Cookie'       => $this->_getCookieForAdmin(),
+                        'Content-Type' => 'application/json'
+                    ],
+                    'method'   => 'POST',
+                ]
+            );
+        }
 
         if ($isJson && strpos($result->find('headers.content-type'), 'application/json') !== false) {
             return jbdata($result->get('body', '{}'));

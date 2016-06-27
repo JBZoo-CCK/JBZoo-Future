@@ -28,7 +28,7 @@ class AtomItems_TableItemTest extends JBZooPHPUnitDatabase
     protected function setUp()
     {
         parent::setUp();
-        //$this->_table()->cleanObjects();
+        $this->_table()->cleanObjects();
     }
 
     /**
