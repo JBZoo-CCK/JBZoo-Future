@@ -15,10 +15,10 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class CodeStyleTest
+ * Class Utility_CodeStyleTest
  * @package JBZoo\PHPUnit
  */
-class CodeStyleTest extends Codestyle
+class Utility_CodeStyleTest extends Codestyle
 {
     protected $_packageName = 'CCK';
     protected $_packageLink = 'http://jbzoo.com';

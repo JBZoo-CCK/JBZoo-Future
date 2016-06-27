@@ -25,7 +25,7 @@ return [
         // TODO: Add cutsom filters for Assets helper (join, compress, mdata, resolver, path rewriter)
         'jbzoo.assets' => function (App $app) {
 
-            if (!JBZOO_DEV && (Cli::check() || $app['request']->isAjax())) {
+            if (Cli::check() || $app['request']->isAjax()) {
                 return;
             }
 

@@ -15,11 +15,11 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class TestAtomHelperTest
+ * Class AtomTest_HelperTestTest
  * @package JBZoo\PHPUnit
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class TestAtomHelperTest extends JBZooPHPUnit
+class AtomTest_HelperTestTest extends JBZooPHPUnit
 {
     public function testGetHelper()
     {

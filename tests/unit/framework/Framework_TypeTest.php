@@ -17,14 +17,14 @@ namespace JBZoo\PHPUnit;
 use JBZoo\CCK\Type\Type;
 
 /**
- * Class CoreElementTest
+ * Class Framework_TypeTest
  */
-class CoreTypeTest extends JBZooPHPUnitDatabase
+class Framework_TypeTest extends JBZooPHPUnitDatabase
 {
     /**
      * @var string
      */
-    protected $_fixtureFile = 'CoreTypeTest.php';
+    protected $_fixtureFile = 'Framework_TypeTest.php';
 
     public function testCreateType()
     {

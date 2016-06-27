@@ -15,10 +15,10 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class FunctionsTest
+ * Class Framework_FunctionsTest
  * @package JBZoo\PHPUnit
  */
-class FunctionsTest extends JBZooPHPUnit
+class Framework_FunctionsTest extends JBZooPHPUnit
 {
     public function testJzoo()
     {

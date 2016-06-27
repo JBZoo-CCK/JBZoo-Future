@@ -15,16 +15,15 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class BrowserEmulatorTest
+ * Class AtomAssetsJqueryCookie_Test
  * @package JBZoo\PHPUnit
  */
-class BrowserEmulatorTest extends PHPUnit
+class AtomAssetsJqueryCookie_Test extends JBZooPHPUnit
 {
-    public function test()
+    public function testJQueryCookie()
     {
-        require_once PROJECT_ROOT . '/tests/autoload/init_cms.php';
-        require_once PROJECT_ROOT . '/tests/autoload/browser_render.php';
-
-        isTrue(true); // phpunit hack
+        $result = $this->_request('test.index.assetsJQueryCookie');
+        isContain("/jquery.js", $result->get('body'));
+        isContain("/jquery.cookie.min.js", $result->get('body'));
     }
 }

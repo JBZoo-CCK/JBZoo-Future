@@ -172,12 +172,9 @@ abstract class Atom extends Container
             }
 
             $this->app->error("Action not found: {$this->_id}.{$controller}.{$action}");
-
-        } else {
-            $this->app->error("Controller not found: {$this->_id}.{$controller}; PHP Class: {$ctrlClass}");
         }
 
-        return null;
+        $this->app->error("Controller not found: {$this->_id}.{$controller}; PHP Class: {$ctrlClass}");
     }
 
     /**

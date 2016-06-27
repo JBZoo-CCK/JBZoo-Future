@@ -17,11 +17,11 @@ namespace JBZoo\PHPUnit;
 use JBZoo\CCK\App;
 
 /**
- * Class ApplicationTest
+ * Class Framework_ApplicationTest
  * @package JBZoo\PHPUnit
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class ApplicationTest extends JBZooPHPUnit
+class Framework_ApplicationTest extends JBZooPHPUnit
 {
     public function testInstance()
     {

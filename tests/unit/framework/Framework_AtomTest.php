@@ -15,11 +15,11 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class CoreAtomTest
+ * Class Framework_AtomTest
  * @package JBZoo\PHPUnit
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class AtomCoreTest extends JBZooPHPUnit
+class Framework_AtomTest extends JBZooPHPUnit
 {
     public function testAtom()
     {
@@ -48,6 +48,21 @@ class AtomCoreTest extends JBZooPHPUnit
         is($uniqid, $this->app->execute(' Test . Index . Index '));
         is($uniqid, $this->app->execute(' T e s t . I n d e x . I n d e x '));
         is($uniqid, $this->app->execute(' T e s t . I n d e x . I n d e x . no check'));
+    }
+
+    public function testUndefinedAction()
+    {
+        $content = $this->_request('test.index.undefined');
+        isContain('Action not found: test.index.undefined', $content->body);
+    }
+
+    public function testUndefinedController()
+    {
+        $content = $this->_request('test.undefined.index');
+        isContain(
+            'Controller not found: test.undefined; PHP Class: JBZoo\CCK\Atom\Test\Controller\SiteUndefined',
+            $content->body
+        );
     }
 
     /**

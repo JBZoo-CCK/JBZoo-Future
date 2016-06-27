@@ -15,14 +15,19 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class CoreElementTest
+ * Class Framework_ElementTest
  */
-class CoreElementTest extends JBZooPHPUnit
+class Framework_ElementTest extends JBZooPHPUnit
 {
     public function testCreateElement()
     {
         $element = $this->app['elements']->create('Name');
+        isClass('\JBZoo\CCK\Element\Item\Name', $element);
 
+        $element = $this->app['elements']->create('Name', 'item');
+        isClass('\JBZoo\CCK\Element\Item\Name', $element);
+
+        $element = $this->app['elements']->create('Name', 'Item');
         isClass('\JBZoo\CCK\Element\Item\Name', $element);
     }
 

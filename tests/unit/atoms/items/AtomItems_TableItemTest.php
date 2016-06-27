@@ -19,11 +19,11 @@ use JBZoo\CCK\Table\Item as ItemTable;
 use JBZoo\CCK\Entity\Item as ItemEntity;
 
 /**
- * Class ItemsAtomTableItemsTest
+ * Class AtomItems_TableItemTest
  */
-class ItemsAtomTableItemsTest extends JBZooPHPUnitDatabase
+class AtomItems_TableItemTest extends JBZooPHPUnitDatabase
 {
-    protected $_fixtureFile = 'ItemsAtomTableItemsTest.php';
+    protected $_fixtureFile = 'AtomItems_TableItemTest.php';
 
     protected function setUp()
     {

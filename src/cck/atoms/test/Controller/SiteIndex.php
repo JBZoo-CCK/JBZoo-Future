@@ -14,11 +14,13 @@
 
 namespace JBZoo\CCK\Atom\Test\Controller;
 
+use JBZoo\Assets\Asset\Asset;
 use JBZoo\CCK\Controller\Site;
 
 /**
  * Class SiteIndex
  * @package JBZoo\CCK
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 class SiteIndex extends Site
 {
@@ -140,5 +142,25 @@ class SiteIndex extends Site
     public function assetsUIkit()
     {
         $this->app['assets']->add('uikit');
+    }
+
+    public function assetsPlainCssCode()
+    {
+        $this->app['assets']->add(null, "div { display: none; }", null, [
+            'type' => Asset::TYPE_CSS_CODE
+        ]);
+    }
+
+    public function assetsPlainJsxCode()
+    {
+        $this->app['assets']->add(null, "Some code for Reactjs", null, [
+            'type' => Asset::TYPE_JSX_CODE
+        ]);
+    }
+
+    public function assetsIgnoreAjaxRequest()
+    {
+        $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
+        $this->app['assets']->add('jbzoo-jquery-factory');
     }
 }

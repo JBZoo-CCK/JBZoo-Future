@@ -12,26 +12,22 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Controller;
-
-use JBZoo\CCK\Exception\Exception;
+namespace JBZoo\PHPUnit;
 
 /**
- * Class Admin
- * @package JBZoo\CCK
+ * Class AtomAssetsJqueryUi_Test
+ * @package JBZoo\PHPUnit
  */
-class Admin extends Controller
+class AtomAssetsJqueryUi_Test extends JBZooPHPUnit
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct()
+    public function testJQueryUI()
     {
-        parent::__construct();
+        $result = $this->_request('test.index.assetsJQueryUI');
 
-        $user = $this->app['user']->getCurrent();
-        if (!$user || !$user->isAdmin()) {
-            throw new Exception('You should be admin!');
+        if (__CMS__ == 'joomla') {
+            isContain("jquery.ui.", $result->get('body'));
+        } else {
+            isContain("jquery/ui/core", $result->get('body'));
         }
     }
 }

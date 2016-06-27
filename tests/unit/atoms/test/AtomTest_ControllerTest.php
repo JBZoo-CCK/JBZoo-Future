@@ -15,11 +15,11 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class TestAtomTest
+ * Class AtomTest_ControllerTest
  * @package JBZoo\PHPUnit
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class TestAtomTest extends JBZooPHPUnit
+class AtomTest_ControllerTest extends JBZooPHPUnit
 {
     public function testRequestedControllerEchoGET()
     {

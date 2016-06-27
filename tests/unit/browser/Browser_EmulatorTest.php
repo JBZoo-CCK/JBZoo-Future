@@ -12,26 +12,19 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Controller;
-
-use JBZoo\CCK\Exception\Exception;
+namespace JBZoo\PHPUnit;
 
 /**
- * Class Admin
- * @package JBZoo\CCK
+ * Class Browser_EmulatorTest
+ * @package JBZoo\PHPUnit
  */
-class Admin extends Controller
+class Browser_EmulatorTest extends PHPUnit
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function __construct()
+    public function test()
     {
-        parent::__construct();
+        require_once PROJECT_ROOT . '/tests/autoload/init_cms.php';
+        require_once PROJECT_ROOT . '/tests/autoload/browser_render.php';
 
-        $user = $this->app['user']->getCurrent();
-        if (!$user || !$user->isAdmin()) {
-            throw new Exception('You should be admin!');
-        }
+        isTrue(true); // phpunit hack
     }
 }

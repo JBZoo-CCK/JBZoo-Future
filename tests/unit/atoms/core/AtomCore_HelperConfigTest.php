@@ -17,18 +17,18 @@ namespace JBZoo\PHPUnit;
 use JBZoo\CCK\Atom\Core\Helper\Config;
 
 /**
- * Class CoreAtomConfigHelperTest
+ * Class AtomCore_HelperConfigTest
  * @package JBZoo\PHPUnit
  * @SuppressWarnings(PHPMD.Superglobals)
  */
-class CoreAtomConfigHelperTest extends JBZooPHPUnit
+class AtomCore_HelperConfigTest extends JBZooPHPUnit
 {
     /**
      * @return Config
      */
     protected function _getCfg()
     {
-        return $this->app['core.config'];
+        return $this->app['atoms']['core']['config'];
     }
 
     public function testGetUndefined()

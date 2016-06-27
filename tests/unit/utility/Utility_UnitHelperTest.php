@@ -15,10 +15,11 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class UnitHelperTest
+ * Class Utility_UnitHelperTest
  * @package JBZoo\PHPUnit
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
-class UnitHelperTest extends JBZooPHPUnit
+class Utility_UnitHelperTest extends JBZooPHPUnit
 {
     public function testIsolatedRender()
     {

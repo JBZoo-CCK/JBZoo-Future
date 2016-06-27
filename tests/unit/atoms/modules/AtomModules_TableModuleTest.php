@@ -15,14 +15,12 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class ModulesAtomModelTest
- *
- * @package JBZoo\PHPUnit
+ * Class AtomModules_TableModuleTest
  */
-class ModulesAtomModelTest extends JBZooPHPUnitDatabase
+class AtomModules_TableModuleTest extends JBZooPHPUnitDatabase
 {
 
-    protected $_fixtureFile = 'ModulesAtomModelTest.php';
+    protected $_fixtureFile = 'AtomModules_TableModuleTest.php';
 
     /**
      * @return \JBZoo\CCK\Atom\Modules\Table\Module
