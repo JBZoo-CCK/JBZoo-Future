@@ -14,13 +14,13 @@
 
 namespace JBZoo\CCK\Atom\Test\Controller;
 
-use JBZoo\CCK\Atom\SiteController;
+use JBZoo\CCK\Controller\Site;
 
 /**
  * Class SiteIndex
  * @package JBZoo\CCK
  */
-class SiteIndex extends SiteController
+class SiteIndex extends Site
 {
     /**
      * Check that action return some value (not echo!)

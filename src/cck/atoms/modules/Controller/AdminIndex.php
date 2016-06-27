@@ -14,7 +14,7 @@
 
 namespace JBZoo\CCK\Atom\Modules\Controller;
 
-use JBZoo\CCK\Atom\Controller;
+use JBZoo\CCK\Controller\Admin;
 use JBZoo\CCK\Atom\Modules\Entity\Module;
 
 /**
@@ -22,7 +22,7 @@ use JBZoo\CCK\Atom\Modules\Entity\Module;
  *
  * @package JBZoo\CCK\Atom\Modules\Controller
  */
-class AdminIndex extends Controller
+class AdminIndex extends Admin
 {
 
     /**
@@ -66,9 +66,9 @@ class AdminIndex extends Controller
 
         $this->_json($entity->toArray());
     }
-    
+
     public function edit()
     {
-        
+
     }
 }

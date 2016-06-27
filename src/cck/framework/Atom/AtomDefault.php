@@ -15,7 +15,7 @@
 namespace JBZoo\CCK\Atom;
 
 /**
- * Class Atom
+ * Class AtomDefault
  * @package JBZoo\CCK
  */
 class AtomDefault extends Atom

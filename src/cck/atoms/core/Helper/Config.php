@@ -31,9 +31,10 @@ class Config extends Helper
     /**
      * {@inheritdoc}
      */
-    protected function _init()
+    public function init()
     {
-        $this->_model = new ConfigTable();
+        parent::init();
+        $this->_model = $this->app['models']['config'];
     }
 
     /**

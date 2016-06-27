@@ -82,8 +82,9 @@ class Debug extends Helper
     /**
      * {@inheritdoc}
      */
-    protected function _init()
+    public function init()
     {
+        parent::init();
         $this->_initConfig();
 
         // Only for developer env

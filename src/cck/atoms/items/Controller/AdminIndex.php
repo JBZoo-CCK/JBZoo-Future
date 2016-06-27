@@ -14,14 +14,14 @@
 
 namespace JBZoo\CCK\Atom\Items\Controller;
 
-use JBZoo\CCK\Atom\AdminController;
+use JBZoo\CCK\Controller\Admin;
 use JBZoo\CCK\Entity\Item;
 
 /**
  * Class AdminIndex
  * @package JBZoo\CCK
  */
-class AdminIndex extends AdminController
+class AdminIndex extends Admin
 {
     /**
      * Get list action

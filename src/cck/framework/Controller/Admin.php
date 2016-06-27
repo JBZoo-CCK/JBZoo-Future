@@ -12,12 +12,21 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom;
+namespace JBZoo\CCK\Controller;
 
 /**
- * Class SiteController
+ * Class Admin
  * @package JBZoo\CCK
  */
-class SiteController extends Controller
+class Admin extends Controller
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // TODO: Check cuurent user. Should be admin
+    }
 }

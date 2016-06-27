@@ -28,8 +28,10 @@ class Js extends Helper
     /**
      * {@inheritdoc}
      */
-    protected function _init()
+    public function init()
     {
+        parent::init();
+
         $this->app['assets']->register(
             'var_' . self::GLOBAL_VAR . '_1',
             implode(PHP_EOL . ';', [

@@ -12,9 +12,10 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Atom;
+namespace JBZoo\CCK\Controller;
 
 use JBZoo\CCK\AppAware;
+use JBZoo\CCK\Atom\Atom;
 use JBZoo\CCK\Exception\Exception;
 
 /**

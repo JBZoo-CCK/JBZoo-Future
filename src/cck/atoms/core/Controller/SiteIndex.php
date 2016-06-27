@@ -14,13 +14,13 @@
 
 namespace JBZoo\CCK\Atom\Core\Controller;
 
-use JBZoo\CCK\Atom\SiteController;
+use JBZoo\CCK\Controller\Site;
 
 /**
  * Class Index
  * @package JBZoo\CCK
  */
-class SiteIndex extends SiteController
+class SiteIndex extends Site
 {
     /**
      * Index action

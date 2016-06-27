@@ -14,13 +14,13 @@
 
 namespace JBZoo\CCK\Atom\Core\Controller;
 
-use JBZoo\CCK\Atom\AdminController;
+use JBZoo\CCK\Controller\Admin;
 
 /**
  * Class Index
  * @package JBZoo\CCK
  */
-class AdminIndex extends AdminController
+class AdminIndex extends Admin
 {
     /**
      * Index action

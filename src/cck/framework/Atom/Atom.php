@@ -16,6 +16,7 @@ namespace JBZoo\CCK\Atom;
 
 use JBZoo\CCK\App;
 use JBZoo\CCK\Container;
+use JBZoo\CCK\Controller\Controller;
 use JBZoo\Data\Data;
 use JBZoo\Utils\Filter;
 use JBZoo\Utils\FS;
@@ -188,7 +189,11 @@ abstract class Atom extends Container
 
         if (!isset($this[$offset]) && class_exists($helperClass)) {
             $this[$offset] = function () use ($helperClass, $offset) {
-                return new $helperClass($this, $offset);
+                /** @var Helper $helper */
+                $helper = new $helperClass($this, $offset);
+                $helper->init();
+
+                return $helper;
             };
         }
 
