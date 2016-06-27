@@ -94,7 +94,9 @@ return [
             }
 
             // TODO: Replace echo to CrossCMS helper
-            echo PHP_EOL . PHP_EOL . implode(PHP_EOL, $echoResult) . PHP_EOL;
+            if (count($echoResult)) {
+                echo PHP_EOL . PHP_EOL . implode(PHP_EOL, $echoResult) . PHP_EOL;
+            }
 
             $app->trigger('atom.assets.header.after');
         },

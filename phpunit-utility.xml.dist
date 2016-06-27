@@ -30,7 +30,7 @@
 
     <testsuites>
         <testsuite name="Utility">
-            <directory suffix="Test.php">tests/unit/utility</directory>
+            <directory suffix="Utility_CodeStyleTest.php">tests/unit/utility</directory>
         </testsuite>
     </testsuites>
 
