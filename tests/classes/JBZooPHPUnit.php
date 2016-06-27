@@ -141,9 +141,10 @@ abstract class JBZooPHPUnit extends PHPUnit
     {
         if ('joomla' === __CMS__) {
             return $this->_getCookieForJoomlaAdmin();
+        } elseif ('wordpress' === __CMS__) {
+            skip("Wordpress doesn't support request to CP");
+            return $this->_getCookieForWordpressAdmin();
         }
-
-        skip("Wordpress doesn't support request to CP");
     }
 
     /**
@@ -165,7 +166,6 @@ abstract class JBZooPHPUnit extends PHPUnit
             $this->_cmsParams['admin-path-' . __CMS__],
             '',
             [
-                'method'   => 'POST',
                 'username' => 'admin',
                 'passwd'   => 'admin',
                 'option'   => 'com_login',
@@ -183,6 +183,44 @@ abstract class JBZooPHPUnit extends PHPUnit
     }
 
     /**
+     * @return string
+     */
+    protected function _getCookieForWordpressAdmin()
+    {
+        // Get Token and Cookie hashes
+        $result = $this->_http($this->_cmsParams['admin-login-' . __CMS__], null, null);
+
+        // Parse response
+        list($cookie) = explode(';', $result->find('headers.set-cookie'), 2);
+
+        $result = $this->_http(
+            $this->_cmsParams['admin-login-' . __CMS__],
+            null,
+            [
+                'log'         => 'admin',
+                'pwd'         => 'admin',
+                'wp-submit'   => 'Log In',
+                'redirect_to' => Url::create([
+                    'host' => PHPUNIT_HTTP_HOST,
+                    'user' => PHPUNIT_HTTP_USER,
+                    'pass' => PHPUNIT_HTTP_PASS,
+                    'path' => '/wp-admin/',
+                ]),
+                'testcookie'  => '1'
+            ],
+            [
+                'Cookie' => $cookie
+            ],
+            'POST'
+        );
+
+        // Parse response
+        list($cookie) = explode(';', $result->find('headers.set-cookie.0'), 2);
+
+        return $cookie;
+    }
+
+    /**
      * @param string $path
      * @param string $action
      * @param array  $query
@@ -192,15 +230,19 @@ abstract class JBZooPHPUnit extends PHPUnit
      */
     protected function _http($path, $action = '', $query = [], $headers = [], $method = 'GET')
     {
-        $query = array_merge(
-            $this->_cmsParams['site-params-' . __CMS__],
-            [
-                '_cov'    => __CMS__ . '_' . $action,
-                'act'     => $action,
-                'nocache' => mt_rand(0, 100000)
-            ],
-            $query
-        );
+        if (null === $query) {
+            $query = [];
+        } else {
+            $query = array_merge(
+                $this->_cmsParams['site-params-' . __CMS__],
+                [
+                    '_cov'    => __CMS__ . '_' . $action,
+                    'act'     => $action,
+                    'nocache' => mt_rand(0, 100000)
+                ],
+                $query
+            );
+        }
 
         $result = $this->app['http']->request(
             Url::create([

@@ -21,6 +21,26 @@ namespace JBZoo\PHPUnit;
  */
 class Utility_UnitHelperTest extends JBZooPHPUnit
 {
+    public function testRequestAdmin()
+    {
+        $uniqId = uniqid('some-var-', true);
+        $json   = $this->_requestAdmin('test.other.testRequestAdmin', ['some-var' => $uniqId]);
+        isSame($uniqId, $json->get('variable'));
+
+        $htmlContent = $this->_requestAdmin('core.index.index', [], false);
+
+        isContain('assets/js/assets-common.min.js', $htmlContent->body);
+        isContain('assets/js/core.min.js', $htmlContent->body);
+        isContain('<div id="jbzoo-app" class="jbzoo">', $htmlContent->body);
+    }
+
+    public function testRequest()
+    {
+        $uniqId = uniqid('some-var-', true);
+        $json   = $this->_request('test.other.testRequest', ['some-var' => $uniqId], '/', true);
+        isSame($uniqId, $json->get('variable'));
+    }
+
     public function testIsolatedRender()
     {
         $uniq = uniqid('somestring');
@@ -56,25 +76,5 @@ class Utility_UnitHelperTest extends JBZooPHPUnit
         );
 
         isContain($uniq, $content);
-    }
-
-    public function testRequest()
-    {
-        $uniqId = uniqid('some-var-', true);
-        $json   = $this->_request('test.other.testRequest', ['some-var' => $uniqId], '/', true);
-        isSame($uniqId, $json->get('variable'));
-    }
-
-    public function testRequestAdmin()
-    {
-        $uniqId = uniqid('some-var-', true);
-        $json   = $this->_requestAdmin('test.other.testRequestAdmin', ['some-var' => $uniqId]);
-        isSame($uniqId, $json->get('variable'));
-
-        $htmlContent = $this->_requestAdmin('core.index.index', [], false);
-
-        isContain('assets/js/assets-common.min.js', $htmlContent->body);
-        isContain('assets/js/core.min.js', $htmlContent->body);
-        isContain('<div id="jbzoo-app" class="jbzoo">', $htmlContent->body);
     }
 }
