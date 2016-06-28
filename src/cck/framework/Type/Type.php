@@ -24,6 +24,10 @@ use JBZoo\Utils\Filter;
  */
 class Type
 {
+    const MODE_ALL    = 'all';
+    const MODE_CORE   = 'core';
+    const MODE_CUSTOM = 'custom';
+
     /**
      * @var App
      */
@@ -113,6 +117,29 @@ class Type
         $config = $this->config->find("elements.{$elementId}");
 
         return $config ? jbdata($config) : null;
+    }
+
+    /**
+     * @return array
+     */
+    public function getElements($mode = self::MODE_ALL)
+    {
+        $elementsIds = array_keys($this->config->find("elements", []));
+
+        $result = [];
+        foreach ($elementsIds as $elementId) {
+
+            if ($mode === self::MODE_CORE && strpos($elementId, '_') !== 0) {
+                continue;
+
+            } elseif ($mode === self::MODE_CUSTOM && strpos($elementId, '_') === 0) {
+                continue;
+            }
+
+            $result[$elementId] = $this->getElement($elementId);
+        }
+
+        return $result;
     }
 
     /**

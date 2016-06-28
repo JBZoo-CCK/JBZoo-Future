@@ -35,14 +35,12 @@ class Config extends Table
     public function __construct($name = '', $key = 'id')
     {
         parent::__construct(JBZOO_TABLE_CONFIG, 'option');
-
-        $this->_store = $this->_init();
     }
 
     /**
      * @return Data
      */
-    protected function _init()
+    public function init()
     {
         if ($this->_store) {
             return $this->_store;
@@ -60,7 +58,15 @@ class Config extends Table
             $tmp[$row['option']] = $this->_decode($row['value']);
         }
 
-        return jbdata($tmp);
+        $this->_store = jbdata($tmp);
+    }
+
+    /**
+     * Clean autoloaded store (cache in memory)
+     */
+    public function cleanCache()
+    {
+        $this->_store = jbdata();
     }
 
     /**
@@ -69,7 +75,7 @@ class Config extends Table
      * @param mixed  $filter
      * @return mixed
      */
-    public function find($key, $default, $filter = null)
+    public function find($key, $default = null, $filter = null)
     {
         $value = $this->_store->find($key, $default, $filter);
 
@@ -81,7 +87,7 @@ class Config extends Table
                 ->limit(1);
 
             if ($row = $this->_db->fetchRow($select)) {
-                $value = $row['value'];
+                $value = $this->_decode($row['value']);
                 $this->_store->set($key, $value);
             }
         }

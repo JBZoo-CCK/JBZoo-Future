@@ -20,17 +20,50 @@ return [
             'value'    => jbdata([
                 'name'     => 'Type name',
                 'elements' => [
-                    '_name'          => [
+                    '_name'              => [
                         'type'     => 'name',
                         'group'    => 'item',
                         'option-1' => 'Value 1',
                         'option-2' => 'Value 2'
                     ],
-                    'test-id-random' => [
+                    'test-id-random'     => [
                         'type'     => 'text',
                         'group'    => 'item',
                         'option-1' => 'Value 1',
                         'option-2' => 'Value 2'
+                    ],
+                    'no-valid-element-1' => [
+                        'type'  => 'undefined',
+                        'group' => 'undefined',
+                    ],
+                    'no-valid-element-2' => [
+                        'type'  => '',
+                        'group' => 'undefined',
+                    ],
+                    'no-valid-element-3' => [
+                        'type'  => 'undefined',
+                        'group' => '',
+                    ],
+                ]
+            ]),
+        ],
+        [
+            'autoload' => 1,
+            'option'   => 'type.elements',
+            'value'    => jbdata([
+                'name'     => 'Type with elements',
+                'elements' => [
+                    '_name'           => [
+                        'type'  => 'name',
+                        'group' => 'item',
+                    ],
+                    '_status'         => [
+                        'type'  => 'created',
+                        'group' => 'item',
+                    ],
+                    'text-reandom-id' => [
+                        'type'  => 'text',
+                        'group' => 'item',
                     ],
                 ]
             ]),

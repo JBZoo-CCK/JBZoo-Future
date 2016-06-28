@@ -76,7 +76,42 @@ class Framework_TypeTest extends JBZooPHPUnitDatabase
         $type = $this->app['types']['some-Type'];
 
         $nameElement = $type->getElement('undefined');
+        isSame(null, $nameElement);
+    }
 
+    /**
+     * @expectedException \JBZoo\CCK\Exception\Exception
+     */
+    public function testInvalidElementConfig()
+    {
+        /** @var Type $type */
+        $type = $this->app['types']['some-Type'];
+
+        $nameElement = $type->getElement('no-valid-element-1');
+        isSame(null, $nameElement);
+    }
+
+    /**
+     * @expectedException \JBZoo\CCK\Exception\Exception
+     */
+    public function testInvalidElementType()
+    {
+        /** @var Type $type */
+        $type = $this->app['types']['some-Type'];
+
+        $nameElement = $type->getElement('no-valid-element-2');
+        isSame(null, $nameElement);
+    }
+
+    /**
+     * @expectedException \JBZoo\CCK\Exception\Exception
+     */
+    public function testInvalidElementGroup()
+    {
+        /** @var Type $type */
+        $type = $this->app['types']['some-Type'];
+
+        $nameElement = $type->getElement('no-valid-element-3');
         isSame(null, $nameElement);
     }
 
@@ -96,7 +131,6 @@ class Framework_TypeTest extends JBZooPHPUnitDatabase
         ], (array)$elementConfig);
 
         $configUndefined = $type->getElementConfig('undefined');
-
         isSame(null, $configUndefined);
     }
 
@@ -137,5 +171,38 @@ class Framework_TypeTest extends JBZooPHPUnitDatabase
 
         isTrue($type->remove());
         isSame(null, $this->app['cfg']->find("type.new-type"));
+    }
+
+    public function testCreateInstances()
+    {
+        isSame($this->app['types']['New-Type'], $this->app['types']['new-type']);
+    }
+
+    public function testGetElements()
+    {
+        /** @var Type $type */
+        $type = $this->app['types']['elements'];
+
+        $elements = $type->getElements();
+        isTrue(is_array($elements));
+        isSame(3, count($elements));
+
+        $elements = $type->getElements('all');
+        isTrue(is_array($elements));
+        isSame(3, count($elements));
+
+        $elements = $type->getElements('core');
+        isTrue(is_array($elements));
+        isSame(2, count($elements));
+
+        $elements = $type->getElements('custom');
+        isTrue(is_array($elements));
+        isSame(1, count($elements));
+
+        /** @var Type $undefinedType */
+        $undefinedType = $this->app['types']['undefined-type'];
+        $elements      = $undefinedType->getElements();
+        isTrue(is_array($elements));
+        isSame(0, count($elements));
     }
 }

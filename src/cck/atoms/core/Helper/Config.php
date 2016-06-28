@@ -86,6 +86,14 @@ class Config extends Helper
     }
 
     /**
+     * @return bool|int
+     */
+    public function cleanCache()
+    {
+        return $this->_model->cleanCache();
+    }
+
+    /**
      * @param string|array $key
      * @return string
      */
