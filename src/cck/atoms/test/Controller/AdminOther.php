@@ -27,4 +27,28 @@ class AdminOther extends Site
         $variable = $this->app['request']->get('some-var');
         $this->_json(['variable' => $variable]);
     }
+
+    public function testRequestBatch1()
+    {
+        $number = $this->app['request']->getJSON('number');
+        $shift  = $this->app['request']->getJSON('shift');
+
+        $this->_json(['result' => $number + $shift]);
+    }
+
+    public function testRequestBatch2()
+    {
+        $number = $this->app['request']->get('number');
+        $shift  = $this->app['request']->get('shift');
+
+        $this->_json(['result' => $number + $shift]);
+    }
+
+    public function testRequestBatch3()
+    {
+        $number = $this->app['request']->get('number');
+        $shift  = $this->app['request']->get('shift');
+
+        $this->_json(['result' => $number + $shift]);
+    }
 }

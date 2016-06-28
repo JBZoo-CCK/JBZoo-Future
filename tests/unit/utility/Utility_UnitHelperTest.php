@@ -21,6 +21,22 @@ namespace JBZoo\PHPUnit;
  */
 class Utility_UnitHelperTest extends JBZooPHPUnit
 {
+    public function testRequestAdminBatch()
+    {
+        $number = mt_rand(10, 10000);
+        $shift  = mt_rand(10, 10000);
+
+        $json = $this->_requestAdminBatch([
+            ['test.other.testRequestBatch1', ['number' => $number, 'shift' => $shift], 'PAYLOAD'],
+            ['test.other.testRequestBatch2', ['number' => $number, 'shift' => $shift], 'GET'],
+            ['test.other.testRequestBatch3', ['number' => $number, 'shift' => $shift], 'POST'],
+        ]);
+
+        is($number + $shift, $json[0]->find('result'));
+        is($number + $shift, $json[1]->find('result'));
+        is($number + $shift, $json[2]->find('result'));
+    }
+
     public function testRequestAdmin()
     {
         $uniqId = uniqid('some-var-', true);

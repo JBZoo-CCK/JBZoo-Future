@@ -109,15 +109,39 @@ abstract class JBZooPHPUnit extends PHPUnit
     }
 
     /**
+     * @param array $requests
+     * @return array
+     */
+    protected function _requestAdminBatch(array $requests)
+    {
+        $cookie = $this->_getCookieForAdmin();
+
+        $result = [];
+        foreach ($requests as $request) {
+            $request  = jbdata($request);
+            $result[] = $this->_requestAdmin(
+                $request->get('0'),
+                $request->get('1', []),
+                $request->get('2', 'POST'),
+                $request->get('3', true),
+                $cookie
+            );
+        }
+
+        return $result;
+    }
+
+    /**
      * Custom HTTP Request for CMS Control panel
      *
      * @param string $action
      * @param array  $query
      * @param string $method
      * @param bool   $isJson
+     * @param string $customCookie
      * @return Data
      */
-    protected function _requestAdmin($action, $query = [], $method = 'POST', $isJson = true)
+    protected function _requestAdmin($action, $query = [], $method = 'POST', $isJson = true, $customCookie = false)
     {
         if ($method !== 'PAYLOAD') {
             $result = $this->_http(
@@ -125,7 +149,7 @@ abstract class JBZooPHPUnit extends PHPUnit
                 $action,
                 $query,
                 [
-                    'Cookie' => $this->_getCookieForAdmin()
+                    'Cookie' => $customCookie ? $customCookie : $this->_getCookieForAdmin()
                 ],
                 $method
             );
@@ -148,7 +172,7 @@ abstract class JBZooPHPUnit extends PHPUnit
                     'response' => AbstractHttp::RESULT_FULL,
                     'debug'    => 1,
                     'headers'  => [
-                        'Cookie'       => $this->_getCookieForAdmin(),
+                        'Cookie'       => $customCookie ? $customCookie : $this->_getCookieForAdmin(),
                         'Content-Type' => 'application/json'
                     ],
                 ]
