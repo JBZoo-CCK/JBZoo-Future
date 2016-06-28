@@ -109,6 +109,8 @@ abstract class JBZooPHPUnit extends PHPUnit
     }
 
     /**
+     * Experimental!
+     *
      * @param array $requests
      * @return array
      */

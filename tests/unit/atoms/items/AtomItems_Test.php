@@ -48,26 +48,29 @@ class AtomItems_Test extends JBZooPHPUnit
 
     public function testRemoveItemAction()
     {
-        $response = $this->_requestAdmin('items.index.saveItem', ['item' => []], 'PAYLOAD');
+        /** @var array(Data) $results */
+        $results = $this->_requestAdminBatch([ // experimental
+            ['items.index.saveItem', ['item' => []], 'PAYLOAD'],
+            ['items.index.removeItem', ['id' => 2], 'PAYLOAD'],
+            ['items.index.removeItem', ['id' => 100500], 'PAYLOAD']
+        ]);
+
+        // Check first request
 
         /** @var Item $newItem */
-        $newId = $response->find('item.id');
+        $newId = $results[0]->find('item.id');
         isTrue($newId > 0);
-
-        // Check new item
         $newItem = $this->app['models']['item']->get($newId);
         isTrue($newItem);
 
-        // Check remove new item
-        $response = $this->_requestAdmin('items.index.removeItem', ['id' => $newId], 'PAYLOAD');
-        is($newId, $response->find('removed'));
-
+        // Remove exists item
+        is(2, $results[1]->find('removed'));
         $this->app['models']['item']->cleanObjects();
-        $newItem = $this->app['models']['item']->get($newId);
+        $newItem = $this->app['models']['item']->get(2);
         isFalse($newItem);
 
-        $response = $this->_requestAdmin('items.index.removeItem', ['id' => 100500], 'PAYLOAD');
-        is(0, $response->find('removed'));
+        // Remove undefined item
+        is(0, $results[2]->find('removed'));
     }
 
     public function testGetListAction()
