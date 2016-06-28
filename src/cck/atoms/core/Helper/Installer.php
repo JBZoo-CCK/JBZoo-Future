@@ -19,6 +19,7 @@ use JBZoo\CCK\Atom\Helper;
 /**
  * Class Debug
  * @package JBZoo\CCK
+ * @codeCoverageIgnore
  */
 class Installer extends Helper
 {
