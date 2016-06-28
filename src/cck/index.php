@@ -71,7 +71,8 @@ if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
                 $this->_covDir  = realpath($this->_covRoot . '/src');
                 $this->_covHash = implode('_', [
                     str_replace('.', '_', $request['_cov']),
-                    md5(serialize($request))
+                    md5(serialize($request)),
+                    mt_rand(0, 100000000)
                 ]);
 
                 $this->_covResult = realpath($this->_covRoot . '/build/coverage_cov/') . '/' . $this->_covHash . '.cov';
