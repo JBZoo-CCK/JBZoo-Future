@@ -231,6 +231,10 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
 
         isTrue($value);
         isSame($value, $element->render(jbdata()));
+
+        $expected = "<p>{$value}</p>\n";
+        isSame($expected, $element->render(jbdata(['layout' => 'custom-layout'])));
+        isSame($expected, $element->render(jbdata(['layout' => 'custom-layout.php'])));
     }
 
     public function testElementRenderEvents()
@@ -243,11 +247,11 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
         $eventName = "element.{$element->getElementGroup()}.{$element->getElementType()}.render.";
 
         $this->app
-            ->on("$eventName.before", function (App $app, Element $element, Data $params) {
-                $element->set('value', $params->get('new_value'));
+            ->on("$eventName.before", function (App $app, Element $element, array $args) {
+                $element->set('value', $args['params']->get('new_value'));
             })
-            ->on("$eventName.after", function (App $app, Element $element, Data $params, &$result) {
-                $result .= '|' . $params->get('add_text');
+            ->on("$eventName.after", function (App $app, Element $element, array $args, &$result) {
+                $result .= '|' . $args['params']->get('add_text');
             });
 
         $newValue = uniqid('new-value-');

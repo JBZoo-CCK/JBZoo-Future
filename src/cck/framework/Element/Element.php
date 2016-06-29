@@ -191,22 +191,25 @@ abstract class Element
     {
         // set default
         if (empty($layout)) {
-            $layout =  'render.php';
+            $layout = 'render.php';
         } elseif (strpos($layout, '.php') === false) {
             $layout .= '.php';
         }
 
+        $typeName  = $this->getElementType(true);
+        $groupName = $this->getElementGroup(true);
+
         // own layout
-        $layoutPath = $this->app['path']->get("elements:{$this->_elGroup}/{$this->_elType}/tmpl/{$layout}");
+        $layoutPath = $this->app['path']->get("elements:{$groupName}/{$typeName}/tmpl/{$layout}");
 
         // parent option
         if (empty($layoutPath)) {
-            $layoutPath = $this->app['path']->get("elements:{$this->_elGroup}/option/tmpl/{$layout}");
+            $layoutPath = $this->app['path']->get("elements:{$groupName}/option/tmpl/{$layout}");
         }
 
         // parent group
         if (empty($layoutPath)) {
-            $layoutPath = $this->app['path']->get("elements:core/{$this->_elGroup}/tmpl/{$layout}");
+            $layoutPath = $this->app['path']->get("elements:core/{$groupName}/tmpl/{$layout}");
         }
 
         // global
@@ -350,8 +353,6 @@ abstract class Element
      */
     public function render(Data $params)
     {
-        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.render.before", [$this, $params]);
-
         if ($layout = $this->getLayout($params->get('layout'))) {
             $group = $this->getElementGroup();
 
@@ -360,8 +361,6 @@ abstract class Element
                 'config' => $this->config,
                 $group   => $this->_entity,
             ]);
-
-            $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.render.after", [$this, $params, &$result]);
 
             return $result;
         }
@@ -376,6 +375,8 @@ abstract class Element
      */
     protected function _renderLayout($__layoutPath, $__args = [])
     {
+        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.render.before", [$this, $__args]);
+
         if (is_array($__args)) {
             foreach ($__args as $__var => $__value) {
                 $$__var = $__value;
@@ -390,6 +391,8 @@ abstract class Element
             $__html = ob_get_contents();
             ob_end_clean();
         }
+
+        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.render.after", [$this, $__args, &$__html]);
 
         return $__html;
     }
