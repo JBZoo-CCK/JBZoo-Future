@@ -24,7 +24,25 @@ export function items(state = [], action) {
         case defines.ITEMS_ITEM_SUCCESS:
 
             var newState = {...state};
-            newState[action.payload.id] = action.payload.data;
+            if (action.payload.id > 0) {
+                newState[action.payload.id] = action.payload.data;
+            }
+
+            return newState;
+
+        case defines.ITEMS_ITEM_REMOVE:
+
+            var newState = {...state};
+            if (action.payload.id > 0) {
+                delete(newState[action.payload.id]);
+            }
+
+            return newState;
+
+        case defines.ITEMS_ITEM_NEW:
+
+            var newState = {...state};
+            newState['new'] = action.payload.data;
 
             return newState;
 

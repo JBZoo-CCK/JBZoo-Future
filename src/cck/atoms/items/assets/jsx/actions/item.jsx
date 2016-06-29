@@ -16,7 +16,7 @@
 import JBZoo        from '../../../../../assets/jsx/JBZoo';
 import * as defines from '../defines';
 
-function receiveItem(item) {
+function receiveItemAction(item) {
 
     return {
         type   : defines.ITEMS_ITEM_SUCCESS,
@@ -27,16 +27,60 @@ function receiveItem(item) {
     }
 }
 
-function fetchItem(itemId) {
-    return dispatch => JBZoo.ajax('items.index.getItem', {id: itemId}, dispatch, receiveItem);
+function removeItemAction(itemId) {
+
+    return {
+        type   : defines.ITEMS_ITEM_REMOVE,
+        payload: {
+            id: itemId
+        }
+    }
+}
+
+function newItemAction(item) {
+
+    return {
+        type   : defines.ITEMS_ITEM_NEW,
+        payload: {
+            data: item.item
+        }
+    }
+}
+
+function fetchItemAction(itemId) {
+    return dispatch => JBZoo.ajax('items.index.getItem', {id: itemId}, dispatch, receiveItemAction);
+}
+
+function fetchNewItemAction() {
+    return dispatch => JBZoo.ajax('items.index.getNewItem', {}, dispatch, newItemAction);
 }
 
 function shouldFetchItem(state, itemId) {
     return !state.items || !state.items[itemId];
 }
 
+export function fetchNewItem() {
+    return (dispatch, getState) => {
+        return dispatch(fetchNewItemAction())
+    }
+}
+
 export function fetchItemIfNeeded(itemId) {
     return (dispatch, getState) => {
-        return dispatch(fetchItem(itemId))
+        return dispatch(fetchItemAction(itemId))
+    }
+}
+
+export function saveItem(item) {
+    return (dispatch, getState) => {
+        JBZoo.ajax('items.index.saveItem', {item}, dispatch, receiveItemAction);
+        return dispatch(receiveItemAction({item}))
+    }
+}
+
+export function removeItem(itemId) {
+    return (dispatch, getState) => {
+        JBZoo.ajax('items.index.removeItem', {id: itemId});
+        return dispatch(removeItemAction({id: itemId}))
     }
 }

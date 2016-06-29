@@ -51,4 +51,30 @@ class Framework_FunctionsTest extends JBZooPHPUnit
     {
         isSame('undefined_test_message', jbt('undefined_test_message'));
     }
+
+    public function testJblog()
+    {
+        $variable = uniqid('variable-');
+        $label    = uniqid('label-');
+
+        jbLog($variable, $label);
+
+        $logFile = PROJECT_ROOT . '/logs/jbdump_' . date('Y.m.d') . '.log.php';
+
+        isFile($logFile);
+        isContain($variable, file_get_contents($logFile));
+        isContain($label, file_get_contents($logFile));
+    }
+
+    public function testDump()
+    {
+        $variable = uniqid('variable-');
+        dump($variable, false, 'Dump function');
+    }
+
+    public function testJbd()
+    {
+        $variable = uniqid('variable-');
+        jbd($variable, false, 'Dump function');
+    }
 }

@@ -50,17 +50,6 @@ module.exports.default = function (reducerRegistry, atomKey) {
             }
         },
         {
-            path        : '/items/new',
-            getComponent: (nextState, callback) => {
-
-                if (!EditItem) {
-                    EditItem = require('./components/EditItem');
-                }
-
-                callback(null, EditItem);
-            }
-        },
-        {
             path        : '/items/edit/:id',
             getComponent: (nextState, callback) => {
 

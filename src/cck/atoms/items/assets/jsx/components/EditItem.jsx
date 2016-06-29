@@ -13,175 +13,117 @@
 
 'use strict';
 
-import React from 'react';
-import Formsy from 'formsy-react';
-import getMuiTheme from 'material-ui/styles/getMuiTheme'
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import Paper from 'material-ui/Paper';
-import RaisedButton from 'material-ui/RaisedButton';
-import MenuItem from 'material-ui/MenuItem';
+import React, {Component, PropTypes} from 'react';
+import Formsy                   from 'formsy-react';
+import { connect }              from 'react-redux';
+import { bindActionCreators }   from 'redux';
+import RaisedButton             from 'material-ui/RaisedButton';
+
+const {Row, Col} = require('react-flexbox-grid');
+import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
+
 import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle } from 'formsy-material-ui/lib';
+    FormsySelect, FormsyText, FormsyTime, FormsyToggle }
+    from 'formsy-material-ui/lib';
 
-const Main = React.createClass({
+import * as itemActions             from '../actions/item';
 
-    getInitialState() {
-        return {
-            canSubmit: false,
-        };
-    },
+class EditItem extends Component {
 
-    errorMessages: {
-        wordsError  : "Please only use letters",
-        numericError: "Please provide a number",
-        urlError    : "Please provide a valid URL",
-    },
+    saveItem(data) {
+        this.props.itemActions.saveItem(data);
+        this.context.router.push('/items');
+    }
 
-    styles: {
-        paperStyle : {
-            width  : 300,
-            margin : 'auto',
-            padding: 20,
-        },
-        switchStyle: {
-            marginBottom: 16,
-        },
-        submitStyle: {
-            marginTop: 32,
-        },
-    },
+    removeItem() {
+        this.props.itemActions.removeItem(this.props.params.id);
+        this.context.router.push('/items');
+    }
 
-    enableButton() {
-        this.setState({
-            canSubmit: true,
-        });
-    },
-
-    disableButton() {
-        this.setState({
-            canSubmit: false,
-        });
-    },
-
-    submitForm(data) {
-        alert(JSON.stringify(data, null, 4));
-    },
-
-    notifyFormError(data) {
-        console.error('Form error:', data);
-    },
+    componentDidMount() {
+        let id = this.props.params.id;
+        if (id == 'new') {
+            this.props.itemActions.fetchNewItem();
+        } else {
+            this.props.itemActions.fetchItemIfNeeded(id);
+        }
+    }
 
     render() {
-        let {paperStyle, switchStyle, submitStyle } = this.styles;
-        let { wordsError, numericError, urlError } = this.errorMessages;
+
+        let item = this.props.items[this.props.params.id];
+        if (!item) {
+            return (<div>Load item info. Please wait.</div>);
+        }
+
+        var rows = [];
+        _.forEach(item, function (itemValue, key) {
+
+            if (_.isArray(itemValue)) {
+                itemValue = itemValue.join('');
+            }
+
+            rows.push(<div key={key}>
+                <FormsyText
+                    name={key}
+                    floatingLabelText={key}
+                    value={itemValue}
+                />
+            </div>);
+        });
 
         return (
-            <Formsy.Form
-                onValid={this.enableButton}
-                onInvalid={this.disableButton}
-                onValidSubmit={this.submitForm}
-                onInvalidSubmit={this.notifyFormError}
-            >
-                <div>
-                    <FormsyText
-                        name="name"
-                        validations="isWords"
-                        validationError={wordsError}
-                        required
-                        hintText="What is your name?"
-                        floatingLabelText="Name"
-                    />
-                </div>
-                <div>
-                    <FormsyText
-                        name="age"
-                        validations="isNumeric"
-                        validationError={numericError}
-                        hintText="Are you a wrinkly?"
-                        floatingLabelText="Age (optional)"
-                    />
-                </div>
-                <div>
-                    <FormsyText
-                        name="url"
-                        validations="isUrl"
-                        validationError={urlError}
-                        required
-                        hintText="http://www.example.com"
-                        floatingLabelText="URL"
-                    />
-                </div>
-                <div>
-                    <FormsySelect
-                        name="frequency"
-                        required
-                        floatingLabelText="How often do you?"
-                        menuItems={this.selectFieldItems}
-                    >
-                        <MenuItem value={'never'} primaryText="Never" />
-                        <MenuItem value={'nightly'} primaryText="Every Night" />
-                        <MenuItem value={'weeknights'} primaryText="Weeknights" />
-                    </FormsySelect>
-                </div>
-                <div>
-                    <FormsyDate
-                        name="date"
-                        required
-                        floatingLabelText="Date"
-                    />
-                </div>
-                <div>
-                    <FormsyTime
-                        name="time"
-                        required
-                        floatingLabelText="Time"
-                    />
-                </div>
-                <div>
-                    <FormsyCheckbox
-                        name="agree"
-                        label="Do you agree to disagree?"
-                        style={switchStyle}
-                    />
-                </div>
-                <div>
-                    <FormsyToggle
-                        name="toggle"
-                        label="Toggle"
-                        style={switchStyle}
-                    />
-                </div>
-                <div>
-                    <FormsyRadioGroup name="shipSpeed" defaultSelected="not_light">
-                        <FormsyRadio
-                            value="light"
-                            label="prepare for light speed"
-                            style={switchStyle}
-                        />
-                        <FormsyRadio
-                            value="not_light"
-                            label="light speed too slow"
-                            style={switchStyle}
-                        />
-                        <FormsyRadio
-                            value="ludicrous"
-                            label="go to ludicrous speed"
-                            style={switchStyle}
-                            disabled={true}
-                        />
-                    </FormsyRadioGroup>
-                </div>
-                <div>
-                    <RaisedButton
-                        style={submitStyle}
-                        type="submit"
-                        label="Submit"
-                        disabled={!this.state.canSubmit}
-                    />
-                </div>
-            </Formsy.Form>
+
+            <div>
+                <Formsy.Form onValidSubmit={::this.saveItem}>
+                    <Row>
+                        <Col md={12}>
+                            <Toolbar>
+                                <ToolbarGroup>
+                                    <RaisedButton
+                                        type="submit"
+                                        label="Save item"
+                                        primary={true}
+                                    />
+                                    {
+                                        this.props.params.id != 'new' ?
+                                            <RaisedButton
+                                                label="Remove item"
+                                                primary={false}
+                                                onMouseUp={::this.removeItem}
+                                            />
+                                            : false
+                                    }
+                                </ToolbarGroup>
+                            </Toolbar>
+                        </Col>
+                    </Row>
+
+                    <Row>
+                        <Col md={9}>
+                            {rows}
+                        </Col>
+                        <Col md={3}>
+                            <h2> Help text</h2>
+                            <p>asdasdasd</p>
+                        </Col>
+                    </Row>
+                </Formsy.Form>
+            </div>
         );
     }
-});
+}
 
-module.exports = Main;
+EditItem.contextTypes = {
+    router: PropTypes.object.isRequired
+};
+
+module.exports = connect(
+    (state) => ({
+        config: state.config,
+        items : state.items
+    }),
+    (dispatch) => ({
+        itemActions: bindActionCreators(itemActions, dispatch)
+    })
+)(EditItem);

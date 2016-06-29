@@ -16,7 +16,7 @@
 import JBZoo        from '../../../../../assets/jsx/JBZoo';
 import * as defines from '../defines';
 
-function receiveItems(items) {
+function addItem(items) {
     return {
         type   : defines.ITEMS_LIST_SUCCESS,
         payload: items.list
@@ -24,7 +24,7 @@ function receiveItems(items) {
 }
 
 function fetchItems() {
-    return dispatch => JBZoo.ajax('items.index.getList', {}, dispatch, receiveItems);
+    return dispatch => JBZoo.ajax('items.index.getList', {}, dispatch, addItem);
 }
 
 function shouldFetchItems(state) {
@@ -33,6 +33,8 @@ function shouldFetchItems(state) {
 
 export function fetchItemsIfNeeded() {
     return (dispatch, getState) => {
-        return dispatch(fetchItems())
+        //if (shouldFetchItems(getState())) {
+            return dispatch(fetchItems())
+        //}
     }
 }

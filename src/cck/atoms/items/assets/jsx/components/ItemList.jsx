@@ -18,7 +18,7 @@ import { connect }              from 'react-redux';
 import { bindActionCreators }   from 'redux';
 import { Link }                 from 'react-router'
 
-const {Grid, Row, Col} = require('react-flexbox-grid');
+const {Row, Col} = require('react-flexbox-grid');
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
 import RaisedButton             from 'material-ui/RaisedButton';
@@ -34,7 +34,7 @@ class ItemList extends Component {
     render() {
 
         var router = this.context.router,
-            link   = router.createHref('/items/new');
+            link   = router.createHref('/items/edit/new');
 
         if (!this.props.items) {
             return <div>Loading item list...</div>
@@ -43,11 +43,15 @@ class ItemList extends Component {
         var rows = [];
         _.forEach(this.props.items, function (itemRow, key) {
 
+            if (key == 'new') {
+                return;
+            }
+
             let itemLink = router.createHref('/items/edit/' + itemRow.id);
 
             rows.push(<TableRow key={key}>
                 <TableRowColumn style={{width: '50px'}}>{itemRow.id}</TableRowColumn>
-                <TableRowColumn><a href={itemLink}>{itemRow.name}</a></TableRowColumn>
+                <TableRowColumn><a href={itemLink}>{itemRow.name ? itemRow.name : 'undefined name' }</a></TableRowColumn>
                 <TableRowColumn>{itemRow.status}</TableRowColumn>
             </TableRow>);
         });
