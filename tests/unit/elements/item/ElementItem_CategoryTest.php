@@ -12,8 +12,16 @@
  * @link       http://jbzoo.com
  */
 
-return [
-    'meta' => [
-        'name' => 'Item Abstract Core Element',
-    ],
-];
+namespace JBZoo\PHPUnit;
+
+/**
+ * Class ElementItem_CategoryTest
+ */
+class ElementItem_CategoryTest extends JBZooPHPUnit
+{
+    public function testCreate()
+    {
+        $element = $this->app['elements']->create('Category', 'item');
+        isClass('\JBZoo\CCK\Element\Item\Category', $element);
+    }
+}

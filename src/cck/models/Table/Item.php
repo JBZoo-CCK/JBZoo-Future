@@ -40,7 +40,7 @@ class Item extends Table
     public function getList()
     {
         $sql = $this->_select($this->_table)
-            ->where('state <> ?i', self::STATUS_UNACTIVE)
+            //->where('state <> ?i', self::STATUS_UNACTIVE)
             ->limit(100);
 
         $rows   = $this->_db->fetchAll($sql);
