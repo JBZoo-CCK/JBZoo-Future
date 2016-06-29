@@ -43,6 +43,6 @@ if (!defined('JBZOO')) {
     try {
         $app->init();
     } catch (\Exception $e) {
-        $app->error($e->getMessage(), false);
+        $app->error($e->getMessage());
     }
 }
