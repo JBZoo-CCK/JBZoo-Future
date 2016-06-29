@@ -196,4 +196,15 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
 
         isSame($newData, $element->data());
     }
+
+    public function testGetElementEntity()
+    {
+        /** @var Item $item */
+        $item = $this->app['models']['item']->get(1);
+
+        $element = $item->getElement('_name');
+
+        isClass('\JBZoo\CCK\Entity\Entity', $element->getEntity());
+        isClass('\JBZoo\CCK\Entity\Item', $element->getEntity());
+    }
 }

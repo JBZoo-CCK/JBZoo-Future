@@ -47,9 +47,8 @@ class Debug extends Helper
      * @var Data
      */
     protected $_config = [
-        'mode'     => self::MODE_SYMFONY,   // jbdump|symfony|var_dump
+        'dumper'   => self::MODE_SYMFONY,   // jbdump|symfony|var_dump
         'log'      => 1,                    // Log message
-        'dump'     => 1,                    // Show dumps of vars
         'sql'      => 1,                    // Show SQL queries
         'profiler' => 1,                    // Show profiler
         'trace'    => 1,                    // Show backtraces
@@ -142,11 +141,10 @@ class Debug extends Helper
      *
      * @SuppressWarnings(PHPMD.ExitExpression)
      * @SuppressWarnings(PHPMD.NPathComplexity)
-     * @codeCoverageIgnore
      */
     public function dump($data, $isDie = false, $label = '...', $trace = null)
     {
-        if ($this->isShow() && $this->_config->get('dump') && $this->_jbdump) {
+        if ($this->isShow() && $this->_config->get('dumper') !== self::MODE_NONE) {
             $trace     = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
             $traceItem = $trace[0];
 
@@ -160,28 +158,31 @@ class Debug extends Helper
             $relative = FS::getRelative($traceItem['file'], $this->_root, '/', false);
             $message  = sprintf('%s = "%s:%s" %s', $label, $relative, $traceItem['line'], ($isDie ? ' / AutoDie' : ''));
 
+
             // Select Dumper and show var!
-            if ($this->_config->get('mode') == self::MODE_JBDUMP) {
+            if ($this->_config->get('dumper') == self::MODE_JBDUMP && $this->_jbdump) {
                 $this->_jbdump->dump($data, $label, ['trace' => $trace]);
 
-            } elseif (class_exists('\Symfony\Component\VarDumper\VarDumper')
-                && $this->_config->get('mode') == self::MODE_SYMFONY
+
+            } elseif ($this->_config->get('dumper') == self::MODE_SYMFONY
+                && class_exists('\Symfony\Component\VarDumper\VarDumper')
             ) {
                 VarDumper::dump($data);
-
                 Cli::out('<style>.sf-dump{font-size:14px!important;}</style> <pre>' . $message . '</pre>');
 
-            } elseif ($this->_config->get('mode') == self::MODE_VAR_DUMP) {
+
+            } elseif ($this->_config->get('dumper') == self::MODE_VAR_DUMP) {
                 ob_start();
                 var_dump($data);
                 $output = ob_get_contents();
                 ob_end_clean();
 
-                // neaten the newlines and indents
+                // remove the newlines and indents
                 $output = preg_replace("#\]\=\>\n(\s+)#m", "]   =>   ", $output);
 
                 Cli::out('<pre>' . $output . $message . '</pre>');
             }
+
 
             $isDie && die(255);
         }
@@ -191,8 +192,6 @@ class Debug extends Helper
      * Mark for profiler
      *
      * @param string $label
-     *
-     * @codeCoverageIgnore
      */
     public function mark($label = '...')
     {
@@ -207,8 +206,6 @@ class Debug extends Helper
      * @param string $message
      * @param string $label
      * @param array  $trace
-     *
-     * @codeCoverageIgnore
      */
     public function log($message, $label = '...', $trace = null)
     {
@@ -283,9 +280,7 @@ class Debug extends Helper
             if ($isLog) {
                 $this->log($result, 'Backtrace', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
             } else {
-                // @codeCoverageIgnoreStart
                 $this->dump($result, 0, 'Backtrace', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
-                // @codeCoverageIgnoreEnd
             }
         }
     }

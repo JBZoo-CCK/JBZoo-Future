@@ -14,6 +14,8 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\Utils\Sys;
+
 /**
  * Class Framework_FunctionsTest
  * @package JBZoo\PHPUnit
@@ -54,27 +56,40 @@ class Framework_FunctionsTest extends JBZooPHPUnit
 
     public function testJblog()
     {
+        $this->app['cfg']->set('atom.core', ['debug' => [
+            'log' => 1,
+            'ip'  => Sys::IP(),
+        ]]);
+        $this->app['cfg']->cleanCache();
+
         $variable = uniqid('variable-');
         $label    = uniqid('label-');
 
-        jbLog($variable, $label);
-
         $logFile = PROJECT_ROOT . '/logs/jbdump_' . date('Y.m.d') . '.log.php';
+        @unlink($logFile);
+
+        jbLog($variable, $label);
 
         isFile($logFile);
         isContain($variable, file_get_contents($logFile));
         isContain($label, file_get_contents($logFile));
     }
 
-    public function testDump()
-    {
-        $variable = uniqid('variable-');
-        dump($variable, false, 'Dump function');
-    }
-
     public function testJbd()
     {
+        $this->app['cfg']->set('atom.core', ['debug' => [
+            'dumper' => 'jbdump',
+            'ip'     => Sys::IP(),
+        ]]);
+        $this->app['cfg']->cleanCache();
+
         $variable = uniqid('variable-');
-        jbd($variable, false, 'Dump function');
+        $label    = uniqid('label-');
+
+        ob_start();
+        jbd($variable, false, $label);
+        $info = ob_get_clean();
+
+        isContain($variable, $info);
     }
 }

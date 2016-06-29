@@ -37,6 +37,7 @@ class AtomCore_HelperDebugTest extends JBZooPHPUnit
         $uniq = uniqid();
 
         $logFile = PROJECT_ROOT . '/logs/jbdump_' . date('Y.m.d') . '.log.php';
+        @unlink($logFile);
 
         jbd()->trace(true);
         jbd()->logArray(['key' => $uniq]);

@@ -59,11 +59,6 @@ return [
                     'hint'    => 'Log messages',
                     'default' => false,
                 ],
-                'dump'     => [
-                    'type'    => 'toggle',
-                    'hint'    => 'Show dumps of vars',
-                    'default' => true,
-                ],
                 'sql'      => [
                     'type'    => 'toggle',
                     'hint'    => 'Show SQL-queries',
