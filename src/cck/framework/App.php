@@ -335,6 +335,10 @@ class App extends Cms
             return $this['atoms']['core']['route'];
         };
 
+        $this['js'] = function () {
+            return $this['atoms']['core']['js'];
+        };
+
         $this['dbg'] = function () {
             return $this['atoms']['core']['debug'];
         };

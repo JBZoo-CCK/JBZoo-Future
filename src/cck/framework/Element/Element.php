@@ -138,6 +138,7 @@ abstract class Element
 
     /**
      * @param array $data
+     * @return $this
      */
     public function bindData($data = [])
     {
@@ -146,6 +147,8 @@ abstract class Element
         if (isset($this->_entity)) {
             $this->_entity->elements->set($this->id, $data);
         }
+
+        return $this;
     }
 
     /**
