@@ -14,8 +14,10 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\App;
 use JBZoo\CCK\Element\Element;
 use JBZoo\CCK\Entity\Item;
+use JBZoo\Data\Data;
 
 /**
  * Class Framework_ItemTest
@@ -229,5 +231,33 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
 
         isTrue($value);
         isSame($value, $element->render(jbdata()));
+    }
+
+    public function testElementRenderEvents()
+    {
+        /** @var Item $item */
+        $item = $this->app['models']['item']->get(1);
+
+        $element = $item->getElement('test-1');
+
+        $eventName = "element.{$element->getElementGroup()}.{$element->getElementType()}.render.";
+
+        $this->app
+            ->on("$eventName.before", function (App $app, Element $element, Data $params) {
+                $element->set('value', $params->get('new_value'));
+            })
+            ->on("$eventName.after", function (App $app, Element $element, Data $params, &$result) {
+                $result .= '|' . $params->get('add_text');
+            });
+
+        $newValue = uniqid('new-value-');
+        $addText  = uniqid('add-text-');
+
+        isTrue($newValue, $element->get('value'));
+
+        isSame($newValue . '|' . $addText, $element->render(jbdata([
+            'new_value' => $newValue,
+            'add_text'  => $addText,
+        ])));
     }
 }

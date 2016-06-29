@@ -191,7 +191,7 @@ abstract class Element
     {
         // set default
         if (empty($layout)) {
-            $layout = $this->_elType . '.php';
+            $layout =  'render.php';
         } elseif (strpos($layout, '.php') === false) {
             $layout .= '.php';
         }
