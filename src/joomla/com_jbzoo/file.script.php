@@ -17,6 +17,7 @@ use JBZoo\CCK\Atom\Core\Helper\Installer;
 
 /**
  * Class com_jbzooInstallerScript
+ * @codeCoverageIgnore
  */
 class com_jbzooInstallerScript
 {

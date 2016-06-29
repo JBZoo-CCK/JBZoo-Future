@@ -14,6 +14,7 @@
 
 /**
  * Class pkg_jbzoocckInstallerScript
+ * @codeCoverageIgnore
  */
 class pkg_jbzoocckInstallerScript
 {
