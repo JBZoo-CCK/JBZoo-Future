@@ -126,11 +126,14 @@ class App extends Cms
      * Show fatal error page
      *
      * @param string $message
-     * @param bool   $addPrefix
+     * @param string $addPrefix
      */
-    public function error($message = 'Internal Server Error', $addPrefix = true)
+    public function error($message = 'Internal Server Error', $addPrefix = 'JBZoo Error #500: ')
     {
-        $message = $addPrefix ? 'JBZoo Error #500: ' . $message : $message;
+        if ($addPrefix) {
+            $message = $addPrefix . str_replace($addPrefix, '', $message); // Fix for double prefixes
+        }
+
         $this['response']->set500($message);
     }
 
@@ -138,11 +141,14 @@ class App extends Cms
      * Show not found page
      *
      * @param string $message
-     * @param bool   $addPrefix
+     * @param string $addPrefix
      */
-    public function show404($message = 'Not found', $addPrefix = true)
+    public function show404($message = 'Not found', $addPrefix = 'JBZoo Error #404: ')
     {
-        $message = $addPrefix ? 'JBZoo Error #404: ' . $message : $message;
+        if ($addPrefix) {
+            $message = $addPrefix . str_replace($addPrefix, '', $message); // Fix for double prefixes
+        }
+
         $this['response']->set404($message);
     }
 
