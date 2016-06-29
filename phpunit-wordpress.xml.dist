@@ -36,8 +36,9 @@
 
     <testsuites>
         <testsuite name="Wordpress">
-            <directory suffix="Test.php">./tests/unit/framework</directory>
             <directory suffix="Test.php">./tests/unit/atoms</directory>
+            <directory suffix="Test.php">./tests/unit/elements</directory>
+            <directory suffix="Test.php">./tests/unit/framework</directory>
             <file>./tests/unit/utility/Utility_UnitHelperTest.php</file>
         </testsuite>
     </testsuites>

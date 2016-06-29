@@ -12,12 +12,16 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Element\Item;
+namespace JBZoo\PHPUnit;
 
 /**
- * Class CreatedBy
+ * Class ElementItem_Publish_downTest
  */
-class CreatedBy extends Item
+class ElementItem_Publish_downTest extends JBZooPHPUnit
 {
-
+    public function testCreate()
+    {
+        $element = $this->app['elements']->create('Publish_down', 'item');
+        isClass('\JBZoo\CCK\Element\Item\Publish_down', $element);
+    }
 }
