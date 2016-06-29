@@ -94,7 +94,16 @@ abstract class Table
         $this->_table = $name;
         $this->_dbNow = $this->_db->quote(Dates::sql(time()), false);
 
-        $this->_id = strtolower(str_replace(__NAMESPACE__ . '\\', '', get_class($this)));
+        $this->_id = strtolower(preg_replace('#(.*?)\\\\#ius', '', get_class($this)));
+    }
+
+    /**
+     * Get table ID
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->_id;
     }
 
     /**

@@ -97,6 +97,12 @@ class Framework_AtomTest extends JBZooPHPUnit
         isSame(JBZOO_TABLE_CONFIG, $this->app['models']['config']->getTableName());
     }
 
+    public function testGetTableId()
+    {
+        isSame('item', $this->app['models']['item']->getId());
+        isSame('config', $this->app['models']['config']->getId());
+    }
+
     /**
      * @expectedException \JBZoo\CCK\Exception\Exception
      */
