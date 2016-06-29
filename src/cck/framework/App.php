@@ -115,7 +115,7 @@ class App extends Cms
     public function trigger($event, array $arguments = array())
     {
         if (strpos($event, '*') === false) {
-            //$this->mark($event); // Super profiler!
+            // $this->mark($event); // Super profiler!
             return parent::trigger($event, $arguments);
         }
 

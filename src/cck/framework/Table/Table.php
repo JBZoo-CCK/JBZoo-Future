@@ -137,7 +137,6 @@ abstract class Table
         } else {
             /** @var Entity $object */
             $object = new $class($rowData);
-            $object->init();
         }
 
         // Save to memory store (cache it)

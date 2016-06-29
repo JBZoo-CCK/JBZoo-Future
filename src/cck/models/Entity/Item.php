@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Entity;
 
 use JBZoo\CCK\Element\Element;
+use JBZoo\CCK\Type\Type;
 use JBZoo\Data\JSON;
 
 /**
@@ -110,7 +111,7 @@ class Item extends EntityElements
      * The elements of the item encoded in json format
      * @var array[Element]
      */
-    protected $_elements;
+    protected $_elements = [];
 
     /**
      * @var string
@@ -118,29 +119,51 @@ class Item extends EntityElements
     protected $_tableName = 'item';
 
     /**
-     * Init item after create
+     * @var Type
      */
-    public function init()
+    protected $_type;
+
+    /**
+     * Item constructor.
+     * @param array $rowData
+     */
+    public function __construct(array $rowData = [])
     {
-        parent::init();
+        parent::__construct($rowData);
 
         $this->elements = jbdata($this->elements);
         $this->params   = jbdata($this->params);
     }
 
     /**
-     * @param $identifier
-     * @return null|Element
+     * Get the item Type
+     *
+     * @return Type The item Type
+     *
+     * @since 2.0
      */
-    public function getElement($identifier)
+    public function getType()
     {
-        if (isset($this->_elements[$identifier])) {
-            return $this->_elements[$identifier];
+        if (!$this->_type && $this->type) {
+            $this->_type = $this->app['types'][$this->type];
         }
 
-        if ($element = $this->getType()->getElement($identifier)) {
-            $element->setItem($this);
-            $this->_elements[$identifier] = $element;
+        return $this->_type;
+    }
+
+    /**
+     * @param $elementId
+     * @return Element
+     */
+    public function getElement($elementId)
+    {
+        if (isset($this->_elements[$elementId])) {
+            return $this->_elements[$elementId];
+        }
+
+        if ($element = $this->getType()->getElement($elementId)) {
+            $element->setEntity($this);
+            $this->_elements[$elementId] = $element;
             return $element;
         }
 
@@ -152,16 +175,18 @@ class Item extends EntityElements
      */
     public function getCoreElements()
     {
-        // get types core elements
         if ($type = $this->getType()) {
-            $core_elements = $type->getCoreElements();
-            foreach ($core_elements as $element) {
-                $element->setItem($this);
+            $coreElements = $type->getElements('core');
+
+            /** @var Element $element */
+            foreach ($coreElements as $element) {
+                $element->setEntity($this);
             }
-            return $core_elements;
+
+            return $coreElements;
         }
 
-        return array();
+        return [];
     }
 
     /**
@@ -169,15 +194,19 @@ class Item extends EntityElements
      */
     public function getElements()
     {
-        // get types elements
         if ($type = $this->getType()) {
-            foreach ($type->getElements() as $element) {
-                if (!isset($this->_elements[$element->identifier])) {
-                    $element->setItem($this);
-                    $this->_elements[$element->identifier] = $element;
+
+            $elementIds = $type->getElementIds();
+
+            /** @var Element $element */
+            foreach ($elementIds as $elementId) {
+
+                if (!isset($this->_elements[$elementId])) {
+                    $element = $type->getElement($elementId);
+                    $element->setEntity($this);
+                    $this->_elements[$element->id] = $element;
                 }
             }
-            $this->_elements = $this->_elements ? $this->_elements : array();
         }
 
         return $this->_elements;
@@ -185,12 +214,15 @@ class Item extends EntityElements
 
     /**
      * @param $type
-     * @return array[Element]
+     * @return array
      */
     public function getElementsByType($type)
     {
+        $type = strtolower($type);
+
         return array_filter($this->getElements(), function ($element) use ($type) {
-            return $element->getElementType() == "' . $type . '";
+            /** @var Element $element */
+            return $element->getElementType() === $type;
         });
     }
 }

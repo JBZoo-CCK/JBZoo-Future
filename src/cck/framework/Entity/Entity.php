@@ -42,21 +42,15 @@ abstract class Entity
      * Entity constructor.
      * @param array $rowData
      */
-    public function __construct($rowData = [])
+    public function __construct(array $rowData = [])
     {
         $this->app = App::getInstance();
 
         $this->bindData($rowData);
 
         $this->_entityName = strtolower(str_replace(__NAMESPACE__ . '\\', '', get_class($this)));
-    }
 
-    /**
-     * Init entity object
-     */
-    public function init()
-    {
-        $this->app->trigger("entity.{$this->getEntityName()}.init");
+        $this->app->trigger("entity.{$this->_entityName}.init");
     }
 
     /**

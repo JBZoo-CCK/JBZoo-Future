@@ -122,9 +122,18 @@ class Type
     /**
      * @return array
      */
+    public function getElementIds()
+    {
+        return array_keys($this->config->find("elements", []));
+    }
+
+    /**
+     * @param string $mode
+     * @return array
+     */
     public function getElements($mode = self::MODE_ALL)
     {
-        $elementsIds = array_keys($this->config->find("elements", []));
+        $elementsIds = $this->getElementIds();
 
         $result = [];
         foreach ($elementsIds as $elementId) {

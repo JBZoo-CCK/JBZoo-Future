@@ -208,7 +208,6 @@ class AtomItems_TableItemTest extends JBZooPHPUnitDatabase
             $item->name = '789';
         });
 
-
         /** @var ItemEntity $item */
         $item       = $this->_table()->get(1);
         $item->name = '123';

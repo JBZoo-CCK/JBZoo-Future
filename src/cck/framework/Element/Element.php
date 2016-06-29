@@ -129,10 +129,17 @@ abstract class Element
      * @param string $key
      * @param mixed  $value
      * @return $this
+     *
+     * @todo check performance
      */
     public function set($key, $value)
     {
-        $this->_entity->elements[$this->id][$key] = $value;
+        $elementData = $this->_entity->elements->get($this->id, []);
+
+        $elementData[$key] = $value;
+
+        $this->_entity->elements->set($this->id, $elementData);
+
         return $this;
     }
 

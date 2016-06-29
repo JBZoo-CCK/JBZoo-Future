@@ -78,29 +78,4 @@ class Framework_ElementTest extends JBZooPHPUnit
         isSame('Item', $element->getElementGroup(true));
         isSame('item', $element->getElementGroup(false));
     }
-
-    public function testSetAndGet()
-    {
-        skip();
-        $unique = uniqid('value-');
-
-        $item = new Item(['elements' => [
-            'element-id' => [
-                'id'    => 'element-id',
-                'type'  => 'text',
-                'group' => 'item',
-            ]
-        ]]);
-
-        $item->init();
-
-        dump($item->getElements());
-
-        $element = $this->app['elements']->create('Text', 'Item', [], $item);
-        $element->set('option-1', $unique);
-        $element->bindData(['option-2' => $unique]);
-
-        isSame($unique, $element->get('option-1'));
-        isSame($unique, $element->get('option-2'));
-    }
 }
