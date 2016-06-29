@@ -15,13 +15,13 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class ElementItem_Created_byTest
+ * Class ElementItem_CreatedByTest
  */
-class ElementItem_Created_byTest extends JBZooPHPUnit
+class ElementItem_CreatedByTest extends JBZooPHPUnit
 {
     public function testCreate()
     {
-        $element = $this->app['elements']->create('Created_by', 'item');
-        isClass('\JBZoo\CCK\Element\Item\Created_by', $element);
+        $element = $this->app['elements']->create('Createdby', 'item');
+        isClass('\JBZoo\CCK\Element\Item\Createdby', $element);
     }
 }
