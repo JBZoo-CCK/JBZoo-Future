@@ -14,6 +14,7 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\Atom\Core\Helper\Debug;
 use JBZoo\Utils\Sys;
 
 /**
@@ -57,9 +58,10 @@ class Framework_FunctionsTest extends JBZooPHPUnit
     public function testJblog()
     {
         $this->app['cfg']->set('atom.core', ['debug' => [
-            'log' => 1,
-            'ip'  => Sys::IP(),
-        ]]);
+            'dumper' => Debug::MODE_JBDUMP,
+            'log'    => 1,
+            'ip'     => Sys::IP(),
+        ]], true);
         $this->app['cfg']->cleanCache();
 
         $variable = uniqid('variable-');
@@ -75,12 +77,14 @@ class Framework_FunctionsTest extends JBZooPHPUnit
         isContain($label, file_get_contents($logFile));
     }
 
+    /*
+     * TODO: Move dumper helper to debug atom
     public function testJbd()
     {
         $this->app['cfg']->set('atom.core', ['debug' => [
-            'dumper' => 'jbdump',
+            'dumper' => Debug::MODE_JBDUMP,
             'ip'     => Sys::IP(),
-        ]]);
+        ]], true);
         $this->app['cfg']->cleanCache();
 
         $variable = uniqid('variable-');
@@ -91,5 +95,7 @@ class Framework_FunctionsTest extends JBZooPHPUnit
         $info = ob_get_clean();
 
         isContain($variable, $info);
+        isContain($label, $info);
     }
+    */
 }
