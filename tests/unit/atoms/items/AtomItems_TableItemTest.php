@@ -49,7 +49,7 @@ class AtomItems_TableItemTest extends JBZooPHPUnitDatabase
     {
         $this->_table()->remove(1);
 
-        is(1, count($this->_table()->getList()));
+        is(2, count($this->_table()->getList()));
     }
 
     public function testGet()
@@ -95,7 +95,7 @@ class AtomItems_TableItemTest extends JBZooPHPUnitDatabase
 
     public function testGetList()
     {
-        is(2, count($this->_table()->getList()));
+        is(3, count($this->_table()->getList()));
     }
 
     public function testToArray()
