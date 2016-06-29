@@ -14,6 +14,7 @@
  * @codeCoverageIgnore
  * @SuppressWarnings(PHPMD)
  * @codingStandardsIgnoreFile
+ * @codeCoverageIgnore
  */
 
 use JBZoo\Utils\Env;
