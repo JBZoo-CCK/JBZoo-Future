@@ -44,7 +44,7 @@
 
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="false">
-            <directory suffix=".php">./src</directory>
+            <directory suffix=".php">./src/cck</directory>
             <exclude>
                 <directory suffix=".php">./src/cck/vendor</directory>
             </exclude>
