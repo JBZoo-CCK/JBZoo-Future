@@ -22,7 +22,7 @@ class AtomAssetsJqueryFancybox_Test extends JBZooPHPUnit
 {
     public function testJQueryFancybox()
     {
-        $result = $this->_request('test.index.assetsJQueryFancybox');
+        $result = $this->helper->request('test.index.assetsJQueryFancybox');
         isContain("/jquery.js", $result->get('body'));
         isContain("/fancybox.min.js", $result->get('body'));
         isContain("/fancybox.min.css", $result->get('body'));

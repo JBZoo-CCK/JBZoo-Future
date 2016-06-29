@@ -22,7 +22,7 @@ class AtomAssetsMaterialize_Test extends JBZooPHPUnit
 {
     public function testMaterialize()
     {
-        $result = $this->_request('test.index.assetsMaterialize');
+        $result = $this->helper->request('test.index.assetsMaterialize');
         isContain("materialize.min.css", $result->get('body'));
         isContain("materialize.min.js", $result->get('body'));
         isContain("family=Material+Icons", $result->get('body'));

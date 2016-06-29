@@ -31,7 +31,7 @@ class AtomItems_Test extends JBZooPHPUnit
             ]
         ];
 
-        $response = $this->_requestAdmin('items.index.saveItem', $request, 'PAYLOAD');
+        $response = $this->helper->requestAdmin('items.index.saveItem', $request, 'PAYLOAD');
 
         /** @var Item $newItem */
         $newItem = $this->app['models']['item']->get($response->find('item.id'));
@@ -41,7 +41,7 @@ class AtomItems_Test extends JBZooPHPUnit
 
     public function testGetItem()
     {
-        $response = $this->_requestAdmin('items.index.getItem', ['id' => 2], 'PAYLOAD');
+        $response = $this->helper->requestAdmin('items.index.getItem', ['id' => 2], 'PAYLOAD');
 
         is($response->find('item.id'), 2);
     }
@@ -49,7 +49,7 @@ class AtomItems_Test extends JBZooPHPUnit
     public function testRemoveItemAction()
     {
         /** @var array(Data) $results */
-        $results = $this->_requestAdminBatch([ // experimental
+        $results = $this->helper->requestAdminBatch([ // experimental
             ['items.index.saveItem', ['item' => []], 'PAYLOAD'],
             ['items.index.removeItem', ['id' => 2], 'PAYLOAD'],
             ['items.index.removeItem', ['id' => 100500], 'PAYLOAD']
@@ -75,14 +75,14 @@ class AtomItems_Test extends JBZooPHPUnit
 
     public function testGetListAction()
     {
-        $response = $this->_requestAdmin('items.index.getList');
+        $response = $this->helper->requestAdmin('items.index.getList');
 
         isTrue(is_array($response->find('list')));
     }
 
     public function testGetNewItemAction()
     {
-        $response = $this->_requestAdmin('items.index.getNewItem');
+        $response = $this->helper->requestAdmin('items.index.getNewItem');
 
         isTrue(is_array($response->find('item')));
     }

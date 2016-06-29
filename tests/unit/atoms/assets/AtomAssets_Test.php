@@ -22,19 +22,19 @@ class AtomAssets_Test extends JBZooPHPUnit
 {
     public function testPlainCssCode()
     {
-        $result = $this->_request('test.index.assetsPlainCssCode');
+        $result = $this->helper->request('test.index.assetsPlainCssCode');
         isContain("div { display: none; }", $result->get('body'));
     }
 
     public function testPlainJsxCode()
     {
-        $result = $this->_request('test.index.assetsPlainJsxCode');
+        $result = $this->helper->request('test.index.assetsPlainJsxCode');
         isContain('<script type="text/babel">Some code for Reactjs</script>', $result->get('body'));
     }
 
     public function testIngnoreOnAjax()
     {
-        $result = $this->_request('test.index.assetsIgnoreAjaxRequest');
+        $result = $this->helper->request('test.index.assetsIgnoreAjaxRequest');
         isNotContain("jbzoo-jquery-factory.min.js", $result->get('body'));
     }
 }

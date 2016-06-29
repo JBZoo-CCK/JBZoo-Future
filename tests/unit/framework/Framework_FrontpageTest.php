@@ -24,7 +24,7 @@ class Framework_FrontpageTest extends JBZooPHPUnit
     {
         $actual = ['foo' => 'bar'];
 
-        $result = $this->_request('test.index.renderJson', [
+        $result = $this->helper->request('test.index.renderJson', [
             'test-data' => $actual
         ]);
 
@@ -37,14 +37,14 @@ class Framework_FrontpageTest extends JBZooPHPUnit
 
     public function testError404()
     {
-        $result = $this->_request('test.index.error404');
+        $result = $this->helper->request('test.index.error404');
         isSame(404, $result->get('code'));
         isContain("Some 404 error message", $result->get('body'));
     }
 
     public function testError500()
     {
-        $result = $this->_request('test.index.error500');
+        $result = $this->helper->request('test.index.error500');
         isSame(500, $result->get('code'));
         isContain("Some 500 error message", $result->get('body'));
     }

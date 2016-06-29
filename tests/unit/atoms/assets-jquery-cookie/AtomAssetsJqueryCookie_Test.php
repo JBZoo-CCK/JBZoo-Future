@@ -22,7 +22,7 @@ class AtomAssetsJqueryCookie_Test extends JBZooPHPUnit
 {
     public function testJQueryCookie()
     {
-        $result = $this->_request('test.index.assetsJQueryCookie');
+        $result = $this->helper->request('test.index.assetsJQueryCookie');
         isContain("/jquery.js", $result->get('body'));
         isContain("/jquery.cookie.min.js", $result->get('body'));
     }

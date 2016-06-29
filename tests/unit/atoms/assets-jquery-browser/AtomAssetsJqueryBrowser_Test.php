@@ -22,7 +22,7 @@ class AtomAssetsJqueryBrowser_Test extends JBZooPHPUnit
 {
     public function testJQueryBrowser()
     {
-        $result = $this->_request('test.index.assetsJQueryBrowser');
+        $result = $this->helper->request('test.index.assetsJQueryBrowser');
         isContain("/jquery.js", $result->get('body'));
         isContain("/jquery.browser.min.js", $result->get('body'));
     }

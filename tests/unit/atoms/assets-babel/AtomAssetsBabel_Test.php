@@ -22,7 +22,7 @@ class AtomAssetsBabel_Test extends JBZooPHPUnit
 {
     public function testBabel()
     {
-        $result = $this->_request('test.index.assetsBabel');
+        $result = $this->helper->request('test.index.assetsBabel');
         isContain("babel-core", $result->get('body'));
     }
 }

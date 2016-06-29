@@ -22,7 +22,7 @@ class AtomAssetsJquery_Test extends JBZooPHPUnit
 {
     public function testJQuery()
     {
-        $result = $this->_request('test.index.assetsJQuery');
+        $result = $this->helper->request('test.index.assetsJQuery');
         isContain("/jquery.js", $result->get('body'));
     }
 }

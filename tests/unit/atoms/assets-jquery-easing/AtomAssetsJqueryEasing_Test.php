@@ -22,7 +22,7 @@ class AtomAssetsJqueryEasing_Test extends JBZooPHPUnit
 {
     public function testJQueryEasing()
     {
-        $result = $this->_request('test.index.assetsJQueryEasing');
+        $result = $this->helper->request('test.index.assetsJQueryEasing');
         isContain("/jquery.js", $result->get('body'));
         isContain("/jquery.easing.min.js", $result->get('body'));
     }

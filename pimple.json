@@ -237,6 +237,11 @@
         "value": "JBZoo\\CrossCMS\\AbstractHttp"
     },
     {
+        "name": "js",
+        "type": "class",
+        "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\Js"
+    },
+    {
         "name": "lang",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractLang"

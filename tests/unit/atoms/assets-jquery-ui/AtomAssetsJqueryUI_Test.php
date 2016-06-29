@@ -22,7 +22,7 @@ class AtomAssetsJqueryUi_Test extends JBZooPHPUnit
 {
     public function testJQueryUI()
     {
-        $result = $this->_request('test.index.assetsJQueryUI');
+        $result = $this->helper->request('test.index.assetsJQueryUI');
 
         if (__CMS__ == 'joomla') {
             isContain("jquery.ui.", $result->get('body'));

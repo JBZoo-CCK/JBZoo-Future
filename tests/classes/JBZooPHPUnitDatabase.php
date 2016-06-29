@@ -16,6 +16,7 @@ namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\App;
 use JBZoo\Data\PHPArray;
+use JBZoo\PimpleDumper\PimpleDumper;
 use JBZoo\Utils\Env;
 
 /**
@@ -32,6 +33,32 @@ abstract class JBZooPHPUnitDatabase extends \PHPUnit_Extensions_Database_TestCas
      * @var string
      */
     protected $_fixtureFile = '';
+
+    /**
+     * @var UnitHelper
+     */
+    public $helper;
+
+    /**
+     * Setup before each test
+     */
+    protected function setUp()
+    {
+        parent::setUp();
+
+        require_once PROJECT_ROOT . '/src/cck/init.php';
+
+        $this->app    = App::getInstance();
+        $this->helper = new UnitHelper();
+
+        // Dump container for autocomplete
+        if (!defined('JBZOO_PIMPLE_INIT')) {
+            define('JBZOO_PIMPLE_INIT', true);
+
+            $dumper = new PimpleDumper();
+            $this->app->register($dumper);
+        }
+    }
 
     /**
      * @return \PHPUnit_Extensions_Database_DB_DefaultDatabaseConnection

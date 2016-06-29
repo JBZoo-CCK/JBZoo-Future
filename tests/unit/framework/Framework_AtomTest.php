@@ -52,13 +52,13 @@ class Framework_AtomTest extends JBZooPHPUnit
 
     public function testUndefinedAction()
     {
-        $content = $this->_request('test.index.undefined');
+        $content = $this->helper->request('test.index.undefined');
         isContain('Action not found: test.index.undefined', $content->body);
     }
 
     public function testUndefinedController()
     {
-        $content = $this->_request('test.undefined.index');
+        $content = $this->helper->request('test.undefined.index');
         isContain(
             'Controller not found: test.undefined; PHP Class: JBZoo\CCK\Atom\Test\Controller\SiteUndefined',
             $content->body

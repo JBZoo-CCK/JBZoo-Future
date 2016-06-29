@@ -22,7 +22,7 @@ class AtomAssetsJbzooUtils_Test extends JBZooPHPUnit
 {
     public function testJBZooUtils()
     {
-        $result = $this->_request('test.index.assetsJBZooUtils');
+        $result = $this->helper->request('test.index.assetsJBZooUtils');
         isContain("jbzoo-utils.min.js", $result->get('body'));
     }
 }

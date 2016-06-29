@@ -22,7 +22,7 @@ class AtomAssetsBootstrap_Test extends JBZooPHPUnit
 {
     public function testBootstrap()
     {
-        $result = $this->_request('test.index.assetsBootstrap');
+        $result = $this->helper->request('test.index.assetsBootstrap');
         isContain("/jquery.js", $result->get('body'));
         isContain("bootstrap.min.js", $result->get('body'));
         isContain("bootstrap.min.css", $result->get('body'));

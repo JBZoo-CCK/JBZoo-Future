@@ -24,7 +24,7 @@ class AtomModules_Test extends JBZooPHPUnit
 
     public function testIndexAction()
     {
-        $response = $this->_requestAdmin('modules.index.index');
+        $response = $this->helper->requestAdmin('modules.index.index');
         isTrue(is_array($response->find('list')));
     }
 
@@ -39,7 +39,7 @@ class AtomModules_Test extends JBZooPHPUnit
             ]
         ];
 
-        $response = $this->_requestAdmin('modules.index.add', $request, 'PAYLOAD');
+        $response = $this->helper->requestAdmin('modules.index.add', $request, 'PAYLOAD');
 
         /** @var Module $newModule */
         $newModule = $this->app['models']['module']->get($response->find('module.id'));
@@ -58,7 +58,7 @@ class AtomModules_Test extends JBZooPHPUnit
             ]
         ];
 
-        $response = $this->_requestAdmin('modules.index.update', $request, 'PAYLOAD');
+        $response = $this->helper->requestAdmin('modules.index.update', $request, 'PAYLOAD');
         /** @var Module $module */
         $module = $this->app['models']['module']->get($response->find('module.id'));
         isSame($uniqName, $module->title);
@@ -67,7 +67,7 @@ class AtomModules_Test extends JBZooPHPUnit
 
     public function testRemoveModuleAction()
     {
-        $response = $this->_requestAdmin('modules.index.add', ['module' => []], 'PAYLOAD');
+        $response = $this->helper->requestAdmin('modules.index.add', ['module' => []], 'PAYLOAD');
 
         $newId = $response->find('module.id');
         isTrue($newId > 0);
@@ -77,14 +77,14 @@ class AtomModules_Test extends JBZooPHPUnit
         isTrue($newModule);
 
         // Check remove new module
-        $response = $this->_requestAdmin('modules.index.remove', ['id' => $newId], 'PAYLOAD');
+        $response = $this->helper->requestAdmin('modules.index.remove', ['id' => $newId], 'PAYLOAD');
         is($newId, $response->find('removed'));
 
         $this->app['models']['module']->cleanObjects();
         $newItem = $this->app['models']['module']->get($newId);
         isFalse($newItem);
 
-        $response = $this->_requestAdmin('modules.index.remove', ['id' => 100500], 'PAYLOAD');
+        $response = $this->helper->requestAdmin('modules.index.remove', ['id' => 100500], 'PAYLOAD');
         is(0, $response->find('removed'));
     }
 }

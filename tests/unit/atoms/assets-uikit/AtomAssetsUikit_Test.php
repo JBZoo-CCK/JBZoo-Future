@@ -22,7 +22,7 @@ class AtomAssetsUikit_Test extends JBZooPHPUnit
 {
     public function testUIkit()
     {
-        $result = $this->_request('test.index.assetsUIkit');
+        $result = $this->helper->request('test.index.assetsUIkit');
         isContain("/jquery.js", $result->get('body'));
         isContain("uikit.min.js", $result->get('body'));
         isContain("uikit.min.css", $result->get('body'));

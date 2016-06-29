@@ -26,7 +26,7 @@ class Utility_UnitHelperTest extends JBZooPHPUnit
         $number = mt_rand(10, 10000);
         $shift  = mt_rand(10, 10000);
 
-        $json = $this->_requestAdminBatch([
+        $json = $this->helper->requestAdminBatch([
             ['test.other.testRequestBatch1', ['number' => $number, 'shift' => $shift], 'PAYLOAD'],
             ['test.other.testRequestBatch2', ['number' => $number, 'shift' => $shift], 'GET'],
             ['test.other.testRequestBatch3', ['number' => $number, 'shift' => $shift], 'POST'],
@@ -40,10 +40,10 @@ class Utility_UnitHelperTest extends JBZooPHPUnit
     public function testRequestAdmin()
     {
         $uniqId = uniqid('some-var-', true);
-        $json   = $this->_requestAdmin('test.other.testRequestAdmin', ['some-var' => $uniqId]);
+        $json   = $this->helper->requestAdmin('test.other.testRequestAdmin', ['some-var' => $uniqId]);
         isSame($uniqId, $json->get('variable'));
 
-        $htmlContent = $this->_requestAdmin('core.index.index', [], 'GET', false);
+        $htmlContent = $this->helper->requestAdmin('core.index.index', [], 'GET', false);
 
         isContain('assets/js/assets-common.min.js', $htmlContent->body);
         isContain('assets/js/core.min.js', $htmlContent->body);
@@ -53,7 +53,7 @@ class Utility_UnitHelperTest extends JBZooPHPUnit
     public function testRequest()
     {
         $uniqId = uniqid('some-var-', true);
-        $json   = $this->_request('test.other.testRequest', ['some-var' => $uniqId], '/', true);
+        $json   = $this->helper->request('test.other.testRequest', ['some-var' => $uniqId], '/', true);
         isSame($uniqId, $json->get('variable'));
     }
 

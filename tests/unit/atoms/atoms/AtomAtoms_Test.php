@@ -23,7 +23,7 @@ class AtomAtoms_Test extends JBZooPHPUnit
 
     public function testGetConfigFormsAction()
     {
-        $response = $this->_requestAdmin('atoms.index.getConfigForms');
+        $response = $this->helper->requestAdmin('atoms.index.getConfigForms');
 
         isTrue(is_array($response->find('list')));
     }
@@ -32,7 +32,7 @@ class AtomAtoms_Test extends JBZooPHPUnit
     {
         $unique = uniqid('value-');
 
-        $response = $this->_requestAdmin('atoms.index.saveOption', [
+        $response = $this->helper->requestAdmin('atoms.index.saveOption', [
             'name'  => 'test.checkbox',
             'value' => $unique,
         ], 'PAYLOAD');
@@ -47,7 +47,7 @@ class AtomAtoms_Test extends JBZooPHPUnit
     {
         $unique = uniqid('value-');
 
-        $response = $this->_requestAdmin('atoms.index.saveOption', [
+        $response = $this->helper->requestAdmin('atoms.index.saveOption', [
             'name'  => 'test.group.toggle',
             'value' => $unique,
         ], 'PAYLOAD');

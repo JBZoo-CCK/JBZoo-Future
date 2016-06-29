@@ -22,7 +22,7 @@ class AtomAssetsJquerySweetAlert_Test extends JBZooPHPUnit
 {
     public function testJQuerySweetAlert()
     {
-        $result = $this->_request('test.index.assetsJQuerySweetAlert');
+        $result = $this->helper->request('test.index.assetsJQuerySweetAlert');
         isContain("/jquery.js", $result->get('body'));
         isContain("/sweetalert.min.js", $result->get('body'));
         isContain("/sweetalert.min.css", $result->get('body'));

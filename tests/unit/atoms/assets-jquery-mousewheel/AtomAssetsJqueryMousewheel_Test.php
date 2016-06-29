@@ -22,7 +22,7 @@ class AtomAssetsJqueryMousewheel_Test extends JBZooPHPUnit
 {
     public function testJQueryMouseWheel()
     {
-        $result = $this->_request('test.index.assetsJQueryMouseWheel');
+        $result = $this->helper->request('test.index.assetsJQueryMouseWheel');
         isContain("/jquery.js", $result->get('body'));
         isContain("/jquery.mousewheel.min.js", $result->get('body'));
     }

@@ -22,7 +22,7 @@ class AtomAssetsJqueryTablesorter_Test extends JBZooPHPUnit
 {
     public function testJQueryTableSorter()
     {
-        $result = $this->_request('test.index.assetsJQueryTableSorter');
+        $result = $this->helper->request('test.index.assetsJQueryTableSorter');
         isContain("/jquery.js", $result->get('body'));
         isContain("/tablesorter.min.js", $result->get('body'));
         isContain("/tablesorter.min.css", $result->get('body'));

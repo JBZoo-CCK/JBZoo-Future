@@ -22,7 +22,7 @@ class AtomAssetsJbzooJqueryFactory_Test extends JBZooPHPUnit
 {
     public function testJBZooJQueryFactory()
     {
-        $result = $this->_request('test.index.assetsJBZooJQueryFactory');
+        $result = $this->helper->request('test.index.assetsJBZooJQueryFactory');
         isContain("/jquery.js", $result->get('body'));
         isContain("/jbzoo-utils.min.js", $result->get('body'));
         isContain("/jbzoo-jquery-factory.min.js", $result->get('body'));

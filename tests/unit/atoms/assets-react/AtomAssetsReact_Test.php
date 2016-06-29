@@ -22,7 +22,7 @@ class AtomAssetsReact_Test extends JBZooPHPUnit
 {
     public function testReact()
     {
-        $result = $this->_request('test.index.assetsReact');
+        $result = $this->helper->request('test.index.assetsReact');
         isContain("react.min.js", $result->get('body'));
     }
 }
