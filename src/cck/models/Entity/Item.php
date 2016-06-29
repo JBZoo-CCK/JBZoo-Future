@@ -171,28 +171,10 @@ class Item extends EntityElements
     }
 
     /**
-     * @return array[Element]
+     * @param string $mode
+     * @return array
      */
-    public function getCoreElements()
-    {
-        if ($type = $this->getType()) {
-            $coreElements = $type->getElements('core');
-
-            /** @var Element $element */
-            foreach ($coreElements as $element) {
-                $element->setEntity($this);
-            }
-
-            return $coreElements;
-        }
-
-        return [];
-    }
-
-    /**
-     * @return array[Element]
-     */
-    public function getElements()
+    public function getElements($mode = Element::TYPE_ALL)
     {
         if ($type = $this->getType()) {
 
@@ -207,6 +189,21 @@ class Item extends EntityElements
                     $this->_elements[$element->id] = $element;
                 }
             }
+        }
+
+        if ($mode !== Element::TYPE_ALL) {
+            return array_filter($this->_elements, function ($element) use ($mode) {
+                /** @var Element $element */
+
+                if ($mode === Element::TYPE_CORE && !$element->isCore()) {
+                    return false;
+
+                } elseif ($mode === Element::TYPE_CUSTOM && $element->isCore()) {
+                    return false;
+                }
+
+                return true;
+            });
         }
 
         return $this->_elements;

@@ -24,10 +24,6 @@ use JBZoo\Utils\Filter;
  */
 class Type
 {
-    const MODE_ALL    = 'all';
-    const MODE_CORE   = 'core';
-    const MODE_CUSTOM = 'custom';
-
     /**
      * @var App
      */
@@ -131,17 +127,17 @@ class Type
      * @param string $mode
      * @return array
      */
-    public function getElements($mode = self::MODE_ALL)
+    public function getElements($mode = Element::TYPE_ALL)
     {
         $elementsIds = $this->getElementIds();
 
         $result = [];
         foreach ($elementsIds as $elementId) {
 
-            if ($mode === self::MODE_CORE && strpos($elementId, '_') !== 0) {
+            if ($mode === Element::TYPE_CORE && strpos($elementId, '_') !== 0) {
                 continue;
 
-            } elseif ($mode === self::MODE_CUSTOM && strpos($elementId, '_') === 0) {
+            } elseif ($mode === Element::TYPE_CUSTOM && strpos($elementId, '_') === 0) {
                 continue;
             }
 

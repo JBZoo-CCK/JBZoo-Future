@@ -21,11 +21,15 @@ use JBZoo\Data\Data;
 use JBZoo\Data\PHPArray;
 
 /**
- * Class Entity
- * @package JBZoo\CCK
+ * Class Element
+ * @package JBZoo\CCK\Element
  */
 abstract class Element
 {
+    const TYPE_ALL    = 'all';
+    const TYPE_CORE   = 'core';
+    const TYPE_CUSTOM = 'custom';
+
     /**
      * @var App
      */

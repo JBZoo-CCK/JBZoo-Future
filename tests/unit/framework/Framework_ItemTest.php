@@ -14,6 +14,7 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\Element\Element;
 use JBZoo\CCK\Entity\Item;
 
 /**
@@ -25,6 +26,13 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
      * @var string
      */
     protected $_fixtureFile = 'Framework_ItemTest.php';
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        $this->app['models']['item']->cleanObjects();
+    }
 
     public function testCreateEmptyItem()
     {
@@ -67,18 +75,60 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
         isSame($element1, $element2);
     }
 
+    public function testGetUndefinedElement()
+    {
+        /** @var Item $item */
+        $item = $this->app['models']['item']->get(1);
+
+        $element = $item->getElement('undefined');
+
+        isNull($element);
+    }
+
     public function testGetElements()
     {
         /** @var Item $item */
         $item = $this->app['models']['item']->get(1);
 
         $elements1 = $item->getElements();
-        $elements2 = $item->getElements();
+        $elements2 = $item->getElements(Element::TYPE_ALL);
 
         isTrue(is_array($elements1));
+        isSame(3, count($elements1));
         isSame($elements1, $elements2);
 
         isSame($elements1['_name'], $item->getElement('_name'));
+    }
+
+    public function testGetCoreElements()
+    {
+        /** @var Item $item */
+        $item = $this->app['models']['item']->get(1);
+
+        $elements1 = $item->getElements(Element::TYPE_CORE);
+        $elements2 = $item->getElements(Element::TYPE_CORE);
+
+        isTrue(is_array($elements1));
+        isSame(1, count($elements1));
+        isSame($elements1, $elements2);
+
+        isSame($elements1['_name'], $item->getElement('_name'));
+    }
+
+    public function testGetCustomElements()
+    {
+        /** @var Item $item */
+        $item = $this->app['models']['item']->get(1);
+
+        $elements1 = $item->getElements(Element::TYPE_CUSTOM);
+        $elements2 = $item->getElements(Element::TYPE_CUSTOM);
+
+        isTrue(is_array($elements1));
+        isSame(2, count($elements1));
+        isSame($elements1, $elements2);
+
+        isSame($elements1['text-1'], $item->getElement('text-1'));
+        isSame($elements1['text-2'], $item->getElement('text-2'));
     }
 
     public function testGetElementsByTypeCore()

@@ -18,7 +18,7 @@ namespace JBZoo\CCK;
 if (!defined('JBZOO')) {
     define('JBZOO', true);
 
-    // @codingStandardsIgnoreStart
+    // @codeCoverageIgnoreStart
     if (!function_exists('composerRequire_JBZoo')) {
         if ($composerPath = realpath(__DIR__ . '/../../vendor/autoload.php')) { // developer mode
             define('JBZOO_DEV', true);
@@ -36,7 +36,7 @@ if (!defined('JBZOO')) {
     } else {
         define('JBZOO_DEV', true);
     }
-    // @codingStandardsIgnoreEnd
+    // @codeCoverageIgnoreEnd
 
     $app = App::getInstance();
 
