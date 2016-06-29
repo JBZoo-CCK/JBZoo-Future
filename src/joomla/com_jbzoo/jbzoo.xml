@@ -30,7 +30,6 @@
     </languages>
 
     <files folder="site">
-        <filename>router.php</filename>
         <filename>jbzoo.php</filename>
     </files>
 
