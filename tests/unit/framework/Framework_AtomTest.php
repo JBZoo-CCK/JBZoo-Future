@@ -29,6 +29,12 @@ class Framework_AtomTest extends JBZooPHPUnit
         isSame(jbatom('core'), $this->app['atoms']['core']);
     }
 
+    public function testAtomId()
+    {
+        isSame('core', $this->app['atoms']['core']->getId());
+        isSame('test', $this->app['atoms']['test']->getId());
+    }
+
     public function testGetResultOfController()
     {
         isSame(123456, $this->app->execute('test.index.checkReturn'));
@@ -83,6 +89,12 @@ class Framework_AtomTest extends JBZooPHPUnit
         isClass('\JBZoo\CCK\Table\Manager', $this->app['models']);
         isClass('\JBZoo\CCK\Table\Item', $this->app['models']['item']); // default model
         isClass('\JBZoo\CCK\Atom\Core\Table\Config', $this->app['models']['config']); // custom model
+    }
+
+    public function testTableNames()
+    {
+        isSame(JBZOO_TABLE_ITEMS, $this->app['models']['item']->getTableName());
+        isSame(JBZOO_TABLE_CONFIG, $this->app['models']['config']->getTableName());
     }
 
     /**

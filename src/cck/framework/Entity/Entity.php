@@ -46,11 +46,11 @@ abstract class Entity
     {
         $this->app = App::getInstance();
 
+        $this->_entityName = strtolower(preg_replace('#(.*?)\\\\#ius', '', get_class($this)));
+
         $this->bindData($rowData);
 
-        $this->_entityName = strtolower(str_replace(__NAMESPACE__ . '\\', '', get_class($this)));
-
-        $this->app->trigger("entity.{$this->_entityName}.init");
+        $this->app->trigger("entity.{$this->_entityName}.init", [$this]);
     }
 
     /**

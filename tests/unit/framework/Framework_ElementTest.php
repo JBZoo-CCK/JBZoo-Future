@@ -14,8 +14,6 @@
 
 namespace JBZoo\PHPUnit;
 
-use JBZoo\CCK\Entity\Item;
-
 /**
  * Class Framework_ElementTest
  */

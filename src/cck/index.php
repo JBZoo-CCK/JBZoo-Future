@@ -14,7 +14,6 @@
  * @codeCoverageIgnore
  * @SuppressWarnings(PHPMD)
  * @codingStandardsIgnoreFile
- * @codeCoverageIgnore
  */
 
 use JBZoo\Utils\Env;
@@ -23,6 +22,7 @@ if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
 
     /**
      * Class JBZooPHPUnitCoverageWrapper
+     * @codeCoverageIgnore
      */
     class JBZooPHPUnitCoverageWrapper
     {
@@ -59,20 +59,15 @@ if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
         {
             if (Env::hasXdebug()) {
 
-                $request = $_REQUEST;
-                if (isset($request['nocache'])) {
-                    unset($request['nocache']);
-                }
-
-                if (!isset($request['_cov'])) {
-                    $request['_cov'] = isset($request['act']) ? $request['act'] : 'request';
+                if (!isset($_REQUEST['_cov'])) {
+                    $_REQUEST['_cov'] = isset($_REQUEST['act']) ? $_REQUEST['act'] : 'request';
                 }
 
                 $this->_covRoot = realpath(__DIR__ . '/../..');
                 $this->_covDir  = realpath($this->_covRoot . '/src');
                 $this->_covHash = implode('_', [
-                    str_replace('.', '_', $request['_cov']),
-                    md5(serialize($request)),
+                    str_replace('.', '_', $_REQUEST['_cov']),
+                    md5(serialize($_REQUEST)),
                     mt_rand(0, 100000000)
                 ]);
 
@@ -91,7 +86,9 @@ if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
         {
             if ($this->_coverage) {
                 $this->_coverage->stop();
-                (new PHP_CodeCoverage_Report_PHP())->process($this->_coverage, $this->_covResult);
+
+                $report = new PHP_CodeCoverage_Report_PHP();
+                $report->process($this->_coverage, $this->_covResult);
             }
         }
 
@@ -103,10 +100,9 @@ if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
         {
             if ($this->_coverage) {
                 $this->_coverage->start($this->_covHash, true);
-                return $callback();
-            } else {
-                return $callback();
             }
+
+            return $callback();
         }
     }
 }
