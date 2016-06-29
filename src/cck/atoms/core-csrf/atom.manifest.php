@@ -19,7 +19,7 @@ return [
     'events' => [
 
         'init.app.after.admin' => function (App $app) {
-            $app['core.js']->addVar('csrf', $app['session']->getToken());
+            $app['js']->addVar('csrf', $app['session']->getToken());
         },
 
         'request.ajax' => function (App $app) {
