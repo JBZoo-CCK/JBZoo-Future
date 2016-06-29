@@ -315,7 +315,13 @@
     {
         "name": "types",
         "type": "container",
-        "value": []
+        "value": [
+            {
+                "name": "post",
+                "type": "class",
+                "value": "JBZoo\\CCK\\Type\\Type"
+            }
+        ]
     },
     {
         "name": "user",

@@ -264,4 +264,17 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
             'add_text'  => $addText,
         ])));
     }
+
+    public function testElementLoadAssets()
+    {
+        $content = $this->helper->request('test.element.checkLoadAssets');
+
+        isContain('item_test_assets_less_test_less.css', $content->body);
+        isContain('Item/Test/assets/css/test.css', $content->body);
+        isContain('jbzoo-utils.min.js', $content->body);
+        isContain('jbzoo-jquery-factory.min.js', $content->body);
+        isContain('Item/Test/assets/js/test.js', $content->body);
+        isContain('Item/Test/assets/jsx/test.jsx', $content->body);
+        isContain('<p class="test-element-rendering">123</p>', $content->body);
+    }
 }

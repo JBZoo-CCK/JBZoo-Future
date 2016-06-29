@@ -191,7 +191,7 @@ abstract class Element
     {
         // set default
         if (empty($layout)) {
-            $layout = 'render.php';
+            $layout = $this->_elType . '.php';
         } elseif (strpos($layout, '.php') === false) {
             $layout .= '.php';
         }
@@ -328,19 +328,31 @@ abstract class Element
 
         $helper->add(
             "elemenet-{$group}-{$type}-js",
-            "elements:{$group}/{$type}/assets/js/{$type}.js",
-            "elemenet-{$group}-{$group}-js" // parent assets
+            "elements:{$group}/{$type}/assets/js/{$this->_elType}.js",
+            [
+                'jbzoo-jquery-factory',
+                "elemenet-{$group}-{$group}-js", // parent assets
+            ]
+        );
+
+        $helper->add(
+            "elemenet-{$group}-{$type}-jsx",
+            "elements:{$group}/{$type}/assets/jsx/{$this->_elType}.jsx",
+            [
+                "react",
+                "elemenet-{$group}-{$group}-jsx" // parent assets
+            ]
         );
 
         $helper->add(
             "elemenet-{$group}-{$type}-css",
-            "elements:{$group}/{$type}/assets/css/{$type}.css",
+            "elements:{$group}/{$type}/assets/css/{$this->_elType}.css",
             "elemenet-{$group}-{$group}-css" // parent assets
         );
 
         $helper->add(
             "elemenet-{$group}-{$type}-less",
-            "elements:{$group}/{$type}/assets/less/{$type}.less",
+            "elements:{$group}/{$type}/assets/less/{$this->_elType}.less",
             "elemenet-{$group}-{$group}-less" // parent assets
         );
 
