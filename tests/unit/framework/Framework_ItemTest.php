@@ -94,7 +94,7 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
         $elements2 = $item->getElements(Element::TYPE_ALL);
 
         isTrue(is_array($elements1));
-        isSame(3, count($elements1));
+        isSame(4, count($elements1));
         isSame($elements1, $elements2);
 
         isSame($elements1['_name'], $item->getElement('_name'));
@@ -124,7 +124,7 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
         $elements2 = $item->getElements(Element::TYPE_CUSTOM);
 
         isTrue(is_array($elements1));
-        isSame(2, count($elements1));
+        isSame(3, count($elements1));
         isSame($elements1, $elements2);
 
         isSame($elements1['text-1'], $item->getElement('text-1'));
@@ -206,5 +206,28 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
 
         isClass('\JBZoo\CCK\Entity\Entity', $element->getEntity());
         isClass('\JBZoo\CCK\Entity\Item', $element->getEntity());
+    }
+
+    public function testElementHasValue()
+    {
+        /** @var Item $item */
+        $item = $this->app['models']['item']->get(1);
+
+        $element = $item->getElement('test-1');
+
+        isTrue($element->hasValue());
+    }
+
+    public function testElementRender()
+    {
+        /** @var Item $item */
+        $item = $this->app['models']['item']->get(1);
+
+        $element = $item->getElement('test-1');
+
+        $value = $element->get('value');
+
+        isTrue($value);
+        isSame($value, $element->render(jbdata()));
     }
 }

@@ -35,15 +35,25 @@ return [
                         'type'  => 'text',
                         'group' => 'item',
                     ],
+                    'test-1' => [
+                        'id'    => 'test-1',
+                        'type'  => 'test',
+                        'group' => 'item',
+                    ],
                 ]
             ]),
         ],
     ],
     '#__jbzoo_items'  => [
         [
-            'id'   => 1,
-            'name' => 'Item name',
-            'type' => 'post'
+            'id'       => 1,
+            'name'     => 'Item name',
+            'type'     => 'post',
+            'elements' => jbdata([
+                'test-1' => [
+                    'value' => '123'
+                ]
+            ])
         ],
     ],
 ];
