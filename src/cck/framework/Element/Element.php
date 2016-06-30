@@ -133,16 +133,13 @@ abstract class Element
      * @param string $key
      * @param mixed  $value
      * @return $this
-     *
-     * @todo check performance
      */
     public function set($key, $value)
     {
-        $elementData = $this->_entity->elements->get($this->id, []);
+        $data       = $this->_entity->elements->get($this->id, []);
+        $data[$key] = $value;
 
-        $elementData[$key] = $value;
-
-        $this->_entity->elements->set($this->id, $elementData);
+        $this->_entity->elements->set($this->id, $data); // todo: check performance
 
         return $this;
     }
@@ -191,7 +188,7 @@ abstract class Element
     {
         // set default
         if (empty($layout)) {
-            $layout = $this->_elType . '.php';
+            $layout = 'render.php';
         } elseif (strpos($layout, '.php') === false) {
             $layout .= '.php';
         }
@@ -305,12 +302,25 @@ abstract class Element
 
     /**
      * Set related type object
+     * @param Data|null $params
      * @return bool
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
      */
-    public function hasValue()
+    public function hasValue(Data $params = null)
     {
         $value = $this->get('value', $this->config->get('default'));
+
         return !empty($value);
+    }
+
+    /**
+     * @param string $name
+     * @param bool   $isArray
+     * @return string
+     */
+    public function getControlName($name, $isArray = false)
+    {
+        return "elements[{$this->id}][{$name}]" . ($isArray ? "[]" : "");
     }
 
     /**
@@ -363,7 +373,7 @@ abstract class Element
      * @param Data $params
      * @return null|string
      */
-    public function render(Data $params)
+    public function render(Data $params = null)
     {
         if ($layout = $this->getLayout($params->get('layout'))) {
             $group = $this->getElementGroup();
@@ -387,7 +397,10 @@ abstract class Element
      */
     protected function _renderLayout($__layoutPath, $__args = [])
     {
-        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.render.before", [$this, $__args]);
+        $this->app->trigger(
+            "element.{$this->_elGroup}.{$this->_elType}.render.before",
+            [$this, &$__layoutPath, &$__args]
+        );
 
         if (is_array($__args)) {
             foreach ($__args as $__var => $__value) {
@@ -395,17 +408,22 @@ abstract class Element
             }
         }
 
-        $__html = null;
+        $__result = null;
+
+        $__layoutPath = realpath($__layoutPath);
 
         if (file_exists($__layoutPath)) {
             ob_start();
             include($__layoutPath);
-            $__html = ob_get_contents();
+            $__result = ob_get_contents();
             ob_end_clean();
         }
 
-        $this->app->trigger("element.{$this->_elGroup}.{$this->_elType}.render.after", [$this, $__args, &$__html]);
+        $this->app->trigger(
+            "element.{$this->_elGroup}.{$this->_elType}.render.after",
+            [$this, &$__layoutPath, &$__args, &$__result]
+        );
 
-        return $__html;
+        return $__result;
     }
 }

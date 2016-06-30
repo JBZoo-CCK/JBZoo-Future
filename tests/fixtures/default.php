@@ -12,12 +12,6 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Element\Item;
+return [
 
-/**
- * Class PublishDown
- */
-class PublishDown extends Item
-{
-
-}
+];

@@ -21,10 +21,8 @@ use JBZoo\CCK\Entity\Item as ItemEntity;
 /**
  * Class AtomItems_TableItemTest
  */
-class AtomItems_TableItemTest extends JBZooPHPUnitDatabase
+class AtomItems_TableItemTest extends JBZooPHPUnit
 {
-    protected $_fixtureFile = 'AtomItems_TableItemTest.php';
-
     protected function setUp()
     {
         parent::setUp();

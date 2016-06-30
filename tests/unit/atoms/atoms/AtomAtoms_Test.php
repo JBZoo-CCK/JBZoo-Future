@@ -19,8 +19,6 @@ namespace JBZoo\PHPUnit;
  */
 class AtomAtoms_Test extends JBZooPHPUnit
 {
-    protected $_fixtureFile = 'AtomAtoms_Test.php';
-
     public function testGetConfigFormsAction()
     {
         $response = $this->helper->requestAdmin('atoms.index.getConfigForms');

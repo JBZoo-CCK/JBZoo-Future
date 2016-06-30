@@ -18,6 +18,7 @@ use JBZoo\CCK\App;
 
 /**
  * Class DataSet
+ * @package JBZoo\PHPUnit
  */
 class DataSet extends \PHPUnit_Extensions_Database_DataSet_AbstractDataSet
 {
@@ -64,19 +65,19 @@ class DataSet extends \PHPUnit_Extensions_Database_DataSet_AbstractDataSet
         }
     }
 
-    /**
-     * @inheritdoc
-     */
-    protected function createIterator($reverse = false)
-    {
-        return new \PHPUnit_Extensions_Database_DataSet_DefaultTableIterator($this->_tables, $reverse);
-    }
-
     protected function _initJBZoo()
     {
         require_once PROJECT_ROOT . '/src/cck/init.php';
 
         $this->app     = App::getInstance();
         $this->_prefix = $this->app['db']->getPrefix();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    protected function createIterator($reverse = false)
+    {
+        return new \PHPUnit_Extensions_Database_DataSet_DefaultTableIterator($this->_tables, $reverse);
     }
 }

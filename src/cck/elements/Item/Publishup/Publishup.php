@@ -15,9 +15,9 @@
 namespace JBZoo\CCK\Element\Item;
 
 /**
- * Class Publishup
+ * Class PublishUp
  */
-class Publishup extends Item
+class PublishUp extends Item
 {
 
 }

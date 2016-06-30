@@ -19,11 +19,8 @@ use JBZoo\CCK\Atom\Modules\Entity\Module;
 /**
  * Class AtomModules_TableModuleTest
  */
-class AtomModules_TableModuleTest extends JBZooPHPUnitDatabase
+class AtomModules_TableModuleTest extends JBZooPHPUnit
 {
-
-    protected $_fixtureFile = 'AtomModules_TableModuleTest.php';
-
     /**
      * @return \JBZoo\CCK\Atom\Modules\Table\Module
      */

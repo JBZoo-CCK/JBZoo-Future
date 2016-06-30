@@ -19,13 +19,8 @@ use JBZoo\CCK\Type\Type;
 /**
  * Class Framework_TypeTest
  */
-class Framework_TypeTest extends JBZooPHPUnitDatabase
+class Framework_TypeTest extends JBZooPHPUnit
 {
-    /**
-     * @var string
-     */
-    protected $_fixtureFile = 'Framework_TypeTest.php';
-
     public function testCreateType()
     {
         /** @var Type $type1 */

@@ -17,12 +17,11 @@ namespace JBZoo\PHPUnit;
 use JBZoo\CCK\App;
 use JBZoo\CCK\Element\Element;
 use JBZoo\CCK\Entity\Item;
-use JBZoo\Data\Data;
 
 /**
  * Class Framework_ItemTest
  */
-class Framework_ItemTest extends JBZooPHPUnitDatabase
+class Framework_ItemTest extends JBZooPHPUnit
 {
     /**
      * @var string
@@ -247,10 +246,10 @@ class Framework_ItemTest extends JBZooPHPUnitDatabase
         $eventName = "element.{$element->getElementGroup()}.{$element->getElementType()}.render.";
 
         $this->app
-            ->on("$eventName.before", function (App $app, Element $element, array $args) {
+            ->on("$eventName.before", function (App $app, Element $element, &$layout, array &$args) {
                 $element->set('value', $args['params']->get('new_value'));
             })
-            ->on("$eventName.after", function (App $app, Element $element, array $args, &$result) {
+            ->on("$eventName.after", function (App $app, Element $element, &$layout, array &$args, &$result) {
                 $result .= '|' . $args['params']->get('add_text');
             });
 

@@ -77,7 +77,7 @@ class Framework_ElementTest extends JBZooPHPUnit
         isSame('item', $element->getElementGroup(false));
     }
 
-    public function testGetEntity()
+    public function testGetEmptyEntity()
     {
         $element = $this->app['elements']->create('Text');
         isNull($element->getEntity());
