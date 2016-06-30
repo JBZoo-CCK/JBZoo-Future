@@ -20,6 +20,7 @@ use JBZoo\CCK\Entity\Item as ItemEntity;
 /**
  * Class Item
  * @package JBZoo\CCK
+ * @SuppressWarnings(PHPMD.NumberOfChildren)
  */
 abstract class Item extends Element
 {
