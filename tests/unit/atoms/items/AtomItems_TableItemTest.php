@@ -23,12 +23,6 @@ use JBZoo\CCK\Entity\Item as ItemEntity;
  */
 class AtomItems_TableItemTest extends JBZooPHPUnit
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->_table()->cleanObjects();
-    }
-
     /**
      * @return ItemTable
      */
@@ -81,7 +75,6 @@ class AtomItems_TableItemTest extends JBZooPHPUnit
 
     public function testHasObject()
     {
-        $this->_table()->cleanObjects();
         isFalse($this->_table()->hasObject(1));
 
         $this->_table()->get(1);

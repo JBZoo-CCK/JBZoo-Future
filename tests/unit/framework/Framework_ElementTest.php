@@ -24,12 +24,6 @@ use JBZoo\CCK\Entity\Item;
  */
 class Framework_ElementTest extends JBZooPHPUnit
 {
-    protected function setUp()
-    {
-        parent::setUp();
-        $this->app['models']['item']->cleanObjects();
-    }
-
     public function testCreate()
     {
         $element = $this->app['elements']->create('Name');
