@@ -59,10 +59,8 @@ class Manager
         /** @var Element $element */
         $element = new $elementClass($type, $group);
 
-        $isCore = $element->isCore();
-
         $config = array_merge([
-            'id'          => $isCore ? '_' . strtolower($type) : Str::random(10),
+            'id'          => $element->isCore() ? '_' . strtolower($type) : Str::random(10),
             'name'        => $element->getName(),
             'type'        => $type,
             'group'       => $group,
@@ -80,5 +78,25 @@ class Manager
         $element->init();
 
         return $element;
+    }
+
+    /**
+     * Separates the passed element values with a separator
+     *
+     * @param string $separator
+     * @param array  $values
+     * @return string
+     */
+    public function applySeparators($separator, $values)
+    {
+        $values = !is_array($values) ? (array)$values : $values;
+
+        if (null === $separator) {
+            $separator = PHP_EOL . ' ';
+        }
+
+        $value = implode($separator, $values);
+
+        return $value;
     }
 }

@@ -72,6 +72,6 @@
         "vendor-dir"          : "../../vendor",
         "bin-compat"          : "full",
         "autoloader-suffix"   : "_JBZoo",
-        "optimize-autoloader" : true
+        "optimize-autoloader" : false
     }
 }

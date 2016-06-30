@@ -24,6 +24,7 @@ use JBZoo\SqlBuilder\Query\Select;
 use JBZoo\SqlBuilder\Query\Union;
 use JBZoo\SqlBuilder\Query\Update;
 use JBZoo\Utils\Dates;
+use JBZoo\Utils\Str;
 
 /**
  * Class Table
@@ -94,7 +95,7 @@ abstract class Table
         $this->_table = $name;
         $this->_dbNow = $this->_db->quote(Dates::sql(time()), false);
 
-        $this->_id = strtolower(preg_replace('#(.*?)\\\\#ius', '', get_class($this)));
+        $this->_id = Str::getClassName($this, true);
     }
 
     /**

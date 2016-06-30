@@ -172,6 +172,14 @@ abstract class Element
     }
 
     /**
+     * @return string
+     */
+    public function getSearchData()
+    {
+        return [$this->get('value', $this->config->get('default'))];
+    }
+
+    /**
      * @param Type $type
      */
     public function setType(Type $type)
@@ -318,7 +326,7 @@ abstract class Element
      * @param bool   $isArray
      * @return string
      */
-    public function getControlName($name, $isArray = false)
+    public function getControlName($name = 'value', $isArray = false)
     {
         return "elements[{$this->id}][{$name}]" . ($isArray ? "[]" : "");
     }
@@ -391,6 +399,15 @@ abstract class Element
     }
 
     /**
+     * Is element repeatable
+     * @return bool
+     */
+    public function isRepeatable()
+    {
+        return $this instanceof Repeatable;
+    }
+
+    /**
      * @param string $__layoutPath
      * @param array  $__args
      * @return null|string
@@ -411,8 +428,7 @@ abstract class Element
         $__result = null;
 
         $__layoutPath = realpath($__layoutPath);
-
-        if (file_exists($__layoutPath)) {
+        if ($__layoutPath && file_exists($__layoutPath)) {
             ob_start();
             include($__layoutPath);
             $__result = ob_get_contents();

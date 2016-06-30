@@ -16,6 +16,7 @@ namespace JBZoo\CCK\Entity;
 
 use JBZoo\CCK\App;
 use JBZoo\CCK\Table\Table;
+use JBZoo\Utils\Str;
 
 /**
  * Class Entity
@@ -46,7 +47,7 @@ abstract class Entity
     {
         $this->app = App::getInstance();
 
-        $this->_entityName = strtolower(preg_replace('#(.*?)\\\\#ius', '', get_class($this)));
+        $this->_entityName = Str::getClassName($this, true);
 
         $this->bindData($rowData);
 
