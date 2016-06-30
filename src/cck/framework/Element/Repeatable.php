@@ -123,7 +123,7 @@ abstract class Repeatable extends Element implements \Countable, \SeekableIterat
 
     /**
      * @inheritdoc
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter)
+     * @SuppressWarnings(PHPMD.UnusedLocalVariable)
      */
     public function render(Data $params = null)
     {
