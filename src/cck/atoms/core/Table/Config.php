@@ -79,20 +79,21 @@ class Config extends Table
     {
         $value = $this->_store->find($key, null, $filter);
 
-        if (null === $value) { // Lazy load options
+        if (null === $value) { // Lazyload options
 
             $select = $this->_select([$this->_table, 'tConfig'])
                 ->select(['tConfig.value'])
-                ->where(['tConfig.option', ' = ?s'], $key)
+                ->where(['tConfig.option', '= ?s'], $key)
                 ->limit(1);
 
             if ($row = $this->_db->fetchRow($select)) {
-                $value = $this->_decode($row['value']);
-                $this->_store->set($key, $value);
+                $this->_store->set($key, $this->_decode($row['value']));
+            } else {
+                $this->_store->set($key, $default);
             }
         }
 
-        return null === $value ? $default : $value;
+        return $this->_store->get($key, $default, $filter);
     }
 
     /**

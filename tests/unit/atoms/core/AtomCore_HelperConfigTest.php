@@ -35,22 +35,18 @@ class AtomCore_HelperConfigTest extends JBZooPHPUnit
     {
         $cfg = $this->_getCfg();
 
-        skip('Fix config helper');
+        isNull($cfg->find('undefined_1'));
+        isNull($cfg->find('undefined.undefined_2'));
+        isNull($cfg->find('undefined.undefined_2.undefined_3'));
 
-        //isNull($cfg->get('undefined_1'));
-        isNull($cfg->find('undefined_2'));
-
-        isSame(42, $cfg->find('undefined_3', 42));
-        isSame('42', $cfg->find('undefined_4', ' 42 ', 'trim'));
+        isSame(42, $cfg->find('undefined_4', 42));
+        isSame('42', $cfg->find('undefined_5', ' 42 ', 'trim'));
     }
 
     public function testGetUndefinedNested()
     {
         $cfg = $this->_getCfg();
 
-        skip('Fix config helper');
-
-        //isNull($cfg->get('undefined.undefined'));
         isNull($cfg->find('undefined.undefined'));
 
         isSame(42, $cfg->find('undefined_3.undefined', 42));
