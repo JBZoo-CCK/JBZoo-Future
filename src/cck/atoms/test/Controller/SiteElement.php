@@ -28,7 +28,7 @@ class SiteElement extends Site
         /** @var Item $item */
         $item = $this->app['models']['item']->get(1);
 
-        $element = $item->getElement('test-1');
+        $element = $item->getElement('some-test');
 
         echo $element->render(jbdata(['layout' => 'load-assets']));
     }

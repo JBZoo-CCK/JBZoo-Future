@@ -43,4 +43,16 @@ class Manager extends Container
 
         return parent::offsetGet($id);
     }
+
+    /**
+     * Remove all types froma memory cache
+     */
+    public function cleanObjects()
+    {
+        $keys = $this->keys();
+
+        foreach ($keys as $key) {
+            unset($this[$key]);
+        }
+    }
 }

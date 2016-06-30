@@ -22,21 +22,12 @@ return [
             'type'     => 'post',
             'elements' => jbdata([
                 'some-repeatable' => [
-                    0 => [
-                        'value' => 'Value #1'
-                    ],
-                    1 => [
-                        'value' => 'Value #2'
-                    ],
-                    2 => [
-                        'value' => 'Value #3'
-                    ],
+                    ['value' => 'Value #1'],
+                    ['value' => 'Value #2'],
+                    ['value' => 'Value #3'],
                 ],
-                'some-rep-empty'  => [
-                ],
-                'some-test'       => [
-                    'value' => 'Value'
-                ],
+                'some-rep-empty'  => [],
+                'some-test'       => ['value' => 'Value'],
             ])
         ],
     ],

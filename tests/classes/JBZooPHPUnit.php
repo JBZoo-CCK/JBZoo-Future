@@ -15,6 +15,7 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\App;
+use JBZoo\CCK\Table\Table;
 use JBZoo\Data\PHPArray;
 use JBZoo\PimpleDumper\PimpleDumper;
 use JBZoo\Utils\Env;
@@ -51,8 +52,11 @@ abstract class JBZooPHPUnit extends \PHPUnit_Extensions_Database_TestCase
 
         require_once PROJECT_ROOT . '/src/cck/init.php';
 
-        $this->app    = App::getInstance();
         $this->helper = new UnitHelper();
+
+        // Cleanup memory caches!
+        $this->app['models']->cleanObjects();
+        $this->app['types']->cleanObjects();
 
         // Dump container for autocomplete
         if (!defined('JBZOO_PIMPLE_INIT')) {
@@ -61,6 +65,14 @@ abstract class JBZooPHPUnit extends \PHPUnit_Extensions_Database_TestCase
             $dumper = new PimpleDumper();
             $this->app->register($dumper);
         }
+    }
+
+    /**
+     * Init JBZoo Application
+     */
+    protected function _initJBZoo()
+    {
+        $this->app = App::getInstance();
     }
 
     /**
@@ -104,10 +116,5 @@ abstract class JBZooPHPUnit extends \PHPUnit_Extensions_Database_TestCase
         } else {
             throw new \Exception("Fixture file {$fixturePath} is not found!");
         }
-    }
-
-    protected function _initJBZoo()
-    {
-        $this->app = App::getInstance();
     }
 }

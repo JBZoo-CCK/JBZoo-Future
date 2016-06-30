@@ -14,7 +14,6 @@
 
 namespace JBZoo\PHPUnit;
 
-use JBZoo\CCK\App;
 use JBZoo\CCK\Element\Element;
 use JBZoo\CCK\Entity\Item;
 
@@ -26,8 +25,6 @@ class Framework_ItemTest extends JBZooPHPUnit
     protected function setUp()
     {
         parent::setUp();
-
-        $this->app['models']['item']->cleanObjects();
     }
 
     public function testCreateEmptyItem()

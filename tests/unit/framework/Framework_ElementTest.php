@@ -14,6 +14,7 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\App;
 use JBZoo\CCK\Element\Element;
 use JBZoo\CCK\Element\Repeatable;
 use JBZoo\CCK\Entity\Item;
@@ -323,15 +324,16 @@ class Framework_ElementTest extends JBZooPHPUnit
         isContain('jbzoo-jquery-factory.min.js', $content->body);
         isContain('Item/Test/assets/js/test.js', $content->body);
         isContain('Item/Test/assets/jsx/test.jsx', $content->body);
-        isContain('<p class="test-element-rendering">123</p>', $content->body);
+
+        $element = $this->app['models']['item']->get(1)->getElement('some-test');
+        isContain('<p class="test-element-rendering">' . $element->get('value') . '</p>', $content->body);
     }
 
     public function testHasValue()
     {
         /** @var Item $item */
-        $item = $this->app['models']['item']->get(1);
-
-        $element = $item->getElement('test-1');
+        $item    = $this->app['models']['item']->get(1);
+        $element = $item->getElement('some-test');
 
         isTrue($element->hasValue());
     }
@@ -341,7 +343,7 @@ class Framework_ElementTest extends JBZooPHPUnit
         /** @var Item $item */
         $item = $this->app['models']['item']->get(1);
 
-        $element = $item->getElement('_name');
+        $element = $item->getElement('some-test');
 
         isSame($item, $element->getEntity());
         isClass('\JBZoo\CCK\Entity\Entity', $element->getEntity());
@@ -353,7 +355,7 @@ class Framework_ElementTest extends JBZooPHPUnit
         /** @var Item $item */
         $item = $this->app['models']['item']->get(1);
 
-        $element = $item->getElement('test-1');
+        $element = $item->getElement('some-test');
 
         $value = $element->get('value');
 
@@ -370,14 +372,16 @@ class Framework_ElementTest extends JBZooPHPUnit
         /** @var Item $item */
         $item = $this->app['models']['item']->get(1);
 
-        $element = $item->getElement('test-1');
+        $element = $item->getElement('some-test');
 
         $eventName = "element.{$element->getElementGroup()}.{$element->getElementType()}.render.";
 
+        // Add listners
         $this->app
             ->on("$eventName.before", function (App $app, Element $element, &$layout, array &$args) {
                 $element->set('value', $args['params']->get('new_value'));
             })
+
             ->on("$eventName.after", function (App $app, Element $element, &$layout, array &$args, &$result) {
                 $result .= '|' . $args['params']->get('add_text');
             });
@@ -387,6 +391,7 @@ class Framework_ElementTest extends JBZooPHPUnit
 
         isTrue($newValue, $element->get('value'));
 
+        // Excecute it!
         isSame($newValue . '|' . $addText, $element->render(jbdata([
             'new_value' => $newValue,
             'add_text'  => $addText,
