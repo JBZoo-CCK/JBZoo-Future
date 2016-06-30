@@ -15,6 +15,8 @@
 namespace JBZoo\CCK\Entity;
 
 use JBZoo\CCK\Element\Element;
+use JBZoo\CCK\Element\Exception as ElementException;
+use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Type\Type;
 use JBZoo\Data\JSON;
 
@@ -221,5 +223,32 @@ class Item extends EntityElements
             /** @var Element $element */
             return $element->getElementType() === $type;
         });
+    }
+
+    /**
+     * @return bool|int
+     * @throws Exception
+     */
+    public function save()
+    {
+        $elements = $this->getElements();
+
+        $errors = [];
+
+        /** @var Element $element */
+        foreach ($elements as $element) {
+
+            try {
+                $element->validate();
+            } catch (ElementException $e) {
+                $errors[$element->id] = $e->getMessage();
+            }
+        }
+
+        if (empty($errors)) {
+            return parent::save();
+        }
+
+        $this->_throwError("Item {$this->id} is not valid!", $errors);
     }
 }

@@ -314,14 +314,8 @@
     },
     {
         "name": "types",
-        "type": "container",
-        "value": [
-            {
-                "name": "post",
-                "type": "class",
-                "value": "JBZoo\\CCK\\Type\\Type"
-            }
-        ]
+        "type": "class",
+        "value": "JBZoo\\CCK\\Type\\Manager"
     },
     {
         "name": "user",

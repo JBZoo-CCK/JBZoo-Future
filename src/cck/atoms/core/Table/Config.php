@@ -77,7 +77,7 @@ class Config extends Table
      */
     public function find($key, $default = null, $filter = null)
     {
-        $value = $this->_store->find($key, $default, $filter);
+        $value = $this->_store->find($key, null, $filter);
 
         if (null === $value) { // Lazy load options
 
@@ -92,7 +92,7 @@ class Config extends Table
             }
         }
 
-        return $value;
+        return null === $value ? $default : $value;
     }
 
     /**

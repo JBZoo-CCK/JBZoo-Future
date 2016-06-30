@@ -56,7 +56,6 @@ abstract class Entity
 
     /**
      * @param $rowData
-     * TODO: check performance
      */
     public function bindData($rowData)
     {
@@ -66,7 +65,7 @@ abstract class Entity
 
             foreach ($rowData as $propName => $propValue) {
                 if ($propName != 'app' && property_exists($this, $propName)) {
-                    $this->$propName = $propValue;
+                    $this->$propName = $propValue; // TODO: check performance
                 }
             }
         }
@@ -105,7 +104,7 @@ abstract class Entity
     {
         if ($this->_tableName) {
 
-            $this->app->trigger("entity.{$this->getEntityName()}.save.before", [$this]);
+            $this->app->trigger("entity.{$this->_entityName}.save.before", [$this]);
 
             /** @var Table $table */
             $table = $this->app['models'][$this->_tableName];
@@ -113,7 +112,7 @@ abstract class Entity
 
             $this->{$table->getKey()} = $id;
 
-            $this->app->trigger("entity.{$this->getEntityName()}.save.after", [$this]);
+            $this->app->trigger("entity.{$this->_entityName}.save.after", [$this]);
 
             return $id;
         }
@@ -128,17 +127,28 @@ abstract class Entity
     {
         if ($this->_tableName) {
 
-            $this->app->trigger("entity.{$this->getEntityName()}.remove.before", [$this]);
+            $this->app->trigger("entity.{$this->_entityName}.remove.before", [$this]);
 
             /** @var Table $table */
             $table  = $this->app['models'][$this->_tableName];
             $result = $table->removeEntity($this);
 
-            $this->app->trigger("entity.{$this->getEntityName()}.remove.after", [$this, $result]);
+            $this->app->trigger("entity.{$this->_entityName}.remove.after", [$this, $result]);
 
             return $result;
         }
 
         return false;
+    }
+
+    /**
+     * Alias function for elements error
+     * @param string $message
+     * @param null   $extra
+     * @throws Exception
+     */
+    protected function _throwError($message, $extra = null)
+    {
+        throw new Exception($message, 0, null, $extra);
     }
 }

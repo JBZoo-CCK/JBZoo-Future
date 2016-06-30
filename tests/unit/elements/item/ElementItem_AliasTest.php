@@ -14,14 +14,56 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\Entity\Item;
+use JBZoo\CCK\Exception\Exception;
+
 /**
  * Class ElementItem_AliasTest
  */
 class ElementItem_AliasTest extends JBZooPHPUnit
 {
+    protected $_fixtureFile = 'Framework_ItemTest.php';
+
     public function testCreate()
     {
         $element = $this->app['elements']->create('Alias', 'item');
         isClass('\JBZoo\CCK\Element\Item\Alias', $element);
+    }
+
+    public function testSaveForAdmin()
+    {
+        $itemData = [
+            'name' => 'Some name !@#$%^&*()_+ 1234567890- {} \"\'',
+            'type' => 'for-validation'
+        ];
+
+        $item = new Item($itemData);
+        is(2, $item->save());
+        is(2, $item->save());
+
+        isSame('some-name-1234567890', $item->alias);
+    }
+
+    public function testSaveExistedAlias()
+    {
+        $itemData = [
+            'name'  => 'Some name',
+            'type'  => 'for-validation',
+            'alias' => 'some-name-1234567890',
+        ];
+
+        $item = new Item($itemData);
+        is(2, $item->save());
+
+        $item2 = new Item($itemData);
+
+        try {
+            $item2->save();
+        } catch (Exception $e) {
+            $errors = $e->getExtra();
+
+            isTrue(is_array($errors));
+            isTrue(isset($errors['_alias']));
+        }
     }
 }

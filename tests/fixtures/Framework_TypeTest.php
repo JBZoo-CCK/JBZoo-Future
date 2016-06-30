@@ -15,9 +15,8 @@
 return [
     '#__jbzoo_config' => [
         [
-            'autoload' => 1,
-            'option'   => 'type.some-type',
-            'value'    => jbdata([
+            'option' => 'type.some-type',
+            'value'  => jbdata([
                 'name'     => 'Type name',
                 'elements' => [
                     '_name'              => [
@@ -48,9 +47,8 @@ return [
             ]),
         ],
         [
-            'autoload' => 1,
-            'option'   => 'type.elements',
-            'value'    => jbdata([
+            'option' => 'type.elements',
+            'value'  => jbdata([
                 'name'     => 'Type with elements',
                 'elements' => [
                     '_name'           => [

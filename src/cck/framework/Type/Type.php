@@ -52,8 +52,17 @@ class Type
     {
         $this->app = App::getInstance();
 
-        $this->id     = Filter::cmd($typeId);
-        $this->config = jbdata($this->app['cfg']->find("type.{$this->id}"));
+        $this->id = Filter::cmd($typeId);
+
+        // Init valid configuration
+
+        $this->config = jbdata($this->app['cfg']->find("type.{$this->id}", []));
+        $this->config->set('elements', array_merge(
+            $this->app['types']->getRequiredElements(),
+            (array)$this->config->get('elements', [])
+        ));
+
+        $this->app->trigger("type.{$this->id}.init", [$this]);
     }
 
 
@@ -62,7 +71,7 @@ class Type
      */
     public function init()
     {
-        $this->app->trigger("type.{$this->id}.init", [$this]);
+        // noop
     }
 
     /**

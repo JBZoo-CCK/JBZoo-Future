@@ -15,10 +15,10 @@
 namespace JBZoo\PHPUnit;
 
 /**
- * Class Framework_FrontpageTest
+ * Class Framework_RenderPageTest
  * @package JBZoo\PHPUnit
  */
-class Framework_FrontpageTest extends JBZooPHPUnit
+class Framework_RenderPageTest extends JBZooPHPUnit
 {
     public function testRenderJson()
     {

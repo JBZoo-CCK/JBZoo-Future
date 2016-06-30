@@ -14,10 +14,37 @@
 
 namespace JBZoo\CCK\Element\Item;
 
+use JBZoo\Data\Data;
+use JBZoo\Utils\Str;
+
 /**
  * Class Name
  */
 class Name extends Item
 {
+    /**
+     * @inheritdoc
+     */
+    public function hasValue(Data $params = null)
+    {
+        $item = $this->getEntity();
 
+        return $item && $item->name;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validate()
+    {
+        parent::validate();
+
+        $item = $this->getEntity();
+
+        if (!$item->name) {
+            $this->_throwError('Item name shouldn\'t be empty!');
+        }
+
+        $item->name = Str::limitChars($item->name, 255, '');
+    }
 }

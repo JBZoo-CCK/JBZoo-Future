@@ -191,6 +191,8 @@ class AtomItems_TableItemTest extends JBZooPHPUnit
 
     public function testSaveEvents()
     {
+        //skip('Move test to subprocess!');
+
         $this->app->on('entity.item.save.before', function (App $app, ItemEntity $item) {
             $item->name = '456';
         });
@@ -211,5 +213,8 @@ class AtomItems_TableItemTest extends JBZooPHPUnit
         isSame('456', $itemAnotherInstance->name); // Real value in DB
 
         isNotSame($item, $itemAnotherInstance);
+
+        $this->app['events']->getManager()->removeListeners('entity.item.save.before');
+        $this->app['events']->getManager()->removeListeners('entity.item.save.save');
     }
 }

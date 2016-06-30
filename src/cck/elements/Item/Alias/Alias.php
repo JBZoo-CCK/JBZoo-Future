@@ -14,10 +14,31 @@
 
 namespace JBZoo\CCK\Element\Item;
 
+use JBZoo\Utils\Str;
+
 /**
  * Class Access
  */
 class Alias extends Item
 {
+    /**
+     * @inheritdoc
+     */
+    public function validate()
+    {
+        parent::validate();
 
+        $item = $this->getEntity();
+
+        if (!$item->alias) {
+            $item->alias = Str::slug($item->name);
+
+        } elseif ($item->alias && $item->alias !== Str::slug($item->alias)) {
+            $this->_throwError("Invalid alias: '{$item->alias}', ItemId: {$item->id}");
+        }
+
+        if ($this->app['models']['item']->checkAlias($item->alias, $item->id)) {
+            $this->_throwError("Alias '{$item->alias}' already exists");
+        }
+    }
 }

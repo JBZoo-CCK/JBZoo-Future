@@ -378,6 +378,17 @@ abstract class Element
     }
 
     /**
+     * Validate data before save
+     * @throws Exception
+     */
+    public function validate()
+    {
+        if (!$this->getEntity()) {
+            $this->_throwError("Element '{$this->id}' hasn't entity object!");
+        }
+    }
+
+    /**
      * @param Data $params
      * @return null|string
      */
@@ -441,5 +452,16 @@ abstract class Element
         );
 
         return $__result;
+    }
+
+    /**
+     * Alias function for elements error
+     * @param string $message
+     * @param null   $extra
+     * @throws Exception
+     */
+    protected function _throwError($message, $extra = null)
+    {
+        throw new Exception($message, 0, null, $extra);
     }
 }

@@ -20,5 +20,28 @@ namespace JBZoo\CCK\Exception;
  */
 class Exception extends \Exception
 {
+    protected $_extra = null;
 
+    /**
+     * Exception constructor.
+     * @param string         $message
+     * @param int            $code
+     * @param Exception|null $previous
+     * @param null           $extra
+     */
+    public function __construct($message, $code = 0, Exception $previous = null, $extra = null)
+    {
+        $this->_extra = $extra;
+
+        // make sure everything is assigned properly
+        parent::__construct($message, $code, $previous);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getExtra()
+    {
+        return $this->_extra;
+    }
 }

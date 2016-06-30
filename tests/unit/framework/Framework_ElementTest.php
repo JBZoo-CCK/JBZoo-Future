@@ -375,7 +375,6 @@ class Framework_ElementTest extends JBZooPHPUnit
             ->on("$eventName.before", function (App $app, Element $element, &$layout, array &$args) {
                 $element->set('value', $args['params']->get('new_value'));
             })
-
             ->on("$eventName.after", function (App $app, Element $element, &$layout, array &$args, &$result) {
                 $result .= '|' . $args['params']->get('add_text');
             });

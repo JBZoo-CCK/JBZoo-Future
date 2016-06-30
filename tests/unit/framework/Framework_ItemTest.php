@@ -22,11 +22,6 @@ use JBZoo\CCK\Entity\Item;
  */
 class Framework_ItemTest extends JBZooPHPUnit
 {
-    protected function setUp()
-    {
-        parent::setUp();
-    }
-
     public function testCreateEmptyItem()
     {
         $item = new Item();
@@ -87,7 +82,7 @@ class Framework_ItemTest extends JBZooPHPUnit
         $elements2 = $item->getElements(Element::TYPE_ALL);
 
         isTrue(is_array($elements1));
-        isSame(4, count($elements1));
+        isSame(11, count($elements1));
         isSame($elements1, $elements2);
 
         isSame($elements1['_name'], $item->getElement('_name'));
@@ -117,7 +112,7 @@ class Framework_ItemTest extends JBZooPHPUnit
         $elements2 = $item->getElements(Element::TYPE_CUSTOM);
 
         isTrue(is_array($elements1));
-        isSame(3, count($elements1));
+        isSame(10, count($elements1));
         isSame($elements1, $elements2);
 
         isSame($elements1['text-1'], $item->getElement('text-1'));

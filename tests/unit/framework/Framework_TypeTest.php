@@ -162,7 +162,10 @@ class Framework_TypeTest extends JBZooPHPUnit
         $type = $this->app['types']['New-Type'];
 
         isTrue($type->save());
-        isSame(["name" => "new-type"], $this->app['cfg']->find("type.new-type"));
+
+        $config = $this->app['cfg']->find("type.new-type");
+        isKey('name', $config);
+        isSame('new-type', $config['name']);
 
         isTrue($type->remove());
         isSame(null, $this->app['cfg']->find("type.new-type"));
@@ -180,15 +183,15 @@ class Framework_TypeTest extends JBZooPHPUnit
 
         $elements = $type->getElements();
         isTrue(is_array($elements));
-        isSame(3, count($elements));
+        isSame(10, count($elements));
 
         $elements = $type->getElements('all');
         isTrue(is_array($elements));
-        isSame(3, count($elements));
+        isSame(10, count($elements));
 
         $elements = $type->getElements('core');
         isTrue(is_array($elements));
-        isSame(2, count($elements));
+        isSame(9, count($elements));
 
         $elements = $type->getElements('custom');
         isTrue(is_array($elements));
@@ -198,6 +201,26 @@ class Framework_TypeTest extends JBZooPHPUnit
         $undefinedType = $this->app['types']['undefined-type'];
         $elements      = $undefinedType->getElements();
         isTrue(is_array($elements));
-        isSame(0, count($elements));
+
+        isSame(count($this->app['types']->getRequiredElements()), count($elements));
+    }
+
+    public function testGetElementsForEmpty()
+    {
+        /** @var Type $type */
+        $type = $this->app['types']['new-empty-type'];
+
+        $elements = $type->getElements();
+
+        isTrue(is_array($elements));
+
+        isKey('_name', $elements);
+        isKey('_alias', $elements);
+        isKey('_state', $elements);
+        isKey('_created', $elements);
+        isKey('_createdby', $elements);
+        isKey('_modified', $elements);
+        isKey('_publishup', $elements);
+        isKey('_publishdown', $elements);
     }
 }

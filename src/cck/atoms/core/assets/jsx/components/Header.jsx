@@ -13,8 +13,7 @@
 
 'use strict';
 
-import React, {PropTypes, Component } from 'react'
-import { connect }      from 'react-redux'
+import React, {PropTypes, Component} from 'react'
 import Toolbar          from 'material-ui/Toolbar/Toolbar';
 import ToolbarGroup     from 'material-ui/Toolbar/ToolbarGroup';
 import ToolbarTitle     from 'material-ui/Toolbar/ToolbarTitle';

@@ -55,4 +55,21 @@ class Manager extends Container
             unset($this[$key]);
         }
     }
+
+    /**
+     * @return array
+     */
+    public function getRequiredElements()
+    {
+        return [
+            '_name'        => ['type' => 'name', 'group' => 'item'],
+            '_state'       => ['type' => 'state', 'group' => 'item'],
+            '_alias'       => ['type' => 'alias', 'group' => 'item'],
+            '_created'     => ['type' => 'created', 'group' => 'item'],
+            '_createdby'   => ['type' => 'createdby', 'group' => 'item'],
+            '_modified'    => ['type' => 'modified', 'group' => 'item'],
+            '_publishup'   => ['type' => 'publishup', 'group' => 'item'],
+            '_publishdown' => ['type' => 'publishdown', 'group' => 'item'],
+        ];
+    }
 }

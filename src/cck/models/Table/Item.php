@@ -39,13 +39,46 @@ class Item extends Table
      */
     public function getList()
     {
-        $sql = $this->_select($this->_table)
-            //->where('state <> ?i', self::STATUS_UNACTIVE)
-            ->limit(100);
-
+        $sql    = $this->_select($this->_table);
         $rows   = $this->_db->fetchAll($sql);
         $result = $this->_fetchObjectList($rows);
 
         return $result;
+    }
+
+    /**
+     * Method to check if an alias already exists.
+     *
+     * @param string $newItemAlias
+     * @param int    $itemId
+     * @return bool
+     */
+    public function checkAlias($newItemAlias, $itemId)
+    {
+        $existedId = $this->aliasToId($newItemAlias);
+
+        if ($existedId && $existedId != (int)$itemId) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Convert item alias to id
+     *
+     * @param string $alias
+     * @return string
+     */
+    public function aliasToId($alias)
+    {
+        $sql = $this->_select($this->_table)
+            ->select('id')
+            ->where('alias = ?s', $alias)
+            ->limit(1);
+
+        $row = $this->_db->fetchRow($sql);
+
+        return $row['id'] ? $row['id'] : 0;
     }
 }

@@ -15,7 +15,6 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\App;
-use JBZoo\CCK\Table\Table;
 use JBZoo\Data\PHPArray;
 use JBZoo\PimpleDumper\PimpleDumper;
 use JBZoo\Utils\Env;
@@ -55,6 +54,7 @@ abstract class JBZooPHPUnit extends \PHPUnit_Extensions_Database_TestCase
         $this->helper = new UnitHelper();
 
         // Cleanup memory caches!
+        $this->app['cfg']->cleanCache();
         $this->app['models']->cleanObjects();
         $this->app['types']->cleanObjects();
 

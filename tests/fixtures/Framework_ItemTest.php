@@ -43,6 +43,24 @@ return [
                 ]
             ]),
         ],
+        [
+            'option' => 'type.for-validation',
+            'value'  => jbdata([
+                'name'     => 'For validation tests',
+                'elements' => [
+                    '_name'  => [
+                        'id'    => '_name',
+                        'type'  => 'name',
+                        'group' => 'item',
+                    ],
+                    '_alias' => [
+                        'id'    => '_alias',
+                        'type'  => 'alias',
+                        'group' => 'item',
+                    ],
+                ]
+            ]),
+        ],
     ],
     '#__jbzoo_items'  => [
         [

@@ -24,6 +24,11 @@ use JBZoo\CCK\Entity\Item as ItemEntity;
 abstract class Item extends Element
 {
     /**
+     * @var ItemEntity
+     */
+    protected $_entity;
+
+    /**
      * @inheritdoc
      */
     public function __construct($type, $group)
@@ -32,7 +37,10 @@ abstract class Item extends Element
     }
 
     /**
-     * @var ItemEntity
+     * @return ItemEntity
      */
-    protected $_entity;
+    public function getEntity()
+    {
+        return parent::getEntity();
+    }
 }
