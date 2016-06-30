@@ -14,10 +14,39 @@
 
 namespace JBZoo\CCK\Element\Item;
 
+use JBZoo\Data\Data;
+use JBZoo\Utils\Dates;
+
 /**
  * Class Created
  */
 class Created extends Item
 {
+    /**
+     * @inheritdoc
+     */
+    public function hasValue(Data $params = null)
+    {
+        $item = $this->getEntity();
 
+        return !$item->created || $item->created !== '0000-00-00 00:00:00';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validate()
+    {
+        parent::validate();
+
+        $item = $this->getEntity();
+
+        if ($item->isNew()) {
+            $item->created = $this->app['date']->format(time(), 'sql');
+        }
+
+        if (!Dates::is($item->created)) {
+            $this->_throwError("Invalid created date: {$item->created}");
+        }
+    }
 }

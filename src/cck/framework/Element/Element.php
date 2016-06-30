@@ -456,11 +456,12 @@ abstract class Element
 
     /**
      * Alias function for elements error
+     *
      * @param string $message
-     * @param null   $extra
+     * @param array  $extra
      * @throws Exception
      */
-    protected function _throwError($message, $extra = null)
+    protected function _throwError($message, $extra = [])
     {
         throw new Exception($message, 0, null, $extra);
     }

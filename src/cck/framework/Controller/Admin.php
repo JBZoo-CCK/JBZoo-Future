@@ -14,7 +14,7 @@
 
 namespace JBZoo\CCK\Controller;
 
-use JBZoo\CCK\Exception\Exception;
+use JBZoo\CCK\Exception;
 
 /**
  * Class Admin

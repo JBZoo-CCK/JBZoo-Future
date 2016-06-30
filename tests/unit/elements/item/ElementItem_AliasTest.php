@@ -15,7 +15,7 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\Entity\Item;
-use JBZoo\CCK\Exception\Exception;
+use JBZoo\CCK\Exception;
 
 /**
  * Class ElementItem_AliasTest
@@ -33,15 +33,27 @@ class ElementItem_AliasTest extends JBZooPHPUnit
     public function testSaveForAdmin()
     {
         $itemData = [
-            'name' => 'Some name !@#$%^&*()_+ 1234567890- {} \"\'',
+            'name' => 'Some name !@#$%^&*()_+ 1234567890-w {} \"\'',
             'type' => 'for-validation'
         ];
 
         $item = new Item($itemData);
         is(2, $item->save());
-        is(2, $item->save());
+        isSame('some-name-1234567890-w', $item->alias);
 
-        isSame('some-name-1234567890', $item->alias);
+        is(2, $item->save());
+        isSame('some-name-1234567890-w', $item->alias);
+
+        $item->alias = 'qwerty-1';
+        is(2, $item->save());
+        isSame('qwerty-1', $item->alias);
+
+
+        $newItem        = new Item($itemData);
+        $newItem->alias = 'qwerty-1';
+
+        is(3, $newItem->save());
+        isSame('qwerty-2', $newItem->alias);
     }
 
     public function testSaveExistedAlias()

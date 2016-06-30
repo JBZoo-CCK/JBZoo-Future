@@ -14,7 +14,7 @@
 
 namespace JBZoo\CCK\Element;
 
-use \JBZoo\CCK\Exception\Exception as JBZooException;
+use JBZoo\CCK\Exception as JBZooException;
 
 /**
  * Class Exception

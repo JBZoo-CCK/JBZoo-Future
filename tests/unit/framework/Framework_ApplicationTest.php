@@ -61,7 +61,7 @@ class Framework_ApplicationTest extends JBZooPHPUnit
     }
 
     /**
-     * @expectedException \JBZoo\CCK\Exception\Exception
+     * @expectedException \JBZoo\CCK\Exception
      */
     public function testGetUndefinedAtomHelper()
     {

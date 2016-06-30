@@ -19,6 +19,8 @@ namespace JBZoo\PHPUnit;
  */
 class ElementItem_CreatedByTest extends JBZooPHPUnit
 {
+    protected $_fixtureFile = 'Framework_ItemTest.php';
+
     public function testCreate()
     {
         $element = $this->app['elements']->create('Createdby', 'item');

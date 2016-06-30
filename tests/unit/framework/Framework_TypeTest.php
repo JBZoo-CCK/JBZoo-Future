@@ -75,7 +75,7 @@ class Framework_TypeTest extends JBZooPHPUnit
     }
 
     /**
-     * @expectedException \JBZoo\CCK\Exception\Exception
+     * @expectedException \JBZoo\CCK\Exception
      */
     public function testInvalidElementConfig()
     {
@@ -87,7 +87,7 @@ class Framework_TypeTest extends JBZooPHPUnit
     }
 
     /**
-     * @expectedException \JBZoo\CCK\Exception\Exception
+     * @expectedException \JBZoo\CCK\Exception
      */
     public function testInvalidElementType()
     {
@@ -99,7 +99,7 @@ class Framework_TypeTest extends JBZooPHPUnit
     }
 
     /**
-     * @expectedException \JBZoo\CCK\Exception\Exception
+     * @expectedException \JBZoo\CCK\Exception
      */
     public function testInvalidElementGroup()
     {

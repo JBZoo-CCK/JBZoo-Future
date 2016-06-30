@@ -12,7 +12,7 @@
  * @link       http://jbzoo.com
  */
 
-namespace JBZoo\CCK\Exception;
+namespace JBZoo\CCK;
 
 /**
  * Class Exception
@@ -20,20 +20,26 @@ namespace JBZoo\CCK\Exception;
  */
 class Exception extends \Exception
 {
-    protected $_extra = null;
+    /**
+     * @var array
+     */
+    protected $_extra = [];
 
     /**
      * Exception constructor.
-     * @param string         $message
-     * @param int            $code
-     * @param Exception|null $previous
-     * @param null           $extra
+     * @param string    $message
+     * @param int       $code
+     * @param Exception $previous
+     * @param array     $extra
      */
-    public function __construct($message, $code = 0, Exception $previous = null, $extra = null)
+    public function __construct($message, $code = 0, Exception $previous = null, $extra = [])
     {
         $this->_extra = $extra;
 
-        // make sure everything is assigned properly
+        if ($this->_extra) {
+            $message .= PHP_EOL . ' - ' . implode(PHP_EOL . ' - ', (array)$this->_extra);
+        }
+
         parent::__construct($message, $code, $previous);
     }
 

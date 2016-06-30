@@ -15,7 +15,7 @@
 namespace JBZoo\CCK\Table;
 
 use JBZoo\CCK\Container;
-use JBZoo\CCK\Exception\Exception;
+use JBZoo\CCK\Exception;
 
 /**
  * Class Manager

@@ -15,7 +15,6 @@
 namespace JBZoo\CCK;
 
 use JBZoo\CCK\Atom\Atom;
-use JBZoo\CCK\Exception\Exception;
 use JBZoo\CCK\Atom\Manager as AtomManager;
 use JBZoo\CCK\Element\Manager as ElementManager;
 use JBZoo\CCK\Table\Manager as TableManager;
@@ -34,6 +33,12 @@ use JBZoo\PimpleDumper\PimpleDumper;
 class App extends Cms
 {
     /**
+     * Application Init flag
+     * @var bool
+     */
+    protected $_isInit = false;
+
+    /**
      * @return App
      */
     public static function getInstance()
@@ -42,6 +47,7 @@ class App extends Cms
 
         if (null === $instance) {
             $instance = new self();
+            $instance->init();
         }
 
         return $instance;
@@ -52,12 +58,11 @@ class App extends Cms
      */
     public function init()
     {
-        static $isInit;
-        if ($isInit) {
+        if ($this->_isInit) {
             return false;
         }
 
-        $isInit = true;
+        $this->_isInit = true;
 
         $this->trigger('init.app.before');
 

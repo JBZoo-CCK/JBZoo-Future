@@ -72,7 +72,7 @@ class Framework_AtomTest extends JBZooPHPUnit
     }
 
     /**
-     * @expectedException \JBZoo\CCK\Exception\Exception
+     * @expectedException \JBZoo\CCK\Exception
      */
     public function test()
     {
@@ -104,7 +104,7 @@ class Framework_AtomTest extends JBZooPHPUnit
     }
 
     /**
-     * @expectedException \JBZoo\CCK\Exception\Exception
+     * @expectedException \JBZoo\CCK\Exception
      */
     public function testUndefinedModelTable()
     {

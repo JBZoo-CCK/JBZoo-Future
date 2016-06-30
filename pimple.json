@@ -197,6 +197,11 @@
         "value": "JBZoo\\CCK\\Atom\\Core\\Helper\\State"
     },
     {
+        "name": "date",
+        "type": "class",
+        "value": "JBZoo\\CrossCMS\\AbstractDate"
+    },
+    {
         "name": "db",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractDatabase"

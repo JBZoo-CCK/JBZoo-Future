@@ -28,16 +28,21 @@ class Alias extends Item
     {
         parent::validate();
 
-        $item = $this->getEntity();
+        $item  = $this->getEntity();
+        $model = $this->app['models']['item'];
 
         if (!$item->alias) {
-            $item->alias = Str::slug($item->name);
+            $name        = $item->name ?: 'New item';
+            $item->alias = Str::slug($name);
+        }
 
-        } elseif ($item->alias && $item->alias !== Str::slug($item->alias)) {
+        if ($item->alias && $item->alias !== Str::slug($item->alias)) {
             $this->_throwError("Invalid alias: '{$item->alias}', ItemId: {$item->id}");
         }
 
-        if ($this->app['models']['item']->checkAlias($item->alias, $item->id)) {
+        $item->alias = $model->getUniqueAlias($item->id, Str::slug($item->alias));
+
+        if ($model->checkAlias($item->alias, $item->id)) {
             $this->_throwError("Alias '{$item->alias}' already exists");
         }
     }

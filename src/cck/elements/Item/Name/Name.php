@@ -40,11 +40,12 @@ class Name extends Item
         parent::validate();
 
         $item = $this->getEntity();
+        $name = $item->name ?: 'New item';
 
-        if (!$item->name) {
+        if (!$name) {
             $this->_throwError('Item name shouldn\'t be empty!');
         }
 
-        $item->name = Str::limitChars($item->name, 255, '');
+        $item->name = Str::limitChars($name, 255, '');
     }
 }

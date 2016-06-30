@@ -137,7 +137,7 @@ abstract class Table
         $class   = $this->entity;
 
         // Check store
-        if (isset($rowData[$keyName]) && isset($this->_objects[$rowData[$keyName]])) {
+        if (isset($rowData[$keyName]) && isset($this->_objects[$rowData[$keyName]]) && $rowData[$keyName] > 0) {
             return $this->_objects[$rowData[$keyName]];
         }
 
@@ -210,17 +210,17 @@ abstract class Table
     /**
      * Remove record from database table
      *
-     * @param $id
+     * @param $entityId
      * @return Entity
      */
-    public function get($id)
+    public function get($entityId)
     {
-        if ($this->hasObject($id)) {
-            return $this->_objects[$id];
+        if ($this->hasObject($entityId)) {
+            return $this->_objects[$entityId];
         }
 
         $sql = $this->_select()
-            ->where($this->_key . ' = ?s', $id);
+            ->where($this->_key . ' = ?i', $entityId);
 
         $row    = $this->_db->fetchRow($sql);
         $object = $this->_fetchObject($row);
@@ -317,6 +317,92 @@ abstract class Table
     {
         return $this->_key;
     }
+
+    /**
+     * Method to check if an alias already exists.
+     *
+     * @param string $newItemAlias
+     * @param int    $itemId
+     * @return bool
+     */
+    public function checkAlias($newItemAlias, $itemId)
+    {
+        $existedId = $this->aliasToId($newItemAlias);
+
+        if ($existedId && $existedId != (int)$itemId) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Convert item alias to id
+     *
+     * @param string $alias
+     * @return string
+     */
+    public function aliasToId($alias)
+    {
+        $sql = $this->_select($this->_table)
+            ->select('id')
+            ->where('alias = ?s', $alias)
+            ->limit(1);
+
+        $row = $this->_db->fetchRow($sql);
+
+        return $row['id'] ? $row['id'] : 0;
+    }
+
+    /**
+     * Translate object id to alias.
+     *
+     * @param string $entityId
+     * @return string
+     */
+    public function idToAlias($entityId)
+    {
+        if ($this->hasObject($entityId)) {
+            return $this->get($entityId)->alias;
+        }
+
+        $sql = $this->_select($this->_table)
+            ->select('alias')
+            ->where('alias = ?i', $entityId)
+            ->limit(1);
+
+        $row = $this->_db->fetchRow($sql);
+
+        return $row ? $row['alias'] : null;
+    }
+
+    /**
+     * Get unique object alias
+     *
+     * @param int    $id    Entity ID
+     * @param string $alias Posible alias
+     *
+     * @return string
+     */
+    public function getUniqueAlias($id, $alias = '')
+    {
+        if (empty($alias) && $id) {
+            $alias = Str::slug($this->get($id)->name);
+        }
+
+        if (!empty($alias)) {
+            $newAlias = $alias;
+
+            while ($this->checkAlias($newAlias, $id)) {
+                $newAlias = Str::inc($newAlias, 'dash');
+            }
+
+            return $newAlias;
+        }
+
+        return $alias;
+    }
+
 
     /**
      * @param string $tableName

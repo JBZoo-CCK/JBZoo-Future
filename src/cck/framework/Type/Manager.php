@@ -15,7 +15,7 @@
 namespace JBZoo\CCK\Type;
 
 use JBZoo\CCK\Container;
-use JBZoo\CCK\Exception\Exception;
+use JBZoo\CCK\Exception;
 use JBZoo\Utils\Filter;
 
 /**

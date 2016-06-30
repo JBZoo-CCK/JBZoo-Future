@@ -45,40 +45,4 @@ class Item extends Table
 
         return $result;
     }
-
-    /**
-     * Method to check if an alias already exists.
-     *
-     * @param string $newItemAlias
-     * @param int    $itemId
-     * @return bool
-     */
-    public function checkAlias($newItemAlias, $itemId)
-    {
-        $existedId = $this->aliasToId($newItemAlias);
-
-        if ($existedId && $existedId != (int)$itemId) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * Convert item alias to id
-     *
-     * @param string $alias
-     * @return string
-     */
-    public function aliasToId($alias)
-    {
-        $sql = $this->_select($this->_table)
-            ->select('id')
-            ->where('alias = ?s', $alias)
-            ->limit(1);
-
-        $row = $this->_db->fetchRow($sql);
-
-        return $row['id'] ? $row['id'] : 0;
-    }
 }

@@ -16,7 +16,7 @@ namespace JBZoo\CCK\Element;
 
 use JBZoo\CCK\App;
 use JBZoo\CCK\Entity\EntityElements;
-use JBZoo\CCK\Exception\Exception;
+use JBZoo\CCK\Exception;
 use JBZoo\Utils\Str;
 
 /**

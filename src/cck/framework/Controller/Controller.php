@@ -16,7 +16,7 @@ namespace JBZoo\CCK\Controller;
 
 use JBZoo\CCK\AppAware;
 use JBZoo\CCK\Atom\Atom;
-use JBZoo\CCK\Exception\Exception;
+use JBZoo\CCK\Exception;
 
 /**
  * Class Controller
