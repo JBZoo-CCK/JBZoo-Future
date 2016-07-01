@@ -141,13 +141,8 @@ abstract class Table
             return $this->_objects[$rowData[$keyName]];
         }
 
-        // Create new object
-        if ($class == 'stdClass') {
-            $object = (object)$rowData;
-        } else {
-            /** @var Entity $object */
-            $object = new $class($rowData);
-        }
+        /** @var Entity $object */
+        $object = new $class($rowData);
 
         // Save to memory store (cache it)
         if ($object->$keyName && !key_exists($object->$keyName, $this->_objects)) {
@@ -179,7 +174,7 @@ abstract class Table
      */
     public function removeEntity($entity)
     {
-        if ($this->_key) {
+        if ($this->_key && $entity) {
             return $this->remove($entity->{$this->_key});
         }
 
@@ -411,10 +406,7 @@ abstract class Table
      */
     protected function _select($tableName = null, $alias = null)
     {
-        if (null === $tableName) {
-            $tableName = $this->_table;
-        }
-
+        $tableName = $tableName ?: $this->_table;
         return new Select($tableName, $alias);
     }
 
@@ -457,13 +449,5 @@ abstract class Table
     {
         $tableName = $tableName ?: $this->_table;
         return new Delete($tableName, $alias);
-    }
-
-    /**
-     * @return Union
-     */
-    protected function _union()
-    {
-        return new Union();
     }
 }

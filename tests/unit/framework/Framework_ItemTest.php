@@ -220,4 +220,10 @@ class Framework_ItemTest extends JBZooPHPUnit
         $alias = $this->app['models']['item']->getUniqueAlias($item->id);
         isSame('item-name', $alias);
     }
+
+    public function testRemoveEmptyId()
+    {
+        isFalse($this->app['models']['item']->remove(false));
+        isFalse($this->app['models']['item']->removeEntity(false));
+    }
 }
