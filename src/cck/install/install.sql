@@ -48,9 +48,9 @@ CREATE TABLE IF NOT EXISTS `#__jbzoo_items` (
 -- Modules ---------------------------------------------------------------------
 
 CREATE TABLE `#__jbzoo_modules` (
-    `id`     INT(11)      NOT NULL AUTO_INCREMENT,
-    `title`  VARCHAR(255) NULL     DEFAULT NULL,
-    `params` LONGTEXT     NULL,
+    `id`     INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+    `title`  VARCHAR(255)     NOT NULL,
+    `params` LONGTEXT         NOT NULL,
     PRIMARY KEY (`id`)
 )
     COLLATE = 'utf8_general_ci'
@@ -61,7 +61,7 @@ CREATE TABLE `#__jbzoo_modules` (
 CREATE TABLE `#__jbzoo_config` (
     `option`   VARCHAR(250)        NOT NULL DEFAULT '',
     `value`    LONGTEXT            NOT NULL,
-    `autoload` TINYINT(3) UNSIGNED NOT NULL DEFAULT '1',
+    `autoload` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
     UNIQUE INDEX `OPTION_NAME` (`option`),
     INDEX `AUTOLOAD` (`autoload`)
 )
