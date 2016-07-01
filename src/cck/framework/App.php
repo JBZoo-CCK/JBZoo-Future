@@ -282,6 +282,7 @@ class App extends Cms
         });
 
         $paths = [
+            'install'  => 'jbzoo:install',
             'elements' => 'jbzoo:elements',
             'models'   => 'jbzoo:models',
             'assets'   => 'jbzoo:assets',

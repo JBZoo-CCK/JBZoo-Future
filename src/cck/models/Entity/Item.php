@@ -138,11 +138,7 @@ class Item extends EntityElements
     }
 
     /**
-     * Get the item Type
-     *
-     * @return Type The item Type
-     *
-     * @since 2.0
+     * @return Type
      */
     public function getType()
     {
