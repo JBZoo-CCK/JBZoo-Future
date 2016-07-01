@@ -27,9 +27,7 @@ class Name extends Item
      */
     public function hasValue(Data $params = null)
     {
-        $item = $this->getEntity();
-
-        return $item && $item->name;
+        return true;
     }
 
     /**

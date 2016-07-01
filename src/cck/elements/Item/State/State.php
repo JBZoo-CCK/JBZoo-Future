@@ -14,10 +14,43 @@
 
 namespace JBZoo\CCK\Element\Item;
 
+use JBZoo\CCK\Table\Item as ItemTable;
+use JBZoo\Data\Data;
+
 /**
  * Class State
  */
 class State extends Item
 {
+    protected $_validList = [
+        ItemTable::STATUS_ACTIVE,
+        ItemTable::STATUS_ARCHIVE,
+        ItemTable::STATUS_UNACTIVE
+    ];
 
+    /**
+     * @inheritdoc
+     */
+    public function hasValue(Data $params = null)
+    {
+        return false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validate()
+    {
+        parent::validate();
+
+        $item = $this->getEntity();
+
+        $state = (int)$item->state;
+
+        if (!in_array($state, $this->_validList, true)) {
+            $state = ItemTable::STATUS_UNACTIVE;
+        }
+
+        $item->state = $state;
+    }
 }

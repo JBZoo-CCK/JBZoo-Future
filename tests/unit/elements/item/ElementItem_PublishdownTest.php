@@ -14,14 +14,37 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\Entity\Item;
+
 /**
  * Class ElementItem_PublishDownTest
  */
 class ElementItem_PublishDownTest extends JBZooPHPUnit
 {
+    protected $_fixtureFile = 'Framework_ItemTest.php';
+
     public function testCreate()
     {
         $element = $this->app['elements']->create('Publishdown', 'item');
         isClass('\JBZoo\CCK\Element\Item\Publishdown', $element);
+    }
+
+    public function testSave()
+    {
+        $item = new Item(['type' => 'for-validation']);
+
+        isFalse($item->getElement('_publishdown')->hasValue());
+
+        $item->save();
+        isFalse($item->getElement('_publishdown')->hasValue());
+
+        $currentDate = $this->app['date']->format(time(), 'sql');
+        $item->save();
+
+        $item->publish_down = $currentDate;
+        isTrue($item->getElement('_publishdown')->hasValue());
+
+        $item->save();
+        isTrue($item->getElement('_publishdown')->hasValue());
     }
 }

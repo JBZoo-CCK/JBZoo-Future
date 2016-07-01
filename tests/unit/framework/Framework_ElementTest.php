@@ -46,7 +46,7 @@ class Framework_ElementTest extends JBZooPHPUnit
 
         isClass('\JBZoo\Data\Data', $element->config);
         isClass('\JBZoo\Data\Data', $element->loadMeta());
-        isSame('Name', $element->getName());
+        isSame('Item Name', $element->getName());
 
         isSame([], $element->data());
     }

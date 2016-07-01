@@ -14,10 +14,34 @@
 
 namespace JBZoo\CCK\Element\Item;
 
+use JBZoo\Data\Data;
+
 /**
  * Class PublishUp
  */
 class PublishUp extends Item
 {
+    /**
+     * @inheritdoc
+     */
+    public function hasValue(Data $params = null)
+    {
+        $item = $this->getEntity();
 
+        return !$item->publish_up || $item->publish_up !== '0000-00-00 00:00:00';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validate()
+    {
+        parent::validate();
+
+        $item = $this->getEntity();
+
+        if ($item->isNew()) {
+            $item->publish_up = $this->app['date']->format(time(), 'sql');
+        }
+    }
 }

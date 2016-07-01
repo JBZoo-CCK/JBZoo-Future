@@ -14,6 +14,7 @@
 
 return [
     'meta' => [
-        'name' => 'Modified',
+        'name' => 'Item Modified',
+        'core' => true,
     ]
 ];

@@ -183,15 +183,15 @@ class Framework_TypeTest extends JBZooPHPUnit
 
         $elements = $type->getElements();
         isTrue(is_array($elements));
-        isSame(10, count($elements));
+        isSame(11, count($elements));
 
         $elements = $type->getElements('all');
         isTrue(is_array($elements));
-        isSame(10, count($elements));
+        isSame(11, count($elements));
 
         $elements = $type->getElements('core');
         isTrue(is_array($elements));
-        isSame(9, count($elements));
+        isSame(10, count($elements));
 
         $elements = $type->getElements('custom');
         isTrue(is_array($elements));

@@ -62,6 +62,7 @@ class Manager extends Container
     public function getRequiredElements()
     {
         return [
+            '_id'          => ['type' => 'id', 'group' => 'item'],
             '_name'        => ['type' => 'name', 'group' => 'item'],
             '_state'       => ['type' => 'state', 'group' => 'item'],
             '_alias'       => ['type' => 'alias', 'group' => 'item'],

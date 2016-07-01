@@ -82,7 +82,7 @@ class Framework_ItemTest extends JBZooPHPUnit
         $elements2 = $item->getElements(Element::TYPE_ALL);
 
         isTrue(is_array($elements1));
-        isSame(11, count($elements1));
+        isSame(12, count($elements1));
         isSame($elements1, $elements2);
 
         isSame($elements1['_name'], $item->getElement('_name'));
@@ -97,7 +97,7 @@ class Framework_ItemTest extends JBZooPHPUnit
         $elements2 = $item->getElements(Element::TYPE_CORE);
 
         isTrue(is_array($elements1));
-        isSame(1, count($elements1));
+        isSame(9, count($elements1));
         isSame($elements1, $elements2);
 
         isSame($elements1['_name'], $item->getElement('_name'));
@@ -112,7 +112,7 @@ class Framework_ItemTest extends JBZooPHPUnit
         $elements2 = $item->getElements(Element::TYPE_CUSTOM);
 
         isTrue(is_array($elements1));
-        isSame(10, count($elements1));
+        isSame(3, count($elements1));
         isSame($elements1, $elements2);
 
         isSame($elements1['text-1'], $item->getElement('text-1'));

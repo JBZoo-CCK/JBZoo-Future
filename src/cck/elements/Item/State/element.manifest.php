@@ -14,6 +14,7 @@
 
 return [
     'meta' => [
-        'name' => 'Item State',
+        'name' => 'Item Status',
+        'core' => true,
     ]
 ];

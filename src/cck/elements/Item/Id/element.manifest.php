@@ -15,5 +15,6 @@
 return [
     'meta' => [
         'name' => 'Item ID',
+        'core' => true,
     ]
 ];

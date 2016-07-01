@@ -14,6 +14,6 @@
 
 return [
     'meta' => [
-        'name' => 'Text input',
+        'name' => 'Input text',
     ]
 ];

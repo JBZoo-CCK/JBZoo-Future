@@ -14,6 +14,7 @@
 
 return [
     'meta' => [
-        'name' => 'Publish Down Date',
+        'name' => 'Item Publish Down Date',
+        'core' => true,
     ]
 ];

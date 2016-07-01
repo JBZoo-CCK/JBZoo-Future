@@ -15,5 +15,6 @@
 return [
     'meta' => [
         'name' => 'Alias',
+        'core' => true,
     ],
 ];

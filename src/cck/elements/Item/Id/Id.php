@@ -14,10 +14,20 @@
 
 namespace JBZoo\CCK\Element\Item;
 
+use JBZoo\Data\Data;
+
 /**
  * Class Id
  */
 class Id extends Item
 {
+    /**
+     * @inheritdoc
+     */
+    public function hasValue(Data $params = null)
+    {
+        $item = $this->getEntity();
 
+        return $item->id > 0;
+    }
 }

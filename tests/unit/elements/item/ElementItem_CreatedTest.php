@@ -32,7 +32,6 @@ class ElementItem_CreatedTest extends JBZooPHPUnit
     public function testHasValue()
     {
         $itemData = [
-            //'name' => 'Some name',
             'type' => 'for-validation'
         ];
 

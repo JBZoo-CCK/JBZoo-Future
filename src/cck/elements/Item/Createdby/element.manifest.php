@@ -14,6 +14,7 @@
 
 return [
     'meta' => [
-        'name' => 'CreatedBy',
+        'name' => 'Item Author (created by)',
+        'core' => true,
     ]
 ];

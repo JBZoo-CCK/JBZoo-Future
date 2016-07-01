@@ -14,10 +14,34 @@
 
 namespace JBZoo\CCK\Element\Item;
 
+use JBZoo\Data\Data;
+
 /**
  * Class Createdby
  */
 class Createdby extends Item
 {
+    /**
+     * @inheritdoc
+     */
+    public function hasValue(Data $params = null)
+    {
+        $item = $this->getEntity();
 
+        return $item->created_by > 0;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validate()
+    {
+        parent::validate();
+
+        $item = $this->getEntity();
+
+        if ($item->isNew()) {
+            $item->created_by = $this->app['user']->getCurrent()->getId();
+        }
+    }
 }
