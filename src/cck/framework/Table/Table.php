@@ -386,7 +386,7 @@ abstract class Table
      */
     public function getUniqueAlias($id, $alias = '')
     {
-        if (empty($alias) && $id) {
+        if ($id > 0 && empty($alias)) {
             $alias = Str::slug($this->get($id)->name);
         }
 
@@ -424,10 +424,7 @@ abstract class Table
      */
     protected function _replace($tableName = null)
     {
-        if (null === $tableName) {
-            $tableName = $this->_table;
-        }
-
+        $tableName = $tableName ?: $this->_table;
         return new Replace($tableName);
     }
 
@@ -437,10 +434,7 @@ abstract class Table
      */
     protected function _insert($tableName = null)
     {
-        if (null === $tableName) {
-            $tableName = $this->_table;
-        }
-
+        $tableName = $tableName ?: $this->_table;
         return new Insert($tableName);
     }
 
@@ -450,10 +444,7 @@ abstract class Table
      */
     protected function _update($tableName = null)
     {
-        if (null === $tableName) {
-            $tableName = $this->_table;
-        }
-
+        $tableName = $tableName ?: $this->_table;
         return new Update($tableName);
     }
 
@@ -464,10 +455,7 @@ abstract class Table
      */
     protected function _delete($tableName = null, $alias = null)
     {
-        if (null === $tableName) {
-            $tableName = $this->_table;
-        }
-
+        $tableName = $tableName ?: $this->_table;
         return new Delete($tableName, $alias);
     }
 

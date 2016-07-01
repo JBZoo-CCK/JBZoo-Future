@@ -66,12 +66,20 @@ return [
         [
             'id'       => 1,
             'name'     => 'Item name',
+            'alias'    => '',
             'type'     => 'post',
             'elements' => jbdata([
                 'test-1' => [
                     'value' => '123'
                 ]
             ])
+        ],
+        [
+            'id'       => 5,
+            'name'     => 'Item name',
+            'alias'    => 'some-unique-alias-5',
+            'type'     => 'post',
+            'elements' => '',
         ],
     ],
 ];

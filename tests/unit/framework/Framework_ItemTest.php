@@ -187,4 +187,37 @@ class Framework_ItemTest extends JBZooPHPUnit
         $item2 = new Item([]);
         isTrue($item2->save());
     }
+
+    public function testIdToAlias()
+    {
+        /** @var Item $item */
+        $item  = $this->app['models']['item']->get(5);
+        $alias = $this->app['models']['item']->idToAlias($item->id);
+
+        isSame($item->alias, $alias);
+    }
+
+    public function testAliasToId()
+    {
+        /** @var Item $item */
+        $item   = $this->app['models']['item']->get(5);
+        $itemId = $this->app['models']['item']->aliasToId($item->alias);
+
+        isSame($item->id, $itemId);
+    }
+
+    public function testGetUniqueAlias()
+    {
+        /** @var Item $item */
+        $item = $this->app['models']['item']->get(5);
+
+        $alias = $this->app['models']['item']->getUniqueAlias($item->id, $item->alias);
+        isSame($item->alias, $alias);
+
+        $alias = $this->app['models']['item']->getUniqueAlias(0, $item->alias);
+        isSame('some-unique-alias-6', $alias);
+
+        $alias = $this->app['models']['item']->getUniqueAlias($item->id);
+        isSame('item-name', $alias);
+    }
 }

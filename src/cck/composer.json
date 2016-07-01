@@ -39,10 +39,9 @@
         "jbzoo/pimpledumper"      : "1.x.dev",
 
         "phpunit/dbunit"          : "^2.0.2",
-
-        "symfony/finder"          : "^2.8.7",
-        "symfony/var-dumper"      : "^2.8.7",
         "phpunit/phpcov"          : "^2.0.2",
+        "symfony/finder"          : "^2.8.8",
+        "symfony/var-dumper"      : "^2.8.8",
         "phpmetrics/phpmetrics"   : "^1.10",
         "jeremeamia/superclosure" : "^2.2",
         "joomlatools/console"     : "^1.4.6",
