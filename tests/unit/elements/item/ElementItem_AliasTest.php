@@ -78,4 +78,27 @@ class ElementItem_AliasTest extends JBZooPHPUnit
             isTrue(isset($errors['_alias']));
         }
     }
+
+    public function testSaveInvalidAlias()
+    {
+        $itemData = [
+            'name'  => 'Some name',
+            'type'  => 'for-validation',
+            'alias' => 'some-name-1234567890',
+        ];
+
+        $item = new Item($itemData);
+        $item->save();
+
+        $item->alias = '"№;%:?*(qwerty';
+
+        try {
+            $item->save();
+        } catch (Exception $e) {
+            $errors = $e->getExtra();
+
+            isTrue(is_array($errors));
+            isTrue(isset($errors['_alias']));
+        }
+    }
 }

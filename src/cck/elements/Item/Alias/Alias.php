@@ -41,9 +41,5 @@ class Alias extends Item
         }
 
         $item->alias = $model->getUniqueAlias($item->id, Str::slug($item->alias));
-
-        if ($model->checkAlias($item->alias, $item->id)) {
-            $this->_throwError("Alias '{$item->alias}' already exists");
-        }
     }
 }

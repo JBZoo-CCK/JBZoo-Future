@@ -201,10 +201,9 @@ class Item extends EntityElements
     }
 
     /**
-     * @return bool|int
-     * @throws Exception
+     * @return array
      */
-    public function save()
+    public function validate()
     {
         $elements = $this->getElements();
 
@@ -219,6 +218,17 @@ class Item extends EntityElements
                 $errors[$element->id] = $e->getMessage();
             }
         }
+
+        return $errors;
+    }
+
+    /**
+     * @return bool|int
+     * @throws Exception
+     */
+    public function save()
+    {
+        $errors = $this->validate();
 
         if (empty($errors)) {
             return parent::save();

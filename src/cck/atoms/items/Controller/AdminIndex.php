@@ -58,8 +58,6 @@ class AdminIndex extends Admin
         $itemData = $this->app['request']->getJSON('item');
 
         $item = new Item($itemData);
-
-        $item->alias = mt_rand(0, 1000000);
         $item->save();
 
         $this->_json(['item' => $item->toArray()]);
@@ -86,8 +84,9 @@ class AdminIndex extends Admin
      */
     public function getNewItem()
     {
-        $item        = new Item();
-        $item->alias = mt_rand(0, 1000000);
+        $item       = new Item();
+        $item->type = 'undefined';
+        $item->validate();
 
         $this->_json(['item' => $item->toArray()]);
     }

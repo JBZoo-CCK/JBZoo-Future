@@ -77,6 +77,8 @@ echo ">>> >>> Clean up all!"
 rm      ./src/cck/bin/lessc.bat
 rm      ./src/cck/bin/lessc
 rm -fr  ./src/cck/libraries/jbzoo/composer-cleanup
+rm -fr  ./src/cck/elements/Item/Test
+rm -fr  ./src/cck/elements/Item/Testrepeatable
 
 find ./src  -name "*.jsx"           -type f -delete
 find ./src  -name "*.map"           -type f -delete

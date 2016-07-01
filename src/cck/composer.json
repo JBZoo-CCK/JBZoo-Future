@@ -48,7 +48,6 @@
         "joomlatools/console"     : "^1.4.6",
         "wp-cli/wp-cli"           : "^0.21.1"
     },
-
     "autoload"          : {
         "files" : [
             "framework/defines.php"
@@ -64,12 +63,11 @@
             "../../tests/unit"
         ]
     },
-
     "config"            : {
         "bin-dir"             : "../../bin",
         "vendor-dir"          : "../../vendor",
         "bin-compat"          : "full",
         "autoloader-suffix"   : "_JBZoo",
-        "optimize-autoloader" : false
+        "optimize-autoloader" : true
     }
 }

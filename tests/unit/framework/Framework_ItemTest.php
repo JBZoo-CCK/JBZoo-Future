@@ -150,4 +150,14 @@ class Framework_ItemTest extends JBZooPHPUnit
         isSame($elements1['text-2'], $item->getElement('text-2'));
         isNotSame($elements1['text-1'], $elements1['text-2']);
     }
+
+    public function testValidate()
+    {
+        $item       = new Item();
+        $item->type = 'undefined';
+        $errors     = $item->validate();
+
+        isTrue(is_array($errors));
+        isEmpty($errors);
+    }
 }
