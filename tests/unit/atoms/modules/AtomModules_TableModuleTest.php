@@ -78,8 +78,8 @@ class AtomModules_TableModuleTest extends JBZooPHPUnit
 
     public function testUpdate()
     {
-        $module = new Module();
-        $module->title = 'New module';
+        $module         = new Module();
+        $module->title  = 'New module';
         $module->params = 'new-module';
         is(5, $module->save());
 

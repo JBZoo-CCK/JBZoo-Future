@@ -70,6 +70,7 @@ function jbdata($data = [])
 
 /**
  * Translate text
+ *
  * @param string $message
  * @return string
  */
@@ -84,6 +85,7 @@ function jbt($message)
  *
  * @param mixed  $message
  * @param string $label
+ * @return bool
  */
 function jbLog($message, $label = '...')
 {
@@ -93,8 +95,7 @@ function jbLog($message, $label = '...')
     return $app['atoms']['core']['debug']->log($message, $label, $params);
 }
 
-// for custom method
-if (!function_exists('jbd')) {
+if (!function_exists('jbd')) { // You can customize it!
 
     /**
      * Dump anything
@@ -113,6 +114,6 @@ if (!function_exists('jbd')) {
             return $helper;
         }
 
-        $helper->dump($mixed, $isDie, $label, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+        return $helper->dump($mixed, $isDie, $label, debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
     }
 }

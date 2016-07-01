@@ -12,6 +12,10 @@
  * @link       http://jbzoo.com
  */
 
-return [
+// Cleanup all JBZoo tables!!!
 
+return [
+    '#__jbzoo_config'  => [],
+    '#__jbzoo_items'   => [],
+    '#__jbzoo_modules' => []
 ];

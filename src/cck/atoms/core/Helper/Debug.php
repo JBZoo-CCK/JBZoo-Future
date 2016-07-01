@@ -16,7 +16,6 @@ namespace JBZoo\CCK\Atom\Core\Helper;
 
 use JBZoo\CCK\Atom\Helper;
 use JBZoo\Data\Data;
-use JBZoo\Utils\Cli;
 use JBZoo\Utils\Filter;
 use JBZoo\Utils\FS;
 use JBZoo\Utils\Sys;
@@ -84,7 +83,7 @@ class Debug extends Helper
     public function init()
     {
         parent::init();
-        $this->_initConfig();
+        $this->reInitConfig();
 
         // Only for developer env
         if ($this->isShow() && class_exists('\JBDump')) {
@@ -105,9 +104,9 @@ class Debug extends Helper
     /**
      * Load config from database
      */
-    protected function _initConfig()
+    public function reInitConfig()
     {
-        $store  = $this->app['cfg']->find('atom.core');
+        $store  = jbdata($this->app['cfg']->find('atom.core'));
         $stored = $store ? $store->get('debug', [], 'arr') : [];
 
         $config = jbdata(array_merge((array)$this->_config, $stored));
@@ -117,87 +116,99 @@ class Debug extends Helper
     }
 
     /**
-     * @param string $query
-     * @codeCoverageIgnore
+     * @param $query
+     * @return \JBDump
      */
     public function sql($query)
     {
-        if ($this->isShow() && $this->_config->get('sql') && $this->_jbdump) {
-            if ($this->_jbdump) {
-                $this->_jbdump->sql($query);
-            } else {
-                $this->dump((string)$query, false, 'SQL Query', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
-            }
+        $isSql = $this->_isSql();
+
+        if ($isSql && $this->_isDumper(self::MODE_JBDUMP)) {
+            $this->_jbdump->sql($query);
+            return true;
+
+        } elseif ($isSql) {
+            $this->dump((string)$query, false, 'SQL Query', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+            return true;
         }
+
+        return false;
     }
 
     /**
-     * Dump variable
+     * Dump any variables
      *
      * @param mixed  $data
      * @param bool   $isDie
      * @param string $label
      * @param array  $trace
+     * @return bool
      *
      * @SuppressWarnings(PHPMD.ExitExpression)
      * @SuppressWarnings(PHPMD.NPathComplexity)
      */
     public function dump($data, $isDie = false, $label = '...', $trace = null)
     {
-        if ($this->isShow() && $this->_config->get('dumper') !== self::MODE_NONE) {
-            $trace     = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-            $traceItem = $trace[0];
-
-            foreach ($trace as $item) {
-                if (isset($item['file']) && $item['function'] != 'call_user_func_array') {
-                    $traceItem = $item;
-                    break;
-                }
-            }
-
-            $relative = FS::getRelative($traceItem['file'], $this->_root, '/', false);
-            $message  = sprintf('%s = "%s:%s" %s', $label, $relative, $traceItem['line'], ($isDie ? ' / AutoDie' : ''));
-
-
-            // Select Dumper and show var!
-            if ($this->_config->get('dumper') == self::MODE_JBDUMP && $this->_jbdump) {
-                $this->_jbdump->dump($data, $label, ['trace' => $trace]);
-
-
-            } elseif ($this->_config->get('dumper') == self::MODE_SYMFONY
-                && class_exists('\Symfony\Component\VarDumper\VarDumper')
-            ) {
-                VarDumper::dump($data);
-                Cli::out('<style>.sf-dump{font-size:14px!important;}</style> <pre>' . $message . '</pre>');
-
-
-            } elseif ($this->_config->get('dumper') == self::MODE_VAR_DUMP) {
-                ob_start();
-                var_dump($data);
-                $output = ob_get_contents();
-                ob_end_clean();
-
-                // remove the newlines and indents
-                $output = preg_replace("#\]\=\>\n(\s+)#m", "]   =>   ", $output);
-
-                Cli::out('<pre>' . $output . $message . '</pre>');
-            }
-
-
-            $isDie && die(255);
+        if (!$this->isShow()) {
+            return false;
         }
+
+        $trace     = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        $traceItem = $trace[0];
+
+        foreach ($trace as $item) {
+            if (isset($item['file']) && $item['function'] != 'call_user_func_array') {
+                $traceItem = $item;
+                break;
+            }
+        }
+
+        $relative = FS::getRelative($traceItem['file'], $this->_root, '/', false);
+        $message  = sprintf('%s = "%s:%s" %s', $label, $relative, $traceItem['line'], ($isDie ? ' / AutoDie' : ''));
+
+
+        // Select Dumper and show var!
+        if ($this->_isDumper(self::MODE_JBDUMP)) {
+            $this->_jbdump->dump($data, $label, ['trace' => $trace]);
+        }
+
+        if ($this->_isDumper(self::MODE_SYMFONY)) {
+            VarDumper::dump($data);
+            echo '<style>.sf-dump{font-size:14px!important;}</style> <pre>' . $message . '</pre>';
+        }
+
+
+        if ($this->_isDumper(self::MODE_VAR_DUMP)) {
+            ob_start();
+            var_dump($data);
+            $output = ob_get_contents();
+            $output = preg_replace("#\]\=\>\n(\s+)#m", "]   =>   ", $output); // remove the newlines and indents
+            ob_end_clean();
+
+            echo '<pre>' . $output . $message . '</pre>';
+        }
+
+
+        if ($isDie) { // Die, die, die my darling!
+            die(255);
+        }
+
+        return true;
     }
 
     /**
      * Mark for profiler
-     *
      * @param string $label
+     * @return bool
      */
     public function mark($label = '...')
     {
-        if ($this->isShow() && $this->_config->get('profiler') && $this->_jbdump) {
-            $this->_jbdump->mark($label);
+        if (!$this->_isProfiler()) {
+            return false;
         }
+
+        $this->_jbdump->mark($label);
+        return true;
     }
 
     /**
@@ -206,13 +217,17 @@ class Debug extends Helper
      * @param string $message
      * @param string $label
      * @param array  $trace
+     * @return bool
      */
     public function log($message, $label = '...', $trace = null)
     {
-        if ($this->isShow() && $this->_config->get('log') && $this->_jbdump) {
-            $trace = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
-            $this->_jbdump->log($message, $label, ['trace' => $trace]);
+        if (!$this->_isLog()) {
+            return false;
         }
+
+        $trace = $trace ?: debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
+        $this->_jbdump->log($message, $label, ['trace' => $trace]);
+        return true;
     }
 
     /**
@@ -220,69 +235,76 @@ class Debug extends Helper
      *
      * @param array  $array
      * @param string $arrayName
+     * @return bool
      */
     public function logArray($array, $arrayName = 'data')
     {
-        if ($this->isShow() &&
-            $this->_config->get('log') &&
-            $this->_jbdump &&
-            method_exists($this->_jbdump, 'phpArray')
-        ) {
-            $arrayString = $this->_jbdump->phpArray((array)$array, $arrayName, true);
-            $this->_jbdump->log(
-                $arrayString,
-                '$' . $arrayName,
-                ['trace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)]
-            );
+        if (!$this->_isLog()) {
+            return false;
         }
+
+        $arrayString = $this->_jbdump->phpArray((array)$array, $arrayName, true);
+
+        $this->_jbdump->log(
+            $arrayString,
+            '$' . $arrayName,
+            ['trace' => debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS)]
+        );
+
+        return true;
     }
 
     /**
      * Show backtrace
      *
      * @param bool $isLog
+     * @return bool
      */
     public function trace($isLog = false)
     {
-        if ($this->isShow() && $this->_config->get('trace') && $this->_jbdump) {
-            // Render simple trace data
-            ob_start();
-            debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
-            $output = ob_get_contents();
-            ob_end_clean();
+        if (!$this->_isTrace()) {
+            return false;
+        }
 
-            // Get lines
-            $lines = explode("\n", trim($output));
-            $root  = FS::clean($this->_root, '/');
+        // Render simple trace data
+        ob_start();
+        debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS, 10);
+        $output = ob_get_contents();
+        ob_end_clean();
 
-            // Combine useful array
-            $result = array();
-            foreach ($lines as $line) {
-                if (preg_match('/#(.*?)  (.*?) called at \[(.*):(.*)\]/', $line, $mathes)) {
-                    $filepath = Filter::_($mathes[3], function ($path) use ($root) {
-                        $path    = FS::clean($path, '/');
-                        $relPath = preg_replace('#^' . preg_quote($root) . '#i', '', $path);
-                        $relPath = ltrim($relPath, '/');
-                        return $relPath;
-                    });
+        // Get lines
+        $lines = explode("\n", trim($output));
+        $root  = FS::clean($this->_root, '/');
 
-                    $result[$mathes[1] . ' ' . $mathes[2]] = $filepath . ':' . $mathes[4];
+        // Combine useful array
+        $result = array();
+        foreach ($lines as $line) {
+            if (preg_match('/#(.*?)  (.*?) called at \[(.*):(.*)\]/', $line, $mathes)) {
+                $filepath = Filter::_($mathes[3], function ($path) use ($root) {
+                    $path    = FS::clean($path, '/');
+                    $relPath = preg_replace('#^' . preg_quote($root) . '#i', '', $path);
+                    $relPath = ltrim($relPath, '/');
+                    return $relPath;
+                });
 
-                } elseif (preg_match('/#(.*?)  (.*)/', $line, $mathes)) {
-                    $result[$mathes[1] . ' ' . $mathes[2]] = 'Undefined path!';
+                $result[$mathes[1] . ' ' . $mathes[2]] = $filepath . ':' . $mathes[4];
 
-                } else {
-                    $result[$line] = '';
-                }
-            }
+            } elseif (preg_match('/#(.*?)  (.*)/', $line, $mathes)) {
+                $result[$mathes[1] . ' ' . $mathes[2]] = 'Undefined path!';
 
-            // Show me!
-            if ($isLog) {
-                $this->log($result, 'Backtrace', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
             } else {
-                $this->dump($result, 0, 'Backtrace', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+                $result[$line] = '';
             }
         }
+
+        // Show me!
+        if ($isLog) {
+            $this->log($result, 'Backtrace', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+        } else {
+            $this->dump($result, 0, 'Backtrace', debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS));
+        }
+
+        return true;
     }
 
     /**
@@ -292,15 +314,83 @@ class Debug extends Helper
      */
     public function isShow()
     {
-        if ($this->_config->get('mode') === self::MODE_NONE) {
+        $whiteList = $this->_config->get('ip', [], 'arr');
+        if (count($whiteList) == 0) {
             return false;
         }
 
-        $whiteList = $this->_config->get('ip', [], 'arr');
-        if (count($whiteList) == 0) {
+        return in_array(Sys::IP(false), $whiteList, true);
+    }
+
+    /**
+     * @param string $isDumper
+     * @return bool
+     */
+    protected function _isDumper($isDumper)
+    {
+        $currentMode = $this->_config->get('dumper', self::MODE_NONE);
+
+        if ($currentMode === self::MODE_NONE || !$this->isShow()) {
+            return false;
+
+
+        } elseif ($currentMode === self::MODE_JBDUMP
+            && $isDumper === self::MODE_JBDUMP
+            && $this->_jbdump
+        ) {
+            return true;
+
+
+        } elseif ($currentMode === self::MODE_VAR_DUMP
+            && $isDumper === self::MODE_VAR_DUMP
+        ) {
+            return true;
+
+
+        } elseif ($currentMode === self::MODE_SYMFONY
+            && $isDumper === self::MODE_SYMFONY
+            && class_exists('\Symfony\Component\VarDumper\VarDumper')
+        ) {
             return true;
         }
 
-        return in_array(Sys::IP(false), $whiteList, true);
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isSql()
+    {
+        return $this->isShow() && $this->_config->get('sql', 0, 'bool');
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isLog()
+    {
+        $result = $this->isShow()
+            && $this->_config->get('log', 0, 'bool')
+            && $this->_jbdump
+            && method_exists($this->_jbdump, 'phpArray');
+
+        return $result;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isTrace()
+    {
+        return $this->isShow() && $this->_config->get('trace', 0, 'bool') && $this->_jbdump;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function _isProfiler()
+    {
+        return $this->isShow() && $this->_config->get('profiler', 0, 'bool') && $this->_jbdump;
     }
 }

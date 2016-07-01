@@ -21,6 +21,7 @@ use JBZoo\CCK\Atom\Modules\Entity\Module;
  */
 class AtomModules_Test extends JBZooPHPUnit
 {
+    protected $_fixtureFile = 'AtomModules_TableModuleTest.php';
 
     public function testIndexAction()
     {
@@ -34,7 +35,7 @@ class AtomModules_Test extends JBZooPHPUnit
 
         $request = [
             'module' => [
-                'title' => $uniqName,
+                'title'  => $uniqName,
                 'params' => 'test-params',
             ]
         ];
@@ -50,17 +51,19 @@ class AtomModules_Test extends JBZooPHPUnit
     public function testUpdateAction()
     {
         $uniqName = uniqid('name-');
-        $request = [
+        $request  = [
             'module' => [
-                'id' => 2,
-                'title' => $uniqName,
+                'id'     => 2,
+                'title'  => $uniqName,
                 'params' => 'custom-params',
             ]
         ];
 
         $response = $this->helper->requestAdmin('modules.index.update', $request, 'PAYLOAD');
+
         /** @var Module $module */
         $module = $this->app['models']['module']->get($response->find('module.id'));
+
         isSame($uniqName, $module->title);
         isSame('2', $module->id);
     }

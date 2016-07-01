@@ -21,6 +21,8 @@ use JBZoo\CCK\Entity\Item;
  */
 class AtomItems_Test extends JBZooPHPUnit
 {
+    protected $_fixtureFile = 'AtomItems_TableItemTest.php';
+
     public function testSaveItemAction()
     {
         $uniqName = uniqid('name-');
