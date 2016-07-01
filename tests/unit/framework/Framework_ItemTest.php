@@ -193,12 +193,16 @@ class Framework_ItemTest extends JBZooPHPUnit
         $table = $this->app['models']['item'];
 
         /** @var Item $item */
-        $item = $table->get(5);
+        $item     = $table->get(5);
+        $expAlias = $item->alias;
+
+        $alias = $table->idToAlias($item->id);
+        isSame($expAlias, $alias);
+
         $table->cleanObjects();
 
         $alias = $table->idToAlias($item->id);
-
-        isSame($item->alias, $alias);
+        isSame($expAlias, $alias);
     }
 
     public function testAliasToId()

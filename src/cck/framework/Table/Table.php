@@ -362,7 +362,7 @@ abstract class Table
 
         $sql = $this->_select($this->_table)
             ->select('alias')
-            ->where('alias = ?i', $entityId)
+            ->where('id = ?i', $entityId)
             ->limit(1);
 
         $row = $this->_db->fetchRow($sql);
