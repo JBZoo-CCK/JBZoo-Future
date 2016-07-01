@@ -57,6 +57,8 @@ class AdminIndex extends Admin
     {
         $itemData = $this->app['request']->getJSON('item');
 
+        $itemData['type'] = 'undefined';
+
         $item = new Item($itemData);
         $item->save();
 

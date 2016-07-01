@@ -40,10 +40,6 @@ class Name extends Item
         $item = $this->getEntity();
         $name = $item->name ?: 'New item';
 
-        if (!$name) {
-            $this->_throwError('Item name shouldn\'t be empty!');
-        }
-
         $item->name = Str::limitChars($name, 255, '');
     }
 }

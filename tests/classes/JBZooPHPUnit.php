@@ -82,7 +82,7 @@ abstract class JBZooPHPUnit extends \PHPUnit_Extensions_Database_TestCase
     {
         $this->_initJBZoo();
 
-        $defaultDb = __CMS__ == 'joomla' ? 'ci_test_j' : 'ci_test_wp';
+        $defaultDb = __CMS__ === JOOMLA ? 'ci_test_j' : 'ci_test_wp';
 
         $dbName = Env::get('DB_NAME', $defaultDb, Env::VAR_STRING);
         $dbHost = Env::get('DB_HOST', '127.0.0.1', Env::VAR_STRING);

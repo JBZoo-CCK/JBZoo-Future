@@ -29,17 +29,15 @@ class Alias extends Item
         parent::validate();
 
         $item  = $this->getEntity();
-        $model = $this->app['models']['item'];
 
         if (!$item->alias) {
-            $name        = $item->name ?: 'New item';
-            $item->alias = Str::slug($name);
+            $item->alias = Str::slug($item->name ?: 'New item');
         }
 
         if ($item->alias && $item->alias !== Str::slug($item->alias)) {
             $this->_throwError("Invalid alias: '{$item->alias}', ItemId: {$item->id}");
         }
 
-        $item->alias = $model->getUniqueAlias($item->id, Str::slug($item->alias));
+        $item->alias = $this->app['models']['item']->getUniqueAlias($item->id, Str::slug($item->alias));
     }
 }

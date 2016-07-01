@@ -29,7 +29,7 @@ class Created extends Item
     {
         $item = $this->getEntity();
 
-        return !$item->created || $item->created !== '0000-00-00 00:00:00';
+        return !$item->created || $item->created !== Dates::SQL_NULL;
     }
 
     /**
@@ -42,10 +42,12 @@ class Created extends Item
         $item = $this->getEntity();
 
         if ($item->isNew() && !$this->hasValue()) {
-            $item->created = $this->app['date']->format(time(), 'sql');
+            $item->created = $this->app['date']->format();
+        } else {
+            $item->created = $this->app['date']->format($item->created);
         }
 
-        if (!Dates::is($item->created)) {
+        if ($item->created != Dates::SQL_NULL && !Dates::is($item->created)) {
             $this->_throwError("Invalid created date: {$item->created}");
         }
     }

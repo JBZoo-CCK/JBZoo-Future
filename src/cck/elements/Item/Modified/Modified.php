@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Element\Item;
 
 use JBZoo\Data\Data;
+use JBZoo\Utils\Dates;
 
 /**
  * Class Modified
@@ -28,7 +29,7 @@ class Modified extends Item
     {
         $item = $this->getEntity();
 
-        return !$item->modified || $item->modified !== '0000-00-00 00:00:00';
+        return !$item->modified || $item->modified !== Dates::SQL_NULL;
     }
 
     /**
@@ -40,6 +41,6 @@ class Modified extends Item
 
         $item = $this->getEntity();
 
-        $item->modified = $this->app['date']->format(time(), 'sql');
+        $item->modified = $this->app['date']->format();
     }
 }

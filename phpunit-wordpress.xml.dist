@@ -32,6 +32,7 @@
         <const name="__CMS__" value="wordpress"/>
         <const name="JBZOO_PATH" value="wp-content/plugins/jbzoo/cck"/>
         <const name="WP_POST_ID" value="3"/>
+        <const name="CMS_ADMIN_ID" value="1"/>
     </php>
 
     <testsuites>

@@ -38,7 +38,7 @@ class ElementItem_PublishDownTest extends JBZooPHPUnit
         $item->save();
         isFalse($item->getElement('_publishdown')->hasValue());
 
-        $currentDate = $this->app['date']->format(time(), 'sql');
+        $currentDate = $this->app['date']->format();
         $item->save();
 
         $item->publish_down = $currentDate;

@@ -314,9 +314,9 @@ class UnitHelper
      */
     protected function _getCookieForAdmin()
     {
-        if ('joomla' === __CMS__) {
+        if (__CMS__ === JOOMLA) {
             return $this->_getCookieForJoomlaAdmin();
-        } elseif ('wordpress' === __CMS__) {
+        } elseif (__CMS__ === WORDPRESS) {
             skip("Wordpress doesn't support request to CP");
             return $this->_getCookieForWordpressAdmin();
         }

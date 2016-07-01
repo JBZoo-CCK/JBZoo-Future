@@ -14,6 +14,8 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\App;
+
 /**
  * Class Framework_RenderPageTest
  * @package JBZoo\PHPUnit
@@ -55,7 +57,7 @@ class Framework_RenderPageTest extends JBZooPHPUnit
         $type   = $this->app['type'];
 
         $content = $this->helper->runIsolated(function () use ($type, $uniqid) {
-            if ($type != 'Joomla') {
+            if ($type != App::TYPE_JOOMLA) {
                 echo $uniqid;
             }
         }, [

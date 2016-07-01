@@ -66,7 +66,7 @@ abstract class Table
     /**
      * @var string
      */
-    protected $_dbNull = '0000-00-00 00:00:00';
+    protected $_dbNull = Dates::SQL_NULL;
 
     /**
      * A list of the objects created from the records fetched from the database

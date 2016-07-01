@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Element\Item;
 
 use JBZoo\Data\Data;
+use JBZoo\Utils\Dates;
 
 /**
  * Class PublishUp
@@ -28,7 +29,7 @@ class PublishUp extends Item
     {
         $item = $this->getEntity();
 
-        return !$item->publish_up || $item->publish_up !== '0000-00-00 00:00:00';
+        return !$item->publish_up || $item->publish_up !== Dates::SQL_NULL;
     }
 
     /**
@@ -41,7 +42,9 @@ class PublishUp extends Item
         $item = $this->getEntity();
 
         if ($item->isNew()) {
-            $item->publish_up = $this->app['date']->format(time(), 'sql');
+            $item->publish_up = $this->app['date']->format();
+        } else {
+            $item->publish_up = $this->app['date']->format($item->publish_up);
         }
     }
 }

@@ -160,4 +160,31 @@ class Framework_ItemTest extends JBZooPHPUnit
         isTrue(is_array($errors));
         isEmpty($errors);
     }
+
+    public function testGetAuthor()
+    {
+        $guest = $this->app['user']->getCurrent();
+
+        $item = new Item();
+        isSame('Guest', $item->getAuthor());
+
+        $item->created_by = $guest->getId();
+        isSame($guest->getName(), $item->getAuthor());
+
+        $user = $this->app['user']->getById(CMS_ADMIN_ID);
+
+        isSame('Guest', $item->getAuthor());
+
+        $item->created_by = $user->getId();
+        isSame($user->getName(), $item->getAuthor());
+    }
+
+    public function testSaveEmptyItems()
+    {
+        $item = new Item([]);
+        isTrue($item->save());
+
+        $item2 = new Item([]);
+        isTrue($item2->save());
+    }
 }

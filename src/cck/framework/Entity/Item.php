@@ -19,6 +19,7 @@ use JBZoo\CCK\Element\Exception as ElementException;
 use JBZoo\CCK\Exception;
 use JBZoo\CCK\Type\Type;
 use JBZoo\Data\JSON;
+use JBZoo\Utils\Dates;
 
 /**
  * Class Item
@@ -62,22 +63,22 @@ class Item extends EntityElements
     /**
      * @var string
      */
-    public $created = '0000-00-00 00:00:00';
+    public $created = Dates::SQL_NULL;
 
     /**
      * @var string
      */
-    public $modified = '0000-00-00 00:00:00';
+    public $modified = Dates::SQL_NULL;
 
     /**
      * @var string
      */
-    public $publish_up = '0000-00-00 00:00:00';
+    public $publish_up = Dates::SQL_NULL;
 
     /**
      * @var string
      */
-    public $publish_down = '0000-00-00 00:00:00';
+    public $publish_down = Dates::SQL_NULL;
 
     /**
      * @var JSON
@@ -228,6 +229,11 @@ class Item extends EntityElements
      */
     public function save()
     {
+        if (!$this->getType()) {
+            // $this->_throwError("Item {$this->id} does't have type!"); // Todo: Check is type exists before save
+            $this->type = 'type-is-undefined';
+        }
+
         $errors = $this->validate();
 
         if (empty($errors)) {
@@ -243,5 +249,22 @@ class Item extends EntityElements
     public function isNew()
     {
         return (int)$this->id === 0;
+    }
+
+    /**
+     * Get the name of the user that created the item
+     * @return string
+     */
+    public function getAuthor()
+    {
+        $author = 'Guest';
+
+        if ($this->created_by > 0) {
+            if ($user = $this->app['user']->getById($this->created_by)) {
+                $author = $user->getName();
+            }
+        }
+
+        return $author;
     }
 }

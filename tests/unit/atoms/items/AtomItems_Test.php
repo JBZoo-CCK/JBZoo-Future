@@ -56,7 +56,6 @@ class AtomItems_Test extends JBZooPHPUnit
         ]);
 
         // Check first request
-
         /** @var Item $newItem */
         $newId = $results[0]->find('item.id');
         isTrue($newId > 0);

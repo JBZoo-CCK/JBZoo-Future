@@ -43,7 +43,7 @@ class ElementItem_ModifiedTest extends JBZooPHPUnit
 
     public function testSave()
     {
-        $currentDate = $this->app['date']->format(time() - 100, 'sql');
+        $currentDate = $this->app['date']->format(time() - 100);
 
         $itemData = ['type' => 'for-validation', 'modified' => $currentDate];
 

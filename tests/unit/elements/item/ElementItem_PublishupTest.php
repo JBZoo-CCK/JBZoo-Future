@@ -38,7 +38,7 @@ class ElementItem_PublishUpTest extends JBZooPHPUnit
         $item->save();
         isTrue($item->getElement('_publishup')->hasValue());
 
-        $currentDate = $this->app['date']->format(time(), 'sql');
+        $currentDate = $this->app['date']->format(time());
         $item->save();
 
         $item->publish_up = $currentDate;

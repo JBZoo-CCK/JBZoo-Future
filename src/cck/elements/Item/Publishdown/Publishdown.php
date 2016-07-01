@@ -15,6 +15,7 @@
 namespace JBZoo\CCK\Element\Item;
 
 use JBZoo\Data\Data;
+use JBZoo\Utils\Dates;
 
 /**
  * Class PublishDown
@@ -28,6 +29,18 @@ class PublishDown extends Item
     {
         $item = $this->getEntity();
 
-        return !$item->publish_down || $item->publish_down !== '0000-00-00 00:00:00';
+        return !$item->publish_down || $item->publish_down !== Dates::SQL_NULL;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validate()
+    {
+        parent::validate();
+
+        $item = $this->getEntity();
+
+        $item->publish_down = $this->app['date']->format($item->publish_down);
     }
 }
