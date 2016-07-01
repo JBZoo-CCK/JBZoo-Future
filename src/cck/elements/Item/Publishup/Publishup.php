@@ -42,7 +42,7 @@ class PublishUp extends Item
         $item = $this->getEntity();
 
         if ($item->isNew()) {
-            $item->publish_up = $this->app['date']->format();
+            $item->publish_up = $this->app['date']->format(time());
         } else {
             $item->publish_up = $this->app['date']->format($item->publish_up);
         }

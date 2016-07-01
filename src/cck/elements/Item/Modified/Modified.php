@@ -41,6 +41,6 @@ class Modified extends Item
 
         $item = $this->getEntity();
 
-        $item->modified = $this->app['date']->format();
+        $item->modified = $this->app['date']->format(time());
     }
 }
