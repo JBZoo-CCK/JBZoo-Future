@@ -39,8 +39,7 @@ CREATE TABLE IF NOT EXISTS `#__jbzoo_items` (
     INDEX `CREATED_INDEX` (`created`),
     INDEX `MODIFIED_INDEX` (`modified`),
     INDEX `PUBLISH_STATE_INDEX` (`state`, `publish_up`, `publish_down`),
-    INDEX `PUBLISH_INDEX` (`publish_up`, `publish_down`),
-    FULLTEXT INDEX `SEARCH_FULLTEXT` (`name`)
+    INDEX `PUBLISH_INDEX` (`publish_up`, `publish_down`)
 )
     COLLATE = 'utf8_general_ci'
     ENGINE = InnoDB;
