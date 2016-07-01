@@ -36,7 +36,7 @@ echo ""
 echo ">>> >>> PHPUnit: Utility"
 sh ./bin/phpunit                                    \
     --configuration ./phpunit-utility.xml.dist      \
-    ./tests/unit/utility/CodeStyleTest.php
+    ./tests/unit/utility/Utility_CodeStyleTest.php
 
 
 #### Clone JBZoo/Misc ##################################################################################################

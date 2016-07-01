@@ -46,11 +46,11 @@ class Debug extends Helper
      * @var Data
      */
     protected $_config = [
-        'dumper'   => self::MODE_SYMFONY,   // jbdump|symfony|var_dump
-        'log'      => 1,                    // Log message
-        'sql'      => 1,                    // Show SQL queries
-        'profiler' => 1,                    // Show profiler
-        'trace'    => 1,                    // Show backtraces
+        'dumper'   => self::MODE_JBDUMP,    // See class constanses
+        'log'      => 0,                    // Log message
+        'sql'      => 0,                    // Show SQL queries
+        'profiler' => 0,                    // Show profiler
+        'trace'    => 0,                    // Show backtraces
         'ip'       => [                     // Ony for local or developer env!
             '127.0.0.1',
         ],
@@ -124,7 +124,7 @@ class Debug extends Helper
         $isSql = $this->_isSql();
 
         if ($isSql && $this->_isDumper(self::MODE_JBDUMP)) {
-            $this->_jbdump->sql($query);
+            $this->_jbdump->sql((string)$query);
             return true;
 
         } elseif ($isSql) {
