@@ -44,22 +44,4 @@ class ElementItem_NameTest extends JBZooPHPUnit
         isSame(255, strlen($item->name));
         isSame(255, strlen($item->alias));
     }
-
-    public function testSaveInvaliName()
-    {
-        $itemData = [
-            'type' => 'for-validation'
-        ];
-
-        $item = new Item($itemData);
-
-        try {
-            $item->save();
-        } catch (Exception $e) {
-            $errors = $e->getExtra();
-
-            isTrue(is_array($errors));
-            isTrue(isset($errors['_name']));
-        }
-    }
 }
