@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `#__jbzoo_items` (
     `name`         VARCHAR(255)     NOT NULL,
     `alias`        VARCHAR(255)     NOT NULL,
     `type`         VARCHAR(100)     NOT NULL,
-    `state`        TINYINT(3)       NOT NULL DEFAULT '0',
+    `status`       TINYINT(3)       NOT NULL DEFAULT '0',
     `created_by`   INT(11)          NOT NULL,
     `created`      DATETIME         NOT NULL,
     `modified`     DATETIME         NOT NULL,
@@ -32,13 +32,13 @@ CREATE TABLE IF NOT EXISTS `#__jbzoo_items` (
     `params`       LONGTEXT         NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE INDEX `ALIAS_INDEX` (`alias`),
-    INDEX `STATE_INDEX` (`state`),
+    INDEX `STATUS_INDEX` (status),
     INDEX `CREATED_BY_INDEX` (`created_by`),
     INDEX `NAME_INDEX` (`name`),
     INDEX `TYPE_INDEX` (`type`),
     INDEX `CREATED_INDEX` (`created`),
     INDEX `MODIFIED_INDEX` (`modified`),
-    INDEX `PUBLISH_STATE_INDEX` (`state`, `publish_up`, `publish_down`),
+    INDEX `PUBLISH_STATUS_INDEX` (status, `publish_up`, `publish_down`),
     INDEX `PUBLISH_INDEX` (`publish_up`, `publish_down`)
 )
     COLLATE = 'utf8_general_ci'

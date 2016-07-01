@@ -18,7 +18,7 @@ return [
             'id'       => 1,
             'alias'    => 'item-1',
             'name'     => 'Item 1',
-            'state'    => 1,
+            'status'   => 1,
             'type'     => 'post',
             'elements' => jbdata([
                 'some-repeatable' => [

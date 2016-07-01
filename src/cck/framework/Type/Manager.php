@@ -64,10 +64,10 @@ class Manager extends Container
         return [
             '_id'          => ['type' => 'id', 'group' => 'item'],
             '_name'        => ['type' => 'name', 'group' => 'item'],
-            '_state'       => ['type' => 'state', 'group' => 'item'],
             '_alias'       => ['type' => 'alias', 'group' => 'item'],
-            '_created'     => ['type' => 'created', 'group' => 'item'],
+            '_status'      => ['type' => 'status', 'group' => 'item'],
             '_createdby'   => ['type' => 'createdby', 'group' => 'item'],
+            '_created'     => ['type' => 'created', 'group' => 'item'],
             '_modified'    => ['type' => 'modified', 'group' => 'item'],
             '_publishup'   => ['type' => 'publishup', 'group' => 'item'],
             '_publishdown' => ['type' => 'publishdown', 'group' => 'item'],

@@ -52,14 +52,12 @@ class Item extends EntityElements
     /**
      * @var int
      */
-    public $state = self::STATUS_UNACTIVE;
+    public $status = self::STATUS_UNACTIVE;
 
     /**
-     * The id of the user that created the item
      * @var int
      */
     public $created_by = 0;
-
 
     /**
      * @var string
@@ -82,19 +80,16 @@ class Item extends EntityElements
     public $publish_down = '0000-00-00 00:00:00';
 
     /**
-     * The item parameters
      * @var JSON
      */
     public $params;
 
     /**
-     * The elements of the item encoded in json format
      * @var JSON
      */
     public $elements;
 
     /**
-     * The elements of the item encoded in json format
      * @var array[Element]
      */
     protected $_elements = [];

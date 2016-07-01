@@ -179,19 +179,20 @@ class Framework_TypeTest extends JBZooPHPUnit
     public function testGetElements()
     {
         /** @var Type $type */
-        $type = $this->app['types']['elements'];
+        $type          = $this->app['types']['elements'];
+        $requiersCount = count($this->app['types']->getRequiredElements());
 
         $elements = $type->getElements();
         isTrue(is_array($elements));
-        isSame(11, count($elements));
+        isSame($requiersCount + 1, count($elements));
 
         $elements = $type->getElements('all');
         isTrue(is_array($elements));
-        isSame(11, count($elements));
+        isSame($requiersCount + 1, count($elements));
 
         $elements = $type->getElements('core');
         isTrue(is_array($elements));
-        isSame(10, count($elements));
+        isSame($requiersCount, count($elements));
 
         $elements = $type->getElements('custom');
         isTrue(is_array($elements));

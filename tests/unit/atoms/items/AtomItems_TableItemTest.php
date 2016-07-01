@@ -60,7 +60,7 @@ class AtomItems_TableItemTest extends JBZooPHPUnit
         isClass('JBZoo\Data\Data', $item->params);
         isSame('Item 3', $item->name);
         isSame('item-3', $item->alias);
-        isSame('0', $item->state);
+        isSame('0', $item->status);
         isSame('3', $item->id);
     }
 

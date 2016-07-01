@@ -17,37 +17,37 @@ namespace JBZoo\PHPUnit;
 use JBZoo\CCK\Entity\Item;
 
 /**
- * Class ElementItem_StateTest
+ * Class ElementItem_StatusTest
  */
-class ElementItem_StateTest extends JBZooPHPUnit
+class ElementItem_StatusTest extends JBZooPHPUnit
 {
     protected $_fixtureFile = 'Framework_ItemTest.php';
 
     public function testCreate()
     {
-        $element = $this->app['elements']->create('State', 'item');
-        isClass('\JBZoo\CCK\Element\Item\State', $element);
+        $element = $this->app['elements']->create('Status', 'item');
+        isClass('\JBZoo\CCK\Element\Item\Status', $element);
     }
 
     public function testSaveExistedAlias()
     {
         $itemData = [
-            'state' => Item::STATUS_ARCHIVE,
-            'type'  => 'for-validation'
+            'status' => Item::STATUS_ARCHIVE,
+            'type'   => 'for-validation'
         ];
 
         $item = new Item($itemData);
         $item->save();
-        is(Item::STATUS_ARCHIVE, $item->state);
+        is(Item::STATUS_ARCHIVE, $item->status);
 
 
-        $item->state = '100500';
+        $item->status = '100500';
         $item->save();
-        is(Item::STATUS_UNACTIVE, $item->state);
+        is(Item::STATUS_UNACTIVE, $item->status);
 
 
-        $item->state = Item::STATUS_ACTIVE;
+        $item->status = Item::STATUS_ACTIVE;
         $item->save();
-        is(Item::STATUS_ACTIVE, $item->state);
+        is(Item::STATUS_ACTIVE, $item->status);
     }
 }

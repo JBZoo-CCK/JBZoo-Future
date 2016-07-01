@@ -20,7 +20,7 @@ use JBZoo\Data\Data;
 /**
  * Class State
  */
-class State extends Item
+class Status extends Item
 {
     protected $_validList = [
         ItemEntity::STATUS_ACTIVE,
@@ -45,12 +45,12 @@ class State extends Item
 
         $item = $this->getEntity();
 
-        $state = (int)$item->state;
+        $state = (int)$item->status;
 
         if (!in_array($state, $this->_validList, true)) {
             $state = ItemEntity::STATUS_UNACTIVE;
         }
 
-        $item->state = $state;
+        $item->status = $state;
     }
 }

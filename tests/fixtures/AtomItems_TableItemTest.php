@@ -18,7 +18,7 @@ return [
             'id'       => 1,
             'alias'    => 'item-1',
             'name'     => 'Item 1',
-            'state'    => 1,
+            'status'   => 1,
             'elements' => jbdata([
                 '_name' => [
                     'name' => 'Some name'
@@ -29,14 +29,14 @@ return [
             'id'       => 2,
             'alias'    => 'item-2',
             'name'     => 'Item 2',
-            'state'    => 1,
+            'status'   => 1,
             'elements' => '',
         ],
         [
             'id'       => 3,
             'alias'    => 'item-3',
             'name'     => 'Item 3',
-            'state'    => 0,
+            'status'   => 0,
             'elements' => '',
         ],
     ],
