@@ -77,10 +77,9 @@ class Framework_FunctionsTest extends JBZooPHPUnit
         isContain($label, file_get_contents($logFile));
     }
 
-    /*
-     * TODO: Move dumper helper to debug atom
     public function testJbd()
     {
+        skip();
         $this->app['cfg']->set('atom.core', ['debug' => [
             'dumper' => Debug::MODE_JBDUMP,
             'ip'     => Sys::IP(),
@@ -97,5 +96,4 @@ class Framework_FunctionsTest extends JBZooPHPUnit
         isContain($variable, $info);
         isContain($label, $info);
     }
-    */
 }

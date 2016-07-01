@@ -38,21 +38,21 @@ class ElementItem_AliasTest extends JBZooPHPUnit
         ];
 
         $item = new Item($itemData);
-        is(2, $item->save());
+        isTrue($item->save() > 0);
         isSame('some-name-1234567890-w', $item->alias);
 
-        is(2, $item->save());
+        isTrue($item->save() > 0);
         isSame('some-name-1234567890-w', $item->alias);
 
         $item->alias = 'qwerty-1';
-        is(2, $item->save());
+        isTrue($item->save() > 0);
         isSame('qwerty-1', $item->alias);
 
 
         $newItem        = new Item($itemData);
         $newItem->alias = 'qwerty-1';
 
-        is(3, $newItem->save());
+        isTrue($item->save() > 0);
         isSame('qwerty-2', $newItem->alias);
     }
 
@@ -65,7 +65,7 @@ class ElementItem_AliasTest extends JBZooPHPUnit
         ];
 
         $item = new Item($itemData);
-        is(2, $item->save());
+        isTrue($item->save() > 0);
 
         $item2 = new Item($itemData);
 

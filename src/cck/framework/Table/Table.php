@@ -21,7 +21,6 @@ use JBZoo\SqlBuilder\Query\Delete;
 use JBZoo\SqlBuilder\Query\Insert;
 use JBZoo\SqlBuilder\Query\Replace;
 use JBZoo\SqlBuilder\Query\Select;
-use JBZoo\SqlBuilder\Query\Union;
 use JBZoo\SqlBuilder\Query\Update;
 use JBZoo\Utils\Dates;
 use JBZoo\Utils\Str;
