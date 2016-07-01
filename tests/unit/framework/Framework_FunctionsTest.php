@@ -262,6 +262,7 @@ class Framework_FunctionsTest extends JBZooPHPUnit
             'dumper' => Debug::MODE_VAR_DUMP,
             'ip'     => Sys::IP(),
             'trace'  => 1,
+            'log'    => 1,
         ]], false);
         $this->app['dbg']->reInitConfig();
 
