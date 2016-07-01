@@ -94,22 +94,8 @@ class AtomItems_TableItemTest extends JBZooPHPUnit
         /** @var ItemEntity $item */
         $item = $this->_table()->get(2);
 
-        isSame([
-            "id"           => "2",
-            "name"         => "Item 2",
-            "type"         => "",
-            "alias"        => "item-2",
-            "created"      => "0000-00-00 00:00:00",
-            "modified"     => "0000-00-00 00:00:00",
-            "publish_up"   => "0000-00-00 00:00:00",
-            "publish_down" => "0000-00-00 00:00:00",
-            "priority"     => 0,
-            "state"        => "1",
-            "access"       => 0,
-            "created_by"   => "0",
-            "params"       => [],
-            "elements"     => [],
-        ], $item->toArray());
+        isTrue(is_array($item->toArray()));
+        isNotKey('app', $item->toArray());
     }
 
     public function testSaveNewItem()
