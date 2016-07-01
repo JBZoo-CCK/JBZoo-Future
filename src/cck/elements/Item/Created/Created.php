@@ -41,7 +41,7 @@ class Created extends Item
 
         $item = $this->getEntity();
 
-        if ($item->isNew()) {
+        if ($item->isNew() && !$this->hasValue()) {
             $item->created = $this->app['date']->format(time(), 'sql');
         }
 

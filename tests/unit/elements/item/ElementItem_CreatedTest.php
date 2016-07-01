@@ -45,7 +45,7 @@ class ElementItem_CreatedTest extends JBZooPHPUnit
 
     public function testSaveForAdmin()
     {
-        $currentDate = $this->app['date']->format(time(), 'sql');
+        $currentDate = $this->app['date']->format(time() - 100, 'sql');
 
         $itemData = [
             'name'    => 'Some name',

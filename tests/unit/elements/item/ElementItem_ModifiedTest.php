@@ -43,14 +43,14 @@ class ElementItem_ModifiedTest extends JBZooPHPUnit
 
     public function testSave()
     {
-        $currentDate = $this->app['date']->format(time(), 'sql');
+        $currentDate = $this->app['date']->format(time() - 100, 'sql');
 
         $itemData = ['type' => 'for-validation', 'modified' => $currentDate];
 
         $item = new Item($itemData);
         $item->save();
 
-        is($currentDate, $item->modified);
+        isNotSame($currentDate, $item->modified);
     }
 
     public function testResave()
