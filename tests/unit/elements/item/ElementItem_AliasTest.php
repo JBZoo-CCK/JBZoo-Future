@@ -30,7 +30,7 @@ class ElementItem_AliasTest extends JBZooPHPUnit
         isClass('\JBZoo\CCK\Element\Item\Alias', $element);
     }
 
-    public function testSaveForAdmin()
+    public function testSave()
     {
         $itemData = [
             'name' => 'Some name !@#$%^&*()_+ 1234567890-w {} \"\'',

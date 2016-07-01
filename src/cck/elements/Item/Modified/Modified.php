@@ -14,10 +14,32 @@
 
 namespace JBZoo\CCK\Element\Item;
 
+use JBZoo\Data\Data;
+
 /**
  * Class Modified
  */
 class Modified extends Item
 {
+    /**
+     * @inheritdoc
+     */
+    public function hasValue(Data $params = null)
+    {
+        $item = $this->getEntity();
 
+        return !$item->modified || $item->modified !== '0000-00-00 00:00:00';
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function validate()
+    {
+        parent::validate();
+
+        $item = $this->getEntity();
+
+        $item->modified = $this->app['date']->format(time(), 'sql');
+    }
 }
