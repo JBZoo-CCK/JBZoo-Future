@@ -17,6 +17,8 @@ namespace JBZoo\CCK;
 /**
  * Class AppAware
  * @package JBZoo\CCK
+ *
+ * @codeCoverageIgnore
  */
 abstract class AppAware implements \ArrayAccess
 {
