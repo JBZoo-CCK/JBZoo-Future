@@ -27,10 +27,10 @@ class AdminIndex extends Admin
      */
     public function index()
     {
-        $this->app['assets']->add('my', [
+        $this->app['assets']->add('admin', [
             'atom-core:assets/js/core.min.js',
             'assets:less/admin.less',
-        ]);
+        ], 'common');
 
         $this->app['core.js']->addVar('JBZOO_INIT', [
             'state'   => $this->app['core.state']->getState(),

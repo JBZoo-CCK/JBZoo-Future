@@ -17,15 +17,9 @@ use JBZoo\CCK\App;
 return [
     'load' => function (App $app) {
 
-        $list = [
+        $app['assets']->register('common', [
             'atom-assets-common:assets/css/assets-common.min.css',
             'atom-assets-common:assets/js/assets-common.min.js',
-        ];
-
-        if ($app['env']->isAdmin()) {
-            $app['assets']->add('common', $list);
-        } else {
-            $app['assets']->register('common', $list);
-        }
+        ]);
     },
 ];
