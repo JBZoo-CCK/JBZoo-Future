@@ -16,6 +16,7 @@ namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\Atom\Core\Helper\Debug;
 use JBZoo\SqlBuilder\Query\Select;
+use JBZoo\Utils\FS;
 use JBZoo\Utils\Sys;
 
 /**
@@ -144,6 +145,22 @@ class Framework_FunctionsTest extends JBZooPHPUnit
 
         isContain($variable, $info);
         isContain($label, $info);
+    }
+
+    public function testJBD_Alias()
+    {
+        isTrue(function_exists('dump'));
+
+        $func = new \ReflectionFunction('dump');
+
+        $joomlaPath = FS::clean('/src/joomla');
+        $wpPath     = FS::clean('/src/wordpress');
+
+        if (strpos($func->getFileName(), $joomlaPath) !== false
+            || strpos($func->getFileName(), $wpPath) !== false
+        ) {
+            isSame(jbd(), dump());
+        }
     }
 
     public function testJBD_ModeJBDump()
