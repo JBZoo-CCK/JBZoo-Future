@@ -14,7 +14,7 @@
 
 namespace JBZoo\CCK\Element\Item;
 
-use JBZoo\CCK\Table\Item as ItemTable;
+use JBZoo\CCK\Entity\Item as ItemEntity;
 use JBZoo\Data\Data;
 
 /**
@@ -23,9 +23,9 @@ use JBZoo\Data\Data;
 class State extends Item
 {
     protected $_validList = [
-        ItemTable::STATUS_ACTIVE,
-        ItemTable::STATUS_ARCHIVE,
-        ItemTable::STATUS_UNACTIVE
+        ItemEntity::STATUS_ACTIVE,
+        ItemEntity::STATUS_ARCHIVE,
+        ItemEntity::STATUS_UNACTIVE
     ];
 
     /**
@@ -48,7 +48,7 @@ class State extends Item
         $state = (int)$item->state;
 
         if (!in_array($state, $this->_validList, true)) {
-            $state = ItemTable::STATUS_UNACTIVE;
+            $state = ItemEntity::STATUS_UNACTIVE;
         }
 
         $item->state = $state;

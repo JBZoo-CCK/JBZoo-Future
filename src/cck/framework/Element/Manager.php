@@ -65,7 +65,6 @@ class Manager
             'type'        => $type,
             'group'       => $group,
             'description' => '',
-            'access'      => '1', // TODO: get from CrossCMS
         ], (array)$config);
 
         $element->id = $config['id'];

@@ -25,77 +25,61 @@ use JBZoo\Data\JSON;
  */
 class Item extends EntityElements
 {
+    const STATUS_UNACTIVE = 0;
+    const STATUS_ACTIVE   = 1;
+    const STATUS_ARCHIVE  = 2;
+
     /**
-     * The id of the item
      * @var int
      */
     public $id = 0;
 
     /**
-     * The name of the item
      * @var string
      */
     public $name = '';
 
     /**
-     * The type identifier of the Item
-     * @var string
-     */
-    public $type = '';
-
-    /**
-     * The alias of the item
      * @var string
      */
     public $alias = '';
 
     /**
-     * The creation date of the item in mysql DATETIME format
      * @var string
      */
-    public $created = '0000-00-00 00:00:00';
+    public $type = '';
 
     /**
-     * The last modified date of the item in mysql DATETIME format
-     * @var string
-     */
-    public $modified = '0000-00-00 00:00:00';
-
-    /**
-     * The date from which the item should be published
-     * @var string
-     */
-    public $publish_up = '0000-00-00 00:00:00';
-
-    /**
-     * The date up until the item should be published
-     * @var string
-     */
-    public $publish_down = '0000-00-00 00:00:00';
-
-    /**
-     * The item priority. An higher priority means that an item should be shown before
      * @var int
      */
-    public $priority = 0;
-
-    /**
-     * Item published state
-     * @var int
-     */
-    public $state = 0;
-
-    /**
-     * The access level required to see this item
-     * @var int
-     */
-    public $access = 0;
+    public $state = self::STATUS_UNACTIVE;
 
     /**
      * The id of the user that created the item
      * @var int
      */
     public $created_by = 0;
+
+
+    /**
+     * @var string
+     */
+    public $created = '0000-00-00 00:00:00';
+
+    /**
+     * @var string
+     */
+    public $modified = '0000-00-00 00:00:00';
+
+    /**
+     * @var string
+     */
+    public $publish_up = '0000-00-00 00:00:00';
+
+    /**
+     * @var string
+     */
+    public $publish_down = '0000-00-00 00:00:00';
 
     /**
      * The item parameters
@@ -253,6 +237,6 @@ class Item extends EntityElements
      */
     public function isNew()
     {
-        return !$this->id;
+        return (int)$this->id === 0;
     }
 }

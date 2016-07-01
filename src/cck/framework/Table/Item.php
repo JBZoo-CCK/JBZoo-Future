@@ -22,10 +22,6 @@ define('JBZOO_TABLE_ITEMS', '#__jbzoo_items');
  */
 class Item extends Table
 {
-    const STATUS_UNACTIVE = 0;
-    const STATUS_ACTIVE   = 1;
-    const STATUS_ARCHIVE  = 2;
-
     /**
      * @inheritdoc
      */

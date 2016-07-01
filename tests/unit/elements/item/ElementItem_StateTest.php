@@ -15,7 +15,6 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\Entity\Item;
-use JBZoo\CCK\Table\Item as ItemTable;
 
 /**
  * Class ElementItem_StateTest
@@ -33,22 +32,22 @@ class ElementItem_StateTest extends JBZooPHPUnit
     public function testSaveExistedAlias()
     {
         $itemData = [
-            'state' => ItemTable::STATUS_ARCHIVE,
+            'state' => Item::STATUS_ARCHIVE,
             'type'  => 'for-validation'
         ];
 
         $item = new Item($itemData);
         $item->save();
-        is(ItemTable::STATUS_ARCHIVE, $item->state);
+        is(Item::STATUS_ARCHIVE, $item->state);
 
 
         $item->state = '100500';
         $item->save();
-        is(ItemTable::STATUS_UNACTIVE, $item->state);
+        is(Item::STATUS_UNACTIVE, $item->state);
 
 
-        $item->state = ItemTable::STATUS_ACTIVE;
+        $item->state = Item::STATUS_ACTIVE;
         $item->save();
-        is(ItemTable::STATUS_ACTIVE, $item->state);
+        is(Item::STATUS_ACTIVE, $item->state);
     }
 }
