@@ -67,7 +67,6 @@ class ElementItem_ModifiedTest extends JBZooPHPUnit
 
         isTrue($item->getElement('_modified')->hasValue());
         isTrue($item->getElement('_created')->hasValue());
-        isSame($item->modified, $item->created);
 
         sleep(1);
         $item->save();
