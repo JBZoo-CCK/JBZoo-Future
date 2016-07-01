@@ -48,11 +48,10 @@ class ElementItem_AliasTest extends JBZooPHPUnit
         isTrue($item->save() > 0);
         isSame('qwerty-1', $item->alias);
 
-
         $newItem        = new Item($itemData);
         $newItem->alias = 'qwerty-1';
 
-        isTrue($item->save() > 0);
+        isTrue($newItem->save() > 0);
         isSame('qwerty-2', $newItem->alias);
     }
 

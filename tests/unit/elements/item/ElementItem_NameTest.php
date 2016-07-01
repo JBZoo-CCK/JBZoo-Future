@@ -39,7 +39,7 @@ class ElementItem_NameTest extends JBZooPHPUnit
         ];
 
         $item = new Item($itemData);
-        is(2, $item->save());
+        isTrue($item->save() > 0);
 
         isSame(255, strlen($item->name));
         isSame(255, strlen($item->alias));
