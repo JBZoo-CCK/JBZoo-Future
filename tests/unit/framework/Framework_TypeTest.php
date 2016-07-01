@@ -211,16 +211,16 @@ class Framework_TypeTest extends JBZooPHPUnit
         $type = $this->app['types']['new-empty-type'];
 
         $elements = $type->getElements();
+        $requiers = $this->app['types']->getRequiredElements();
 
         isTrue(is_array($elements));
+        isSame(count($requiers), count($elements));
 
-        isKey('_name', $elements);
-        isKey('_alias', $elements);
-        isKey('_state', $elements);
-        isKey('_created', $elements);
-        isKey('_createdby', $elements);
-        isKey('_modified', $elements);
-        isKey('_publishup', $elements);
-        isKey('_publishdown', $elements);
+        foreach ($requiers as $reqElement) {
+            $type = '_' . $reqElement['type'];
+            isKey($type, $elements);
+
+            isTrue($elements[$type]->isCore());
+        }
     }
 }
