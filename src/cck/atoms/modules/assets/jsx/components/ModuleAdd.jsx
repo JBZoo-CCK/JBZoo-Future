@@ -18,27 +18,26 @@ import { bindActionCreators }   from 'redux';
 import { connect }              from 'react-redux';
 import Formsy                   from 'formsy-react';
 import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
-import * as formActions         from '../../jsx/actions/form';
 import { FormsyText }           from 'formsy-material-ui/lib';
+import * as moduleActions       from '../../jsx/actions/module';
 import RaisedButton             from 'material-ui/RaisedButton';
 
 const { Row, Col} = require('react-flexbox-grid');
 
 class ModuleAdd extends Component {
 
+    saveModule(data) {
+        this.props.moduleActions.addModule(data);
+        this.context.router.push('/modules');
+    }
+
     render() {
         var router   = this.context.router,
             listLink = router.createHref('/modules');
 
-        let { enableButtons, disableButtons, addModule } = this.props.formActions;
-
         return (
             <div>
-                <Formsy.Form
-                    onValidSubmit={addModule}
-                    onValid={enableButtons}
-                    onInvalid={disableButtons}
-                >
+                <Formsy.Form onValidSubmit={::this.saveModule}>
                     <Row>
                         <Col md={12}>
                             <Toolbar>
@@ -47,7 +46,6 @@ class ModuleAdd extends Component {
                                         type="submit"
                                         label="Add"
                                         primary={true}
-                                        disabled={!this.props.handleFormButton.canSubmit}
                                     />
                                     <RaisedButton label="Close" href={listLink} linkButton={true} />
                                 </ToolbarGroup>
@@ -85,10 +83,9 @@ ModuleAdd.contextTypes = {
 
 module.exports = connect(
     (state) => ({
-        handleFormButton: state.handleFormButton,
-        handleFormSend: state.handleFormSend
+        modules: state.modules
     }),
     (dispatch) => ({
-        formActions: bindActionCreators(formActions, dispatch)
+        moduleActions: bindActionCreators(moduleActions, dispatch)
     })
 )(ModuleAdd);

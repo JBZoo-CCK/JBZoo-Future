@@ -22,46 +22,23 @@ export function modules(state = [], action) {
         case defines.MODULE_LIST:
             return action.payload;
 
-        default:
-            return state;
-    }
+        case defines.MODULE_REMOVE:
+            let newState = {...state};
+            if (action.payload.id > 0 && newState[action.payload.id]) {
+                delete newState[action.payload.id];
+            }
+            return newState;
 
-}
-
-const handleFormButtonState = {
-    canSubmit: false
-};
-
-export function handleFormButton(state = handleFormButtonState, action)
-{
-    switch (action.type) {
-
-        case defines.DISABLE_FORM_BUTTON:
-            return {...state, ...{canSubmit: false}};
-        break;
-
-        case defines.ENABLE_FORM_BUTTON:
-            return {...state, ...{canSubmit: true}};
-        break;
+        case defines.MODULE_ADD:
+        case defines.MODULE_EDIT:
+            let addState = {...state};
+            if (action.payload.id > 0 && addState[action.payload.id]) {
+                addState[action.payload.id] = action.payload;
+            }
+            return addState;
 
         default:
             return state;
     }
-}
 
-const handleForm = {
-    type : defines.DEFAULT_FORM_STATE
-};
-
-export function handleFormSend(state = handleForm, action)
-{
-    switch (action.type) {
-
-        case defines.ON_ADD_SUCCESS:
-            return {...state, ...{type: defines.ON_ADD_SUCCESS}};
-        break;
-
-        default:
-            return state;
-    }
 }

@@ -21,7 +21,6 @@ use JBZoo\CCK\Atom\Modules\Entity\Module;
  */
 class AtomModules_Test extends JBZooPHPUnit
 {
-    protected $_fixtureFile = 'AtomModules_TableModuleTest.php';
 
     public function testIndexAction()
     {
@@ -31,11 +30,11 @@ class AtomModules_Test extends JBZooPHPUnit
 
     public function testAddAction()
     {
-        $uniqName = uniqid('name-');
+        $uniqueName = uniqid('name-');
 
         $request = [
             'module' => [
-                'title'  => $uniqName,
+                'title' => $uniqueName,
                 'params' => 'test-params',
             ]
         ];
@@ -44,27 +43,25 @@ class AtomModules_Test extends JBZooPHPUnit
 
         /** @var Module $newModule */
         $newModule = $this->app['models']['module']->get($response->find('module.id'));
-        isSame($uniqName, $response->find('module.title'));
-        isSame($uniqName, $newModule->title);
+        isSame($uniqueName, $response->find('module.title'));
+        isSame($uniqueName, $newModule->title);
     }
 
     public function testUpdateAction()
     {
-        $uniqName = uniqid('name-');
-        $request  = [
+        $uniqueName = uniqid('name-');
+        $request = [
             'module' => [
-                'id'     => 2,
-                'title'  => $uniqName,
+                'id' => 2,
+                'title' => $uniqueName,
                 'params' => 'custom-params',
             ]
         ];
 
         $response = $this->helper->requestAdmin('modules.index.update', $request, 'PAYLOAD');
-
         /** @var Module $module */
         $module = $this->app['models']['module']->get($response->find('module.id'));
-
-        isSame($uniqName, $module->title);
+        isSame($uniqueName, $module->title);
         isSame('2', $module->id);
     }
 

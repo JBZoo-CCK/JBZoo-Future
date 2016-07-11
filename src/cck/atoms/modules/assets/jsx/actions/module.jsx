@@ -14,30 +14,12 @@
 'use strict';
 
 import * as defines     from '../defines';
-import { hashHistory }  from 'react-router'
 import JBZoo            from '../../../../../assets/jsx/JBZoo';
 
-export function enableButtons() {
-    return (dispatch, getState) => {
-        return dispatch({
-            type: defines.ENABLE_FORM_BUTTON,
-            canSubmit: true
-        })
-    }
-}
-
-export function disableButtons() {
-    return (dispatch, getState) => {
-        return dispatch({
-            type: defines.DISABLE_FORM_BUTTON,
-            canSubmit: false
-        })
-    }
-}
-
-function handleAddModule() {
+function handleAddModule(data) {
     return {
-        type: defines.ON_ADD_SUCCESS
+        type    : defines.MODULE_ADD,
+        payload : data.module
     };
 }
 
@@ -49,13 +31,13 @@ export function addModule(data) {
     let module = {module: data};
     return (dispatch, getState) => {
         dispatch(onAddModule(module));
-        hashHistory.push('/modules');
     }
 }
 
-function handleUpdateModule() {
+function handleUpdateModule(data) {
     return {
-        type: defines.ON_UPDATE_SUCCESS
+        type    : defines.MODULE_EDIT,
+        payload : data.module
     };
 }
 
@@ -67,13 +49,13 @@ export function updateModule(data) {
     let module = {module: data};
     return (dispatch, getState) => {
         dispatch(onUpdateModule(module));
-        hashHistory.push('/modules');
     }
 }
 
-function handleRemoveModule() {
+function handleRemoveModule(data) {
     return {
-        type: defines.ON_DELETE_MODULE
+        type    : defines.MODULE_REMOVE,
+        payload : data.removed
     }
 }
 
@@ -84,6 +66,5 @@ function onDeleteModule(moduleId) {
 export function removeModule(moduleId) {
     return (dispatch, getState) => {
         dispatch(onDeleteModule(moduleId));
-        hashHistory.push('/modules');
     }
 }

@@ -13,14 +13,12 @@
 
 'use strict';
 
-var ModuleAdd, ModuleList, ModuleEdit, ModuleRemove;
+var ModuleAdd, ModuleList, ModuleEdit;
 
 module.exports.default = function (reducerRegistry, atomKey) {
 
     reducerRegistry.register({
-        modules: require('./reducers').modules,
-        handleFormButton: require('./reducers').handleFormButton,
-        handleFormSend: require('./reducers').handleFormSend
+        modules: require('./reducers').modules
     });
 
     return [
@@ -55,17 +53,6 @@ module.exports.default = function (reducerRegistry, atomKey) {
                 }
 
                 callback(null, ModuleEdit);
-            }
-        },
-        {
-            path        : '/modules/remove/:id',
-            getComponent: (nextState, callback) => {
-
-                if (!ModuleRemove) {
-                    ModuleRemove = require('./components/ModuleRemove');
-                }
-
-                callback(null, ModuleRemove);
             }
         }
     ]

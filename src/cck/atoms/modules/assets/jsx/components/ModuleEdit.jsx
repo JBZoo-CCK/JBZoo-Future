@@ -18,7 +18,7 @@ import { bindActionCreators }   from 'redux';
 import { connect }              from 'react-redux';
 import Formsy                   from 'formsy-react';
 import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
-import * as formActions         from '../../jsx/actions/form';
+import * as moduleActions       from '../../jsx/actions/module';
 import * as modulesActions      from '../../jsx/actions/modules';
 import { FormsyText }           from 'formsy-material-ui/lib';
 import RaisedButton             from 'material-ui/RaisedButton';
@@ -34,24 +34,27 @@ class ModuleEdit extends Component {
         }
     }
 
+    removeModule() {
+        this.props.moduleActions.removeModule(this.props.params.id);
+        this.context.router.push('/modules');
+    }
+
+    updateModule(data) {
+        this.props.moduleActions.updateModule(data);
+        this.context.router.push('/modules');
+    }
+
     render() {
 
         var router     = this.context.router,
             moduleId   = this.props.params.id,
             module     = this.props.modules[moduleId],
-            listLink   = router.createHref('/modules'),
-            removeLink = router.createHref('/modules/remove/' + moduleId);
-
-        let { enableButtons, disableButtons, updateModule } = this.props.formActions;
+            listLink   = router.createHref('/modules');
 
         return (
             <div>
                 {module ?
-                    <Formsy.Form
-                        onValidSubmit={updateModule}
-                        onValid={enableButtons}
-                        onInvalid={disableButtons}
-                    >
+                    <Formsy.Form onValidSubmit={::this.updateModule}>
                         <Row>
                             <Col md={12}>
                                 <Toolbar>
@@ -60,10 +63,13 @@ class ModuleEdit extends Component {
                                             type="submit"
                                             label="Update"
                                             primary={true}
-                                            disabled={!this.props.handleFormButton.canSubmit}
                                         />
                                         <RaisedButton label="Close" href={listLink} linkButton={true} />
-                                        <RaisedButton label="Remove" href={removeLink} linkButton={true} />
+                                        <RaisedButton
+                                            label="Remove"
+                                            linkButton={true}
+                                            onMouseUp={::this.removeModule}
+                                        />
                                     </ToolbarGroup>
                                 </Toolbar>
                             </Col>
@@ -112,12 +118,10 @@ ModuleEdit.contextTypes = {
 
 module.exports = connect(
     (state) => ({
-        modules: state.modules,
-        handleFormButton: state.handleFormButton,
-        handleFormSend: state.handleFormSend
+        modules: state.modules
     }),
     (dispatch) => ({
         modulesActions: bindActionCreators(modulesActions, dispatch),
-        formActions: bindActionCreators(formActions, dispatch)
+        moduleActions: bindActionCreators(moduleActions, dispatch)
     })
 )(ModuleEdit);
