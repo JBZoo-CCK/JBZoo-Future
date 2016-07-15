@@ -293,6 +293,11 @@
         "value": "JBZoo\\Path\\Path"
     },
     {
+        "name": "renderer",
+        "type": "container",
+        "value": []
+    },
+    {
         "name": "request",
         "type": "class",
         "value": "JBZoo\\CrossCMS\\AbstractRequest"
