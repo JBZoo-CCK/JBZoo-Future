@@ -22,3 +22,7 @@ DROP TABLE IF EXISTS `#__jbzoo_modules`;
 -- -----------------------------------------------------------------------------
 
 DROP TABLE IF EXISTS `#__jbzoo_config`;
+
+-- -----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `#__jbzoo_positions`;
