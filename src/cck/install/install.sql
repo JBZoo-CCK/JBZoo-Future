@@ -55,17 +55,6 @@ CREATE TABLE `#__jbzoo_modules` (
     COLLATE = 'utf8_general_ci'
     ENGINE = InnoDB;
 
--- Positions--------------------------------------------------------------------
-
-CREATE TABLE `#__jbzoo_positions` (
-    `id`     INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-    `layout` VARCHAR(50)     NOT NULL,
-    `params` LONGTEXT         NOT NULL,
-    PRIMARY KEY (`id`)
-)
-    COLLATE = 'utf8_general_ci'
-    ENGINE = InnoDB;
-
 -- Configurations --------------------------------------------------------------
 
 CREATE TABLE `#__jbzoo_config` (

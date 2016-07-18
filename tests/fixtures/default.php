@@ -17,6 +17,5 @@
 return [
     '#__jbzoo_config'    => [],
     '#__jbzoo_items'     => [],
-    '#__jbzoo_modules'   => [],
-    '#__jbzoo_positions' => []
+    '#__jbzoo_modules'   => []
 ];
