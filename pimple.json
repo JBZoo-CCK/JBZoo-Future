@@ -294,8 +294,8 @@
     },
     {
         "name": "renderer",
-        "type": "container",
-        "value": []
+        "type": "class",
+        "value": "JBZoo\\CCK\\Renderer\\Manager"
     },
     {
         "name": "request",

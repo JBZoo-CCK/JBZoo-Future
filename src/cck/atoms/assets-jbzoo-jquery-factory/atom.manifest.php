@@ -25,6 +25,5 @@ return [
                 'jbzoo-utils'
             ]
         );
-
-    },
+    }
 ];

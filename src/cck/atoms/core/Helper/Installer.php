@@ -58,7 +58,6 @@ class Installer extends Helper
      */
     public function update()
     {
-
     }
 
     /**
@@ -66,7 +65,6 @@ class Installer extends Helper
      */
     public function preflight()
     {
-
     }
 
     /**
@@ -74,7 +72,6 @@ class Installer extends Helper
      */
     public function postflight()
     {
-
     }
 
     /**
