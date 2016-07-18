@@ -1,4 +1,4 @@
-# JBZoo CCK Package
+# JBZoo CCK Package (dev pack)
 
 
 ### License
