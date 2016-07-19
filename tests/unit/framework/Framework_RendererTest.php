@@ -41,6 +41,10 @@ class Framework_RendererTest extends JBZooPHPUnit
         $render = $this->app['renderer'];
         $render->add('items', 'item');
         isClass('JBZoo\CCK\Atom\Items\Renderer\ItemRenderer', $render['item']);
+
+        $render = $this->app['renderer'];
+        $render->add('items', 'Item');
+        isClass('JBZoo\CCK\Atom\Items\Renderer\ItemRenderer', $render['item']);
     }
 
     /**

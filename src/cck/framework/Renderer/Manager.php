@@ -47,7 +47,7 @@ class Manager extends Container
         $id = Str::low($class);
         if (!isset($this->_renders[$id])) {
             $rendererClass = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Renderer\\' . $this->_getClassName($class);
-            $this->_register($class, $rendererClass);
+            $this->_register($id, $rendererClass);
         } else {
             throw new Exception("Renderer \"{{$atomId}.{$class}}\" already defined!");
         }
