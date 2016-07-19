@@ -14,6 +14,8 @@
 
 namespace JBZoo\PHPUnit;
 
+use JBZoo\CCK\Renderer\Renderer;
+
 /**
  * Class Framework_RendererTest
  * @package JBZoo\PHPUnit
@@ -55,5 +57,24 @@ class Framework_RendererTest extends JBZooPHPUnit
         $render = $this->app['renderer'];
         $render->add('test-atom', 'test');
         $render->add('test-atom', 'test');
+    }
+
+    public function testRenderSuccess()
+    {
+        /** @var Renderer $renderer */
+        $renderer = $this->app['renderer']['default'];
+        $path     = $this->app['path']->get('atom-test:');
+        $content  = $renderer->addPath($path)->render('item.Test', ['name' => 'test']);
+
+        isSame('item test file', $content);
+    }
+
+    public function testRenderNotFoundLayout()
+    {
+        /** @var Renderer $renderer */
+        $renderer = $this->app['renderer']['default'];
+        $path     = $this->app['path']->get('atom-test:');
+        $content  = $renderer->addPath($path)->render('item.NotFound', ['name' => 'test']);
+        isNull($content);
     }
 }
