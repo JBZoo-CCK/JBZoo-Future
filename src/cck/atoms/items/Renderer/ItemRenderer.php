@@ -14,12 +14,12 @@
 
 namespace JBZoo\CCK\Atom\Items\Renderer;
 
-use JBZoo\CCK\Renderer\Renderer;
+use JBZoo\CCK\Renderer\PositionRenderer;
 
 /**
  * Class ItemRenderer
  * @package JBZoo\CCK\Atom\Items\Renderer
  */
-class ItemRenderer extends Renderer
+class ItemRenderer extends PositionRenderer
 {
 }

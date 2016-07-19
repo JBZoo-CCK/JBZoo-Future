@@ -96,9 +96,9 @@ class App extends Cms
         };
 
         // Init Renderer Manager
-        $this['renderer'] = function () {
+        $this['renderer'] = $this->factory(function () {
             return new RendererManager();
-        };
+        });
 
         $this->on(AbstractEvents::EVENT_SHUTDOWN, function (App $app) {
             if (class_exists('\JBZoo\PimpleDumper\PimpleDumper')) {

@@ -14,10 +14,9 @@
 
 namespace JBZoo\CCK\Renderer;
 
+use JBZoo\Utils\Str;
 use JBZoo\CCK\Container;
 use JBZoo\CCK\Exception;
-use JBZoo\Utils\Arr;
-use JBZoo\Utils\Str;
 
 /**
  * Class Manager
@@ -27,60 +26,35 @@ class Manager extends Container
 {
 
     /**
-     * Renderer name space list.
-     * @var array
+     * Renderer class name suffix.
      */
-    protected $_classPaths = [
-        '\JBZoo\CCK\Renderer\\'
-    ];
+    const RENDERER_SUFFIX = 'Renderer';
 
     /**
+     * Renderer lists.
      * @var array
      */
     protected $_renders = [];
 
     /**
      * Add new renderer.
-     * @param string $name
+     * @param string $atomId
+     * @param string $class
      * @throws Exception
      */
-    public function add($name)
+    public function add($atomId, $class)
     {
-        $id = Str::low($name);
-        $className = $this->_findRenderer($id);
-
+        $id = Str::low($class);
         if (!isset($this->_renders[$id])) {
-            $this->_register($id, $className);
+            $rendererClass = '\JBZoo\CCK\Atom\\' . ucfirst($atomId) . '\Renderer\\' . $this->_getClassName($class);
+            $this->_register($class, $rendererClass);
         } else {
-            throw new Exception("Renderer \"{$className}\" already defined!");
+            throw new Exception("Renderer \"{{$atomId}.{$class}}\" already defined!");
         }
     }
 
     /**
-     * Add renderer class path.
-     * @param array|string $paths
-     * @return $this
-     */
-    public function addClassPath($paths)
-    {
-        $paths = (array) $paths;
-        foreach ($paths as $path) {
-            array_unshift($this->_classPaths, $path);
-        }
-
-        return $this;
-    }
-
-    /**
-     * Get all class paths.
-     * @return array
-     */
-    public function getClassPaths()
-    {
-        return $this->_classPaths;
-    }
-
-    /**
+     * {@inheritdoc}
      * @param string $id
      * @return mixed
      * @throws Exception
@@ -89,76 +63,43 @@ class Manager extends Container
     {
         $id = Str::low($id);
         if (!isset($this->_renders[$id])) {
-            $className = $this->_findRenderer($id);
-            $this->_register($id, $className);
+            $rendererClass = '\JBZoo\CCK\Renderer\\' . $this->_getClassName($id);
+            $this->_register($id, $rendererClass);
         }
 
         return parent::offsetGet($id);
     }
 
     /**
-     * Remove class path from renderer list.
-     * @param string $path
-     * @return $this
+     * @param string $class
+     * @return string
      */
-    public function removeClassPath($path)
+    protected function _getClassName($class)
     {
-        foreach ($this->_classPaths as $id => $classPath) {
-            if ($classPath === $path) {
-                unset($this->_classPaths[$id]);
-                continue;
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * Find renderer class.
-     * @param string $name
-     * @return null|string
-     */
-    protected function _findRenderer($name)
-    {
-        foreach ($this->_classPaths as $path) {
-            $className = $this->_getClassName($path, $name);
-            if (class_exists($className)) {
-                return $className;
-            }
-        }
-
-        return null;
+        $class = Str::low($class);
+        return ucfirst($class) . self::RENDERER_SUFFIX;
     }
 
     /**
      * Put to container renderer class.
      * @param string $id
-     * @param $className
+     * @param string $rendererClass
+     * @throws Exception
      */
-    protected function _register($id, $className)
+    protected function _register($id, $rendererClass)
     {
-        if ($className !== null) {
-            $this->_renders[$id] = $className;
-            $this[$id] = function () use ($className) {
-                /** @var Renderer $rendererObj */
-                $rendererObj = new $className();
-                return $rendererObj;
+        if (class_exists($rendererClass)) {
+            $this->_renders[$id] = $rendererClass;
+            $this[$id] = function () use ($rendererClass) {
+                /** @var Renderer $renderer */
+                $renderer = new $rendererClass();
+                return $renderer;
             };
         } else {
-            $this->_renders[$id] = $this->_findRenderer('Default');
+            $this->_renders[$id] = '\JBZoo\CCK\Renderer\\' . $this->_getClassName('Default');
             $this[$id] = function () {
                 return new DefaultRenderer();
             };
         }
-    }
-
-    /**
-     * @param string $path
-     * @param string $name
-     * @return string
-     */
-    protected function _getClassName($path, $name)
-    {
-        return $path . ucfirst($name) . 'Renderer';
     }
 }
