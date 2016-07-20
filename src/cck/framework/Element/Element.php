@@ -441,6 +441,7 @@ abstract class Element
         $__layoutPath = realpath($__layoutPath);
         if ($__layoutPath && file_exists($__layoutPath)) {
             ob_start();
+            /** @noinspection PhpIncludeInspection */
             include($__layoutPath);
             $__result = ob_get_contents();
             ob_end_clean();

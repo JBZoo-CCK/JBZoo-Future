@@ -55,6 +55,11 @@ abstract class Renderer extends Container
     protected $_separator = '.';
 
     /**
+     * @var string
+     */
+    protected $_pathAlias = '';
+
+    /**
      * Render layout file.
      * @param string $layout
      * @param array $args
@@ -76,6 +81,17 @@ abstract class Renderer extends Container
     }
 
     /**
+     * Sets the layout.
+     * @param string $layout
+     * @return $this
+     */
+    public function setLayout($layout)
+    {
+        $this->_layout = $layout;
+        return $this;
+    }
+
+    /**
      * Add layout paths to renderer.
      * @param string|array $paths
      * @return $this
@@ -84,12 +100,27 @@ abstract class Renderer extends Container
     public function addPath($paths)
     {
         $paths = (array) $paths;
+        $alias = $this->_getCurrentPathAlias();
         foreach ($paths as $path) {
             $path = FS::clean($path . '/');
-            $this->app['path']->set(self::PATH_ALIAS, $path . $this->_folder);
+            $this->app['path']->set($alias, $path . $this->_folder);
         }
 
+        $this->_pathAlias = $alias;
+
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    protected function _getCurrentPathAlias()
+    {
+        $class   = get_class($this);
+        $details = explode('\\', $class);
+        $name    = str_replace(Manager::RENDERER_SUFFIX, '', array_pop($details));
+
+        return self::PATH_ALIAS . '-' . Str::low($name);
     }
 
     /**
@@ -115,6 +146,6 @@ abstract class Renderer extends Container
      */
     protected function _setLayoutPath($layout, $path)
     {
-        $this->_layoutPaths[$layout] = $this->app['path']->get(self::PATH_ALIAS . ':' . FS::clean($path, '/'));
+        $this->_layoutPaths[$layout] = $this->app['path']->get($this->_pathAlias . ':' . FS::clean($path, '/'));
     }
 }

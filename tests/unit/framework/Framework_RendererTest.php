@@ -64,7 +64,7 @@ class Framework_RendererTest extends JBZooPHPUnit
         /** @var Renderer $renderer */
         $renderer = $this->app['renderer']['default'];
         $path     = $this->app['path']->get('atom-test:');
-        $content  = $renderer->addPath($path)->render('item.Test', ['name' => 'test']);
+        $content  = $renderer->addPath($path)->render('item-type.Test', ['name' => 'test']);
 
         isSame('item test file', $content);
     }
@@ -74,7 +74,7 @@ class Framework_RendererTest extends JBZooPHPUnit
         /** @var Renderer $renderer */
         $renderer = $this->app['renderer']['default'];
         $path     = $this->app['path']->get('atom-test:');
-        $content  = $renderer->addPath($path)->render('item.NotFound', ['name' => 'test']);
+        $content  = $renderer->addPath($path)->render('item-type.NotFound', ['name' => 'test']);
         isNull($content);
     }
 }

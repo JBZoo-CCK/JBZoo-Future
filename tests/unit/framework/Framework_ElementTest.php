@@ -389,5 +389,8 @@ class Framework_ElementTest extends JBZooPHPUnit
             'new_value' => $newValue,
             'add_text'  => $addText,
         ])));
+
+        $this->app['events']->getManager()->removeListeners($eventName . '.before');
+        $this->app['events']->getManager()->removeListeners($eventName . '.after');
     }
 }

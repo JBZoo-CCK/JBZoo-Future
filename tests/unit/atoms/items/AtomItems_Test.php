@@ -25,11 +25,11 @@ class AtomItems_Test extends JBZooPHPUnit
 
     public function testSaveItemAction()
     {
-        $uniqName = uniqid('name-');
+        $uniqueName = uniqid('name-');
 
         $request = [
             'item' => [
-                'name' => $uniqName
+                'name' => $uniqueName
             ]
         ];
 
@@ -37,8 +37,11 @@ class AtomItems_Test extends JBZooPHPUnit
 
         /** @var Item $newItem */
         $newItem = $this->app['models']['item']->get($response->find('item.id'));
-        isSame($uniqName, $response->find('item.name'));
-        isSame($uniqName, $newItem->name);
+        isSame($uniqueName, $response->find('item.name'));
+        isSame($uniqueName, $newItem->name);
+
+        $this->app['events']->getManager()->removeListeners('entity.item.save.before');
+        $this->app['events']->getManager()->removeListeners('entity.item.save.save');
     }
 
     public function testGetItem()
