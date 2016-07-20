@@ -163,4 +163,22 @@ class SiteIndex extends Site
         $_SERVER['HTTP_X_REQUESTED_WITH'] = 'XMLHttpRequest';
         $this->app['assets']->add('jbzoo-jquery-factory');
     }
+
+    public function itemRenderFull()
+    {
+        $layout   = 'full';
+        $renderer = $this->app['renderer'];
+        $path     = $this->app['path']->get('atom-test:');
+        $renderer->add('items', 'item');
+        $item = $this->app['models']['item']->get(1);
+
+        /** @var \JBZoo\CCK\Atom\Items\Renderer\ItemRenderer $itemRenderer */
+        $itemRenderer = $renderer['item'];
+        $itemRenderer
+            ->addPath($path)
+            ->setLayout($layout)
+            ->setItem($item);
+
+        echo $itemRenderer->render('item-type.' . $layout);
+    }
 }

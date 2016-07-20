@@ -14,5 +14,7 @@
  */
 ?>
 <div class="item-type-full">
-    <?= $this->renderPosition('title') ?>
+    <div class="item-title">
+        <?= $this->renderPosition('title') ?>
+    </div>
 </div>

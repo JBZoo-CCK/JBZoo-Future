@@ -148,6 +148,38 @@ class Framework_PositionRendererTest extends JBZooPHPUnit
         isSame(0, count($elements));
     }
 
+    public function testItemRender()
+    {
+        $layout   = 'full';
+        $renderer = $this->app['renderer'];
+        $path     = $this->app['path']->get('atom-test:');
+        $renderer->add('items', 'item');
+
+        /** @var \JBZoo\CCK\Atom\Items\Renderer\ItemRenderer $itemRenderer */
+        $itemRenderer = $renderer['item'];
+        $itemRenderer
+            ->addPath($path)
+            ->setLayout($layout)
+            ->setItem($this->_getItem());
+
+        $content = $itemRenderer->render($this->_type . '.' . $layout);
+        $this->_assertsItemRender($content);
+    }
+
+    public function testItemRenderIntegration()
+    {
+        $content = $this->helper->request('test.index.itemRenderFull');
+        $this->_assertsItemRender($content);
+    }
+
+    protected function _assertsItemRender($content)
+    {
+        isTrue((bool) strpos($content, 'class="item-type-full">'));
+        isTrue((bool) strpos($content, '<div class="item-title">'));
+        isTrue((bool) strpos($content, 'Name of test'));
+        isTrue((bool) strpos($content, 'PHPUnit testing Some test words'));
+    }
+
     /**
      * @return Item
      */
