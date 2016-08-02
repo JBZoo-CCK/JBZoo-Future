@@ -15,15 +15,17 @@
 
 import React, {Component, PropTypes} from 'react';
 import Formsy                   from 'formsy-react';
-import { connect }              from 'react-redux';
-import { bindActionCreators }   from 'redux';
+import {connect}              from 'react-redux';
+import {bindActionCreators}   from 'redux';
 import RaisedButton             from 'material-ui/RaisedButton';
 
 const {Row, Col} = require('react-flexbox-grid');
 import {Toolbar, ToolbarGroup}  from 'material-ui/Toolbar';
 
-import { FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
-    FormsySelect, FormsyText, FormsyTime, FormsyToggle }
+import {
+    FormsyCheckbox, FormsyDate, FormsyRadio, FormsyRadioGroup,
+    FormsySelect, FormsyText, FormsyTime, FormsyToggle
+}
     from 'formsy-material-ui/lib';
 
 import * as itemActions             from '../actions/item';
@@ -63,13 +65,15 @@ class EditItem extends Component {
                 itemValue = itemValue.join('');
             }
 
-            rows.push(<div key={key}>
-                <FormsyText
-                    name={key}
-                    floatingLabelText={key}
-                    value={itemValue}
-                />
-            </div>);
+            if (['name', 'alias'].indexOf(key) >= 0) {
+                rows.push(<div key={key}>
+                    <FormsyText
+                        name={key}
+                        floatingLabelText={key}
+                        value={itemValue}
+                    />
+                </div>);
+            }
         });
 
         return (
@@ -101,7 +105,57 @@ class EditItem extends Component {
 
                     <Row>
                         <Col md={9}>
-                            {rows}
+
+                            <Row>
+                                <Col md={9}>
+                                    {rows}
+                                </Col>
+                                <Col md={3}>
+
+                                    <table>
+                                        <tbody>
+                                        <tr key="item_id">
+                                            <td><strong>Item ID:</strong></td>
+                                            <td>{item.id}</td>
+                                        </tr>
+                                        <tr key="item_type">
+                                            <td><strong>Type:</strong></td>
+                                            <td>{item.type}</td>
+                                        </tr>
+                                        <tr key="item_status">
+                                            <td><strong>Status:</strong></td>
+                                            <td>{item.status}</td>
+                                        </tr>
+                                        <tr key="item_created">
+                                            <td><strong>Created:</strong></td>
+                                            <td>{item.created}</td>
+                                        </tr>
+                                        <tr key="item_author">
+                                            <td><strong>Author:</strong></td>
+                                            <td>{item.created_by}</td>
+                                        </tr>
+                                        <tr key="item_modified">
+                                            <td><strong>Modified:</strong></td>
+                                            <td>{item.modified}</td>
+                                        </tr>
+                                        <tr key="item_publish_up">
+                                            <td><strong>Publish up:</strong></td>
+                                            <td>{item.publish_up}</td>
+                                        </tr>
+                                        <tr key="item_publish_down">
+                                            <td><strong>Publish down:</strong></td>
+                                            <td>{item.publish_down}</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <div>
+                                        <strong>Params:</strong> {item.params}
+                                    </div>
+
+                                </Col>
+                            </Row>
+
                         </Col>
                         <Col md={3}>
                             <h2> Help text</h2>
