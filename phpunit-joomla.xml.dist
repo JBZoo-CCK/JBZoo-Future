@@ -27,11 +27,14 @@
          stopOnRisky="false"
          verbose="false"
 >
-
     <php>
         <const name="__CMS__" value="joomla"/>
         <const name="JBZOO_PATH" value="administrator/components/com_jbzoo/cck"/>
         <const name="CMS_ADMIN_ID" value="951"/>
+
+        <env name="JOOMLA_HOST" value="127.0.0.1:8081"/>
+        <env name="HTTP_USER" value=""/>
+        <env name="HTTP_PASS" value=""/>
     </php>
 
     <testsuites>

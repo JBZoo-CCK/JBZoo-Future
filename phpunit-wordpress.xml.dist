@@ -33,6 +33,10 @@
         <const name="JBZOO_PATH" value="wp-content/plugins/jbzoo/cck"/>
         <const name="WP_POST_ID" value="3"/>
         <const name="CMS_ADMIN_ID" value="1"/>
+
+        <env name="WP_HOST" value="127.0.0.1:8082"/>
+        <env name="HTTP_USER" value=""/>
+        <env name="HTTP_PASS" value=""/>
     </php>
 
     <testsuites>
