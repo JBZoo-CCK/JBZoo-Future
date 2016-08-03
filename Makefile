@@ -24,11 +24,11 @@ build:
 
 update:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
-	@make up-composer
-	@make up-npm
-	@make up-bower
-	@make up-gulp
-	@make up-webpack
+	@make update-composer
+	@make update-npm
+	@make update-bower
+	@make update-gulp
+	@make update-webpack
 
 prepare:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Install & prepare all CMS \033[0m"
@@ -163,8 +163,8 @@ prepare-fs-wordpress:
 
 #### Updates ###########################################################################################################
 
-up-composer:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Composer \033[0m"
+update-composer:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Composer (DEV) \033[0m"
 	@composer config bin-dir     "../../bin"     --working-dir=./src/cck
 	@composer config vendor-dir  "../../vendor"  --working-dir=./src/cck
 	@composer update                \
@@ -174,19 +174,24 @@ up-composer:
        --no-progress
 	@echo ""
 
-up-npm:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: NPM \033[0m"
-	@NODE_ENV=development npm install
+update-npm:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: NPM (DEV) \033[0m"
+	@NODE_ENV=development npm install --progress=false
 	@echo ""
 
-up-webpack:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Webpack \033[0m"
-	@NODE_ENV=development ./node_modules/.bin/webpack -v
+update-bower:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Bower (DEV) \033[0m"
+	@NODE_ENV=development ./node_modules/.bin/bower update
 	@echo ""
 
-up-gulp:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Gulp \033[0m"
+update-gulp:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Gulp (DEV) \033[0m"
 	@NODE_ENV=development ./node_modules/.bin/gulp update
+	@echo ""
+
+update-webpack:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Webpack (DEV) \033[0m"
+	@NODE_ENV=development ./node_modules/.bin/webpack -v
 	@echo ""
 
 
