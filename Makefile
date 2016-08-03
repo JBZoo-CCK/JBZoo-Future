@@ -213,17 +213,17 @@ reset:
 
 #### Tests #############################################################################################################
 
-test-j:
+test-joomla:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Run unit-tests for Joomla!CMS \033[0m"
 	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist
 	@echo ""
 
-test-wp:
+test-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Run unit-tests for Wordpress \033[0m"
 	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist
 	@echo ""
 
-test-cs:
+test-codestyle:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Check utilities and CodeStyle \033[0m"
 	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist
 	@echo ""
