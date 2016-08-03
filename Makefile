@@ -36,7 +36,7 @@ prepare-cms:
 	@make prepare-joomla
 	@make prepare-wordpress
 
-prepare-fs
+prepare-fs:
 	@make prepare-fs-build
 	@make prepare-fs-joomla
 	@make prepare-fs-wordpress
