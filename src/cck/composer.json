@@ -16,7 +16,7 @@
         "php"               : ">=5.4",
         "jbzoo/assets"      : "^1.1.4",
         "jbzoo/console"     : "^1.1.0",
-        "jbzoo/crosscms"    : "1.x-dev",
+        "jbzoo/crosscms"    : "^1.1.12",
         "jbzoo/data"        : "^1.4.1",
         "jbzoo/event"       : "^1.2.2",
         "jbzoo/html"        : "^1.0.0",
@@ -28,7 +28,7 @@
         "jbzoo/profiler"    : "^1.0.5",
         "jbzoo/simpletypes" : "^1.4.2",
         "jbzoo/sqlbuilder"  : "^1.1.4",
-        "jbzoo/utils"       : "1.x-dev",
+        "jbzoo/utils"       : "^1.7",
 
         "pimple/pimple"     : "^3.0.2",
         "oyejorge/less.php" : "^1.7.0.10"
