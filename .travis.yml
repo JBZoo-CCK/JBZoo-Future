@@ -28,6 +28,7 @@ install:
   - composer self-update
 
 script:
+  - alias make="make --no-print-directory"
   - make build
   - make start-http
   - make test-all

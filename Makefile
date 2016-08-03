@@ -19,8 +19,9 @@ build:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Cleanup project & Rebuild ALL! \033[0m"
 	@make clean
 	@make update
+	@make prepare-fs
 	@make pack
-	@make prepare
+	@make prepare-cms
 
 update:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
@@ -30,13 +31,15 @@ update:
 	@make update-gulp
 	@make update-webpack
 
-prepare:
+prepare-cms:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Install & prepare all CMS \033[0m"
+	@make prepare-joomla
+	@make prepare-wordpress
+
+prepare-fs
 	@make prepare-fs-build
 	@make prepare-fs-joomla
 	@make prepare-fs-wordpress
-	@make prepare-joomla
-	@make prepare-wordpress
 
 test:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Run unit tests \033[0m"
@@ -76,11 +79,13 @@ start-http:
 
 prepare-joomla:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Joomla: Prepare \033[0m"
+	@mysql -e 'create database ci_jbzoo_j'
 	@chmod +x ./scripts/prepare-joomla.sh
 	@./scripts/prepare-joomla.sh "ci_jbzoo_j" "root" "" "127.0.0.1:8081"
 
 prepare-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Wordpress: Prepare \033[0m"
+	@mysql -e 'create database ci_jbzoo_wp'
 	@chmod +x ./scripts/prepare-wordpress.sh
 	@./scripts/prepare-wordpress.sh "ci_jbzoo_wp" "root" "" "127.0.0.1:8082"
 
