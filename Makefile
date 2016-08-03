@@ -79,15 +79,15 @@ start-http:
 
 prepare-joomla:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Joomla: Prepare \033[0m"
-	@mysql -e 'create database ci_jbzoo_j'
+	@mysql -e 'create database ci_test_j'
 	@chmod +x ./scripts/prepare-joomla.sh
-	@./scripts/prepare-joomla.sh "ci_jbzoo_j" "root" "" "127.0.0.1:8081"
+	@./scripts/prepare-joomla.sh "ci_test_j" "root" "" "127.0.0.1:8081"
 
 prepare-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Wordpress: Prepare \033[0m"
-	@mysql -e 'create database ci_jbzoo_wp'
+	@mysql -e 'create database ci_test_wp'
 	@chmod +x ./scripts/prepare-wordpress.sh
-	@./scripts/prepare-wordpress.sh "ci_jbzoo_wp" "root" "" "127.0.0.1:8082"
+	@./scripts/prepare-wordpress.sh "ci_test_wp" "root" "" "127.0.0.1:8082"
 
 
 #### Start servers #####################################################################################################
