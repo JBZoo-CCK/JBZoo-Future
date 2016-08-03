@@ -28,10 +28,9 @@ install:
   - composer self-update
 
 script:
-  - alias make="make --no-print-directory"
-  - make build
-  - make start-http
-  - make test-all
+  - make build --no-print-directory
+  - make start-http --no-print-directory
+  - make test-all --no-print-directory
 
 after_success:
-  - make phpcov coveralls
+  - make phpcov coveralls --no-print-directory
