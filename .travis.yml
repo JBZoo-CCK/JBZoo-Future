@@ -23,7 +23,8 @@ matrix:
     - php: 7.0
       env: XDEBUG_OFF="yes"
 
-before_script:
+install:
+  - nvm install 4.4
   - composer self-update
 
 script:
