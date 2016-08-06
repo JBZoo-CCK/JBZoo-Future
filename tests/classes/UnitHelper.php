@@ -17,12 +17,12 @@ namespace JBZoo\PHPUnit;
 use JBZoo\CCK\App;
 use JBZoo\CrossCMS\AbstractHttp;
 use JBZoo\Data\Data;
+use JBZoo\HttpClient\Response;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Env;
 use JBZoo\Utils\FS;
 use JBZoo\Utils\Str;
 use JBZoo\Utils\Url;
-use SuperClosure\Serializer;
 
 /**
  * Class UnitHelper
@@ -91,6 +91,9 @@ class UnitHelper
         }
 
         $testname = $this->_getTestName();
+        dump($testname);
+        die(1);
+
         $request  = new Data($request);
 
         $options = array(
@@ -212,7 +215,7 @@ class UnitHelper
      * @param array  $query
      * @param string $path
      * @param bool   $isJson
-     * @return Data
+     * @return Response
      */
     public function request($action, $query = [], $path = null, $isJson = false)
     {
@@ -411,7 +414,6 @@ class UnitHelper
             $query = array_merge(
                 $this->_cmsParams['site-params-' . __CMS__],
                 [
-                    '_cov'    => __CMS__ . '_' . $action,
                     'act'     => $action,
                     'nocache' => mt_rand(0, 100000)
                 ],
@@ -419,22 +421,23 @@ class UnitHelper
             );
         }
 
-        $result = $this->app['http']->request(
-            Url::create([
-                'host'  => PHPUNIT_HTTP_HOST,
-                'user'  => PHPUNIT_HTTP_USER,
-                'pass'  => PHPUNIT_HTTP_PASS,
-                'path'  => $path ? $path : '/',
-                'query' => $method == 'GET' ? $query : [],
-            ]),
+        $url = Url::create([
+            'host' => PHPUNIT_HTTP_HOST,
+            'user' => PHPUNIT_HTTP_USER,
+            'pass' => PHPUNIT_HTTP_PASS,
+            'path' => $path ? $path : '/',
+        ]);
 
-            ($method == 'POST') ? $query : [],
-
+        $result = httpRequest(
+            $url,
+            $query,
+            $method,
             [
-                'response' => AbstractHttp::RESULT_FULL,
-                'debug'    => 1,
-                'headers'  => $headers,
-                'method'   => $method,
+                'headers'         => $headers,
+                'timeout'         => 10,
+                'verify'          => false,
+                'exceptions'      => false,
+                'allow_redirects' => true,
             ]
         );
 

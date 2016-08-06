@@ -20,8 +20,8 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          syntaxCheck="true"
-         stopOnError="false"
-         stopOnFailure="false"
+         stopOnError="true"
+         stopOnFailure="true"
          stopOnIncomplete="false"
          stopOnSkipped="false"
          stopOnRisky="false"
@@ -34,7 +34,7 @@
         <const name="WP_POST_ID" value="3"/>
         <const name="CMS_ADMIN_ID" value="1"/>
 
-        <env name="WP_HOST" value="127.0.0.1:8082"/>
+        <env name="WP_HOST" value="localhost:8882"/>
         <env name="HTTP_USER" value=""/>
         <env name="HTTP_PASS" value=""/>
     </php>

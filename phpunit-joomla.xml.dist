@@ -20,8 +20,8 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          syntaxCheck="true"
-         stopOnError="false"
-         stopOnFailure="false"
+         stopOnError="true"
+         stopOnFailure="true"
          stopOnIncomplete="false"
          stopOnSkipped="false"
          stopOnRisky="false"
@@ -32,7 +32,7 @@
         <const name="JBZOO_PATH" value="administrator/components/com_jbzoo/cck"/>
         <const name="CMS_ADMIN_ID" value="951"/>
 
-        <env name="JOOMLA_HOST" value="127.0.0.1:8081"/>
+        <env name="JOOMLA_HOST" value="localhost:8881"/>
         <env name="HTTP_USER" value=""/>
         <env name="HTTP_PASS" value=""/>
     </php>

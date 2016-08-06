@@ -66,13 +66,13 @@ pack:
 	@make pack-wordpress-unit
 	@ls -lAhv ./build/packages
 
-start:
-	@make start-http
-	@make start-watch
+server:
+	@make server-cms
+	@make server-watch
 
-start-http:
-	@make start-http-joomla
-	@make start-http-wordpress
+server-cms:
+	@make server-joomla
+	@make server-wordpress
 
 
 #### Install and prepare CMS ###########################################################################################
@@ -81,28 +81,34 @@ prepare-joomla:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Joomla: Prepare \033[0m"
 	@mysql -e 'create database ci_test_j'
 	@chmod +x ./scripts/prepare-joomla.sh
-	@./scripts/prepare-joomla.sh "ci_test_j" "root" "" "127.0.0.1:8081"
+	@./scripts/prepare-joomla.sh "ci_test_j" "root" "" "localhost:8881"
 
 prepare-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Wordpress: Prepare \033[0m"
 	@mysql -e 'create database ci_test_wp'
 	@chmod +x ./scripts/prepare-wordpress.sh
-	@./scripts/prepare-wordpress.sh "ci_test_wp" "root" "" "127.0.0.1:8082"
+	@./scripts/prepare-wordpress.sh "ci_test_wp" "root" "" "localhost:8882"
 
 
 #### Start servers #####################################################################################################
 
-start-http-joomla:
+server-joomla:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Server: HTTP for Joomla \033[0m"
-	@chmod +x ./scripts/http-server.sh
-	@./scripts/http-server.sh "cck-joomla" "127.0.0.1" "8081"
+	@chmod +x ./bin/phpunit-server.sh
+	@./bin/phpunit-server.sh  "localhost" "8881"        \
+       "`pwd`/resources/cck-joomla"                     \
+       "`pwd`/vendor/jbzoo/phpunit/bin/fake-index.php"  \
+       "--index=`pwd`/resources/cck-joomla/index.php --cov-src=`pwd`/src --cov-cov=1 --cov-xml=1 --cov-html=1"
 
-start-http-wordpress:
+server-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Server: HTTP for Wordpress \033[0m"
-	@chmod +x ./scripts/http-server.sh
-	@./scripts/http-server.sh "cck-wordpress" "127.0.0.1" "8082"
+	@chmod +x ./bin/phpunit-server.sh
+	@./bin/phpunit-server.sh  "localhost" "8882"        \
+       "`pwd`/resources/cck-wordpress"                  \
+       "`pwd`/vendor/jbzoo/phpunit/bin/fake-index.php"  \
+       "--index=`pwd`/resources/cck-wordpress/index.php --cov-src=`pwd`/src --cov-cov=1 --cov-xml=1 --cov-html=1"
 
-start-watch:
+server-watch:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Server: Webpack Watcher \033[0m"
 	@NODE_ENV=development ./node_modules/.bin/webpack   \
         --watch-aggregate-timeout=300                   \
