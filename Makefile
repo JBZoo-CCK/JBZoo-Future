@@ -99,7 +99,7 @@ server-joomla:
 	@./bin/phpunit-server.sh  "localhost" "8881"        \
        "`pwd`/resources/cck-joomla"                     \
        "`pwd`/vendor/jbzoo/phpunit/bin/fake-index.php"  \
-       "--index=`pwd`/resources/cck-joomla/index.php --cov-src=`pwd`/src --cov-cov=1 --cov-xml=1 --cov-html=1"
+       "--index=`pwd`/resources/cck-joomla/index.php --cov-src=`pwd`/src --cov-cov=1"
 
 server-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Server: HTTP for Wordpress \033[0m"
@@ -108,7 +108,7 @@ server-wordpress:
 	@./bin/phpunit-server.sh  "localhost" "8882"        \
        "`pwd`/resources/cck-wordpress"                  \
        "`pwd`/vendor/jbzoo/phpunit/bin/fake-index.php"  \
-       "--index=`pwd`/resources/cck-wordpress/index.php --cov-src=`pwd`/src --cov-cov=1 --cov-xml=1 --cov-html=1"
+       "--index=`pwd`/resources/cck-wordpress/index.php --cov-src=`pwd`/src --cov-cov=1"
 
 server-watch:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Server: Webpack Watcher \033[0m"
@@ -288,7 +288,18 @@ autoload:
 	@composer dump-autoload --optimize --no-interaction
 	@echo ""
 
-coveralls:
+phpcov:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Merge coverage reports \033[0m"
+	@mkdir -pv ./build/coverage_total
+	@mkdir -pv ./build/coverage_cov
+	@php ./vendor/phpunit/phpcov/phpcov merge       \
+        --clover build/coverage_total/merge.xml     \
+        --html   build/coverage_total/merge-html    \
+        build/coverage_cov                          \
+        -v
+	@echo ""
+
+coveralls: phpcov
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Send coverage to coveralls.io \033[0m"
-	@php ./vendor/satooshi/php-coveralls/bin/coveralls --verbose
+	@php ./vendor/satooshi/php-coveralls/bin/coveralls -vvv
 	@echo ""
