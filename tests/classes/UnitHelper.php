@@ -15,8 +15,8 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\App;
-use JBZoo\CrossCMS\AbstractHttp;
 use JBZoo\Data\Data;
+use JBZoo\Data\JSON;
 use JBZoo\HttpClient\Response;
 use JBZoo\Utils\Cli;
 use JBZoo\Utils\Env;
@@ -94,7 +94,7 @@ class UnitHelper
         dump($testname);
         die(1);
 
-        $request  = new Data($request);
+        $request = new Data($request);
 
         $options = array(
             // test
@@ -215,7 +215,7 @@ class UnitHelper
      * @param array  $query
      * @param string $path
      * @param bool   $isJson
-     * @return Response
+     * @return Response|JSON
      */
     public function request($action, $query = [], $path = null, $isJson = false)
     {
@@ -225,8 +225,8 @@ class UnitHelper
             $query
         );
 
-        if ($isJson && strpos($result->find('headers.content-type'), 'application/json') !== false) {
-            return jbdata($result->get('body', '{}'));
+        if ($isJson && strpos($result->getHeader('content-type'), 'application/json') !== false) {
+            return $result->getJSON();
         }
 
         return $result;
@@ -265,48 +265,22 @@ class UnitHelper
      * @param string $method
      * @param bool   $isJson
      * @param string $customCookie
-     * @return Data
+     * @return Response|JSON
      */
     public function requestAdmin($action, $query = [], $method = 'POST', $isJson = true, $customCookie = '')
     {
-        if ($method !== 'PAYLOAD') {
-            $result = $this->_http(
-                $this->_cmsParams['admin-path-' . __CMS__],
-                $action,
-                $query,
-                [
-                    'Cookie' => $customCookie ? $customCookie : $this->_getCookieForAdmin()
-                ],
-                $method
-            );
+        $result = $this->_http(
+            $this->_cmsParams['admin-path-' . __CMS__],
+            $action,
+            $query,
+            [
+                'Cookie' => $customCookie ? $customCookie : $this->_getCookieForAdmin()
+            ],
+            $method
+        );
 
-        } else {
-            $result = $this->app['http']->request(
-                Url::create([
-                    'host'  => PHPUNIT_HTTP_HOST,
-                    'user'  => PHPUNIT_HTTP_USER,
-                    'pass'  => PHPUNIT_HTTP_PASS,
-                    'path'  => $this->_cmsParams['admin-path-' . __CMS__],
-                    'query' => Url::build([
-                        'option' => 'com_jbzoo',
-                        'act'    => $action,
-                    ])
-                ]),
-                json_encode($query),
-                [
-                    'method'   => 'POST',
-                    'response' => AbstractHttp::RESULT_FULL,
-                    'debug'    => 1,
-                    'headers'  => [
-                        'Cookie'       => $customCookie ? $customCookie : $this->_getCookieForAdmin(),
-                        'Content-Type' => 'application/json'
-                    ],
-                ]
-            );
-        }
-
-        if ($isJson && strpos($result->find('headers.content-type'), 'application/json') !== false) {
-            return jbdata($result->get('body', '{}'));
+        if ($isJson && strpos($result->getHeader('content-type'), 'application/json') !== false) {
+            return $result->getJSON();
         }
 
         return $result;
@@ -399,34 +373,56 @@ class UnitHelper
     }
 
     /**
-     * @param string $path
-     * @param string $action
-     * @param array  $query
-     * @param array  $headers
-     * @param string $method
-     * @return mixed|null
+     * @param string       $path
+     * @param string       $action
+     * @param array|string $query
+     * @param array        $headers
+     * @param string       $method
+     * @return Response
      */
     protected function _http($path, $action = '', $query = [], $headers = [], $method = 'GET')
     {
-        if (null === $query) {
-            $query = [];
-        } else {
-            $query = array_merge(
-                $this->_cmsParams['site-params-' . __CMS__],
-                [
-                    'act'     => $action,
-                    'nocache' => mt_rand(0, 100000)
-                ],
-                $query
-            );
-        }
-
-        $url = Url::create([
+        $urlParams = [
             'host' => PHPUNIT_HTTP_HOST,
             'user' => PHPUNIT_HTTP_USER,
             'pass' => PHPUNIT_HTTP_PASS,
             'path' => $path ? $path : '/',
-        ]);
+        ];
+
+        $method = strtoupper($method);
+
+        if ('PAYLOAD' === $method) {
+            $method = 'POST';
+            $query  = json_encode($query);
+
+            $urlParams['query'] = array_merge(
+                $this->_cmsParams['site-params-' . __CMS__],
+                [
+                    'act'     => $action,
+                    'nocache' => mt_rand(0, 100000)
+                ]
+            );
+
+            $headers['Content-Type'] = 'application/json';
+
+        } else {
+            if (null === $query) {
+                $query = [];
+            } else {
+                $query = array_merge(
+                    $this->_cmsParams['site-params-' . __CMS__],
+                    [
+                        'act'     => $action,
+                        'nocache' => mt_rand(0, 100000)
+                    ],
+                    $query
+                );
+            }
+
+            $urlParams['query'] = $query;
+        }
+
+        $url = Url::create($urlParams);
 
         $result = httpRequest(
             $url,
@@ -434,7 +430,7 @@ class UnitHelper
             $method,
             [
                 'headers'         => $headers,
-                'timeout'         => 10,
+                'timeout'         => 30,
                 'verify'          => false,
                 'exceptions'      => false,
                 'allow_redirects' => true,
