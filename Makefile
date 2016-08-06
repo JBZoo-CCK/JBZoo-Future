@@ -94,6 +94,7 @@ prepare-wordpress:
 
 server-joomla:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Server: HTTP for Joomla \033[0m"
+	@chmod +x ./vendor/jbzoo/phpunit/bin/phpunit-server.sh
 	@chmod +x ./bin/phpunit-server.sh
 	@./bin/phpunit-server.sh  "localhost" "8881"        \
        "`pwd`/resources/cck-joomla"                     \
@@ -102,6 +103,7 @@ server-joomla:
 
 server-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Server: HTTP for Wordpress \033[0m"
+	@chmod +x ./vendor/jbzoo/phpunit/bin/phpunit-server.sh
 	@chmod +x ./bin/phpunit-server.sh
 	@./bin/phpunit-server.sh  "localhost" "8882"        \
        "`pwd`/resources/cck-wordpress"                  \

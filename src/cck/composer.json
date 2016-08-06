@@ -37,6 +37,7 @@
         "jbzoo/phpunit"         : "dev-develop",
         "jbzoo/pimpledumper"    : "^1.2.1",
         "jbzoo/http-client"     : "^1.1.2",
+        "guzzlehttp/guzzle"     : "^5.3|^6.2",
 
         "phpunit/dbunit"        : "^2.0.2",
         "phpunit/phpcov"        : "^2.0.2",
