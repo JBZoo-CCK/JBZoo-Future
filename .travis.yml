@@ -24,6 +24,7 @@ matrix:
       env: XDEBUG_OFF="yes"
 
 install:
+  - if [[ $XDEBUG_OFF = yes ]]; then phpenv config-rm xdebug.ini; fi;
   - nvm install 4.4
   - composer self-update
 
