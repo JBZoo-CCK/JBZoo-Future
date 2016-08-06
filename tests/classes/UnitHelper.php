@@ -73,6 +73,7 @@ class UnitHelper
      * @param string $path
      * @param bool   $isJson
      * @return Response|JSON
+     * @throws Exception
      */
     public function request($action, $query = [], $path = null, $isJson = false)
     {
@@ -82,8 +83,15 @@ class UnitHelper
             $query
         );
 
-        if ($isJson && strpos($result->getHeader('content-type'), 'application/json') !== false) {
-            return $result->getJSON();
+        if ($isJson) {
+
+            if (strpos($result->getHeader('content-type'), 'application/json') !== false) {
+                return $result->getJSON();
+            } else {
+                dump(func_get_args(), 0);
+                dump($result);
+                throw new Exception('Invalid header: not application/json');
+            }
         }
 
         return $result;
@@ -123,6 +131,7 @@ class UnitHelper
      * @param bool   $isJson
      * @param string $customCookie
      * @return Response|JSON
+     * @throws Exception
      */
     public function requestAdmin($action, $query = [], $method = 'POST', $isJson = true, $customCookie = '')
     {
@@ -137,7 +146,13 @@ class UnitHelper
         );
 
         if ($isJson && strpos($result->getHeader('content-type'), 'application/json') !== false) {
-            return $result->getJSON();
+            if (strpos($result->getHeader('content-type'), 'application/json') !== false) {
+                return $result->getJSON();
+            } else {
+                dump(func_get_args(), 0);
+                dump($result);
+                throw new Exception('Invalid header: not application/json');
+            }
         }
 
         return $result;
