@@ -63,7 +63,7 @@ class PlgSystemJBZooCCK extends JPlugin
     /**
      * Content handlers (for macroses)
      */
-    public function onAfterRespond()
+    public function onBeforeRespond()
     {
         if ($this->_app) {
             $body = JFactory::getApplication()->getBody();
