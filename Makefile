@@ -182,10 +182,7 @@ update-composer:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Composer (DEV) \033[0m"
 	@composer config bin-dir     "../../bin"     --working-dir=./src/cck
 	@composer config vendor-dir  "../../vendor"  --working-dir=./src/cck
-	@composer update                \
-       --working-dir=./src/cck      \
-       --optimize-autoloader        \
-       --no-progress
+	@composer update --working-dir=./src/cck --optimize-autoloader --no-progress -v
 	@echo ""
 
 update-npm:
