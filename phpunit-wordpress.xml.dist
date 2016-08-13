@@ -20,14 +20,13 @@
          convertWarningsToExceptions="true"
          processIsolation="false"
          syntaxCheck="true"
-         stopOnError="true"
-         stopOnFailure="true"
+         stopOnError="false"
+         stopOnFailure="false"
          stopOnIncomplete="false"
          stopOnSkipped="false"
          stopOnRisky="false"
          verbose="false"
 >
-
     <php>
         <const name="__CMS__" value="wordpress"/>
         <const name="JBZOO_PATH" value="wp-content/plugins/jbzoo/cck"/>
