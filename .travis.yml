@@ -23,6 +23,8 @@ install:
 script:
   - make build      --no-print-directory
   - cat ./resources/cck-joomla/configuration.php
+  - php ./scripts/prepare-joomla-config.php
+  - cat ./resources/cck-joomla/configuration.php
   - make server-cms --no-print-directory
   - make test-all   --no-print-directory
 
