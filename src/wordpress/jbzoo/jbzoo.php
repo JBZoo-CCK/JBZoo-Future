@@ -42,6 +42,9 @@ if (!function_exists('dump')) {
 /**
  * Init JBZoo Autoloader and general events for CMS
  * @throws Exception
+ *
+ * @SuppressWarnings(PHPMD.NPathComplexity)
+ * @SuppressWarnings(PHPMD.Superglobals)
  */
 function JBZoo_initAutoload()
 {

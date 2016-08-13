@@ -16,36 +16,37 @@
         "php"               : ">=5.4",
         "jbzoo/assets"      : "^1.1.4",
         "jbzoo/console"     : "^1.1.0",
-        "jbzoo/crosscms"    : "1.x-dev",
-        "jbzoo/data"        : "^1.4.1",
+        "jbzoo/crosscms"    : "^1.1.12",
+        "jbzoo/data"        : "^1.5.0",
         "jbzoo/event"       : "^1.2.2",
         "jbzoo/html"        : "^1.0.0",
         "jbzoo/image"       : "^3.0.4",
-        "jbzoo/jbdump"      : "^1.5.0",
+        "jbzoo/jbdump"      : "^1.5.1",
         "jbzoo/lang"        : "^1.0.1",
         "jbzoo/less"        : "^1.0.3",
         "jbzoo/path"        : "^1.3.1",
         "jbzoo/profiler"    : "^1.0.5",
         "jbzoo/simpletypes" : "^1.4.2",
         "jbzoo/sqlbuilder"  : "^1.1.4",
-        "jbzoo/utils"       : "1.x-dev",
+        "jbzoo/utils"       : "^1.7.8",
 
         "pimple/pimple"     : "^3.0.2",
         "oyejorge/less.php" : "^1.7.0.10"
     },
     "require-dev"       : {
-        "jbzoo/phpunit"           : "1.x-dev",
-        "jbzoo/misc"              : "1.x-dev",
-        "jbzoo/pimpledumper"      : "1.x.dev",
+        "jbzoo/phpunit"         : "dev-develop",
+        "jbzoo/pimpledumper"    : "^1.2.1",
+        "jbzoo/http-client"     : "^1.1.2",
+        "guzzlehttp/guzzle"     : "^5.3|^6.2",
 
-        "phpunit/dbunit"          : "^2.0.2",
-        "phpunit/phpcov"          : "^2.0.2",
-        "symfony/finder"          : "^2.8.8",
-        "symfony/var-dumper"      : "^2.8.8",
-        "phpmetrics/phpmetrics"   : "^1.10",
-        "jeremeamia/superclosure" : "^2.2",
-        "joomlatools/console"     : "^1.4.6",
-        "wp-cli/wp-cli"           : "^0.21.1"
+        "phpunit/dbunit"        : "^2.0.2",
+        "phpunit/phpcov"        : "^2.0.2",
+        "symfony/finder"        : "^2.8|^3.1",
+        "symfony/var-dumper"    : "^2.8|^3.1",
+        "phpmetrics/phpmetrics" : "^1.10",
+
+        "joomlatools/console"   : "^1.4.6",
+        "wp-cli/wp-cli"         : "^0.21.1"
     },
     "autoload"          : {
         "files" : [

@@ -13,6 +13,8 @@
 # @link      http://jbzoo.com
 #
 
+ROOT="`pwd`"
+WORDPRESS="`pwd`/resources/cck-wordpress"
 SITE_WWW="resources/cck-wordpress"
 SITE_NAME="JBZoo 3.x-dev"
 
@@ -132,3 +134,19 @@ sh ./bin/wp                                 \
     --post_content=$POST_CONTENT            \
     --path=$SITE_WWW                        \
     --debug
+
+
+#### Create symlinks ###################################################################################################
+
+
+echo ""
+echo ">>> >>> Wordpress: Create symlinks"
+rm -r "$WORDPRESS/wp-content/plugins/jbzoo"
+ln -s "$ROOT/src/wordpress/jbzoo"                                   \
+      "$WORDPRESS/wp-content/plugins/jbzoo"
+
+
+rm -r "$WORDPRESS/wp-content/plugins/wp_jbzoophpunit"
+ln -s "$ROOT/tests/extentions/wp_jbzoophpunit"                      \
+      "$WORDPRESS/wp-content/plugins/wp_jbzoophpunit"
+

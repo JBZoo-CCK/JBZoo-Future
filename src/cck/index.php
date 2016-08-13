@@ -10,104 +10,22 @@
  * @license    Proprietary http://jbzoo.com/license
  * @copyright  Copyright (C) JBZoo.com,  All rights reserved.
  * @link       http://jbzoo.com
- *
- * @codeCoverageIgnore
- * @SuppressWarnings(PHPMD)
- * @codingStandardsIgnoreFile
  */
 
-use JBZoo\Utils\Env;
+use JBZoo\CCK\App;
 
-if (!class_exists('JBZooPHPUnitCoverageWrapper')) {
+ob_start();
 
-    /**
-     * Class JBZooPHPUnitCoverageWrapper
-     * @codeCoverageIgnore
-     */
-    class JBZooPHPUnitCoverageWrapper
-    {
-        /**
-         * @var PHP_CodeCoverage
-         */
-        protected $_coverage;
 
-        /**
-         * @var string
-         */
-        protected $_covRoot;
+require_once __DIR__ . '/init.php';
 
-        /**
-         * @var string
-         */
-        protected $_covDir;
+$app = App::getInstance();
+$app->checkRequest();
+echo $app->execute($app['request']->get('act', 'core.index.index', 'cmd'));
+$app->trigger('jbzoo.assets');
 
-        /**
-         * @var string
-         */
-        protected $_covHash;
 
-        /**
-         * @var string
-         */
-        protected $_covResult;
+$result = ob_get_contents();
+ob_end_clean();
 
-        /**
-         * JBZooPHPUnit_Coverage constructor.
-         * @SuppressWarnings(PHPMD.Superglobals)
-         */
-        public function __construct()
-        {
-            if (Env::hasXdebug()) {
-
-                if (!isset($_REQUEST['_cov'])) {
-                    $_REQUEST['_cov'] = isset($_REQUEST['act']) ? $_REQUEST['act'] : 'request';
-                }
-
-                $this->_covRoot = realpath(__DIR__ . '/../..');
-                $this->_covDir  = realpath($this->_covRoot . '/src');
-                $this->_covHash = implode('_', [
-                    str_replace('.', '_', $_REQUEST['_cov']),
-                    md5(serialize($_REQUEST)),
-                    mt_rand(0, 100000000)
-                ]);
-
-                $this->_covResult = realpath($this->_covRoot . '/build/coverage_cov/') . '/' . $this->_covHash . '.cov';
-
-                $covFilter = new PHP_CodeCoverage_Filter();
-                $covFilter->addDirectoryToWhitelist($this->_covDir);
-                $this->_coverage = new PHP_CodeCoverage(null, $covFilter);
-            }
-        }
-
-        /**
-         * Save report
-         */
-        public function __destruct()
-        {
-            if ($this->_coverage) {
-                $this->_coverage->stop();
-
-                $report = new PHP_CodeCoverage_Report_PHP();
-                $report->process($this->_coverage, $this->_covResult);
-            }
-        }
-
-        /**
-         * @param Closure $callback
-         * @return mixed
-         */
-        public function init(\Closure $callback)
-        {
-            if ($this->_coverage) {
-                $this->_coverage->start($this->_covHash, true);
-            }
-
-            return $callback();
-        }
-    }
-}
-
-$coverageWrapper = new JBZooPHPUnitCoverageWrapper();
-return $coverageWrapper->init(function () {
-    return include __DIR__ . '/_index.php';
-});
+return $result;

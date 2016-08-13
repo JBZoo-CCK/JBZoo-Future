@@ -14,6 +14,8 @@
 
 namespace JBZoo\PHPUnit;
 
+use Symfony\Component\Finder\Finder;
+
 /**
  * Class Utility_CodeStyleTest
  * @package JBZoo\PHPUnit
@@ -60,4 +62,25 @@ class Utility_CodeStyleTest extends Codestyle
         '\'use strict\';',
         '',
     );
+
+    /**
+     * Test copyright headers of SH files
+     */
+    public function testHeadersSH()
+    {
+        $valid = $this->_prepareTemplate(implode($this->_validHeaderSH, $this->_le));
+
+        $finder = new Finder();
+        $finder
+            ->files()
+            ->in(PROJECT_ROOT)
+            ->exclude($this->_excludePaths)
+            ->name('*.sh');
+
+        /** @var \SplFileInfo $file */
+        foreach ($finder as $file) {
+            $content = openFile($file->getPathname());
+            isContain($valid, $content, false, 'File has no valid header: ' . $file);
+        }
+    }
 }
