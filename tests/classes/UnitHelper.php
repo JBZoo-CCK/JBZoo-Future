@@ -322,6 +322,8 @@ class UnitHelper
         ]);
 
         $body = $result->getBody();
+        $body = preg_replace('#\<script\>.*?\<\/script\>#ius', ' ', $body);
+        $body = preg_replace('#\<style\>.*?\<\/style\>#ius', ' ', $body);
         $body = strip_tags($body);
         $body = preg_replace('#\s{2,}#', ' ', $body);
         $body = trim($body);
