@@ -181,12 +181,13 @@ prepare-fs-wordpress:
 update-composer:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Composer (DEV) \033[0m"
 	@cp -v ./composer.json ./src/cck/composer.json
-	@composer config bin-dir     "../../bin"     --working-dir=./src/cck
-	@composer config vendor-dir  "../../vendor"  --working-dir=./src/cck
+	@composer config bin-dir     "../../bin"     --working-dir=./src/cck -v
+	@composer config vendor-dir  "../../vendor"  --working-dir=./src/cck -v
 	@composer update                \
        --working-dir=./src/cck      \
        --optimize-autoloader        \
        --no-progress
+	@cp -v ./src/cck/composer.lock ./composer.lock
 	@echo ""
 
 update-npm:
@@ -231,6 +232,10 @@ reset:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Hard reset \033[0m"
 	@git reset --hard
 
+autoload:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Composer autoload \033[0m"
+	@composer dump-autoload --optimize --no-interaction
+	@echo ""
 
 #### Tests #############################################################################################################
 
@@ -283,13 +288,7 @@ phploc:
 	@php ./vendor/phploc/phploc/phploc ./src/cck --verbose
 	@echo ""
 
-
-#### Other #############################################################################################################
-
-autoload:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Composer autoload \033[0m"
-	@composer dump-autoload --optimize --no-interaction
-	@echo ""
+#### Coverage report ###################################################################################################
 
 phpcov:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Merge coverage reports \033[0m"
