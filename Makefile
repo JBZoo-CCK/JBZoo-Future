@@ -180,14 +180,14 @@ prepare-fs-wordpress:
 
 update-composer:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Composer (DEV) \033[0m"
-	@cp -v ./composer.json ./src/cck/composer.json
-	@composer config bin-dir     "../../bin"     --working-dir=./src/cck -v
-	@composer config vendor-dir  "../../vendor"  --working-dir=./src/cck -v
+	#@cp -v ./composer.json ./src/cck/composer.json
+	@composer config bin-dir     "../../bin"     --working-dir=./src/cck
+	@composer config vendor-dir  "../../vendor"  --working-dir=./src/cck
 	@composer update                \
        --working-dir=./src/cck      \
        --optimize-autoloader        \
        --no-progress
-	@cp -v ./src/cck/composer.lock ./composer.lock
+	#@cp -v ./src/cck/composer.lock ./composer.lock
 	@echo ""
 
 update-npm:
