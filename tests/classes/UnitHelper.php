@@ -17,6 +17,7 @@ namespace JBZoo\PHPUnit;
 use JBZoo\CCK\App;
 use JBZoo\Data\JSON;
 use JBZoo\HttpClient\Response;
+use JBZoo\Utils\Str;
 use JBZoo\Utils\Url;
 
 /**
@@ -255,10 +256,11 @@ class UnitHelper
     protected function _http($path, $action = '', $query = [], $headers = [], $method = 'GET')
     {
         $urlParams = [
-            'host' => PHPUNIT_HTTP_HOST,
-            'user' => PHPUNIT_HTTP_USER,
-            'pass' => PHPUNIT_HTTP_PASS,
-            'path' => $path ? $path : '/',
+            'host'  => PHPUNIT_HTTP_HOST,
+            'user'  => PHPUNIT_HTTP_USER,
+            'pass'  => PHPUNIT_HTTP_PASS,
+            'path'  => $path ? $path : '/',
+            'query' => [],
         ];
 
         $method = strtoupper($method);
@@ -294,26 +296,66 @@ class UnitHelper
             $urlParams['query'] = $query;
         }
 
-        $url = Url::create($urlParams);
+        $urlParams['query'] = array_filter($urlParams['query']);
 
-        dump($url, 0, '$url');
-        dump($query, 0, '$query');
-        dump($method, 0, '$method');
-        dump($headers, 0, '$headers');
-
-        $result = httpRequest(
-            $url,
-            $query,
-            $method,
-            [
-                'headers'         => $headers,
-                'timeout'         => 30,
-                'verify'          => false,
-                'exceptions'      => false,
-                'allow_redirects' => true,
-            ]
-        );
+        $url    = Url::create($urlParams);
+        $result = $this->_httpRequest($url, $query, $method, $headers);
 
         return $result;
+    }
+
+    /**
+     * @param string       $url
+     * @param string|array $query
+     * @param string       $method
+     * @param array        $headers
+     * @return Response
+     */
+    protected function _httpRequest($url, $query, $method, $headers)
+    {
+        $result = httpRequest($url, $query, $method, [
+            'headers'         => $headers,
+            'timeout'         => 30,
+            'verify'          => false,
+            'exceptions'      => false,
+            'allow_redirects' => true,
+        ]);
+
+        $body = $result->getBody();
+        $body = strip_tags($body);
+        $body = preg_replace('#\s{2,}#', ' ', $body);
+        $body = trim($body);
+
+        dump([
+            'request'  => [
+                'url'     => $url,
+                'query'   => $query,
+                'method'  => $method,
+                'headers' => $headers
+            ],
+            'response' => [
+                'code' => $result->getCode(),
+                'type' => $result->getHeader('content-type'),
+                'body' => Str::sub($body, 0, 1000),
+            ]
+        ], 0, $this->_getTestName());
+
+        return $result;
+    }
+
+    /**
+     * @return null|string
+     */
+    protected function _getTestName()
+    {
+        $objects = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT);
+
+        foreach ($objects as $object) {
+            if (isset($object['object']) && $object['object'] instanceof \PHPUnit_Framework_TestCase) {
+                return get_class($object['object']) . '::' . $object['function'];
+            }
+        }
+
+        return null;
     }
 }
