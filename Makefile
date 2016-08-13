@@ -26,10 +26,10 @@ build:
 update:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
 	@make update-composer
-#	@make update-npm
-#	@make update-bower
-#	@make update-gulp
-#	@make update-webpack
+	@make update-npm
+	@make update-bower
+	@make update-gulp
+	@make update-webpack
 
 prepare-cms:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Install & prepare all CMS \033[0m"
