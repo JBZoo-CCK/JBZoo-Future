@@ -46,7 +46,6 @@
     "main-bower-files": "^2.13.0",
     "material-ui": "^0.15.0",
     "mocha": "^2.4.5",
-    "nightmare": "^2.4.0",
     "path": "^0.12.7",
     "react": "^15.0.2",
     "react-dnd": "^2.1.4",
