@@ -296,6 +296,11 @@ class UnitHelper
 
         $url = Url::create($urlParams);
 
+        dump($url, 0, '$url');
+        dump($query, 0, '$query');
+        dump($method, 0, '$method');
+        dump($headers, 0, '$headers');
+
         $result = httpRequest(
             $url,
             $query,
