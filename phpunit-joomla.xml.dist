@@ -55,4 +55,9 @@
         </whitelist>
     </filter>
 
+    <logging>
+        <log type="coverage-php" target="build/coverage_cov/joomla.cov"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
+    </logging>
+
 </phpunit>
