@@ -177,19 +177,23 @@ class UnitHelper
      */
     protected function _getCookieForJoomlaAdmin()
     {
+        $adminUrl = Url::create([
+            'host' => PHPUNIT_HTTP_HOST,
+            'user' => PHPUNIT_HTTP_USER,
+            'pass' => PHPUNIT_HTTP_PASS,
+            'path' => '/administrator/index.php',
+        ]);
+
         // Get Token and Cookie hashes
-        $result = $this->_http(
-            $this->_cmsParams['admin-login-' . __CMS__]
-        );
+        $result = $this->_httpRequest($adminUrl);
 
         // Parse response
-        list($cookie) = explode(';', $result->find('headers.set-cookie'), 2);
+        list($cookie) = explode(';', $result->getHeader('set-cookie'), 2);
         preg_match('#<input type="hidden" name="(.{32})" value="1" />\t#ius', $result->body, $matches);
         $token = $matches[1];
 
-        $this->_http(
-            $this->_cmsParams['admin-path-' . __CMS__],
-            '',
+        $redirectResult = httpRequest(
+            $adminUrl,
             [
                 'username' => 'admin',
                 'passwd'   => 'admin',
@@ -198,11 +202,19 @@ class UnitHelper
                 'return'   => 'aW5kZXgucGhw',
                 $token     => 1
             ],
+            'POST',
             [
-                'Cookie' => $cookie
-            ],
-            'POST'
+                'headers'         => ['Cookie' => $cookie],
+                'timeout'         => 30,
+                'exceptions'      => false,
+                'allow_redirects' => false,
+            ]
         );
+
+        if ($redirectResult->getHeader('set-cookie')) {
+            list($cookieNew) = explode(';', $redirectResult->getHeader('set-cookie'), 2);
+            return $cookieNew;
+        }
 
         return $cookie;
     }
@@ -247,13 +259,13 @@ class UnitHelper
 
     /**
      * @param string       $path
-     * @param string       $action
+     * @param string       $act
      * @param array|string $query
      * @param array        $headers
      * @param string       $method
      * @return Response
      */
-    protected function _http($path, $action = '', $query = [], $headers = [], $method = 'GET')
+    protected function _http($path, $act = '', $query = [], $headers = [], $method = 'GET')
     {
         $urlParams = [
             'host'  => PHPUNIT_HTTP_HOST,
@@ -272,7 +284,7 @@ class UnitHelper
             $urlParams['query'] = array_merge(
                 $this->_cmsParams['site-params-' . __CMS__],
                 [
-                    'act'     => $action,
+                    'act'     => $act,
                     'nocache' => mt_rand(0, 100000)
                 ]
             );
@@ -286,7 +298,7 @@ class UnitHelper
                 $query = array_merge(
                     $this->_cmsParams['site-params-' . __CMS__],
                     [
-                        'act'     => $action,
+                        'act'     => $act,
                         'nocache' => mt_rand(0, 100000)
                     ],
                     $query
@@ -311,8 +323,12 @@ class UnitHelper
      * @param array        $headers
      * @return Response
      */
-    protected function _httpRequest($url, $query, $method, $headers)
+    protected function _httpRequest($url, $query = null, $method = 'GET', array $headers = [])
     {
+        if (!$headers) {
+            $headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
+        }
+
         $result = httpRequest($url, $query, $method, [
             'headers'         => $headers,
             'timeout'         => 30,
@@ -328,19 +344,21 @@ class UnitHelper
         $body = preg_replace('#\s{2,}#', ' ', $body);
         $body = trim($body);
 
-        dump([
-            'request'  => [
-                'url'     => $url,
-                'query'   => $query,
-                'method'  => $method,
-                'headers' => $headers
-            ],
-            'response' => [
-                'code' => $result->getCode(),
-                'type' => $result->getHeader('content-type'),
-                'body' => Str::sub($body, 0, 1000),
-            ]
-        ], 0, $this->_getTestName());
+        if (0) {
+            dump([
+                'request'  => [
+                    'url'     => $url,
+                    'query'   => $query,
+                    'method'  => $method,
+                    'headers' => $headers
+                ],
+                'response' => [
+                    'code' => $result->getCode(),
+                    'type' => $result->getHeader('content-type'),
+                    'body' => Str::sub($body, 0, 1000),
+                ]
+            ], 0, $this->_getTestName());
+        }
 
         return $result;
     }
