@@ -17,14 +17,12 @@ matrix:
 
 install:
   - if [[ $XDEBUG_OFF = yes ]]; then phpenv config-rm xdebug.ini; fi;
+  - echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
   - nvm install 4.4
-  - composer self-update
 
 script:
   - make build      --no-print-directory
-  - cat ./resources/cck-joomla/configuration.php
   - php ./scripts/prepare-joomla-config.php
-  - cat ./resources/cck-joomla/configuration.php
   - make server-cms --no-print-directory
   - make test-all   --no-print-directory
 
