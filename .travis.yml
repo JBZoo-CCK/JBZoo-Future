@@ -25,7 +25,6 @@ install:
 
 script:
   - make build      --no-print-directory
-  - php ./scripts/prepare-joomla-config.php
   - make server-cms --no-print-directory
   - make test-all   --no-print-directory
 

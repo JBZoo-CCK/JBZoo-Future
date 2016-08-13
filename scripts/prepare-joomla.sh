@@ -73,6 +73,10 @@ sh ./bin/joomla                                 \
     --www=$SITE_WWW                             \
     -vvv
 
+echo ""
+echo ">>> >>> Joomla: Prepare global config"
+php ./scripts/prepare-joomla-config.php
+
 
 #### JBZoo CCK #########################################################################################################
 

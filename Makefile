@@ -31,6 +31,10 @@ update:
 	@make update-gulp
 	@make update-webpack
 
+update-force:
+	@make clean
+	@make update
+
 prepare-cms:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Install & prepare all CMS \033[0m"
 	@make prepare-joomla
@@ -181,7 +185,6 @@ update-composer:
 	@composer update                \
        --working-dir=./src/cck      \
        --optimize-autoloader        \
-       --no-interaction             \
        --no-progress
 	@echo ""
 
@@ -210,17 +213,17 @@ update-webpack:
 
 clean:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Cleanup project \033[0m"
-	@rm -vfr ./bin
-	@rm -vfr ./bower_components
-	@rm -vfr ./node_modules
-	@rm -vfr ./vendor
-	@rm -vfr ./src/cck/libraries
-	@rm -vf  ./src/cck/composer.lock
+	@rm -fr ./bin
+	@rm -fr ./bower_components
+	@rm -fr ./node_modules
+	@rm -fr ./vendor
+	@rm -fr ./src/cck/libraries
+	@rm -f  ./src/cck/composer.lock
 	@make clean-build
 	@make prepare-fs-build
 
 clean-build:
-	@rm -vfr ./build
+	@rm -fr ./build
 
 reset:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Hard reset \033[0m"
@@ -231,17 +234,17 @@ reset:
 
 test-joomla:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Run unit-tests for Joomla!CMS \033[0m"
-	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist
+	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist --verbose
 	@echo ""
 
 test-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Run unit-tests for Wordpress \033[0m"
-	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist
+	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist --verbose
 	@echo ""
 
 test-codestyle:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Check utilities and CodeStyle \033[0m"
-	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist
+	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist --verbose
 	@echo ""
 
 validate-composer:
@@ -279,7 +282,7 @@ phploc:
 	@echo ""
 
 
-#### Autoload ##########################################################################################################
+#### Other #############################################################################################################
 
 autoload:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Composer autoload \033[0m"
@@ -289,7 +292,7 @@ autoload:
 phpcov:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Merge coverage reports \033[0m"
 	@mkdir -pv ./build/coverage_total
-	@mkdir -pv ./build/coverage_cov
+	@ls -la ./build/coverage_cov
 	@php ./vendor/phpunit/phpcov/phpcov merge       \
         --clover build/coverage_total/merge.xml     \
         --html   build/coverage_total/merge-html    \
