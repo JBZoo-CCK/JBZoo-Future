@@ -154,9 +154,7 @@ pack-wordpress-unit:
 
 prepare-fs-build:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Prepare Filesystem: Build \033[0m"
-	@mkdir -pv ./build/clover_xml
-	@mkdir -pv ./build/clover_html
-	@mkdir -pv ./build/browser_html
+	@mkdir -pv ./build/coverage_cov
 	@mkdir -pv ./build/logs
 	@mkdir -pv ./build/misc
 	@mkdir -pv ./build/screenshot
