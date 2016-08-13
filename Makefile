@@ -43,8 +43,8 @@ prepare-fs:
 
 test:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Run unit tests \033[0m"
-	@make test-joomla
 	@make test-wordpress
+	@make test-joomla
 	@make test-codestyle
 
 test-all:
