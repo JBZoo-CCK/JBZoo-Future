@@ -32,7 +32,7 @@ var webpack       = require('webpack'),
             entry = entry.replace(basepath, '');
             var parts = entry.split(path.sep);
 
-            entries[parts[1]] = './'+path.normalize('\\' + entry);
+            entries[parts[1]] = './' + entry;
         }
 
         return entries;
