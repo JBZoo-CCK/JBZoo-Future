@@ -9,7 +9,7 @@ make build
 
 How to run tests ?
 ```sh
-make make server-cms
+make server-cms
 make test-all
 ```
 
