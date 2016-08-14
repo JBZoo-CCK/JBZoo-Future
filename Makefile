@@ -189,6 +189,7 @@ update-composer:
         --no-progress           \
         -v
 	@cp ./src/cck/composer.lock ./composer.lock
+	@cat ./vendor/composer/autoload_classmap.php
 	@echo ""
 
 
