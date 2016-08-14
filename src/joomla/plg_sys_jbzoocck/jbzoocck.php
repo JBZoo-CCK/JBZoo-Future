@@ -28,7 +28,7 @@ jimport('joomla.filesystem.file');
 class PlgSystemJBZooCCK extends JPlugin
 {
     /**
-     * @var App
+     * @var App|null
      */
     protected $_app;
 
@@ -40,13 +40,13 @@ class PlgSystemJBZooCCK extends JPlugin
         define('JBZOO_PATH', 'administrator/components/com_jbzoo/cck'); // TODO: hardcode to fix dev symlinks
         define('JBZOO_AJAX_URL', JUri::root() . 'administrator/index.php?option=com_jbzoo');
 
+        $this->_app = null;
+
         if ($initPath = realpath(JPATH_ROOT . '/' . JBZOO_PATH . '/init.php')) {
             require_once $initPath;
 
             $this->_app = App::getInstance();
             $this->_app->trigger(AbstractEvents::EVENT_INIT);
-        } else {
-            throw new Exception('JBZoo init file not found!');
         }
     }
 

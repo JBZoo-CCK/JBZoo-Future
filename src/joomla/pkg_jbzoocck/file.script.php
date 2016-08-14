@@ -14,6 +14,8 @@
  * @codingStandardsIgnoreFile
  */
 
+defined('_JEXEC') or die('Restricted access');
+
 /**
  * Class pkg_jbzoocckInstallerScript
  * @codeCoverageIgnore

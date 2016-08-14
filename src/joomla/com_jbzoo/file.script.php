@@ -14,6 +14,8 @@
  * @codingStandardsIgnoreFile
  */
 
+defined('_JEXEC') or die('Restricted access');
+
 use JBZoo\CCK\App;
 use JBZoo\CCK\Atom\Core\Helper\Installer;
 

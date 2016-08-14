@@ -12,6 +12,7 @@
  * @link       http://jbzoo.com
  */
 
-defined('JBZOO') or die;
+defined('_JEXEC') or die('Restricted access');
+defined('JBZOO') or die('JBZoo not inited!');
 
 echo require_once __DIR__ . '/cck/index.php';
