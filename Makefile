@@ -392,8 +392,3 @@ coveralls:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Send coverage to coveralls.io \033[0m"
 	@php ./vendor/satooshi/php-coveralls/bin/coveralls -vvv
 	@echo ""
-
-codecov:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Send coverage to codecov.io \033[0m"
-	@bash <(curl -s https://codecov.io/bash) -s ./build/coverage_total
-	@echo ""

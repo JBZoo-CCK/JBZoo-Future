@@ -31,6 +31,4 @@ script:
   - make test-all   --no-print-directory
 
 after_success:
-  - make phpcov     --no-print-directory
-  - make coveralls  --no-print-directory
-  - make codecov    --no-print-directory
+  - make phpcov coveralls --no-print-directory
