@@ -100,7 +100,7 @@ pack-prod:
 	@ls -lAhv ./build/packages
 
 update-prod:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for production \033[0m"
 	@make update-prod-composer
 	@make update-prod-npm
 	@make update-prod-bower
@@ -226,7 +226,7 @@ update-prod-composer:
 	@composer config bin-dir     "bin"        --working-dir=./src/cck
 	@composer config vendor-dir  "libraries"  --working-dir=./src/cck
 	@composer require jbzoo/composer-cleanup:1.x-dev    \
-        --working-dir=$WORKING_DIR                      \
+        --working-dir=./src/cck                         \
         --no-update                                     \
         --update-no-dev                                 \
         --no-interaction
@@ -234,6 +234,7 @@ update-prod-composer:
         --working-dir=./src/cck \
         --optimize-autoloader   \
         --no-progress           \
+        --no-dev                \
         -v
 	@cp ./src/cck/composer.lock ./composer.lock
 	@echo ""
