@@ -63,7 +63,7 @@ class com_jbzooInstallerScript
         //$this->installer->uninstall();
 
         $database = JFactory::getDbo();
-        $queries  = $this->_getQueries('unstall.sql');
+        $queries  = $this->_getQueries('uninstall.sql');
         foreach ($queries as $query) {
             $database->setQuery($query)->execute();
         }
@@ -95,6 +95,7 @@ class com_jbzooInstallerScript
     public function update()
     {
         //$this->installer->update();
+        $this->install();
     }
 
     /**
