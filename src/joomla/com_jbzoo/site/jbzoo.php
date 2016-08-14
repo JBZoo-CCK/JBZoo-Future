@@ -13,6 +13,9 @@
  */
 
 defined('_JEXEC') or die('Restricted access');
-defined('JBZOO') or die('JBZoo not inited!');
+
+if (!defined('JBZOO')) {
+    throw new Exception('"JBZoo CCK" plugin is disabled!');
+}
 
 require_once JPATH_ADMINISTRATOR . '/components/com_jbzoo/jbzoo.php';
