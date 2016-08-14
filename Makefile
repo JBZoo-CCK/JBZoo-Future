@@ -215,7 +215,6 @@ clean:
 	@rm -fr ./node_modules
 	@rm -fr ./vendor
 	@rm -fr ./src/cck/libraries
-	@rm -f  ./src/cck/composer.json
 	@rm -f  ./src/cck/composer.lock
 	@make clean-build
 	@make prepare-fs-build
