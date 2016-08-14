@@ -18,6 +18,9 @@ matrix:
     - php: 7.0
       env: XDEBUG_OFF="yes"
 
+before_install:
+  - npm install -g npm@'>=3.8.2'
+
 install:
   - if [[ $XDEBUG_OFF = yes ]]; then phpenv config-rm xdebug.ini; fi;
   - echo 'always_populate_raw_post_data = -1' >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
