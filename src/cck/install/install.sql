@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS `#__jbzoo_items` (
 
 -- Modules ---------------------------------------------------------------------
 
-CREATE TABLE `#__jbzoo_modules` (
+CREATE TABLE IF NOT EXISTS `#__jbzoo_modules` (
     `id`     INT(11) UNSIGNED NOT NULL AUTO_INCREMENT,
     `title`  VARCHAR(255)     NOT NULL,
     `params` LONGTEXT         NOT NULL,
@@ -57,7 +57,7 @@ CREATE TABLE `#__jbzoo_modules` (
 
 -- Configurations --------------------------------------------------------------
 
-CREATE TABLE `#__jbzoo_config` (
+CREATE TABLE IF NOT EXISTS `#__jbzoo_config` (
     `option`   VARCHAR(250)        NOT NULL DEFAULT '',
     `value`    LONGTEXT            NOT NULL,
     `autoload` TINYINT(3) UNSIGNED NOT NULL DEFAULT '0',
