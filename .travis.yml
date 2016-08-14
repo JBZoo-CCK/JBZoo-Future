@@ -30,6 +30,5 @@ script:
   - make test-all   --no-print-directory
 
 after_success:
-  - ls -l ./build
-  - ls -l ./build/coverage_cov
+  - bash <(curl -s https://codecov.io/bash) -s ./build/coverage_total
   - make coveralls  --no-print-directory
