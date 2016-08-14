@@ -18,9 +18,9 @@ use JBZoo\Data\Data;
 use JBZoo\Utils\Dates;
 
 /**
- * Class PublishDown
+ * Class Publishdown
  */
-class PublishDown extends Item
+class Publishdown extends Item
 {
     /**
      * @inheritdoc
