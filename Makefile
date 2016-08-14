@@ -15,14 +15,6 @@
 
 #### Complex commands ##################################################################################################
 
-build:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Cleanup project & Rebuild ALL! \033[0m"
-	@make clean
-	@make update
-	@make prepare-fs
-	@make pack
-	@make prepare-cms
-
 update:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
 	@make update-composer
@@ -30,6 +22,14 @@ update:
 	@make update-bower
 	@make update-gulp
 	@make update-webpack
+
+build:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Cleanup project & Rebuild ALL! \033[0m"
+	@make clean
+	@make update
+	@make prepare-fs
+	@make pack
+	@make prepare-cms
 
 update-force:
 	@make clean
@@ -189,7 +189,6 @@ update-composer:
         --no-progress           \
         -v
 	@cp ./src/cck/composer.lock ./composer.lock
-	@cat ./vendor/composer/autoload_classmap.php
 	@echo ""
 
 
