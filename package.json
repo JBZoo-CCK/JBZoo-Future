@@ -9,7 +9,7 @@
     "CCK",
     "JBZoo"
   ],
-  "homepage": "https://gitlab.com/JBZoo/cck#README",
+  "homepage": "http://jbzoo.com/",
   "author": "SmetDenis <denis@jbzoo.com>",
   "directories": {
     "test": "sh ./scripts/test.sh"
@@ -65,7 +65,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.com/JBZoo/cck.git"
+    "url": "https://github.com/JBZoo/JBZoo"
   },
   "devDependencies": {
     "gulp-clean-css": "^2.0.10",
