@@ -13,9 +13,19 @@
 
 .PHONY: build gulp logs tests tmp
 
-#### Complex commands ##################################################################################################
+#### Complex commands for developer version ############################################################################
 
-update:
+update: update-dev
+
+build-dev:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Cleanup project & Rebuild ALL! \033[0m"
+	@make clean
+	@make update-dev
+	@make prepare-fs
+	@make pack-dev
+	@make prepare-cms
+
+update-dev:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
 	@make update-composer
 	@make update-npm
@@ -23,33 +33,9 @@ update:
 	@make update-gulp
 	@make update-webpack
 
-update-prod:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
-	@make update-prod-composer
-	@make update-prod-npm
-	@make update-prod-bower
-	@make update-prod-gulp
-	@make update-prod-webpack
-
-build-dev:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Cleanup project & Rebuild ALL! \033[0m"
-	@make clean
-	@make update
-	@make prepare-fs
-	@make pack-dev
-
-
-build-prod:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Build production version! \033[0m"
-	@make clean
-	@make update-prod
-	@make clean-production
-	@make prepare-fs
-	@make pack-prod
-
 update-force:
 	@make clean
-	@make update
+	@make update-dev
 
 prepare-cms:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Install & prepare all CMS \033[0m"
@@ -86,14 +72,6 @@ pack-dev:
 	@make pack-wordpress-unit
 	@ls -lAhv ./build/packages
 
-pack-prod:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Package: Create production version \033[0m"
-	@rm    -vfr ./build/packages
-	@mkdir -vp  ./build/packages
-	@make pack-joomla
-	@make pack-wordpress
-	@ls -lAhv ./build/packages
-
 server:
 	@make server-cms
 	@make server-watch
@@ -102,6 +80,32 @@ server-cms:
 	@make server-joomla
 	@make server-wordpress
 
+
+#### Complex commands for production version ###########################################################################
+
+build-prod:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Build production version! \033[0m"
+	@make clean
+	@make update-prod
+	@make clean-production
+	@make prepare-fs
+	@make pack-prod
+
+pack-prod:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Package: Create production version \033[0m"
+	@rm    -vfr ./build/packages
+	@mkdir -vp  ./build/packages
+	@make pack-joomla
+	@make pack-wordpress
+	@ls -lAhv ./build/packages
+
+update-prod:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
+	@make update-prod-composer
+	@make update-prod-npm
+	@make update-prod-bower
+	@make update-prod-gulp
+	@make update-prod-webpack
 
 #### Install and prepare CMS ###########################################################################################
 
