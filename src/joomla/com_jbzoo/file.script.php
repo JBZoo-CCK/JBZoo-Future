@@ -78,15 +78,21 @@ class com_jbzooInstallerScript
      */
     protected function _getQueries($filename)
     {
-        $path = __DIR__ . '/admin/cck/install/' . $filename;
-        if (file_exists($path)) {
-            $queries = file_get_contents($path);
-            $queries = JFactory::getDbo()->splitSql($queries);
+        $paths = [
+            __DIR__ . '/admin/cck/install/' . $filename,
+            __DIR__ . '/cck/install/' . $filename
+        ];
 
-            return (array)$queries;
+        foreach ($paths as $path) {
+            if (file_exists($path)) {
+                $queries = file_get_contents($path);
+                $queries = JFactory::getDbo()->splitSql($queries);
+
+                return (array)$queries;
+            }
         }
 
-        throw new Exception("SQL file {$path} not found!");
+        throw new Exception("SQL file {$filename} not found!");
     }
 
     /**
