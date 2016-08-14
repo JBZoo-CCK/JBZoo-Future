@@ -23,13 +23,29 @@ update:
 	@make update-gulp
 	@make update-webpack
 
-build:
+update-prod:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update Project for Developing \033[0m"
+	@make update-prod-composer
+	@make update-prod-npm
+	@make update-prod-bower
+	@make update-prod-gulp
+	@make update-prod-webpack
+
+build-dev:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Cleanup project & Rebuild ALL! \033[0m"
 	@make clean
 	@make update
 	@make prepare-fs
-	@make pack
-	@make prepare-cms
+	@make pack-dev
+
+
+build-prod:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Build production version! \033[0m"
+	@make clean
+	@make update-prod
+	@make clean-production
+	@make prepare-fs
+	@make pack-prod
 
 update-force:
 	@make clean
@@ -60,14 +76,22 @@ test-all:
 	@make phpcpd
 	@make phploc
 
-pack:
-	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Package: Create all \033[0m"
+pack-dev:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Package: Create dev version \033[0m"
 	@rm    -vfr ./build/packages
 	@mkdir -vp  ./build/packages
 	@make pack-joomla
 	@make pack-joomla-unit
 	@make pack-wordpress
 	@make pack-wordpress-unit
+	@ls -lAhv ./build/packages
+
+pack-prod:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Package: Create production version \033[0m"
+	@rm    -vfr ./build/packages
+	@mkdir -vp  ./build/packages
+	@make pack-joomla
+	@make pack-wordpress
 	@ls -lAhv ./build/packages
 
 server:
@@ -183,6 +207,25 @@ update-composer:
 	@cp ./composer.json ./src/cck/composer.json
 	@composer config bin-dir     "../../bin"     --working-dir=./src/cck
 	@composer config vendor-dir  "../../vendor"  --working-dir=./src/cck
+	@composer remove jbzoo/composer-cleanup      --working-dir=./src/cck
+	@composer update            \
+        --working-dir=./src/cck \
+        --optimize-autoloader   \
+        --no-progress           \
+        -v
+	@cp ./src/cck/composer.lock ./composer.lock
+	@echo ""
+
+update-prod-composer:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Composer (PRODUCTION) \033[0m"
+	@cp ./composer.json ./src/cck/composer.json
+	@composer config bin-dir     "bin"        --working-dir=./src/cck
+	@composer config vendor-dir  "libraries"  --working-dir=./src/cck
+	@composer require jbzoo/composer-cleanup:1.x-dev    \
+        --working-dir=$WORKING_DIR                      \
+        --no-update                                     \
+        --update-no-dev                                 \
+        --no-interaction
 	@composer update            \
         --working-dir=./src/cck \
         --optimize-autoloader   \
@@ -197,19 +240,42 @@ update-npm:
 	@NODE_ENV=development npm install --progress=false
 	@echo ""
 
+update-prod-npm:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: NPM (PRODUCTION) \033[0m"
+	@npm install --progress=false
+	@echo ""
+
+
 update-bower:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Bower (DEV) \033[0m"
 	@NODE_ENV=development ./node_modules/.bin/bower update
 	@echo ""
+
+update-prod-bower:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Bower (PRODUCTION) \033[0m"
+	@./node_modules/.bin/bower update
+	@echo ""
+
 
 update-gulp:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Gulp (DEV) \033[0m"
 	@NODE_ENV=development ./node_modules/.bin/gulp update
 	@echo ""
 
+update-prod-gulp:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Gulp (PRODUCTION) \033[0m"
+	@./node_modules/.bin/gulp update
+	@echo ""
+
+
 update-webpack:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Webpack (DEV) \033[0m"
 	@NODE_ENV=development ./node_modules/.bin/webpack -v
+	@echo ""
+
+update-prod-webpack:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Update: Webpack (PRODUCTION) \033[0m"
+	@./node_modules/.bin/webpack -v
 	@echo ""
 
 
@@ -228,6 +294,21 @@ clean:
 
 clean-build:
 	@rm -fr ./build
+
+clean-production:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Remove test stuff for production \033[0m"
+	rm -fr ./src/cck/atoms/test
+	rm -fr ./src/cck/index.php
+	rm     ./src/cck/bin/lessc.bat
+	rm     ./src/cck/bin/lessc
+	rm -fr ./src/cck/libraries/jbzoo/composer-cleanup
+	rm -fr ./src/cck/elements/Item/Test
+	rm -fr ./src/cck/elements/Item/Testrepeatable
+	find ./src  -name "*.jsx"           -type f -delete
+	find ./src  -name "*.map"           -type f -delete
+	find ./src  -name "composer.json"   -type f -delete
+	find ./src  -name "composer.lock"   -type f -delete
+	find ./src                          -type d -empty -delete
 
 reset:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Hard reset \033[0m"

@@ -25,7 +25,7 @@ install:
   - composer self-update
 
 script:
-  - make build      --no-print-directory
+  - make build-dev  --no-print-directory
   - make server-cms --no-print-directory
   - make test-all   --no-print-directory
 
