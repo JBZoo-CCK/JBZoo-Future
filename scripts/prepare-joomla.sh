@@ -13,6 +13,8 @@
 # @link      http://jbzoo.com
 #
 
+ROOT="`pwd`"
+JOOMLA="`pwd`/resources/cck-joomla"
 SITE_NAME="cck-joomla"
 SITE_WWW="resources"
 
@@ -71,6 +73,10 @@ sh ./bin/joomla                                 \
     --www=$SITE_WWW                             \
     -vvv
 
+echo ""
+echo ">>> >>> Joomla: Prepare global config"
+php ./scripts/prepare-joomla-config.php
+
 
 #### JBZoo CCK #########################################################################################################
 
@@ -106,3 +112,25 @@ sh ./bin/joomla                                 \
     jbzoophpunit                                \
     --www=$SITE_WWW                             \
     -vvv
+
+#### Create symlinks ###################################################################################################
+
+echo ">>> >>> Joomla: Create symlinks"
+rm -r "$JOOMLA/plugins/system/jbzoocck"
+ln -s "$ROOT/src/joomla/plg_sys_jbzoocck"                           \
+      "$JOOMLA/plugins/system/jbzoocck"
+
+rm -r "$JOOMLA/administrator/components/com_jbzoo"
+ln -s "$ROOT/src/joomla/pkg_jbzoocck/packages/com_jbzoo/admin"      \
+      "$JOOMLA/administrator/components/com_jbzoo"
+
+rm -r "$JOOMLA/components/com_jbzoo"
+ln -s "$ROOT/src/joomla/pkg_jbzoocck/packages/com_jbzoo/site"       \
+      "$JOOMLA/components/com_jbzoo"
+
+echo ""
+echo ">>> >>> Extentions for testing"
+rm -r "$JOOMLA/plugins/system/jbzoophpunit"
+ln -s "$ROOT/tests/extentions/j_jbzoophpunit"                       \
+      "$JOOMLA/plugins/system/jbzoophpunit"
+

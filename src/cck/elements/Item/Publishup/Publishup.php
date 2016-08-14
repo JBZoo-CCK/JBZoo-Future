@@ -18,9 +18,10 @@ use JBZoo\Data\Data;
 use JBZoo\Utils\Dates;
 
 /**
- * Class PublishUp
+ * Class Publishup
+ * @package JBZoo\CCK\Element\Item
  */
-class PublishUp extends Item
+class Publishup extends Item
 {
     /**
      * @inheritdoc

@@ -15,10 +15,10 @@
 namespace JBZoo\CCK\Element\Item;
 
 /**
- * Class Test
+ * Class Testrepeatable
  * @package JBZoo\CCK\Element\Item
  */
-class TestRepeatable extends ItemRepeatable
+class Testrepeatable extends Itemrepeatable
 {
 
 }

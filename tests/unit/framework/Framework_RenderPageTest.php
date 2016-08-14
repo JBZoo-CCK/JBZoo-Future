@@ -54,39 +54,18 @@ class Framework_RenderPageTest extends JBZooPHPUnit
     public function testLoadIndex()
     {
         $uniqid = uniqid('uniqid-');
-        $type   = $this->app['type'];
 
-        $content = $this->helper->runIsolated(function () use ($type, $uniqid) {
-            if ($type != App::TYPE_JOOMLA) {
-                echo $uniqid;
-            }
-        }, [
-            'method' => 'post',
-            'get'    => [
-                'option' => 'com_jbzoo',
-                'p'      => WP_POST_ID,
-                'uniqid' => $uniqid,
-                'act'    => 'test.index.index'
-            ]
-        ]);
+        $content = $this->helper->request('test.index.index', ['uniqid' => $uniqid]);
 
-        isContain($uniqid, $content);
-        isNotContain("window.JBZooVars = {};", $content);
+        isContain($uniqid, $content->getBody());
+        isNotContain("window.JBZooVars = {};", $content->getBody());
     }
 
     public function testAddDocumentVariable()
     {
-        $content = $this->helper->runIsolated(function () {
-        }, [
-            'method' => 'post',
-            'get'    => [
-                'option' => 'com_jbzoo',
-                'p'      => WP_POST_ID,
-                'act'    => 'test.index.AddDocumentVariable'
-            ]
-        ]);
+        $content = $this->helper->request('test.index.AddDocumentVariable');
 
-        isContain("window.JBZooVars = {};", $content);
-        isContain("window.JBZooVars['SomeVar'] = 42;", $content);
+        isContain("window.JBZooVars = {};", $content->getBody());
+        isContain("window.JBZooVars['SomeVar'] = 42;", $content->getBody());
     }
 }

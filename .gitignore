@@ -9,7 +9,9 @@
 /tmp
 /bin/*
 /resources
+/src/cck/composer.json
 /src/cck/composer.lock
+/composer.lock
 /node_modules
 /bower_components
 /vendor

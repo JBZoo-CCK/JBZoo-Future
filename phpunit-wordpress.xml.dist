@@ -27,12 +27,15 @@
          stopOnRisky="false"
          verbose="false"
 >
-
     <php>
         <const name="__CMS__" value="wordpress"/>
         <const name="JBZOO_PATH" value="wp-content/plugins/jbzoo/cck"/>
         <const name="WP_POST_ID" value="3"/>
         <const name="CMS_ADMIN_ID" value="1"/>
+
+        <env name="WP_HOST" value="localhost:8882"/>
+        <env name="HTTP_USER" value=""/>
+        <env name="HTTP_PASS" value=""/>
     </php>
 
     <testsuites>
@@ -52,5 +55,10 @@
             </exclude>
         </whitelist>
     </filter>
+
+    <logging>
+        <log type="coverage-php" target="build/coverage_cov/wordpress.cov"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="false" showOnlySummary="true"/>
+    </logging>
 
 </phpunit>

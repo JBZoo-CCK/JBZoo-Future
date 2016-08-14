@@ -18,10 +18,10 @@ use JBZoo\CCK\Element\Repeatable;
 use JBZoo\CCK\Entity\Item as ItemEntity;
 
 /**
- * Class ItemRepeatable
+ * Class Itemrepeatable
  * @package JBZoo\CCK\Element\Item
  */
-abstract class ItemRepeatable extends Repeatable
+abstract class Itemrepeatable extends Repeatable
 {
     /**
      * @inheritdoc

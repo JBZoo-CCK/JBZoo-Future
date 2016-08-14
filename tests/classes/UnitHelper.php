@@ -15,14 +15,10 @@
 namespace JBZoo\PHPUnit;
 
 use JBZoo\CCK\App;
-use JBZoo\CrossCMS\AbstractHttp;
-use JBZoo\Data\Data;
-use JBZoo\Utils\Cli;
-use JBZoo\Utils\Env;
-use JBZoo\Utils\FS;
+use JBZoo\Data\JSON;
+use JBZoo\HttpClient\Response;
 use JBZoo\Utils\Str;
 use JBZoo\Utils\Url;
-use SuperClosure\Serializer;
 
 /**
  * Class UnitHelper
@@ -71,148 +67,14 @@ class UnitHelper
     }
 
     /**
-     * @param \Closure $callback
-     * @param array    $request
-     * @return string
-     * @throws \Exception
-     */
-    public function runIsolated(\Closure $callback, $request = array())
-    {
-        $binPaths = [
-            './src/cck/libraries/jbzoo/console/bin/jbzoo',
-            './vendor/jbzoo/console/bin/jbzoo'
-        ];
-
-        $binPath = null;
-        foreach ($binPaths as $checkedPath) {
-            if (file_exists($checkedPath)) {
-                $binPath = $checkedPath;
-            }
-        }
-
-        $testname = $this->_getTestName();
-        $request  = new Data($request);
-
-        $options = array(
-            // test
-            'test-func'      => $callback,
-            'test-name'      => $testname,
-
-            // phpunit
-            'phpunit-test'   => FS::clean(PROJECT_ROOT . '/tests/unit/browser/Browser_EmulatorTest.php'),
-            'phpunit-config' => FS::clean(PROJECT_ROOT . '/phpunit-browser.xml'),
-            'phpunit-cov'    => FS::clean(PROJECT_ROOT . '/build/coverage_cov/' . $testname . '.cov'),
-
-            // env
-            'env-cms'        => $request->get('cms', __CMS__),
-            'env-method'     => $request->get('method', 'GET'),
-            'env-path'       => $request->get('path', '/index.php'),
-            'env-get'        => $this->_prepareQuery($request->get('get', [])),
-            'env-post'       => $this->_prepareQuery($request->get('post', [])),
-            'env-cookie'     => $this->_prepareQuery($request->get('cookie', [])),
-        );
-
-        $phpPath = Env::get('PHPUNIT_CMD_BIN', 'php', Env::VAR_STRING);
-
-        $result = Cli::exec(
-            $phpPath . ' ' . $binPath . ' cms',
-            $this->_prepareOptions($options),
-            PROJECT_ROOT,
-            Env::get('PHPUNIT_CMD_VERB', 0, Env::VAR_BOOL)
-        );
-
-        $savePath = PROJECT_ROOT . '/build/browser_html';
-        @mkdir($savePath, 0777, true);
-        file_put_contents($savePath . '/' . $testname . '.html', $result);
-
-        return $result;
-    }
-
-    /**
-     * @param $options
-     * @return array
-     */
-    protected function _prepareOptions($options)
-    {
-        $result = [];
-        foreach ($options as $key => $value) {
-            if ('test-func' === $key) {
-                $value = $this->_encodeTest($value);
-            } else {
-                $value = $this->_encode($value);
-            }
-
-            $result[$key] = $value;
-        }
-
-        return $result;
-    }
-
-    /**
-     * @param string $testName
-     * @return string
-     */
-    protected function _getTestName($testName = null)
-    {
-        if (null === $testName) {
-            $objects = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT);
-            foreach ($objects as $object) {
-                if (isset($object['object']) && $object['object'] instanceof \PHPUnit_Framework_TestCase) {
-                    $testName = $object['class'] . '_' . $object['function'];
-                    break;
-                }
-            }
-        }
-
-        $testName = str_replace(__NAMESPACE__ . '\\', '', $testName);
-        $testName = Str::splitCamelCase($testName, '_', true);
-        $testName = preg_replace('/^test_/', '', $testName);
-        $testName = preg_replace('/_test$/', '', $testName);
-        $testName = str_replace('_test_test_', '_', $testName);
-
-        $testName = __CMS__ . '_' . $testName;
-
-        return $testName;
-    }
-
-    /**
-     * @param mixed $data
-     * @return string
-     */
-    protected function _encode($data)
-    {
-        return base64_encode(serialize($data));
-    }
-
-    /**
-     * @param \Closure $test
-     * @return string
-     */
-    protected function _encodeTest($test)
-    {
-        $serializer = new Serializer();
-        $serialize  = $serializer->serialize($test);
-
-        return $this->_encode($serialize);
-    }
-
-    /**
-     * @param array $data
-     * @return string
-     */
-    protected function _prepareQuery(array $data = array())
-    {
-        return (array)$data;
-    }
-
-    /**
      * Custom HTTP Request
      *
      * @param string $action
      * @param array  $query
      * @param string $path
      * @param bool   $isJson
-     * @return Data
+     * @return Response|JSON
+     * @throws Exception
      */
     public function request($action, $query = [], $path = null, $isJson = false)
     {
@@ -222,8 +84,15 @@ class UnitHelper
             $query
         );
 
-        if ($isJson && strpos($result->find('headers.content-type'), 'application/json') !== false) {
-            return jbdata($result->get('body', '{}'));
+        if ($isJson) {
+
+            if (strpos($result->getHeader('content-type'), 'application/json') !== false) {
+                return $result->getJSON();
+            } else {
+                dump(func_get_args(), 0);
+                dump($result);
+                throw new Exception('Invalid header: not application/json');
+            }
         }
 
         return $result;
@@ -262,48 +131,29 @@ class UnitHelper
      * @param string $method
      * @param bool   $isJson
      * @param string $customCookie
-     * @return Data
+     * @return Response|JSON
+     * @throws Exception
      */
     public function requestAdmin($action, $query = [], $method = 'POST', $isJson = true, $customCookie = '')
     {
-        if ($method !== 'PAYLOAD') {
-            $result = $this->_http(
-                $this->_cmsParams['admin-path-' . __CMS__],
-                $action,
-                $query,
-                [
-                    'Cookie' => $customCookie ? $customCookie : $this->_getCookieForAdmin()
-                ],
-                $method
-            );
+        $result = $this->_http(
+            $this->_cmsParams['admin-path-' . __CMS__],
+            $action,
+            $query,
+            [
+                'Cookie' => $customCookie ? $customCookie : $this->_getCookieForAdmin()
+            ],
+            $method
+        );
 
-        } else {
-            $result = $this->app['http']->request(
-                Url::create([
-                    'host'  => PHPUNIT_HTTP_HOST,
-                    'user'  => PHPUNIT_HTTP_USER,
-                    'pass'  => PHPUNIT_HTTP_PASS,
-                    'path'  => $this->_cmsParams['admin-path-' . __CMS__],
-                    'query' => Url::build([
-                        'option' => 'com_jbzoo',
-                        'act'    => $action,
-                    ])
-                ]),
-                json_encode($query),
-                [
-                    'method'   => 'POST',
-                    'response' => AbstractHttp::RESULT_FULL,
-                    'debug'    => 1,
-                    'headers'  => [
-                        'Cookie'       => $customCookie ? $customCookie : $this->_getCookieForAdmin(),
-                        'Content-Type' => 'application/json'
-                    ],
-                ]
-            );
-        }
-
-        if ($isJson && strpos($result->find('headers.content-type'), 'application/json') !== false) {
-            return jbdata($result->get('body', '{}'));
+        if ($isJson && strpos($result->getHeader('content-type'), 'application/json') !== false) {
+            if (strpos($result->getHeader('content-type'), 'application/json') !== false) {
+                return $result->getJSON();
+            } else {
+                dump(func_get_args(), 0);
+                dump($result);
+                throw new Exception('Invalid header: not application/json');
+            }
         }
 
         return $result;
@@ -327,19 +177,23 @@ class UnitHelper
      */
     protected function _getCookieForJoomlaAdmin()
     {
+        $adminUrl = Url::create([
+            'host' => PHPUNIT_HTTP_HOST,
+            'user' => PHPUNIT_HTTP_USER,
+            'pass' => PHPUNIT_HTTP_PASS,
+            'path' => '/administrator/index.php',
+        ]);
+
         // Get Token and Cookie hashes
-        $result = $this->_http(
-            $this->_cmsParams['admin-login-' . __CMS__]
-        );
+        $result = $this->_httpRequest($adminUrl);
 
         // Parse response
-        list($cookie) = explode(';', $result->find('headers.set-cookie'), 2);
+        list($cookie) = explode(';', $result->getHeader('set-cookie'), 2);
         preg_match('#<input type="hidden" name="(.{32})" value="1" />\t#ius', $result->body, $matches);
         $token = $matches[1];
 
-        $this->_http(
-            $this->_cmsParams['admin-path-' . __CMS__],
-            '',
+        $redirectResult = httpRequest(
+            $adminUrl,
             [
                 'username' => 'admin',
                 'passwd'   => 'admin',
@@ -348,11 +202,19 @@ class UnitHelper
                 'return'   => 'aW5kZXgucGhw',
                 $token     => 1
             ],
+            'POST',
             [
-                'Cookie' => $cookie
-            ],
-            'POST'
+                'headers'         => ['Cookie' => $cookie],
+                'timeout'         => 30,
+                'exceptions'      => false,
+                'allow_redirects' => false,
+            ]
         );
+
+        if ($redirectResult->getHeader('set-cookie')) {
+            list($cookieNew) = explode(';', $redirectResult->getHeader('set-cookie'), 2);
+            return $cookieNew;
+        }
 
         return $cookie;
     }
@@ -396,48 +258,124 @@ class UnitHelper
     }
 
     /**
-     * @param string $path
-     * @param string $action
-     * @param array  $query
-     * @param array  $headers
-     * @param string $method
-     * @return mixed|null
+     * @param string       $path
+     * @param string       $act
+     * @param array|string $query
+     * @param array        $headers
+     * @param string       $method
+     * @return Response
      */
-    protected function _http($path, $action = '', $query = [], $headers = [], $method = 'GET')
+    protected function _http($path, $act = '', $query = [], $headers = [], $method = 'GET')
     {
-        if (null === $query) {
-            $query = [];
-        } else {
-            $query = array_merge(
+        $urlParams = [
+            'host'  => PHPUNIT_HTTP_HOST,
+            'user'  => PHPUNIT_HTTP_USER,
+            'pass'  => PHPUNIT_HTTP_PASS,
+            'path'  => $path ? $path : '/',
+            'query' => [],
+        ];
+
+        $method = strtoupper($method);
+
+        if ('PAYLOAD' === $method) {
+            $method = 'POST';
+            $query  = json_encode($query);
+
+            $urlParams['query'] = array_merge(
                 $this->_cmsParams['site-params-' . __CMS__],
                 [
-                    '_cov'    => __CMS__ . '_' . $action,
-                    'act'     => $action,
+                    'act'     => $act,
                     'nocache' => mt_rand(0, 100000)
-                ],
-                $query
+                ]
             );
+
+            $headers['Content-Type'] = 'application/json';
+
+        } else {
+            if (null === $query) {
+                $query = [];
+            } else {
+                $query = array_merge(
+                    $this->_cmsParams['site-params-' . __CMS__],
+                    [
+                        'act'     => $act,
+                        'nocache' => mt_rand(0, 100000)
+                    ],
+                    $query
+                );
+            }
+
+            $urlParams['query'] = $query;
         }
 
-        $result = $this->app['http']->request(
-            Url::create([
-                'host'  => PHPUNIT_HTTP_HOST,
-                'user'  => PHPUNIT_HTTP_USER,
-                'pass'  => PHPUNIT_HTTP_PASS,
-                'path'  => $path ? $path : '/',
-                'query' => $method == 'GET' ? $query : [],
-            ]),
+        $urlParams['query'] = array_filter($urlParams['query']);
 
-            ($method == 'POST') ? $query : [],
-
-            [
-                'response' => AbstractHttp::RESULT_FULL,
-                'debug'    => 1,
-                'headers'  => $headers,
-                'method'   => $method,
-            ]
-        );
+        $url    = Url::create($urlParams);
+        $result = $this->_httpRequest($url, $query, $method, $headers);
 
         return $result;
+    }
+
+    /**
+     * @param string       $url
+     * @param string|array $query
+     * @param string       $method
+     * @param array        $headers
+     * @return Response
+     */
+    protected function _httpRequest($url, $query = null, $method = 'GET', array $headers = [])
+    {
+        if (!$headers) {
+            $headers['Accept'] = 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8';
+        }
+
+        $result = httpRequest($url, $query, $method, [
+            'headers'         => $headers,
+            'timeout'         => 30,
+            'verify'          => false,
+            'exceptions'      => false,
+            'allow_redirects' => true,
+        ]);
+
+        $body = $result->getBody();
+        $body = preg_replace('#\<script\>.*?\<\/script\>#ius', ' ', $body);
+        $body = preg_replace('#\<style\>.*?\<\/style\>#ius', ' ', $body);
+        $body = strip_tags($body);
+        $body = preg_replace('#\s{2,}#', ' ', $body);
+        $body = trim($body);
+
+        if (0) {
+            dump([
+                'request'  => [
+                    'url'     => $url,
+                    'query'   => $query,
+                    'method'  => $method,
+                    'headers' => $headers
+                ],
+                'response' => [
+                    'code' => $result->getCode(),
+                    'type' => $result->getHeader('content-type'),
+                    'body' => Str::sub($body, 0, 1000),
+                ]
+            ], 0, $this->_getTestName());
+        }
+
+        return $result;
+    }
+
+    /**
+     * @return null|string
+     */
+    protected function _getTestName()
+    {
+        $objects = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT);
+
+        foreach ($objects as $object) {
+            if (isset($object['object']) && $object['object'] instanceof \PHPUnit_Framework_TestCase) {
+                return get_class($object['object']) . '::' . $object['function'];
+            }
+        }
+
+        return null;
     }
 }
