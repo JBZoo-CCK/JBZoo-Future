@@ -357,25 +357,9 @@ class UnitHelper
                     'type' => $result->getHeader('content-type'),
                     'body' => Str::sub($body, 0, 1000),
                 ]
-            ], 0, $this->_getTestName());
+            ], 0, getTestName(false));
         }
 
         return $result;
-    }
-
-    /**
-     * @return null|string
-     */
-    protected function _getTestName()
-    {
-        $objects = debug_backtrace(DEBUG_BACKTRACE_PROVIDE_OBJECT);
-
-        foreach ($objects as $object) {
-            if (isset($object['object']) && $object['object'] instanceof \PHPUnit_Framework_TestCase) {
-                return get_class($object['object']) . '::' . $object['function'];
-            }
-        }
-
-        return null;
     }
 }
