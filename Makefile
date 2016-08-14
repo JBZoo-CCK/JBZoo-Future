@@ -303,7 +303,6 @@ clean-build:
 clean-production:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Remove test stuff for production \033[0m"
 	@rm -fr ./src/cck/atoms/test
-	@rm -fr ./src/cck/index.php
 	@rm     ./src/cck/bin/lessc.bat
 	@rm     ./src/cck/bin/lessc
 	@rm -fr ./src/cck/libraries/jbzoo/composer-cleanup
