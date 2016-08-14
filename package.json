@@ -28,6 +28,7 @@
     "css": "^2.2.1",
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "fbjs": "^0.8.3",
     "flexboxgrid": "^6.3.0",
     "formsy-material-ui": "^0.4.3",
     "formsy-react": "^0.18.0",
@@ -36,6 +37,7 @@
     "gulp-concat": "^2.6.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.5.3",
+    "history": "^3.0.0",
     "isomorphic-fetch": "^2.2.1",
     "jasmine": "^2.4.1",
     "karma": "^0.13.22",
@@ -61,6 +63,7 @@
     "redux-thunk": "^2.0.1",
     "require-dir": "^0.3.0",
     "should": "^8.3.1",
+    "simple-assign": "^0.1.0",
     "webpack": "^1.13.0"
   },
   "repository": {
