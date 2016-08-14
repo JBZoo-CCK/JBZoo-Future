@@ -302,18 +302,18 @@ clean-build:
 
 clean-production:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Remove test stuff for production \033[0m"
-	rm -fr ./src/cck/atoms/test
-	rm -fr ./src/cck/index.php
-	rm     ./src/cck/bin/lessc.bat
-	rm     ./src/cck/bin/lessc
-	rm -fr ./src/cck/libraries/jbzoo/composer-cleanup
-	rm -fr ./src/cck/elements/Item/Test
-	rm -fr ./src/cck/elements/Item/Testrepeatable
-	find ./src  -name "*.jsx"           -type f -delete
-	find ./src  -name "*.map"           -type f -delete
-	find ./src  -name "composer.json"   -type f -delete
-	find ./src  -name "composer.lock"   -type f -delete
-	find ./src                          -type d -empty -delete
+	@rm -fr ./src/cck/atoms/test
+	@rm -fr ./src/cck/index.php
+	@rm     ./src/cck/bin/lessc.bat
+	@rm     ./src/cck/bin/lessc
+	@rm -fr ./src/cck/libraries/jbzoo/composer-cleanup
+	@rm -fr ./src/cck/elements/Item/Test
+	@rm -fr ./src/cck/elements/Item/Testrepeatable
+	@find ./src  -name "*.jsx"           -type f -delete
+	@find ./src  -name "*.map"           -type f -delete
+	@find ./src  -name "composer.json"   -type f -delete
+	@find ./src  -name "composer.lock"   -type f -delete
+	@find ./src                          -type d -empty -delete
 
 reset:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Hard reset \033[0m"
@@ -328,17 +328,17 @@ autoload:
 
 test-joomla:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Run unit-tests for Joomla!CMS \033[0m"
-	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist --verbose
+	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-joomla.xml.dist
 	@echo ""
 
 test-wordpress:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Run unit-tests for Wordpress \033[0m"
-	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist --verbose
+	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-wordpress.xml.dist
 	@echo ""
 
 test-codestyle:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Check utilities and CodeStyle \033[0m"
-	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist --verbose
+	@php ./vendor/phpunit/phpunit/phpunit --configuration ./phpunit-utility.xml.dist
 	@echo ""
 
 validate-composer:
@@ -388,7 +388,12 @@ phpcov:
         -v
 	@echo ""
 
-coveralls: phpcov
+coveralls:
 	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Send coverage to coveralls.io \033[0m"
 	@php ./vendor/satooshi/php-coveralls/bin/coveralls -vvv
+	@echo ""
+
+codecov:
+	@echo -e "\033[0;33m>>> >>> >>> >>> >>> >>> >>> >>> \033[0;30;46m Send coverage to codecov.io \033[0m"
+	@bash <(curl -s https://codecov.io/bash) -s ./build/coverage_total
 	@echo ""
